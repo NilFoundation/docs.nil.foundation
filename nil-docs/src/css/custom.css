@@ -4,6 +4,11 @@
  * work well for content-centric websites.
  */
 
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../../static/fonts/HelveticaNeue-Regular.otf');
+}
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #2e8555;
@@ -15,6 +20,7 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'HelveticaNeue';
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */

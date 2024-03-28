@@ -10,7 +10,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 const config = {
   title: '=nil; Foundation Documentation Portal',
   tagline: '',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/nil-logo.avif',
 
   // Set the production url of your site here
   url: 'https://docs.nil.foundation/',
@@ -96,8 +96,8 @@ const config = {
       navbar: {
         title: '=nil; Foundation Documentation Portal',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: '=nil; Foundation Logo',
+          src: 'img/nil-logo.avif',
         },
         items: [
           {
@@ -118,7 +118,7 @@ const config = {
           },
           {
             position: 'left',
-            label: 'Crypto 3',
+            label: 'Crypto3',
             to: '/crypto3/intro'
           },
 
@@ -132,15 +132,7 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
+
           {
             title: 'Community',
             items: [
@@ -161,10 +153,7 @@ const config = {
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
+
               {
                 label: 'GitHub',
                 href: 'https://github.com/facebook/docusaurus',
@@ -172,7 +161,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
       },
       prism: {
         theme: prismThemes.github,

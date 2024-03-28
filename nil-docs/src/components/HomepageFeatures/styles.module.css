@@ -1,11 +1,40 @@
-.features {
+.containerNilproduct {
+  padding: 10px;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  transition: all 0.7s ease;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.containerNilproduct:hover {
+  border-color: white;
+  color: rgba(255, 255, 255, 1);
+}
+
+.centeredContainer {
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 2rem 0;
+  height: 100%;
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.nilProducts {
+  display: flex;
+  align-items: stretch;
+  padding: 1rem 0;
+  width: 50%;
+}
+
+.productImage {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  object-fit: cover;
+}
+
+.col {
+  flex: 1;
 }
