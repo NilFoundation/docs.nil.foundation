@@ -40,12 +40,6 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       (
         {
-          docs: {
-            path: 'zkllvm',
-            routeBasePath: 'zkllvm',
-            sidebarPath: './sidebars.js',
-          },
-
           theme: {
             customCss: './src/css/custom.css',
           },
@@ -54,8 +48,18 @@ const config = {
     ],
   ],
 
-  plugins: [
 
+
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zkllvm',
+        path: 'zkllvm',
+        routeBasePath: 'zkllvm',
+        sidebarPath: './sidebars.js'
+      }
+    ],
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -90,39 +94,32 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: '=nil; Foundation Documentation Portal',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'zkLLVM',
-            to: 'zkllvm/intro.md'
+            to: '/zkllvm/intro'
+
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Proof Market',
-            to: 'proof-market/intro.md'
+            to: '/proof-market/intro'
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'zkSharding',
-            to: 'zksharding/intro.md'
+            to: '/zksharding/intro'
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Crypto 3',
-            to: 'crypto3/intro.md'
+            to: '/crypto3/intro'
           },
 
           {
