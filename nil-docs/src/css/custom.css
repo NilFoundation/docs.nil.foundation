@@ -45,6 +45,8 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   --ifm-navbar-link-color: #808080;
   --ifm-navbar-link-hover-color: #212121;
+  --ifm-link-color: #6e7896;
+  --ifm-link-hover-color: #8999c7;
 }
 
 html[data-theme='dark'] {

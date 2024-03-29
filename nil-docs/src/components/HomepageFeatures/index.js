@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import styles from './styles.module.css';
-
-
+import { useNavigate } from "react-router-dom";
 
 const ProductsList =
   [
@@ -49,9 +48,9 @@ const ProductsList =
 
 
 
-const NilProductDescription = ({ text, Svg }) => {
+const NilProductDescription = ({ text, Svg, onDocsClick }) => {
   return (
-    <div>
+    <div onClick={onDocsClick}>
       <Svg className={styles.productImage} role="img" />
       <div className={styles.productDescription}>
         <p>{text}</p>
@@ -60,67 +59,48 @@ const NilProductDescription = ({ text, Svg }) => {
   );
 };
 
-function NilProduct({ Svg, description, }) {
+function NilProduct({ Svg, description, onDocsClick }) {
   return (
     <div>
-      <NilProductDescription text={description} Svg={Svg}>
-      </NilProductDescription>
+      <NilProductDescription text={description} Svg={Svg} onDocsClick={onDocsClick} />
     </div>
   );
 }
 
-
-
-
-
 export default function HomepageNilProducts() {
-  // const calculateHeightBasedOnWidth = (width) => {
-  //   const aspectRatio = 3 / 4; // For example, for a 4:3 aspect ratio
-  //   return width * aspectRatio;
-  // };
-
-  // const resizeImages = () => {
-  //   const images = document.querySelectorAll('.productImage');
-  //   images.forEach(image => {
-  //     const columnWidth = image.parentElement.offsetWidth;
-  //     image.style.height = calculateHeightBasedOnWidth(columnWidth) + 'px';
-  //   });
-  // };
-
-
-  // // Call the function initially when the page loads
-  // resizeImages();
-  // window.addEventListener('resize', resizeImages);
+  const GoToDocs = (Url) => () => {
+    window.open(Url, '_self');
+  };
   return (
-    <div class='container'>
+    <div class='container' id='productContainer'>
       <div class={'row' + ' ' + styles.rowFlex}>
         <div class='col col-6'>
-          <div class={styles.content}>
-            <NilProduct Svg={ProductsList[0].Svg} description={ProductsList[0].description} ></NilProduct>
-
+          <div id='zkllvm-docs'>
+            <NilProduct Svg={ProductsList[0].Svg} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/intro")}></NilProduct>
           </div>
         </div>
         <div class='col col-6'>
-          <div class={styles.content}>
-            <NilProduct Svg={ProductsList[1].Svg} description={ProductsList[1].description} ></NilProduct>
+          <div id='crypto3-docs'>
+            <NilProduct Svg={ProductsList[1].Svg} description={ProductsList[1].description} onDocsClick={GoToDocs("/crypto3/intro")} ></NilProduct>
           </div>
         </div>
       </div>
       <div class={'row' + ' ' + styles.rowFlex}>
         <div class='col col-6'>
-          <div class={styles.content}>
-            <NilProduct Svg={ProductsList[2].Svg} description={ProductsList[2].description} ></NilProduct>
+          <div id='proof-market-docs'>
+            <NilProduct Svg={ProductsList[2].Svg} description={ProductsList[2].description} onDocsClick={GoToDocs("/proof-market/intro")}></NilProduct>
           </div>
         </div>
         <div class='col col-6'>
-          <div class={styles.content}>
-            <NilProduct Svg={ProductsList[3].Svg} description={ProductsList[3].description} ></NilProduct>
+          <div id='zksharding-docs'>
+            <NilProduct Svg={ProductsList[3].Svg} description={ProductsList[3].description} onDocsClick={GoToDocs("zksharding/intro")}></NilProduct>
           </div>
         </div>
       </div>
     </div >
   );
 }
+
 
 
 

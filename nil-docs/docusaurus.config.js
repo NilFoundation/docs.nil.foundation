@@ -96,7 +96,7 @@ const config = {
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: true,
-        respectPrefersColorScheme: false,
+
       },
       navbar: {
         title: '=nil; Foundation Documentation Portal',
@@ -130,7 +130,6 @@ const config = {
       },
       footer: {
         style: 'dark',
-
         copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
       },
       prism: {
