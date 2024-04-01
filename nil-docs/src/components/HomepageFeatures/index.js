@@ -1,64 +1,108 @@
 import clsx from 'clsx';
-import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+import { useNavigate } from "react-router-dom";
 
-const FeatureList = [
-  {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
-    ),
-  },
-  {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
-  },
-  {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
-      </>
-    ),
-  },
-];
+const ProductsList =
+  [
+    {
+      Svg: require('@site/static/img/productImages/zkLLVMImage.svg').default,
+      description: (
+        <>
+          <p>zkLLVM is a compiler from high-level programming languages into an input for provable computations protocols verifiable on EVM (and not only).</p>
+          <p><a href="https://github.com/nilfoundation/zkllvm.git">https://github.com/nilfoundation/zkllvm.git</a></p>
+          <p>Documentation, references, and manuals for zkApplications/circuit developers.</p>
+        </>
+      ),
+    },
+    {
+      Svg: require('@site/static/img/productImages/crypto3Image.svg').default,
+      description: (
+        <>
+          <p>Crypto3 is a modern cryptography suite in C++17 built by cryptographers for cryptographers dedicated to making it easy to prototype and implement novel schemes and primitives out of ready-to-use modules such as ciphers (block, algebraic, fully-homomorphic), hashes, signatures, proof systems, VDFs, witness encryption and many other.</p>
+          <p><a href="https://github.com/nilfoundation/crypto3.git">https://github.com/nilfoundation/crypto3.git</a></p>
+          <p>Documentation, references, and manuals for applied cryptographers and C++ developers.</p>
+        </>
+      ),
+    },
+    {
+      Svg: require('@site/static/img/productImages/proofMarketImage.svg').default,
+      description: (
+        <>
+          <p>Proof Market is a decentralized protocol for zkProof generation and monetization built on top of =nil; zkSharding.</p>
+          <p><a href="https://proof.market/">https://proof.market/</a></p>
+          <p>Documentation, references, and manuals for proof generators and EVM application developers.</p>
+        </>
+      ),
+    },
+    {
+      Svg: require('@site/static/img/productImages/zkShardingImage.svg').default,
+      description: (
+        <>
+          <p>=nil; zkSharding is the first Ethereum zkRollup with sharding — an alternative to the current Ethereum scalability ecosystem.</p>
+          <p>The unique combination of zkRollup and sharding enables secure and parallel transaction execution across dedicated shards while maintaining Ethereum's economic security and providing application developers with full composability and transparent data access.</p>
+          <p><a href="https://nil.foundation/blog/post/nil_zkSharding">https://nil.foundation/blog/post/nil_zkSharding</a></p>
+        </>
+      ),
+    },
+  ]
 
-function Feature({Svg, title, description}) {
+
+
+const NilProductDescription = ({ text, Svg, onDocsClick }) => {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+    <div onClick={onDocsClick}>
+      <Svg className={styles.productImage} role="img" />
+      <div className={styles.productDescription}>
+        <p>{text}</p>
       </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
-      </div>
+    </div>
+  );
+};
+
+function NilProduct({ Svg, description, onDocsClick }) {
+  return (
+    <div>
+      <NilProductDescription text={description} Svg={Svg} onDocsClick={onDocsClick} />
     </div>
   );
 }
 
-export default function HomepageFeatures() {
+export default function HomepageNilProducts() {
+  const GoToDocs = (Url) => () => {
+    window.open(Url, '_self');
+  };
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
+    <div class='container' id='productContainer'>
+      <div class={'row' + ' ' + styles.rowFlex}>
+        <div class='col col-6'>
+          <div id='zkllvm-docs'>
+            <NilProduct Svg={ProductsList[0].Svg} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/intro")}></NilProduct>
+          </div>
+        </div>
+        <div class='col col-6'>
+          <div id='crypto3-docs'>
+            <NilProduct Svg={ProductsList[1].Svg} description={ProductsList[1].description} onDocsClick={GoToDocs("/crypto3/intro")} ></NilProduct>
+          </div>
         </div>
       </div>
-    </section>
+      <div class={'row' + ' ' + styles.rowFlex}>
+        <div class='col col-6'>
+          <div id='proof-market-docs'>
+            <NilProduct Svg={ProductsList[2].Svg} description={ProductsList[2].description} onDocsClick={GoToDocs("/proof-market/intro")}></NilProduct>
+          </div>
+        </div>
+        <div class='col col-6'>
+          <div id='zksharding-docs'>
+            <NilProduct Svg={ProductsList[3].Svg} description={ProductsList[3].description} onDocsClick={GoToDocs("zksharding/intro")}></NilProduct>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 }
+
+
+
+
+
+

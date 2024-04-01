@@ -10,7 +10,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 const config = {
   title: '=nil; Foundation Documentation Portal',
   tagline: '',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/nil-logo.avif',
 
   // Set the production url of your site here
   url: 'https://docs.nil.foundation/',
@@ -40,12 +40,6 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       (
         {
-          docs: {
-            path: 'zkllvm',
-            routeBasePath: 'zkllvm',
-            sidebarPath: './sidebars.js',
-          },
-
           theme: {
             customCss: './src/css/custom.css',
           },
@@ -54,8 +48,18 @@ const config = {
     ],
   ],
 
-  plugins: [
 
+
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zkllvm',
+        path: 'zkllvm',
+        routeBasePath: 'zkllvm',
+        sidebarPath: './sidebars.js'
+      }
+    ],
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -89,93 +93,44 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
+      colorMode: {
+        defaultMode: 'dark',
+        disableSwitch: true,
+
+      },
       navbar: {
-        title: 'My Site',
+        title: '=nil; Foundation Documentation Portal',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: '=nil; Foundation Logo',
+          src: 'img/nil-logo.avif',
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'zkLLVM',
-            to: 'zkllvm/intro.md'
+            to: '/zkllvm/intro'
+
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Proof Market',
-            to: 'proof-market/intro.md'
+            to: '/proof-market/intro'
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'zkSharding',
-            to: 'zksharding/intro.md'
+            to: '/zksharding/intro'
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Crypto 3',
-            to: 'crypto3/intro.md'
-          },
-
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
+            label: 'Crypto3',
+            to: '/crypto3/intro'
           },
         ],
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
       },
       prism: {
         theme: prismThemes.github,

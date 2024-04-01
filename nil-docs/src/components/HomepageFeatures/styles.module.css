@@ -1,11 +1,33 @@
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+.productDescription {
   width: 100%;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.rowFlex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+[class*='col-'] {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid transparent;
+  transition: all 0.7s ease;
+  color: rgba(255, 255, 255, 0.7);
+  gap: 0;
+}
+
+[class*='col-']:hover {
+  border-color: #f2f2f2;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+
+.productImage {
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 450px;
 }

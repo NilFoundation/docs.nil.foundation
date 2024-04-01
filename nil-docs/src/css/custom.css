@@ -4,8 +4,23 @@
  * work well for content-centric websites.
  */
 
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../../static/fonts/HelveticaNeue-Regular.otf');
+}
+
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-footer-background-color: #212121;
+
+  --ifm-background-color: #212121;
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
@@ -15,11 +30,12 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'HelveticaNeue';
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary: #fff;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -27,4 +43,23 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-navbar-link-color: #808080;
+  --ifm-navbar-link-hover-color: #212121;
+  --ifm-link-color: #6e7896;
+  --ifm-link-hover-color: #8999c7;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: #212121;
+  --ifm-background-surface-color: #121212;
+  --ifm-footer-background-color: #212121;
+  --ifm-navbar-primary-color: #212121;
+}
+
+.footer {
+  background-color: #212121;
+}
+
+.navbar {
+  background-color: #f2f2f2;
 }
