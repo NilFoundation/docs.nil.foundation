@@ -93,7 +93,7 @@ export default function HomepageNilProducts() {
         </div>
         <div class='col col-6'>
           <div id='zksharding-docs'>
-            <NilProduct Svg={ProductsList[3].Svg} description={ProductsList[3].description} onDocsClick={GoToDocs("zksharding/intro")}></NilProduct>
+            <NilProduct Svg={ProductsList[3].Svg} description={ProductsList[3].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
           </div>
         </div>
       </div>
