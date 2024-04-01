@@ -47,9 +47,6 @@ const config = {
       ),
     ],
   ],
-
-
-
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
@@ -57,7 +54,7 @@ const config = {
         id: 'zkllvm',
         path: 'zkllvm',
         routeBasePath: 'zkllvm',
-        sidebarPath: './sidebars.js'
+        sidebarPath: './sidebar-zkllvm.js'
       }
     ],
     [
@@ -108,7 +105,7 @@ const config = {
           {
             position: 'left',
             label: 'zkLLVM',
-            to: '/zkllvm/intro'
+            to: '/zkllvm/overview/what-is-zkllvm'
 
           },
           {

@@ -16,7 +16,7 @@ Write a circuit and compile it with [zkLLVM](https://github.com/NilFoundation/zk
 make -C ${ZKLLVM_BUILD:-build} <circuit target name> -j$(nproc)
 ```
 
-For more information on circuit development, read the [zkLLVM documentation](../../zkllvm/intro.md).
+For more information on circuit development, read the [zkLLVM documentation](../../zkllvm/overview/what-is-zkllvm).
 
 ## Prepare a statement with a circuit description for Proof Market
 

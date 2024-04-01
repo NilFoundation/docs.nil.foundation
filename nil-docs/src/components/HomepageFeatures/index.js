@@ -76,7 +76,7 @@ export default function HomepageNilProducts() {
       <div class={'row' + ' ' + styles.rowFlex}>
         <div class='col col-6'>
           <div id='zkllvm-docs'>
-            <NilProduct Svg={ProductsList[0].Svg} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/intro")}></NilProduct>
+            <NilProduct Svg={ProductsList[0].Svg} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
           </div>
         </div>
         <div class='col col-6'>
