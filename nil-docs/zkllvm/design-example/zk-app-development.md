@@ -10,12 +10,12 @@ zk-SNARKS/STARKS and Circuits are not a silver bullet. It is a powerfull technol
 
 :::
 
-If you are new into circuit development I would recommend you to learn zk-SNARKs/STARKs basics and then start your development with the [Getting Started](../circuit-development/circuit-generation.md) section.
+If you are new into circuit development I would recommend you to learn zk-SNARKs/STARKs basics and then start your development with the [Getting Started](../circuit-development/circuit-generation) section.
 
-For more advanced usage - check out the [Limitation](../circuit-development/limitations.md) and [Effective circuit development](../circuit-development/optimizations.md) sections.
+For more advanced usage - check out the [Limitation](../circuit-development/limitations) and [Effective circuit development](../circuit-development/optimizations) sections.
 
 ## Circuit example for a zk-Bridge
 
 You can find a full example of a zk-Bridge circuit in the [zkllvm examples](https://github.com/NilFoundation/zkllvm/blob/master/examples/zkbridge.cpp) directory.
 
-If you want to learn more about how this example works and how to extend its algorithm, check out the [Tutorials](../tutorials/01-hashes.md) section.
+If you want to learn more about how this example works and how to extend its algorithm, check out the [Tutorials](../tutorials/hashes) section.

@@ -24,8 +24,9 @@ You can link a couple of source files together to create a single circuit.
 ## Missing type
 
 Following C++ standard types are not currently supported:
-* `std::string` (only the C-like strings `char*` are supported)
-* `float` , `double` (will be added in an upcoming release)
+
+- `std::string` (only the C-like strings `char*` are supported)
+- `float` , `double` (will be added in an upcoming release)
 
 These types are expected to be added in the future releases. But avoid using them for now. The operations with these types are not circuit-friendly for zkSNARKs/STARKs, so we are working on a special implementation for them.
 
@@ -37,11 +38,11 @@ We are working on adding support for the standard library. Currently, we only su
 
 The entry function currently can only accept the following types as arguments:
 
-* string (for C-like strings char*)
-* int (for integer values)
-* field (for field elements)
-* curve (for curve elements)
-* array (for std::array of integer, field or curve elements)
-* vector (for std::vector of integer, field or curve elements)
+- string (for C-like strings char\*)
+- int (for integer values)
+- field (for field elements)
+- curve (for curve elements)
+- array (for std::array of integer, field or curve elements)
+- vector (for std::vector of integer, field or curve elements)
 
-More about the input format can be found [here](input.md).
+More about the input format can be found [here](input).

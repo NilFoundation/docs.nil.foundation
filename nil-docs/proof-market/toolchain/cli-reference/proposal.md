@@ -6,7 +6,7 @@ description: Managing proof proposals and retrieving public inputs
 
 This page describes two scripts with utilities for proof producers, `proposal_tools.py` and `public_input_get.py`.
 
-Make sure you've [signed up](user.md) before continuing, and that you're registered as a proof producer.
+Make sure you've [signed up](user) before continuing, and that you're registered as a proof producer.
 
 ## Usage
 

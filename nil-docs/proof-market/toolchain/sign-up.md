@@ -4,7 +4,7 @@ Access to Proof Market requires authentication.
 
 Make sure you have a valid username and password.
 
-If you have not registered, please look at the instructions on how to do so [via the web interface](../market/web-interface.md#creating-an-account).
+If you have not registered, please look at the instructions on how to do so [via the web interface](../market/web-interface#creating-an-account).
 
 Or use the following commands from the `proof-market-toolchain` repository.
 
@@ -25,7 +25,7 @@ All users can submit and retrieve orders on Proof Market, but only proof produce
 
 ## Proof producer
 
-First, you should [sign up](#user) or [sign in](../toolchain/cli-reference/user.md#signing-in) as a regular user, and then you can register yourself as a proof producer:
+First, you should [sign up](#user) or [sign in](../toolchain/cli-reference/user#signing-in) as a regular user, and then you can register yourself as a proof producer:
 
 ```bash
 python3 scripts/signup.py producer \

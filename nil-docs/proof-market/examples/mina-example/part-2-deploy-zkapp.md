@@ -126,4 +126,4 @@ Every interaction through this script calls the contract's `update` method, incr
 - after the second update state values will be changed to `3,6,9,c,f,12,15,18`;
 - and so on.
 
-Once your transaction is included in a block, in approximately 3-5 minutes, you can [check the state values](#step-4-check-your-state-values) again and see if they changed.
+Once your transaction is included in a block, in approximately 3-5 minutes, you can [check the state values](/proof-market/examples/mina-example/part-2-deploy-zkapp#step-4-check-your-state-values) again and see if they changed.

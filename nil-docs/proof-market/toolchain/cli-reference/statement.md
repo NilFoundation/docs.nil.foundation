@@ -6,7 +6,7 @@ description: Managing statements
 
 This page describes scripts for circuit developers and proof producers, `prepare_statement.py` and `statement_tools.py`.
 
-Make sure you've [signed up](user.md) before continuing.
+Make sure you've [signed up](user) before continuing.
 
 ## Building statements from circuits
 

@@ -32,7 +32,7 @@ Circuits are algebraic representations of an algorithm, created by the proof sys
 
 To publish a circuit to Proof Market, you should build a statement by attaching all additional metadata to the circuit.
 
-See the [building statements](../toolchain/cli-reference/statement.md#building-statements-from-circuits) section for more information.
+See the [building statements](../toolchain/cli-reference/statement#building-statements-from-circuits) section for more information.
 
 :::info
 

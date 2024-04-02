@@ -8,11 +8,11 @@ You're going to need the following environments ready for this guide.
 
 Prerequisites from Proof Market side are:
 
-- [Proof Market toolchain installation and setup](../../toolchain/installation.md).
+- [Proof Market toolchain installation and setup](../../toolchain/installation).
   You don't need to set up a virtual environment for Proof Market toolchain,
   we will only be using its Python scripts.
   This directory will be referred to as `proof-market-toolchain` home in the guide.
-- [Authentication on Proof Market](../../toolchain/sign-up.md).
+- [Authentication on Proof Market](../../toolchain/sign-up).
   There's no need to register as a producer, any account will suffice.
 
 ## Step 2: Mina state proof

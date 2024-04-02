@@ -4,7 +4,7 @@ description: Adding crypto3 suite to your project
 
 # Installation
 
-This guide assumes all dependencies described in the [Quickstart](quickstart.md) guide have been installed.
+This guide assumes all dependencies described in the [Quickstart](quickstart) guide have been installed.
 
 ## Usage
 

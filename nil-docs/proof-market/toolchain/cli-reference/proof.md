@@ -6,7 +6,7 @@ description: Managing submission and retrieval of proofs
 
 This page describes the script with proof utilities — `proof_tools.py`.
 
-Make sure you've [signed up](user.md) before continuing.
+Make sure you've [signed up](user) before continuing.
 
 To see all parameters that can be passed to the script, run it with the `-h` option:
 

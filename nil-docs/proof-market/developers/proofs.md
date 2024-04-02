@@ -2,7 +2,7 @@
 
 :::info
 
-[Sign up or sign in to Proof Market](../market/web-interface.md#creating-an-account) and keep the authentication files to use the following command line tools.
+[Sign up or sign in to Proof Market](../market/web-interface#creating-an-account) and keep the authentication files to use the following command line tools.
 
 :::
 

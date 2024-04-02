@@ -45,7 +45,7 @@ struct block_data_type {
 };
 ```
 
-Now let's add the EdDSA signature verification function from the [previous tutorial](02-eddsa.md):
+Now let's add the EdDSA signature verification function from the [previous tutorial](./eddsa):
 
 ```cpp
 bool verify_eddsa_signature (eddsa_signature_type input,

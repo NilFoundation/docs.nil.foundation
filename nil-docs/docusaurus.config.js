@@ -48,6 +48,8 @@ const config = {
     ],
   ],
   plugins: [
+    '@cmfcmf/docusaurus-search-local',
+
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -63,7 +65,7 @@ const config = {
         id: 'proof-market',
         path: 'proof-market',
         routeBasePath: 'proof-market',
-        sidebarPath: './sidebars.js'
+        sidebarPath: './sidebar-proof-market.js'
       }
     ],
     [
@@ -72,7 +74,7 @@ const config = {
         id: 'crypto3',
         path: 'crypto3',
         routeBasePath: 'crypto3',
-        sidebarPath: './sidebars.js'
+        sidebarPath: './sidebar-crypto-3.js'
       }
     ],
     [

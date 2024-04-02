@@ -18,7 +18,7 @@ Crypto3 is written in C++. Bindings for other languages will be supported in the
 
 Module descriptions/manuals are compartmentalised by programming language
 
-### [C++](portal-overview#c++)
+### [C++](/crypto3/guides/portal-overview#c++)
 
 Under the language, the user can find the modules which the library implements. Under each, the user can expect to find the following pages.
 

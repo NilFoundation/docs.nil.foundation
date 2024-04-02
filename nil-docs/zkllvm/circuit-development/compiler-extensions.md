@@ -13,22 +13,23 @@ Every circuit operates with Finite field elements, and thus, we provide some dia
 The full list of the built-in types and functions is as follows.
 
 ### Galois field elements
+
 Fields integral types:
 
-* `__zkllvm_field_pallas_base`
-* `__zkllvm_field_pallas_scalar`
-* `__zkllvm_field_vesta_base`
-* `__zkllvm_field_vesta_scalar`
-* `__zkllvm_field_bls12381_base`
-* `__zkllvm_field_bls12381_scalar`
-* `__zkllvm_field_curve25519_base`
-* `__zkllvm_field_curve25519_scalar`
+- `__zkllvm_field_pallas_base`
+- `__zkllvm_field_pallas_scalar`
+- `__zkllvm_field_vesta_base`
+- `__zkllvm_field_vesta_scalar`
+- `__zkllvm_field_bls12381_base`
+- `__zkllvm_field_bls12381_scalar`
+- `__zkllvm_field_curve25519_base`
+- `__zkllvm_field_curve25519_scalar`
 
 Every field presents in two forms - base and scalar. This is due to the fact that we use a lot of elliptic curves cryptography. Every elleptic curve has one base and one scalar field for its operations, and thus, we provide two types of fields (two `pallas` fields for `pallas` curve, two `bls12-381` fields for `bls12-381` curve etc.).
 
 Code example for pallas curve:
 
-```cpp
+````cpp
 #include <nil/crypto3/algebra/curves/pallas.hpp>
 
 using namespace nil::crypto3::algebra::curves;
@@ -57,7 +58,7 @@ typename pallas::base_field_type::value_type pow(typename pallas::base_field_typ
 
 ### SHA2-256 built-in hash function
 
-Apart from a general case sha2-256 hash funciton, we have a circuit-friendly implementation of it. It takes 
+Apart from a general case sha2-256 hash funciton, we have a circuit-friendly implementation of it. It takes
 
 * Input: two blocks, each block is packed in two `pallas` field elements.
 * Output: one block packed in two `pallas` field elements.
@@ -77,7 +78,7 @@ struct block_data_type {
 
 [[circuit]] typename sha2<256>::block_type sha256_example(
         std::array<block_data_type, 64> input_blocks) {
-    
+
     typename sha2<256>::block_type result = input_blocks[0];
     for (int i = 1; i < input_blocks.size(); i++) {
         result = hash<sha2<256>>(result, input_blocks[i]);
@@ -86,14 +87,14 @@ struct block_data_type {
     return result;
 }
 
-```
+````
 
 ### SHA2-512 built-in hash function
 
 This function is also implemented in SDK and also has an optimized circuit version. This optimized version was designed to being used as part of EDDSA signature algorithm, so it has tricky interface.
 
-* Input: one `eddsa` curve group element (point) `R`, one `eddsa` curve group element (point) representing the public key `pk` and one message block `M`.
-* Output: one `eddsa` scalar field element
+- Input: one `eddsa` curve group element (point) `R`, one `eddsa` curve group element (point) representing the public key `pk` and one message block `M`.
+- Output: one `eddsa` scalar field element
 
 Code example:
 
@@ -109,8 +110,8 @@ typedef __attribute__((ext_vector_type(4)))
 
 
 [[circuit]] __zkllvm_field_curve25519_scalar verify_eddsa_signature (
-    __zkllvm_curve_curve25519 R, 
-    __zkllvm_curve_curve25519 pk, 
+    __zkllvm_curve_curve25519 R,
+    __zkllvm_curve_curve25519 pk,
     eddsa_message_block_type M
     ) {
 
@@ -122,12 +123,12 @@ typedef __attribute__((ext_vector_type(4)))
 
 ### Bit de/composition built-in functions
 
-Circuit algorithms usually operate with Galois field elements. (Read more about efficient circuit development in the [corresponding section](optimizations.md). But since sometimes you need to operate with bits representation, we have dedicated functions for that. They can be used, for example, to serialize/deserialize sha2-256 input and output.
+Circuit algorithms usually operate with Galois field elements. (Read more about efficient circuit development in the [corresponding section](optimizations). But since sometimes you need to operate with bits representation, we have dedicated functions for that. They can be used, for example, to serialize/deserialize sha2-256 input and output.
 
 #### Bit composition:
 
-* Input: pointer to input data, number of bits to compose, bit order mode (MSB or LSB).
-* Output: one `pallas` field element.
+- Input: pointer to input data, number of bits to compose, bit order mode (MSB or LSB).
+- Output: one `pallas` field element.
 
 Code example is below. Bits are composed in MSB (most significant bit) order and stored in pallas elements for circuit efficiency.
 
@@ -149,8 +150,8 @@ constexpr bool is_msb = false;
 
 #### Bit decomposition:
 
-* Input: pointer to ouptut  data, number of bits to compose, one `pallas` field element and bit order mode (MSB or LSB).
-* Output: no output, result is being written to the pointer.
+- Input: pointer to ouptut data, number of bits to compose, one `pallas` field element and bit order mode (MSB or LSB).
+- Output: no output, result is being written to the pointer.
 
 Code example is below. Bits are composed in MSB (most significant bit) order and stored in pallas elements for circuit efficiency.
 
@@ -179,8 +180,8 @@ constexpr std::size_t bits_amount = 64;
 
 Sometimes you need to enforce some condition in the middle of the circuit. For example, you need to check that the signature is valid. If it is not, you need the circuit to be stopped and the proof to be rejected. This can be done with the `__builtin_assigner_exit_check` function.
 
-* Input: one `bool`.
-* Output: no output.
+- Input: one `bool`.
+- Output: no output.
 
 Code example:
 

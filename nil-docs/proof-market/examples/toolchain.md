@@ -2,12 +2,12 @@
 
 In this guide, we will perform an end-to-end interaction on Proof Market between a proof requester and a proof producer for the `arithmetic-example` circuit. We will use the same user but swap roles as we progress.
 
-We won't cover circuit/statement publishing here, you can learn about it in the [CLI section](../toolchain/cli-reference/statement.md#building-statements-from-circuits).
+We won't cover circuit/statement publishing here, you can learn about it in the [CLI section](../toolchain/cli-reference/statement#building-statements-from-circuits).
 
 ## Prerequisites
 
-Prerequisites for this guide are [Proof Market toolchain installation](../toolchain/installation.md)
-and [authentication on Proof Market](../toolchain/sign-up.md).
+Prerequisites for this guide are [Proof Market toolchain installation](../toolchain/installation)
+and [authentication on Proof Market](../toolchain/sign-up).
 
 We will execute all the commands from the `proof-market-toolchain` repository's home.
 
@@ -203,7 +203,7 @@ Once the orders are matched, the proof producer should create a proof for the ci
 - `public_input` — public inputs for the statement used in the request;
 - `proof_out` — location to store the output proof file.
 
-Ideally, you should retrieve both the `circuit_input` and `public_input` from Proof Market. See the corresponding part of the [proof producer's guide](../producers/proof-producer.md#check-order-status-and-fetch-inputs).
+Ideally, you should retrieve both the `circuit_input` and `public_input` from Proof Market. See the corresponding part of the [proof producer's guide](../producers/proof-producer#check-order-status-and-fetch-inputs).
 
 ```bash
 $ ./build/bin/proof-generator/proof-generator \

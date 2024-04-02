@@ -8,7 +8,7 @@ This guide will set up a project scaffold using crypto3 and run an example. This
 
 ## Pre-requisites
 
-Please ensure you have set up your environment by following the guide [here](environment-setup.md).
+Please ensure you have set up your environment by following the guide [here](environment-setup).
 
 ## Scaffold Setup
 
@@ -26,26 +26,26 @@ The project is an example of generic usage of the suite, adding the whole crypto
 ```
 root
 ├── libs : submodule including the repository for crypto3 suite
-├── src  
-│   ├── bls 
+├── src
+│   ├── bls
 │   │  │──── src: source for bls signing example.
 ```
 
 #### Build/test scaffold
 
-* Clone sub-modules recursively
+- Clone sub-modules recursively
 
 ```shell
 git submodule update --init --recursive
 ```
 
-* Build: The project is built using the cmake system.
+- Build: The project is built using the cmake system.
 
 ```shell
 mkdir build && cd build && cmake .. && make
 ```
 
-* Run executable
+- Run executable
 
 ```shell
 ./src/bls/bls_sig
@@ -55,4 +55,4 @@ You should see the output `Verified signature successfully` on your console.
 
 ## Conclusion
 
-Congratulations! You now have the environment to start experimenting with the crypto3 suite. You can now explore [modules](broken-reference/) in the suite. Modules also have examples/tests in their repositories, ex: [algebra examples](https://github.com/NilFoundation/crypto3-algebra/tree/master/example).
+Congratulations! You now have the environment to start experimenting with the crypto3 suite. You can now explore [modules](../cpp) in the suite. Modules also have examples/tests in their repositories, ex: [algebra examples](https://github.com/NilFoundation/crypto3-algebra/tree/master/example).

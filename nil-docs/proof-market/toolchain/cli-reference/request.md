@@ -6,7 +6,7 @@ description: Managing proof request orders
 
 This page describes the script with utilities for proof requesters — `request_tools.py`.
 
-Make sure you've [signed up](user.md) before continuing.
+Make sure you've [signed up](user) before continuing.
 
 To see all parameters that can be passed to the script, run it with the `-h` option:
 
@@ -27,6 +27,7 @@ options:
 ```
 
 ## Submitting a proof request
+
 ### Usage
 
 ```console
@@ -65,10 +66,11 @@ $ python3 request_tools.py push --cost=70 --key=969894
 ```
 
 ## Retrieving info on proof request
+
 ### Usage
 
 Proof requesters can check their requests with the following command:
- 
+
 ```console
 $ python3 request_tools.py get -h
 

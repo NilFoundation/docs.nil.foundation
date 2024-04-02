@@ -31,15 +31,15 @@ pip3 install -r requirements.txt
 
 - Follow the installation guide for [zkLLVM](https://docs.nil.foundation/zkllvm/guides/installation).
   zkLLVM is used to compile circuits and generate binaries to be hosted on Proof Market.
-- Set up [authentication](../toolchain/sign-up.md) and follow the user guide
-  for [zero-knowledge app developers](../developers/zk-app-developer.md).
+- Set up [authentication](../toolchain/sign-up) and follow the user guide
+  for zero-knowledge app developers.
 
 ## Proof requester
 
 - Install [Lorem Ipsum CLI](https://github.com/NilFoundation/lorem-ipsum-cli).
   For proof validation, smart contracts or zkLLVM for local validation can be used.
-- Set up [authentication](../toolchain/sign-up.md) and follow the user guide
-  for [zero-knowledge app developers](../developers/zk-app-developer.md).
+- Set up [authentication](../toolchain/sign-up) and follow the user guide
+  for zero-knowledge app developers.
 
 ## Proof producer
 
@@ -57,7 +57,7 @@ cmake -G "Unix Makefiles" \
 cmake --build . -t proof-generator
 ```
 
-- Set up [authentication](../toolchain/sign-up.md) and follow the user guide for [proof producers](../producers/proof-producer.md).
+- Set up [authentication](./sign-up) and follow the user guide for [proof producers](../producers/proof-producer).
 
 # Building the toolchain from sources
 

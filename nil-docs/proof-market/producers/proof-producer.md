@@ -2,7 +2,7 @@
 
 :::info
 
-[Sign up or sign in to Proof Market](../market/web-interface.md#creating-an-account) and keep the authentication files to use the following command line tools.
+[Sign up or sign in to Proof Market](../market/web-interface#creating-an-account) and keep the authentication files to use the following command line tools.
 
 :::
 
@@ -59,7 +59,7 @@ cd build
 The proof producer can now submit the proof to the marketplace, where they will get the reward if the proof is verified by Proof Market.
 
 You can learn more about
-[rewards and commissions](../market/economics.md#funds-transferring-and-commissions), as well as about [penalties](../market/economics.md#penalties), on the [Economics page](../market/economics.md).
+[rewards and commissions](../market/economics#funds-transferring-and-commissions), as well as about [penalties](../market/economics#penalties), on the [Economics page](../market/economics).
 
 Submitting a proof via `proof_tools.py`:
 

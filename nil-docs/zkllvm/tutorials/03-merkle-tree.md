@@ -10,7 +10,7 @@ It is a binary tree where each leaf node contains a hash of a data block, and ea
 
 The tree's root element is called a Merkle root. It contains a hash of all the data in the tree.
 
-Like in the [first tutorial](01-hashes.md) of this series, we will use the `sha2-256` hash function and `std::array` as a container for data blocks.
+Like in the [first tutorial](./hashes) of this series, we will use the `sha2-256` hash function and `std::array` as a container for data blocks.
 
 We include the same headers as in the first tutorial and use the same namespace.
 

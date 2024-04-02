@@ -32,7 +32,7 @@ Both the output of the command and the output file contain the `Ledger hash`/`st
 
 ### Get account state
 
-[Get the current app state](part-2-deploy-zkapp.md#step-4-check-the-account-state).
+[Get the current app state](part-2-deploy-zkapp#step-4-check-the-account-state).
 
 Also note, that the ledger state might change while you do that.
 
@@ -69,7 +69,7 @@ Look for the following keys in the statement list:
 
 That's the two proofs we want to be validated in-EVM.
 
-For that, we're going to use the [`request_tools.py` script](../../toolchain/cli-reference/request.md) from Proof Market toolchain:
+For that, we're going to use the [`request_tools.py` script](../../toolchain/cli-reference/request) from Proof Market toolchain:
 
 ```bash
 python3 scripts/request_tools.py push \
@@ -130,7 +130,7 @@ The key of this order is `727121`, and the status is also `created`.
 
 You must wait until your order status changes from `created` to `completed`.
 
-You can learn more about orders' statuses on the [Economics page](../../market/economics.md#orders-status).
+You can learn more about orders' statuses on the [Economics page](../../market/economics#orders-status).
 
 You can check the order status through the [market's web interface](https://proof.market/) or via CLI like this:
 

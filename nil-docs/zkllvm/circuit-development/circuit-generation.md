@@ -6,7 +6,7 @@ description: Generating circuit using zkLLVM
 
 The best entry point to start the circuit development process is our [template repository](https://github.com/NilFoundation/zkllvm-template). It contains a Dockerfile with all the dependencies installed. It also contains a sample circuit that you can use to get started.
 
-In case if you don't want to use Docker, you can install the compiler manually. It can be done by following the [installation](../getting-started/installation.md) guide.
+In case if you don't want to use Docker, you can install the compiler manually. It can be done by following the [installation](../getting-started/installation) guide.
 
 Once you've installed the compiler or built the Docker image - you can start writing your circuit.
 
@@ -24,7 +24,7 @@ There can only be a single \[`[circuit]] directive in a project.`
 
 :::
 
-Standard library integral types, such as `int` , `long` are supported. The standard types `int32_t` are the modified versions of a fork of the std C++ library, which the compiler includes internally. The user is hidden from this complexity. Some types ex: `strings` are currently not supported (but will soon - see [limitations](limitations.md)).
+Standard library integral types, such as `int` , `long` are supported. The standard types `int32_t` are the modified versions of a fork of the std C++ library, which the compiler includes internally. The user is hidden from this complexity. Some types ex: `strings` are currently not supported (but will soon - see [limitations](limitations)).
 
 ```cpp
 [[circuit]] std::int32_t addition_std_example(
@@ -67,7 +67,7 @@ Hence our addition example can be re-written as:
 }
 ```
 
-Please see[ Builtin types](builtin-types-sdk.md) for more details.
+Please see Builtin types for more details.
 
 ## Development Flow
 
@@ -101,8 +101,8 @@ EVM is one of the first supported protocols. The transpiler will be extended to 
 
 ## Next Steps
 
-If you want to know more about writing circuits, we've prepared a tutorial on how to implement a zk-Bridge using zkLLVM in the [Tutorials](../tutorials/01-hashes.md) section.
+If you want to know more about writing circuits, we've prepared a tutorial on how to implement a zk-Bridge using zkLLVM in the [Tutorials](../tutorials/hashes) section.
 
-To know more about limitations of the compiler, please see [Limitations](limitations.md).
+To know more about limitations of the compiler, please see [Limitations](limitations).
 
-If you are looking for more advanced docs, consider checking out our [document](architecture/architecture.md) on how to customize the compiler to other proof systems and arithmetizations.
+If you are looking for more advanced docs, consider checking out our [document](../architecture) on how to customize the compiler to other proof systems and arithmetizations.
