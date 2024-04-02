@@ -11,7 +11,7 @@ p {
   margin-bottom: 5px;
 }
 
-[class*='col-'] {
+.rowFlex [class*='col-'] {
   margin: 10px;
   padding: 10px;
   border: 2px solid transparent;

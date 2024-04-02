@@ -47,17 +47,16 @@ const config = {
       ),
     ],
   ],
-
-
-
   plugins: [
+    '@cmfcmf/docusaurus-search-local',
+
     [
       '@docusaurus/plugin-content-docs',
       {
         id: 'zkllvm',
         path: 'zkllvm',
         routeBasePath: 'zkllvm',
-        sidebarPath: './sidebars.js'
+        sidebarPath: './sidebar-zkllvm.js'
       }
     ],
     [
@@ -66,7 +65,7 @@ const config = {
         id: 'proof-market',
         path: 'proof-market',
         routeBasePath: 'proof-market',
-        sidebarPath: './sidebars.js'
+        sidebarPath: './sidebar-proof-market.js'
       }
     ],
     [
@@ -75,7 +74,7 @@ const config = {
         id: 'crypto3',
         path: 'crypto3',
         routeBasePath: 'crypto3',
-        sidebarPath: './sidebars.js'
+        sidebarPath: './sidebar-crypto-3.js'
       }
     ],
     [
@@ -108,7 +107,7 @@ const config = {
           {
             position: 'left',
             label: 'zkLLVM',
-            to: '/zkllvm/intro'
+            to: '/zkllvm/overview/what-is-zkllvm'
 
           },
           {
