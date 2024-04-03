@@ -1,3 +1,0 @@
-# concepts
-
-## Password Hash Concept

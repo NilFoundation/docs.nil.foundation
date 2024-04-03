@@ -35,7 +35,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #fff;
+  --ifm-color-primary: #f1f1f1;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -43,10 +43,21 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-navbar-link-color: #808080;
-  --ifm-navbar-link-hover-color: #212121;
-  --ifm-link-color: #98a8d6;
-  --ifm-link-hover-color: #6e7896;
+  --ifm-navbar-link-color: #8a8a8a;
+  --ifm-navbar-link-hover-color: #0f0f0f;
+  --ifm-link-color: #adcdfd;
+  --ifm-link-hover-color: #cee0fb;
+  --ifm-toc-link-color: #bdbdbd;
+  --ifm-toc-link-hover-color: #f1f1f1;
+  --ifm-menu-color: #bdbdbd;
+  --ifm-menu-hover-color: #f1f1f1;
+  --ifm-menu-color-active: #f1f1f1;
+  --ifm-menu-color-background-active: #8a8a8a;
+  --ifm-menu-font-size: 0.9rem;
+  --aa-text-color-rgb: 189, 189, 189 !important;
+  --aa-background-color-rgb: 47, 47, 47 !important;
+  --aa-primary-color-rgb: 189, 189, 189 !important;
+  --aa-muted-color-rgb: 138, 138, 138 !important;
 }
 
 html[data-theme='dark'] {
@@ -62,4 +73,16 @@ html[data-theme='dark'] {
 
 .navbar {
   background-color: #f2f2f2;
+}
+
+.table-of-contents {
+  font-size: 1rem;
+}
+
+.breadcrumbs__link {
+  font-size: 0.9rem;
+}
+
+.clean-btn {
+  color: #0f0f0f;
 }
