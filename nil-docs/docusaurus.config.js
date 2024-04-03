@@ -20,7 +20,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: '=nil; Foundation', // Usually your GitHub org/user name.
   projectName: 'docs.nil.foundation', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -49,7 +49,6 @@ const config = {
   ],
   plugins: [
     '@cmfcmf/docusaurus-search-local',
-
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -90,15 +89,13 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: true,
 
       },
       navbar: {
-        title: '=nil; Foundation Documentation Portal',
+        title: '=nil; Foundation',
         logo: {
           alt: '=nil; Foundation Logo',
           src: 'img/nil-logo.avif',

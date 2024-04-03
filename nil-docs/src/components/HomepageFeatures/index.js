@@ -1,10 +1,14 @@
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import Crypto3 from '../../../static/img/productImages/Crypto3.png';
+import zkLLVM from '../../../static/img/productImages/zkLLVM.png';
+import ProofMarket from '../../../static/img/productImages/PM.png';
+import zkSharding from '../../../static/img/productImages/zkSharding.png';
 
 const ProductsList =
   [
     {
-      Svg: require('@site/static/img/productImages/zkLLVMImage.svg').default,
+      image: zkLLVM,
       description: (
         <>
           <p>zkLLVM is a compiler from high-level programming languages into an input for provable computations protocols verifiable on EVM (and not only).</p>
@@ -14,17 +18,7 @@ const ProductsList =
       ),
     },
     {
-      Svg: require('@site/static/img/productImages/crypto3Image.svg').default,
-      description: (
-        <>
-          <p>Crypto3 is a modern cryptography suite in C++17 built by cryptographers for cryptographers dedicated to making it easy to prototype and implement novel schemes and primitives out of ready-to-use modules such as ciphers (block, algebraic, fully-homomorphic), hashes, signatures, proof systems, VDFs, witness encryption and many other.</p>
-          <p><a href="https://github.com/nilfoundation/crypto3.git">https://github.com/nilfoundation/crypto3.git</a></p>
-          <p>Documentation, references, and manuals for applied cryptographers and C++ developers.</p>
-        </>
-      ),
-    },
-    {
-      Svg: require('@site/static/img/productImages/proofMarketImage.svg').default,
+      image: ProofMarket,
       description: (
         <>
           <p>Proof Market is a decentralized protocol for zkProof generation and monetization built on top of =nil; zkSharding.</p>
@@ -34,7 +28,7 @@ const ProductsList =
       ),
     },
     {
-      Svg: require('@site/static/img/productImages/zkShardingImage.svg').default,
+      image: zkSharding,
       description: (
         <>
           <p>=nil; zkSharding is the first Ethereum zkRollup with sharding — an alternative to the current Ethereum scalability ecosystem.</p>
@@ -43,14 +37,26 @@ const ProductsList =
         </>
       ),
     },
+    {
+      image: Crypto3,
+      description: (
+        <>
+          <p>Crypto3 is a modern cryptography suite in C++17 built by cryptographers for cryptographers dedicated to making it easy to prototype and implement novel schemes and primitives out of ready-to-use modules such as ciphers (block, algebraic, fully-homomorphic), hashes, signatures, proof systems, VDFs, witness encryption and many other.</p>
+          <p><a href="https://github.com/nilfoundation/crypto3.git">https://github.com/nilfoundation/crypto3.git</a></p>
+          <p>Documentation, references, and manuals for applied cryptographers and C++ developers.</p>
+        </>
+      ),
+    },
+
+
   ]
 
 
 
-const NilProductDescription = ({ text, Svg, onDocsClick }) => {
+const NilProductDescription = ({ text, image, onDocsClick }) => {
   return (
     <div onClick={onDocsClick}>
-      <Svg className={styles.productImage} role="img" />
+      <img src={image} />
       <div className={styles.productDescription}>
         <p>{text}</p>
       </div>
@@ -58,13 +64,15 @@ const NilProductDescription = ({ text, Svg, onDocsClick }) => {
   );
 };
 
-function NilProduct({ Svg, description, onDocsClick }) {
+function NilProduct({ image, description, onDocsClick }) {
   return (
     <div>
-      <NilProductDescription text={description} Svg={Svg} onDocsClick={onDocsClick} />
+      <NilProductDescription text={description} image={image} onDocsClick={onDocsClick} />
     </div>
   );
 }
+
+
 
 export default function HomepageNilProducts() {
   const GoToDocs = (Url) => () => {
@@ -75,24 +83,24 @@ export default function HomepageNilProducts() {
       <div class={'row' + ' ' + styles.rowFlex}>
         <div class='col col-6'>
           <div id='zkllvm-docs'>
-            <NilProduct Svg={ProductsList[0].Svg} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
+            <NilProduct image={ProductsList[0].image} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
           </div>
         </div>
         <div class='col col-6'>
-          <div id='crypto3-docs'>
-            <NilProduct Svg={ProductsList[1].Svg} description={ProductsList[1].description} onDocsClick={GoToDocs("/crypto3/intro")} ></NilProduct>
+          <div id='proof-market-docs'>
+            <NilProduct image={ProductsList[1].image} description={ProductsList[1].description} onDocsClick={GoToDocs("/proof-market/intro")} ></NilProduct>
           </div>
         </div>
       </div>
       <div class={'row' + ' ' + styles.rowFlex}>
         <div class='col col-6'>
-          <div id='proof-market-docs'>
-            <NilProduct Svg={ProductsList[2].Svg} description={ProductsList[2].description} onDocsClick={GoToDocs("/proof-market/intro")}></NilProduct>
+          <div id='zk-sharding-docs'>
+            <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
           </div>
         </div>
         <div class='col col-6'>
-          <div id='zksharding-docs'>
-            <NilProduct Svg={ProductsList[3].Svg} description={ProductsList[3].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
+          <div id='crypto3-docs'>
+            <NilProduct image={ProductsList[3].image} description={ProductsList[3].description} onDocsClick={GoToDocs("/crypto3/intro")}></NilProduct>
           </div>
         </div>
       </div>
