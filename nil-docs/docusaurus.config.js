@@ -125,6 +125,25 @@ const config = {
         ],
       },
       footer: {
+        links: [
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Discord',
+                to: 'https://discord.gg/KmTAEjbmM3'
+              },
+              {
+                label: 'GitHub',
+                to: 'https://github.com/nilfoundation'
+              },
+              {
+                label: 'Telegram',
+                to: 'https://t.me/nilfoundation'
+              }
+            ],
+          }
+        ],
         style: 'dark',
         copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
       },
