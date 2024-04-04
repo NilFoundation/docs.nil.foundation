@@ -47,6 +47,10 @@ const config = {
       ),
     ],
   ],
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   plugins: [
     '@cmfcmf/docusaurus-search-local',
     [
@@ -148,8 +152,9 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
       },
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        defaultLanguage: 'clike',
+        theme: prismThemes.vsDark,
+        darkTheme: prismThemes.vsDark,
       },
     }),
 };

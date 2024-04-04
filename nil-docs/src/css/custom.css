@@ -53,6 +53,7 @@
   --ifm-menu-hover-color: #f1f1f1;
   --ifm-menu-color-active: #f1f1f1;
   --ifm-menu-color-background-active: #8a8a8a;
+  --ifm-menu-link-color: #f1f1f1;
   --ifm-menu-font-size: 0.9rem;
   --aa-text-color-rgb: 189, 189, 189 !important;
   --aa-background-color-rgb: 47, 47, 47 !important;
@@ -81,8 +82,4 @@ html[data-theme='dark'] {
 
 .breadcrumbs__link {
   font-size: 0.9rem;
-}
-
-.clean-btn {
-  color: #0f0f0f;
 }
