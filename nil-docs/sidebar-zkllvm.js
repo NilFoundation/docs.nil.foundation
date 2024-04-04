@@ -19,8 +19,8 @@ export default {
                 },
                 {
                     type: 'doc',
-                    label: 'Portal overview',
-                    id: 'overview/portal-overview'
+                    label: 'Key components and tools',
+                    id: 'overview/key-components-tools'
                 },
             ]
         },
