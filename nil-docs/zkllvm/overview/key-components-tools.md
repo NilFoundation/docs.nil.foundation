@@ -66,6 +66,10 @@ There are two additional components provided by a proof system rather than zkLLV
 - A prover used for generating circuit-specific proofs
 - A verifier used for verifying circuit-specific proofs
 
+By default, zkLLVM uses the circuit components from [**the blueprint module**](https://github.com/NilFoundation/zkllvm-blueprint) and the PLONKish arithmetization supported by [**the Placeholder proof system**](https://nil.foundation/blog/post/placeholder-proofsystem).
+
+To adapt zkLLVM to other arithmetizations and proof systems, extend the `assigner` component as described above.
+
 :::info[Verifier]
 
 Depending on the proof system, a verifier can be located either on-chain or off-chain.
