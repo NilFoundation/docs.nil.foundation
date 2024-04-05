@@ -59,11 +59,11 @@
   --aa-primary-color-rgb: 189, 189, 189 !important;
   --aa-muted-color-rgb: 138, 138, 138 !important;
   --ifm-color-warning-contrast-background: #722f01;
-  --ifm-color-warning-dark: #722f01;
+  --ifm-color-warning-dark: #fe7c27;
   --ifm-color-info-contrast-background: #0a3068;
-  --ifm-color-info-dark: #0a3068;
+  --ifm-color-info-dark: #87b6fc;
   --ifm-color-success-contrast-background: #13352b;
-  --ifm-color-success-dark: #13352b;
+  --ifm-color-success-dark: #4db596;
 }
 
 html[data-theme='dark'] {
