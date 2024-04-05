@@ -11,8 +11,8 @@ export default function IconLinkItems() {
     return (
         <div className="communityLinksContainer">
             <IconLinkItem IconComponent={DiscordIcon} onIconClick={GoToCommunityLink('https://discord.gg/KmTAEjbmM3')}></IconLinkItem>
-            <IconLinkItem IconComponent={TGIcon} onIconClick={GoToCommunityLink('https://github.com/nilfoundation')}></IconLinkItem>
-            <IconLinkItem IconComponent={GHIcon} onIconClick={GoToCommunityLink('https://t.me/nilfoundation')}></IconLinkItem>
+            <IconLinkItem IconComponent={TGIcon} onIconClick={GoToCommunityLink('https://t.me/nilfoundation')}></IconLinkItem>
+            <IconLinkItem IconComponent={GHIcon} onIconClick={GoToCommunityLink('https://github.com/nilfoundation')}></IconLinkItem>
         </div>
     );
 }
