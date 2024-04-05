@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-export default function IconLinkItem({ source, onIconClick }) {
+export default function IconLinkItem({ IconComponent, onIconClick }) {
     return (
         <div onClick={onIconClick}>
             <div className={styles.socialButton}>
-                <img src={source}></img>
+                <IconComponent></IconComponent>
             </div>
         </div>
     );

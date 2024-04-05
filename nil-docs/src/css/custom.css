@@ -59,6 +59,12 @@
   --aa-background-color-rgb: 47, 47, 47 !important;
   --aa-primary-color-rgb: 189, 189, 189 !important;
   --aa-muted-color-rgb: 138, 138, 138 !important;
+  --ifm-color-warning-contrast-background: #722f01;
+  --ifm-color-warning-dark: #722f01;
+  --ifm-color-info-contrast-background: #0a3068;
+  --ifm-color-info-dark: #0a3068;
+  --ifm-color-success-contrast-background: #13352b;
+  --ifm-color-success-dark: #13352b;
 }
 
 html[data-theme='dark'] {
@@ -82,4 +88,17 @@ html[data-theme='dark'] {
 
 .breadcrumbs__link {
   font-size: 0.9rem;
+}
+
+.clean-btn {
+  color: #0f0f0f;
+}
+
+.communityLinksContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 }

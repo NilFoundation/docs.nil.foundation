@@ -79,26 +79,26 @@ export default function HomepageNilProducts() {
     window.open(Url, '_self');
   };
   return (
-    <div class='container' id='productContainer'>
-      <div class={'row' + ' ' + styles.rowFlex}>
-        <div class='col col-6'>
+    <div className='container' id='productContainer'>
+      <div className={'row' + ' ' + styles.rowFlex}>
+        <div className='col col-6'>
           <div id='zkllvm-docs'>
             <NilProduct image={ProductsList[0].image} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
           </div>
         </div>
-        <div class='col col-6'>
+        <div className='col col-6'>
           <div id='proof-market-docs'>
             <NilProduct image={ProductsList[1].image} description={ProductsList[1].description} onDocsClick={GoToDocs("/proof-market/intro")} ></NilProduct>
           </div>
         </div>
       </div>
-      <div class={'row' + ' ' + styles.rowFlex}>
-        <div class='col col-6'>
+      <div className={'row' + ' ' + styles.rowFlex}>
+        <div className='col col-6'>
           <div id='zk-sharding-docs'>
             <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
           </div>
         </div>
-        <div class='col col-6'>
+        <div className='col col-6'>
           <div id='crypto3-docs'>
             <NilProduct image={ProductsList[3].image} description={ProductsList[3].description} onDocsClick={GoToDocs("/crypto3/intro")}></NilProduct>
           </div>

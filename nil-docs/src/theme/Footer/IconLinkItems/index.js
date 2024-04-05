@@ -1,5 +1,7 @@
 import IconLinkItem from "../IconLinkItem";
-import DiscordIcon from '@site/static/img/footer/discord.svg';
+import DiscordIcon from '../../../../static/img/footer/discord.svg';
+import TGIcon from '@site/static/img/footer/telegram.svg';
+import GHIcon from '@site/static/img/footer/github.svg';
 
 export default function IconLinkItems() {
     const GoToCommunityLink = (Url) => () => {
@@ -8,9 +10,9 @@ export default function IconLinkItems() {
 
     return (
         <div className="communityLinksContainer">
-            <IconLinkItem source={DiscordIcon} onIconClick={GoToCommunityLink('https://discord.gg/KmTAEjbmM3')}></IconLinkItem>
-            <IconLinkItem source={require('@site/static/img/footer/github.svg')} onIconClick={GoToCommunityLink('https://github.com/nilfoundation')}></IconLinkItem>
-            <IconLinkItem source={require('@site/static/img/footer/telegram.svg')} onIconClick={GoToCommunityLink('https://t.me/nilfoundation')}></IconLinkItem>
+            <IconLinkItem IconComponent={DiscordIcon} onIconClick={GoToCommunityLink('https://discord.gg/KmTAEjbmM3')}></IconLinkItem>
+            <IconLinkItem IconComponent={TGIcon} onIconClick={GoToCommunityLink('https://github.com/nilfoundation')}></IconLinkItem>
+            <IconLinkItem IconComponent={GHIcon} onIconClick={GoToCommunityLink('https://t.me/nilfoundation')}></IconLinkItem>
         </div>
     );
 }
