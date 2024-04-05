@@ -1,5 +1,9 @@
 .socialButton {
-  display: block;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
   width: 80px;
   height: 80px;
   padding: 20px;
@@ -11,4 +15,10 @@
 
 .socialButton:hover {
   background-color: #8a8a8a;
+}
+
+.socialButton svg {
+  max-width: 100%; /* or a specific size */
+  height: auto;
+  /* Additional styling */
 }
