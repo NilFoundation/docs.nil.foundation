@@ -1,11 +1,17 @@
 export default {
     zkllvm: [
         {
+            type: 'link',
+            label: 'GitHub',
+            href: 'https://github.com/NilFoundation/zkLLVM',
+        },
+        {
             type: 'category',
             label: 'Overview',
             collapsible: true,
             collapsed: false,
             items: [
+
                 {
                     type: 'doc',
                     label: 'What is zkLLVM',
@@ -13,8 +19,8 @@ export default {
                 },
                 {
                     type: 'doc',
-                    label: 'Portal overview',
-                    id: 'overview/portal-overview'
+                    label: 'Key components and tools',
+                    id: 'overview/key-components-tools'
                 },
             ]
         },
