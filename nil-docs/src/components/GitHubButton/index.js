@@ -1,5 +1,5 @@
 import styles from './styles.module.css';
-import GitHubLogo from '@site/static/img/gitHubLogo.png';
+import GitHubLogo from '@site/static/img/footer/github.svg';
 
 export default function GitHubButton({ Url }) {
     const GoToGitHub = (Url) => () => {
@@ -7,7 +7,7 @@ export default function GitHubButton({ Url }) {
     };
     return (
         <div className={styles.gitHubButton} onClick={GoToGitHub(Url)}>
-            <img src={GitHubLogo} className={styles.gitHubLogo}></img>
+            <GitHubLogo className={styles.gitHubLogo}></GitHubLogo>
             Access the project on GitHub
         </div>
     );
