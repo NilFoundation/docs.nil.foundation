@@ -56,10 +56,10 @@ cd zkllvm
 
 ### Configure `cmake`
 
-This step is needed to define the format in which zkLLVM will provide IR representations of circuits:
+This step is needed to define the format in which zkLLVM will provide IR representations of circuits among these options:
 
-- A binary format (`.bc`)
-- A text format (`.ll`)
+- Binary format (`.bc`)
+- Text format (`.ll`)
 
 :::info
 
@@ -70,32 +70,24 @@ Presently, only the `.ll` format is compatible with [**Proof Market**](../../pro
 Run the following command to configure `cmake`.
 
 <Tabs>
-  <TabItem value='.bc' label='.bc'>
+  <TabItem value='bc' label='.bc'>
     ```bash
     cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
     ```
   </TabItem>
-  <TabItem value='.ll' label='.ll'>
-    ```bash
-    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
-    ```
-  </TabItem>
 </Tabs>
 
-:::tip[`config.guess` syntax error]
-
-If the config process encounters a syntax error in a `config.guess` file, execute the following commands.
+To generate IR representations of circuits in binary format (`.bc`), execute the following command.
 
 ```bash
-sudo apt install dos2unix
-dos2unix {./pathToConfigFile/config.guess}
+cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
 ```
 
-This will replace all DOS line endings in the file with UNIX line endings.
+To generate IR representations of circuits in text format (`.ll`), execute the following command.
 
-:::
-
-## Build `clang` and `assigner`
+```bash
+cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
+```
 
 <Tabs groupId='operating-systems'>
   <TabItem value='win' label='Windows'>
@@ -114,6 +106,8 @@ This will replace all DOS line endings in the file with UNIX line endings.
     Use Command + V to paste.
   </TabItem>
 </Tabs>
+
+## Build `clang` and `assigner`
 
 If you are using Unix makefiles:
 
