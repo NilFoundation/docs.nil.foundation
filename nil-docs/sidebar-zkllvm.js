@@ -97,24 +97,6 @@ export default {
         },
         {
             type: 'category',
-            label: 'Architecture',
-            collapsible: true,
-            collapsed: true,
-            items: [
-                {
-                    type: 'doc',
-                    label: 'Architecture',
-                    id: 'architecture/architecture'
-                },
-                {
-                    type: 'doc',
-                    label: 'Assigner optimisations',
-                    id: 'architecture/assigner-optimizations'
-                },
-            ]
-        },
-        {
-            type: 'category',
             label: 'Tutorial',
             collapsible: true,
             collapsed: true,
