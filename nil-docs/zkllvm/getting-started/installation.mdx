@@ -31,6 +31,16 @@ To install Rust, execute the following command.
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
 
+:::tip[Ninja]
+
+The [**Ninja build system**](https://ninja-build.org/) can make building zkLLVM from sources faster and more convenient. While it is not a direct dependency, using Ninja is preferable to simply using Unix makefiles. Install Ninja by running the below command.
+
+```bash
+sudo apt-get install ninja-build
+```
+
+:::
+
 ## Installing zkLLVM as a packagage
 
 zkLLVM is distributed as a Deb package which can be installed using the following commands.
@@ -43,7 +53,7 @@ apt install -y zkllvm
 
 ## Installing zkLLVM from sources
 
-zkLLVm can also be built directly from its source repository.
+zkLLVm can also be built directly from its source repository by following the below steps.
 
 ### Clone the repository
 
@@ -70,83 +80,41 @@ Presently, only the `.ll` format is compatible with [**Proof Market**](../../pro
 Run the following command to configure `cmake`.
 
 <Tabs>
-  <TabItem value='bc' label='.bc'>
+  <TabItem value='bcUnix' label='.bc (Unix)'>
     ```bash
     cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
     ```
   </TabItem>
-</Tabs>
-
-To generate IR representations of circuits in binary format (`.bc`), execute the following command.
-
-```bash
-cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
-```
-
-To generate IR representations of circuits in text format (`.ll`), execute the following command.
-
-```bash
-cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
-```
-
-<Tabs groupId='operating-systems'>
-  <TabItem value='win' label='Windows'>
-    Use Ctrl + C to copy.
+  <TabItem value='llUnix' label='.ll (Unix)'>
+    ```bash
+    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
+    ```
   </TabItem>
-  <TabItem value='mac' label='macOS'>
-    Use Command + C to copy.
+  <TabItem value='bcNinja' label='.bc (Ninja)'>
+    ```bash
+    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
+    ```
+  </TabItem>
+  <TabItem value='llNinja' label='.ll (Ninja)'>
+    ```bash
+    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
+    ```
   </TabItem>
 </Tabs>
 
-<Tabs groupId='operating-systems'>
-  <TabItem value='win' label='Windows'>
-    Use Ctrl + V to paste.
+### Build `clang` and `assigner`
+
+The next step is to build the C++ compiler and the `assigner` tool.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
+    ```bash
+    make -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
+    ```
   </TabItem>
-  <TabItem value='mac' label='macOS'>
-    Use Command + V to paste.
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    ninja -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
+    ```
   </TabItem>
 </Tabs>
-
-## Build `clang` and `assigner`
-
-If you are using Unix makefiles:
-
-```bash
-make -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
-```
-
-If you are using Ninja:
-
-```bash
-ninja -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
-```
-
-## Examples
-
-### Build Circuit IR
-
-This builds some samples we have in the `examples` directory
-
-```bash
-make -C ${ZKLLVM_BUILD:-build} circuit_examples -j$(nproc)
-```
-
-### Generate Execution trace
-
-This generates an execution trace for the arithmetic example built.
-
-```
-${ZKLLVM_BUILD:-build}/bin/assigner/assigner -b ${ZKLLVM_BUILD:-build}/examples/arithmetics_example.bc -i examples/arithmetics.inp -t assignment.tbl -c circuit.crct
-```
-
-Where
-
-Inputs:
-
-- _**b**_: Binary representation of the circuit
-- _**i**_: Public inputs for the circuit
-
-Output:
-
-- _**t**_: Execution trace
-- _**c**_: Pre-processed constraints
