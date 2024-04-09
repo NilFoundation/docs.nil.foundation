@@ -16,12 +16,12 @@ Before installing zkLLVM, install the following dependencies.
 Every dependency apart from Rust can be installed by executing the following command.
 
 ```bash
-sudo apt install build-essential libssl-dev cmake clang-12 git curl pkg-config libboost-all-dev
+sudo apt install build-essential libssl-dev cmake clang-12 git curl pkg-config zlib
 ```
 
 :::info
 
-Note that the command installs not only the required dependencies but several other essential packages such as `build-essential`, `git`, and `curl`.
+Note that the command installs not only the required dependencies but several other essential packages such as `build-essential`, `zlib`, `git`, and `curl`.
 
 :::
 
@@ -37,6 +37,38 @@ The [**Ninja build system**](https://ninja-build.org/) can make building zkLLVM 
 
 ```bash
 sudo apt-get install ninja-build
+```
+
+:::
+
+:::tip[Installing Boost]
+
+Installing Boost from source is the most consistent way to ensure that the latest version of Boost is installed that matches the above version constraint.
+
+To install Boost from source, do the following.
+
+1. Navigate to the folder where you want to install Boost and download Boost.
+
+```bash
+wget https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0_rc1.tar.gz
+```
+
+2. Extract the archive with Boost.
+
+```bash
+cd boost_1_84_0
+```
+
+3. Prepare the build system for Boost by running `bootstrap.sh`.
+
+```bash
+./bootstrap.sh
+```
+
+4. Install Boost system-wide.
+
+```bash
+sudo ./b2 install
 ```
 
 :::
@@ -118,3 +150,11 @@ The next step is to build the C++ compiler and the `assigner` tool.
     ```
   </TabItem>
 </Tabs>
+
+### Build the Rust compiler
+
+To work with the Rust frontend, perform the following actions.
+
+#### Reconfigure `cmake`
+
+This step is needed to add Rust tools to `cmake`.

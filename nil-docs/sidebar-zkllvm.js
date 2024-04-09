@@ -35,11 +35,6 @@ export default {
                     label: 'Installation',
                     id: 'getting-started/installation'
                 },
-                {
-                    type: 'doc',
-                    label: 'zkLLVM template project',
-                    id: 'getting-started/zkllvm-template-project'
-                },
             ]
         },
         {
