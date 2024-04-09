@@ -136,11 +136,17 @@ Working with zkLLVM involves the following steps.
 
 #### Write the code in C++ or Rust
 
-There is no need to use any special syntax when working with zkLLVM. A circuit is defined by simply adding a `[[circuit]]` directive before a function. Any existing C++ or Rust code is reusable for zkLLVM.
+There is no need to use any special syntax when working with zkLLVM. A circuit is defined by simply adding a `[[circuit]]` directive before a function. With some modifications, almost any existing C++ or Rust code can be reused for zkLLVM.
 
 :::tip[Examples]
 
 The [**zkLLVM repository**](https://github.com/NilFoundation/zkllvm) contains several ready-made examples of circuits. They can be reused wholly or repurposed depending on the use case.
+
+:::
+
+:::info[Limitations]
+
+[**Click here**](../circuit-development/limitations) to learn more about the changes that would need to be made to existing C++ or Rust code for reuse in zkLLVM.
 
 :::
 
