@@ -4,6 +4,31 @@
       "source": "/crypto3",
       "destination": "/crypto3/intro",
       "permanent": true
+    },
+    {
+      "source": "/crypto3/",
+      "destination": "/crypto3/intro",
+      "permanent": true
+    },
+    {
+      "source": "/zkllvm",
+      "destination": "/zkllvm/intro",
+      "permanent": true
+    },
+    {
+      "source": "/zkllvm/",
+      "destination": "/zkllvm/intro",
+      "permanent": true
+    },
+    {
+      "source": "/proof-market",
+      "destination": "/proof-market/intro",
+      "permanent": true
+    },
+    {
+      "source": "/proof-market/",
+      "destination": "/proof-market/intro",
+      "permanent": true
     }
   ]
 }
