@@ -26,14 +26,19 @@ export default {
         },
         {
             type: 'category',
-            label: 'Starting first project',
+            label: 'Getting started',
             collapsible: true,
             collapsed: false,
             items: [
                 {
                     type: 'doc',
-                    label: 'Installation',
+                    label: 'Installation and configuration',
                     id: 'getting-started/installation'
+                },
+                {
+                    type: 'doc',
+                    label: 'Writing a simple circuit',
+                    id: 'getting-started/writing-a-simple-circuit'
                 },
             ]
         },

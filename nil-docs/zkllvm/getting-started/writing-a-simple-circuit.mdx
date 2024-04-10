@@ -1,0 +1,124 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Writing a simple circuit
+
+This tutorial describes how to create a simple circuit, use elliptic curve fields, and compile a circuit into an IR.
+
+## Multiplication example
+
+Any circuit is a series of polynomials which, in the case of high-level programming languages, can be expressed as a function.
+
+For zkLLVM to correctly recognise a function as a circuit, it needs to be preceeded by the following directive.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+    [[circuit]]
+    ```
+
+  </TabItem>
+
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    #[circuit]
+    ```
+
+  </TabItem>
+</Tabs>
+
+A simple example of a circuit with one multiplication operator would look as follows.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+
+    [[circuit]] std::int32_t addition_std_example(
+    std::int32_t a,
+    std::int32_t b) {
+    auto c = a\*b;
+    return c;
+    }
+
+    ```
+
+  </TabItem>
+
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    #[circuit]
+    pub fn addition_example(a: i32, b: i32) -> i32 {
+      let c = a * b;
+      c
+    }
+    ```
+
+  </TabItem>
+</Tabs>
+
+:::info[Using standard types in C++]
+
+The compiler supports several types from the `std` library such as `int` and `long`.
+
+The example above also uses the `int32_t` from a modified version of the `std` library. The `clang` compiler supports several of these extended types internally.
+
+Note that `clang` presently does not support `std::string` and several other types from `std`.
+
+:::
+
+The function takes two variables, multiplies them, and returns the result. With no additional code needed, it is a fully-fledged circle.
+
+:::warning
+
+Only one function in a project can be preceeded by the `[[circuit]]`/`#[circuit]` annotation.
+
+:::
+
+## Elliptic curve example
+
+From here, creating a circuit based on elliptic curve fields involves making a small change to the data types used in the previous example.
+
+:::info[Field types]
+
+The C++ example uses the `bls12-381` base field type from [**the `crypto3` C++ library**](https://github.com/NilFoundation/crypto3).
+
+:::
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+
+    #include <nil/crypto3/algebra/curves/bls12.hpp>
+
+    using namespace nil::crypto3::algebra::curves;
+
+    [[circuit]] typename bls12<381>::base_field_type::value_type addition_example(
+    typename bls12<381>::base_field_type::value_type a,
+    typename bls12<381>::base_field_type::value_type b) {
+
+        typename bls12<381>::base_field_type::value_type c = a*b;
+        return c;
+
+    }
+
+    ```
+
+  </TabItem>
+
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    #[circuit]
+    pub fn addition_example(a: i32, b: i32) -> i32 {
+      let c = a * b;
+      c
+    }
+    ```
+
+  </TabItem>
+</Tabs>
