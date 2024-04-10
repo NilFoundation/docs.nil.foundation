@@ -50,25 +50,6 @@ const config = {
   plugins: [
     '@cmfcmf/docusaurus-search-local',
     [
-      '@docusaurus/plugin-client-redirects',
-      {
-        redirects: [
-          {
-            to: '/crypto3/intro',
-            from: '/crypto3',
-          },
-          {
-            to: '/zkllvm/intro',
-            from: '/zkllvm',
-          },
-          {
-            to: '/proof-market/intro',
-            from: '/proof-market',
-          },
-        ],
-      },
-    ],
-    [
       '@docusaurus/plugin-content-docs',
       {
         id: 'zkllvm',
