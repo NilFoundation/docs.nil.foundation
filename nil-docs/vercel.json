@@ -12,12 +12,12 @@
     },
     {
       "source": "/zkllvm",
-      "destination": "/zkllvm/intro",
+      "destination": "/zkllvm/overview/what-is-zkllvm",
       "permanent": true
     },
     {
       "source": "/zkllvm/",
-      "destination": "/zkllvm/intro",
+      "destination": "/zkllvm/overview/what-is-zkllvm",
       "permanent": true
     },
     {
