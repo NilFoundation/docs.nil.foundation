@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/crypto3",
+      "destination": "/crypto3/intro",
+      "permanent": true
+    }
+  ]
+}
