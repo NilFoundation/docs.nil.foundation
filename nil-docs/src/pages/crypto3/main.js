@@ -1,6 +1,8 @@
-import React from 'react';
-import { Redirect } from '@docusaurus/router';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function Home() {
-    return <Redirect to="/crypto3/intro" />;
-};
+    React.useEffect(() => {
+        window.location.href = useBaseUrl('/docs/main');
+    }, []);
+    return null;
+}
