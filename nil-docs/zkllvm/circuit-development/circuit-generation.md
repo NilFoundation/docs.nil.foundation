@@ -104,5 +104,3 @@ EVM is one of the first supported protocols. The transpiler will be extended to 
 If you want to know more about writing circuits, we've prepared a tutorial on how to implement a zk-Bridge using zkLLVM in the [Tutorials](../tutorials/hashes) section.
 
 To know more about limitations of the compiler, please see [Limitations](limitations).
-
-If you are looking for more advanced docs, consider checking out our [document](../architecture) on how to customize the compiler to other proof systems and arithmetizations.
