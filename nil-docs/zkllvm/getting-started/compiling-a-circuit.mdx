@@ -1,0 +1,103 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Compiling and verifying a circuit
+
+This tutorial contains step-by-step instructions on how to compile the [**elliptic curve circuit created previously**](./compiling-a-circuit.mdx).
+
+## Placing files in folders
+
+Take the `.cpp` or `.rs` file with the circuit and place it inside either the `./examples/cpp` (C++) the `./examples/rust` directory.
+
+Afterward, take the `.inp` file with the public input and add it to the `./examples/inputs` directory.
+
+## Adding a new build target
+
+To complle a circuit, we would need to run a build system which means that changes to `cmake` are needed.
+
+Open the following file.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    `./examples/cpp/CMakeLists.txt`
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    `./examples/rust/CMakeLists.txt`
+  </TabItem>
+</Tabs>
+
+Add the following line to the end of the file.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```
+    add_example_with_proving({name_of_build_target} SOURCES{name_of_file_with_code.cpp} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
+    bls12381)
+    ```
+
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+
+    ```
+    add_example_with_proving({name_of_build_target} SOURCES{name_of_file_with_code.rs} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
+    bls12381)
+    ```
+
+  </TabItem>
+</Tabs>
+
+, where `{name_of_build target}` is any string that describes the circuit, `{name_of_file_with_code}` is the name of the `.cpp`or `.rs` file with the circuit, and `{name_of_public_inputs_file}` is the name of the file with the public inputs.
+
+Save the file after making your changes.
+
+## Reconfigure `cmake` and compile the circuit
+
+Reconfigure `cmake` with two additional options.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
+
+    ```bash
+    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE -DBUILD_TESTS=True -DGENERATE_EVM_VERIFIER=TRUE .
+    ```
+
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+
+    ```bash
+    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE -DBUILD_TESTS=True -DGENERATE_EVM_VERIFIER=TRUE .
+    ```
+
+  </TabItem>
+</Tabs>
+
+This will create a new build target for the chosen build system.
+
+To compile the circuit, run the following command.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
+
+    ```bash
+    make -C build {name_of_build_target}_evm_verifier
+    ```
+
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+
+    ```bash
+    ninja -C build {name_of_build_target}_evm_verifier
+    ```
+
+  </TabItem>
+</Tabs>
+
+After a couple of seconds, the `./build/examples/cpp` (C++) or the `.build/examples/rust` (Rust) directory should contain the following.
+
+- The Solidity contract for deploying the circuit
+- The circuit proof
+- The circuit inputs
+- The circuit parameters
+
+Congratulations! At this stage, we recommend taking a look at other examples in the zkLLVM repository and compiling them. Note that they have already been included in `CMakeLists.txt` and have ready-made build targets.

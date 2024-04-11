@@ -83,9 +83,11 @@ apt update
 apt install -y zkllvm
 ```
 
-## Installing zkLLVM from sources
+This step will add `zkllvm` to the list of installed packages but it will not build all of the required components including `assigner`. This can only be achieved by performing a full installation from sources.
 
-zkLLVm can also be built directly from its source repository by following the below steps.
+## Building zkLLVM from sources
+
+To build zkLLVM from its source repository, follow the below steps.
 
 ### Clone the repository
 
@@ -95,6 +97,22 @@ Clone the repository and all of its sub-modules.
 git clone --recurse-submodules git@github.com:NilFoundation/zkllvm.git
 cd zkllvm
 ```
+
+:::tip
+
+As the zkLLVM repository contains many large sub-modules, it is recommended to add the following lines to the global Git configuration file before attempting to clone it.
+
+```bash
+[core]
+  packedGitLimit = 512m
+  packedGitWindowSize = 512m
+[pack]
+  deltaCacheSize = 2047m
+  packSizeLimit = 2047m
+  windowMemory = 2047m
+```
+
+:::
 
 ### Configure `cmake`
 
@@ -153,8 +171,116 @@ The next step is to build the C++ compiler and the `assigner` tool.
 
 ### Build the Rust compiler
 
-To work with the Rust frontend, perform the following actions.
+There are two possible ways to install and build the Rust compiler.
 
-#### Reconfigure `cmake`
+- Use a pre-binary installation
+- Build the compiler from source
 
-This step is needed to add Rust tools to `cmake`.
+#### Using a pre-built binary
+
+If `rustup` is already installed, it is possible to install the Rust compiler from a pre-built binary which is easier and faster compared to building it from source.
+
+Install `rslang` by executing the following command.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py | python - --channel nightly
+```
+
+Alternatively, download `rslang-installer.py` and run it.
+
+```bash
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+python rslang-installer.py --channel nightly
+```
+
+:::info[Standalone installation]
+
+To install `rslang` without `rustup`, run the below command.
+
+```bash
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+python rslang-installer.py --no-rustup --prefix PATH
+```
+
+:::
+
+Regardless of the chosen installation method, the Rust compiler should now be accessible as follows.
+
+```bash
+rustc +zkllvm -V
+```
+
+#### Build the compiler from source
+
+The first step to building the Rust compiler is adding Rust tools to `cmake`.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
+    ```bash
+    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DRSLANG_BUILD_EXTENDED=TRUE -DRSLANG_BUILD_TOOLS=cargo .
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DRSLANG_BUILD_EXTENDED=TRUE -DRSLANG_BUILD_TOOLS=cargo .
+    ```
+  </TabItem>
+</Tabs>
+
+Afterward, export the path containing LLVM libraries.
+
+```bash
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pwd)/build/libs/circifier/llvm/lib"
+```
+
+Use the below command to build `rustc` and `cargo`.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
+    ```bash
+    make -C ${ZKLLVM_BUILD:-build} rslang -j$(nproc)
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    ninja -C ${ZKLLVM_BUILD:-build} rslang -j$(nproc)
+    ```
+  </TabItem>
+</Tabs>
+
+After the build completes, export the `RSLANG` environment variable.
+
+```bash
+export RSLANG="$(pwd)/build/libs/rslang/build/host"
+```
+
+Verify the versions of `rustc` and `cargo` by running the following commands.
+
+```bash
+RUSTC=$RSLANG/stage1/bin/rustc $RSLANG/stage1-tools-bin/cargo --version
+```
+
+:::tip[Finding `rustc` and `cargo`]
+
+If the terminal cannot find `rustc` and `cargo`, run `find ~/zkllvm -name rustc` and `find ~/zkllvm -name cargo`.
+
+:::
+
+:::info[Advanced compiling with Rust]
+
+To use the default build system supplied by Rust, build `zkllvm` first.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
+    ```bash
+    make -C ${ZKLLVM_BUILD:-build} -j$(nproc)
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    ninja -C ${ZKLLVM_BUILD:-build} -j$(nproc)
+    ```
+  </TabItem>
+</Tabs>
+
+:::
