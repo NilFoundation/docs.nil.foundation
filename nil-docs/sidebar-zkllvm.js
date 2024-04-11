@@ -40,6 +40,16 @@ export default {
                     label: 'Writing a simple circuit',
                     id: 'getting-started/writing-a-simple-circuit'
                 },
+                {
+                    type: 'doc',
+                    label: 'Preparing input files',
+                    id: 'getting-started/preparing-input-files'
+                },
+                {
+                    type: 'doc',
+                    label: 'Compiling and verifying a circuit',
+                    id: 'getting-started/compiling-a-circuit'
+                }
             ]
         },
         {
