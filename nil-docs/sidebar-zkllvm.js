@@ -47,8 +47,26 @@ export default {
                 },
                 {
                     type: 'doc',
-                    label: 'Compiling and verifying a circuit',
+                    label: 'Compiling a circuit',
                     id: 'getting-started/compiling-a-circuit'
+                },
+                {
+                    type: 'doc',
+                    label: 'Verifying and proving a circuit',
+                    id: 'getting-started/verifying-a-circuit'
+                },
+                {
+                    type: 'category',
+                    label: 'Using built-in types and functions',
+                    collapsible: true,
+                    collapsed: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Curves',
+                            id: 'getting-started/getting-started-curves'
+                        }
+                    ]
                 }
             ]
         },

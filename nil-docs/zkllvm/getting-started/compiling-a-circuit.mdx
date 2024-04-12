@@ -1,7 +1,7 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# Compiling and verifying a circuit
+# Compiling a circuit
 
 This tutorial contains step-by-step instructions on how to compile the [**elliptic curve circuit created previously**](./compiling-a-circuit.mdx).
 
@@ -32,22 +32,30 @@ Add the following line to the end of the file.
   <TabItem value='cpp' label='C++'>
 
     ```
-    add_example_with_proving({name_of_build_target} SOURCES{name_of_file_with_code.cpp} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
-    bls12381)
+    add_example_with_proving({name_of_build_target} SOURCES {name_of_file_with_code.cpp} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
+    pallas)
     ```
 
   </TabItem>
   <TabItem value='rust' label='Rust'>
 
     ```
-    add_example_with_proving({name_of_build_target} SOURCES{name_of_file_with_code.rs} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
-    bls12381)
+    add_rust_example_with_proving({name_of_build_target} EXAMPLE_NAME {name_of_file_with_code} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
+    pallas)
     ```
 
   </TabItem>
 </Tabs>
 
 , where `{name_of_build target}` is any string that describes the circuit, `{name_of_file_with_code}` is the name of the `.cpp`or `.rs` file with the circuit, and `{name_of_public_inputs_file}` is the name of the file with the public inputs.
+
+:::info
+
+Note that `.cpp` must follow the name of the circuit after the `SOURCES` directive when adding a new C++ build target.
+
+In contrast, the name of the circuit must be specified without `.rs` after the `EXAMPLE_NAME` directive when adding a new Rust build target.
+
+:::
 
 Save the file after making your changes.
 
@@ -93,7 +101,7 @@ To compile the circuit, run the following command.
   </TabItem>
 </Tabs>
 
-After a couple of seconds, the `./build/examples/cpp` (C++) or the `.build/examples/rust` (Rust) directory should contain the following.
+After a couple of seconds, the `./build/examples/cpp` (C++) or the `.build/examples/rust` (Rust) directory should contain a new directory titled `transpiler_output_{name_of_build_target}` which should have the following files.
 
 - The Solidity contract for deploying the circuit
 - The circuit proof
