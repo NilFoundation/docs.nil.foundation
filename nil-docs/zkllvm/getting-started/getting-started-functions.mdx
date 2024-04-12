@@ -1,0 +1,73 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Using built-in functions
+
+In addition to [**built-in curves**](./getting-started-curves), zkLLVM also has several built-in hash functions. 
+
+## SHA-256 hash function
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+
+    #include <nil/crypto3/algebra/curves/pallas.hpp>
+
+    __zkllvm_field_pallas_base pow(__zkllvm_field_pallas_base a, int n) {
+        if (n == 0)
+            return 1;
+
+        __zkllvm_field_pallas_base res = 1;
+        for (int i = 0; i < n; ++i) {
+            res *= a;
+        }
+        return res;
+    }
+
+    [[circuit]] __zkllvm_field_pallas_base
+        field_arithmetic_example(__zkllvm_field_pallas_base a,
+                                __zkllvm_field_pallas_base b) {
+
+        __zkllvm_field_pallas_base c = (a + b) * a + b * (a + b) * (a + b);
+        const __zkllvm_field_pallas_base constant = 0x12345678901234567890_cppui255;
+        return c * c * c / (b - a) + pow(a, 2) + constant;
+    }
+
+    ```
+
+  </TabItem>
+
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    #![no_main]
+
+    fn pow(a: __zkllvm_field_pallas_base, n: i32) -> __zkllvm_field_pallas_base {
+        if n == 0 {
+            let res: __zkllvm_field_pallas_base = 1g;
+            return res;
+        }
+
+        let mut res: __zkllvm_field_pallas_base = 1g;
+        for i in 0..n {
+            res *= a;
+        }
+        res
+    }
+
+    #[circuit]
+    pub fn field_arithmetic_example(
+        a: __zkllvm_field_pallas_base,
+        b: __zkllvm_field_pallas_base,
+    ) -> __zkllvm_field_pallas_base {
+        let c = (a + b) * a + b * (a + b) * (a + b);
+        const CONSTANT: __zkllvm_field_pallas_base = 0x12345678901234567890g;
+
+        let result = c * c * c / (b - a) + pow(a, 2) + CONSTANT;
+        result
+    }
+    ```
+
+  </TabItem>
+</Tabs>
