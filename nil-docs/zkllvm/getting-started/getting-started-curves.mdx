@@ -1,7 +1,18 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-# Using built-in curves
+# Using built-in types
+
+The C++ and Rust dialects provided by `clang` and `rustc` respectively contain several built-in types and functions simplifying working with essential concepts in cryptography such as curves and hashes. This tutorial covers how this built-ins can be used in circuit code.
+
+:::info[Using built-ins]
+
+Using built-ins offers a more convenient syntax compared to importing types and functions from [**`crypto3`**](https://github.com/NilFoundation/crypto3) or other libraries.
+
+:::
+
+
+## Using built-in curves
 
 The C++ and Rust dialects provided by `clang` and `rustc` respectively contain several built-in types simplifying working with elliptic curves. Here is a full list of these types.
 
@@ -22,7 +33,7 @@ Each built-in curve has one `base` and one `scalar` type representing the differ
 
 This tutorial shows how these types can be used when writing a circuit.
 
-## Pallas curve example
+### Pallas curve example
 
 The below example uses Pallas curve base types to conduct some calculations with a separate implementation of the power function.
 
