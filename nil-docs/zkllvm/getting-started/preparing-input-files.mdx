@@ -127,7 +127,7 @@ Consider the following example.
     };
 
     [[circuit]] void circuit_func([[private_input]] PrivateInput s,
-    const char *str, **std::vector<int, 4> input_numbers);
+    const char *str, **std::vector<int, 4> numbers);
     ```
 
   </TabItem>
@@ -140,7 +140,7 @@ Consider the following example.
     }
 
     #[circuit]
-    fn circuit_func(s: PrivateInput, arg_one: &str, input_numbers: &mut Vec<i32>) {}
+    fn circuit_func(s: PrivateInput, arg_one: &str, numbers: &mut Vec<i32>) {}
     ```
 
   </TabItem>
