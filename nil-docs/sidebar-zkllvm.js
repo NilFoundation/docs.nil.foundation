@@ -56,17 +56,9 @@ export default {
                     id: 'getting-started/verifying-a-circuit'
                 },
                 {
-                    type: 'category',
+                    type: 'doc',
                     label: 'Using built-in types and functions',
-                    collapsible: true,
-                    collapsed: true,
-                    items: [
-                        {
-                            type: 'doc',
-                            label: 'Curves',
-                            id: 'getting-started/getting-started-curves'
-                        }
-                    ]
+                    id: 'getting-started/built-ins'
                 }
             ]
         },
