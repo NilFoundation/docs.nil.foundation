@@ -19,12 +19,6 @@ Every dependency apart from Rust can be installed by executing the following com
 sudo apt install build-essential libssl-dev cmake clang-12 git curl pkg-config zlib
 ```
 
-:::info
-
-Note that the command installs not only the required dependencies but several other essential packages such as `build-essential`, `zlib`, `git`, and `curl`.
-
-:::
-
 To install Rust, execute the following command.
 
 ```bash
@@ -116,36 +110,15 @@ As the zkLLVM repository contains many large sub-modules, it is recommended to a
 
 ### Configure `cmake`
 
-This step is needed to define the format in which zkLLVM will provide IR representations of circuits among these options:
+This step is needed to define initial build targets and specify that zkLLVM should produce IRs of circuits in the `.ll` format compatible with Proof Market.
 
-- Binary format (`.bc`)
-- Text format (`.ll`)
-
-:::info
-
-Presently, only the `.ll` format is compatible with [**Proof Market**](../../proof-market/intro).
-
-:::
-
-Run the following command to configure `cmake`.
-
-<Tabs>
-  <TabItem value='bcUnix' label='.bc (Unix)'>
-    ```bash
-    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
-    ```
-  </TabItem>
-  <TabItem value='llUnix' label='.ll (Unix)'>
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix'>
     ```bash
     cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
     ```
   </TabItem>
-  <TabItem value='bcNinja' label='.bc (Ninja)'>
-    ```bash
-    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
-    ```
-  </TabItem>
-  <TabItem value='llNinja' label='.ll (Ninja)'>
+  <TabItem value='ninja' label='Ninja'>
     ```bash
     cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
     ```
