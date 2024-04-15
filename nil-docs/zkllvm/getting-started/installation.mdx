@@ -3,9 +3,73 @@ import TabItem from '@theme/TabItem'
 
 # Installation and configuration
 
-## Installing dependencies
+## Using pre-built binaries
 
-Before installing zkLLVM, install the following dependencies.
+The easiest way to access zkLLVM is to install pre-built binaries of its key components. 
+
+:::info
+
+All pre-built binaries discussed below are only supported on x86-x64 systems.
+
+:::
+
+### zkLLVM binaries
+
+zkLLVM is distributed as a Deb package which can be installed using the following commands.
+
+```bash
+echo 'deb [trusted=yes]  http://deb.nil.foundation/ubuntu/ all main' >>/etc/apt/sources.list
+apt update
+apt install -y zkllvm
+```
+
+This will install binaries for nearly all major components of zkLLVM such as `assigner` and the `clang` frontend. Note that the Rust frontend needs to be installed separately.
+
+### Rust binaries
+
+First, install `rustup`.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Then, install `rslang` by executing the following command.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py | python - --channel nightly
+```
+
+Alternatively, download `rslang-installer.py` and run it.
+
+```bash
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+python rslang-installer.py --channel nightly
+```
+
+:::info[Standalone installation]
+
+To install `rslang` without `rustup`, run the below command.
+
+```bash
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+python rslang-installer.py --no-rustup --prefix PATH
+```
+
+:::
+
+Verify that the installation has been successful.
+
+```bash
+rustc +zkllvm -V
+```
+
+## Installing from sources
+
+To build zkLLVM from its source repository, follow the below steps.
+
+### Installing dependencies
+
+Install the following dependencies.
 
 - [**Boost**](https://www.boost.org/) >= 1.76.0
 - [**CMake**](https://cmake.org/) >= 3.5
@@ -67,28 +131,12 @@ sudo ./b2 install
 
 :::
 
-## Installing zkLLVM as a packagage
-
-zkLLVM is distributed as a Deb package which can be installed using the following commands.
-
-```bash
-echo 'deb [trusted=yes]  http://deb.nil.foundation/ubuntu/ all main' >>/etc/apt/sources.list
-apt update
-apt install -y zkllvm
-```
-
-This step will add `zkllvm` to the list of installed packages but it will not build all of the required components including `assigner`. This can only be achieved by performing a full installation from sources.
-
-## Building zkLLVM from sources
-
-To build zkLLVM from its source repository, follow the below steps.
-
 ### Clone the repository
 
 Clone the repository and all of its sub-modules.
 
 ```bash
-git clone --recurse-submodules git@github.com:NilFoundation/zkllvm.git
+git clone --recurse-submodules https://github.com/NilFoundation/zkLLVM.git 
 cd zkllvm
 ```
 
@@ -143,47 +191,6 @@ The next step is to build the C++ compiler and the `assigner` tool.
 </Tabs>
 
 ### Build the Rust compiler
-
-There are two possible ways to install and build the Rust compiler.
-
-- Use a pre-binary installation
-- Build the compiler from source
-
-#### Using a pre-built binary
-
-If `rustup` is already installed, it is possible to install the Rust compiler from a pre-built binary which is easier and faster compared to building it from source.
-
-Install `rslang` by executing the following command.
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py | python - --channel nightly
-```
-
-Alternatively, download `rslang-installer.py` and run it.
-
-```bash
-curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
-python rslang-installer.py --channel nightly
-```
-
-:::info[Standalone installation]
-
-To install `rslang` without `rustup`, run the below command.
-
-```bash
-curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
-python rslang-installer.py --no-rustup --prefix PATH
-```
-
-:::
-
-Regardless of the chosen installation method, the Rust compiler should now be accessible as follows.
-
-```bash
-rustc +zkllvm -V
-```
-
-#### Build the compiler from source
 
 The first step to building the Rust compiler is adding Rust tools to `cmake`.
 
@@ -241,7 +248,7 @@ If the terminal cannot find `rustc` and `cargo`, run `find ~/zkllvm -name rustc`
 
 :::info[Advanced compiling with Rust]
 
-To use the default build system supplied by Rust, build `zkllvm` first.
+To use the original bootstrap system (`x.py`) supplied by Rust, build `zkllvm` first.
 
 <Tabs groupId='buildSystem'>
   <TabItem value='unix' label='Unix'>
