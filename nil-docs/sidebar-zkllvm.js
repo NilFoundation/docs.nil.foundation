@@ -64,6 +64,27 @@ export default {
         },
         {
             type: 'category',
+            label: 'Best practices and limitations',
+            collapsible: true,
+            collapsed: false,
+            items: [
+                {
+                    type: 'category',
+                    label: 'Writing performant circuits',
+                    collapsible: true,
+                    collapsed: false,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Avoiding `if`/`else` statements',
+                            id: 'best-practices-limitations/avoiding-if-else-statements'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            type: 'category',
             label: 'Circuit development',
             collapsible: true,
             collapsed: true,
