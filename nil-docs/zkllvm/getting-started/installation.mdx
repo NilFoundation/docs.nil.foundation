@@ -13,7 +13,7 @@ All pre-built binaries discussed below are only supported on x86-x64 systems.
 
 :::
 
-### zkLLVM binaries
+### Install zkLLVM binaries
 
 zkLLVM is distributed as a Deb package which can be installed using the following commands.
 
@@ -25,7 +25,7 @@ apt install -y zkllvm
 
 This will install binaries for nearly all major components of zkLLVM such as `assigner` and the `clang` frontend. Note that the Rust frontend needs to be installed separately.
 
-### Rust binaries
+### Install Rust binaries
 
 First, install `rustup`.
 
@@ -67,7 +67,7 @@ rustc +zkllvm -V
 
 To build zkLLVM from its source repository, follow the below steps.
 
-### Installing dependencies
+### Install dependencies
 
 Install the following dependencies.
 
@@ -136,7 +136,7 @@ sudo ./b2 install
 Clone the repository and all of its sub-modules.
 
 ```bash
-git clone --recurse-submodules https://github.com/NilFoundation/zkLLVM.git 
+git clone --recurse-submodules https://github.com/NilFoundation/zkLLVM.git
 cd zkllvm
 ```
 
@@ -248,7 +248,7 @@ If the terminal cannot find `rustc` and `cargo`, run `find ~/zkllvm -name rustc`
 
 :::info[Advanced compiling with Rust]
 
-To use the original bootstrap system (`x.py`) supplied by Rust, build `zkllvm` first.
+To use the original bootstrap system supplied by Rust (`x.py`), build `zkllvm` first.
 
 <Tabs groupId='buildSystem'>
   <TabItem value='unix' label='Unix'>
