@@ -66,7 +66,7 @@ export default {
             type: 'category',
             label: 'Best practices and limitations',
             collapsible: true,
-            collapsed: false,
+            collapsed: true,
             items: [
                 {
                     type: 'category',
