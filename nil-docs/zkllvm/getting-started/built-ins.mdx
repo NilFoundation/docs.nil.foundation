@@ -33,7 +33,7 @@ Each built-in curve has one `base` and one `scalar` type representing the differ
 
 :::
 
-The below example uses Pallas curve base types to conduct some calculations with a separate implementation of the power function.
+The below example uses Pallas curve base types in arbitrary calculations.
 
 <Tabs groupId='language'>
   <TabItem value='cpp' label='C++'>
@@ -42,12 +42,10 @@ The below example uses Pallas curve base types to conduct some calculations with
 
     #include <nil/crypto3/algebra/curves/pallas.hpp>
 
-    __zkllvm_field_pallas_base pow(__zkllvm_field_pallas_base a, int n) {
-        if (n == 0)
-            return 1;
+    __zkllvm_field_pallas_base pow_quad(__zkllvm_field_pallas_base a) {
 
         __zkllvm_field_pallas_base res = 1;
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < 4; ++i) {
             res *= a;
         }
         return res;
@@ -59,7 +57,7 @@ The below example uses Pallas curve base types to conduct some calculations with
 
         __zkllvm_field_pallas_base c = (a + b) * a + b * (a + b) * (a + b);
         const __zkllvm_field_pallas_base constant = 0x12345678901234567890_cppui255;
-        return c * c * c / (b - a) + pow(a, 2) + constant;
+        return c * c * c / (b - a) + pow_quad(a) + constant;
     }
 
     ```
@@ -71,14 +69,11 @@ The below example uses Pallas curve base types to conduct some calculations with
     ```rust
     #![no_main]
 
-    fn pow(a: __zkllvm_field_pallas_base, n: i32) -> __zkllvm_field_pallas_base {
-        if n == 0 {
-            let res: __zkllvm_field_pallas_base = 1g;
-            return res;
-        }
+    #[unroll_for_loops]
+    fn pow_quad(a: __zkllvm_field_pallas_base) -> __zkllvm_field_pallas_base {
 
         let mut res: __zkllvm_field_pallas_base = 1g;
-        for i in 0..n {
+        for i in 0..4 {
             res *= a;
         }
         res
@@ -92,7 +87,7 @@ The below example uses Pallas curve base types to conduct some calculations with
         let c = (a + b) * a + b * (a + b) * (a + b);
         const CONSTANT: __zkllvm_field_pallas_base = 0x12345678901234567890g;
 
-        let result = c * c * c / (b - a) + pow(a, 2) + CONSTANT;
+        let result = c * c * c / (b - a) + pow_quad(a) + CONSTANT;
         result
     }
     ```
@@ -110,12 +105,9 @@ The same example would look as follows if built-in types were not used.
     #include <nil/crypto3/algebra/curves/pallas.hpp>
 
     using namespace nil::crypto3::algebra::curves;
-    typename pallas::base_field_type::value_type pow(typename pallas::base_field_type::value_type a, int n) {
-        if (n == 0)
-            return 1;
-
+    typename pallas::base_field_type::value_type pow_quad(typename pallas::base_field_type::value_type a) {
         typename pallas::base_field_type::value_type res = 1;
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < 4; ++i) {
             res *= a;
         }
         return res;
@@ -127,7 +119,7 @@ The same example would look as follows if built-in types were not used.
 
         typename pallas::base_field_type::value_type c = (a + b) * a + b * (a + b) * (a + b);
         const typename pallas::base_field_type::value_type constant = 0x12345678901234567890_cppui255;
-        return c * c * c / (b - a) + pow(a, 2) + constant;
+        return c * c * c / (b - a) + pow_quad(a) + constant;
     }
     ```
 
@@ -143,14 +135,10 @@ The same example would look as follows if built-in types were not used.
     use ark_ff::{Field, MontFp};
     use ark_pallas::Fq;
 
-    pub fn pow(a: Fq, n: i32) -> Fq {
-        if n == 0 {
-            let res: Fq = Fq::ONE;
-            return res;
-        }
-
+    #[unroll_for_loops]
+    pub fn pow_quad(a: Fq) -> Fq {
         let mut res: Fq = Fq::ONE;
-        for i in 0..n {
+        for i in 0..4 {
             res *= a;
         }
         res
@@ -160,12 +148,22 @@ The same example would look as follows if built-in types were not used.
     pub fn field_arithmetic_example(a: Fq, b: Fq) -> Fq {
         let c = (a + b) * a + b * (a + b) * (a + b);
         const CONSTANT: Fq = MontFp!("0x12345678901234567890");
-        c * c * c / (b - a) + pow(a, 5) + CONSTANT
+        c * c * c / (b - a) + pow_quad(a) + CONSTANT
     }
     ```
 
   </TabItem>
 </Tabs>
+
+:::tip[`for` loops in Rust]
+
+To optimise execution speed, C++ automatically unrolls `for` loops when creating circuit IRs. 
+
+However, this is not the case for Rust. Instead, Rust circuits must use the `zkllvm-unwrap` crate to unroll loops.
+
+To unwrap loops, add the `#[unroll_for_loops]` directive before a function that contains them.
+
+:::
 
 ## Using built-in assigner checks
 

@@ -23,10 +23,14 @@ An input file has the `.inp` extension and expects data in the JSON format where
 ```json
 [
   {
-    "int": 5
+    "field<pallas_base>": 43
   },
   {
-    "field": 43
+    {
+      "array<field>": [
+      1230, 1231, 1232, 1233
+      ]
+    }
   },
   {
     "curve": [1, 1]
@@ -64,7 +68,7 @@ Note that input files only support the following keys (types).
 
 - `"string"` (C-like strings)
 - `"int"` (integers)
-- `"field"` (rfield elements)
+- `"field"` (field elements)
 - `"curve"` (curve elements)
 - `"array"` (`std::array`)
 - `"vector"` (an `ext_vector_type` containing integer, field, or curve elements)
