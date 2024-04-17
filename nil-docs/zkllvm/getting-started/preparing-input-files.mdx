@@ -53,10 +53,8 @@ To create an input file for the circuit defined in the previous tutorial, do the
 2. Copy and paste this JSON array into the file.
 
 ```json
-[{ "field": 5 }, { "field": 11 }]
+[{ "int": 5 }, { "int": 11 }]
 ```
-
-The two objects inside the array represent the two variables of the `bls12-381` base field class from the circuit.
 
 The tutorial circuit only has public input and, therefore, no additional `.inp` files are needed.
 
@@ -85,7 +83,7 @@ The table below summarizes what values are accepted by each key.
 
 ## Extending keys in input files
 
-Except `"int"` and `"string"`, keys, can be extended by specifying additional type details in angle brackets (`"<>"`) as shown in the below examples.
+Except `"int"` and `"string"`, keys can be extended by specifying additional type details in angle brackets (`"<>"`) as shown in the below examples.
 
 - `"field<pallas_scalar>"`
 - `"vector<int>"`
@@ -98,7 +96,7 @@ Aggregate types (`"struct"`, `"array"`, and `"vector"`) are extended with the ty
 
 :::info[Fields and curves]
 
-The `"field"` and `"struct"` keys can be extended by specifying the kind of their elements.
+The `"field"` and `"curve"` keys can be extended by specifying the kind of their elements.
 
 :::
 
@@ -125,26 +123,26 @@ Consider the following example.
   <TabItem value='cpp' label='C++'>
 
     ```cpp
-    struct PrivateInput {
-      std::array<int, 3> arr;
-      **int input_number;
+    struct PublicInput {
+      arg_one: int;
+      arg_two: int;
     };
 
-    [[circuit]] void circuit_func([[private_input]] PrivateInput s,
-    const char *str, **std::vector<int, 4> numbers);
+    [[circuit]] void circuit_func(PublicInput s,
+    int[4] numbers);
     ```
 
   </TabItem>
   <TabItem value='rust' label='Rust'>
 
     ```rust
-    struct PrivateInput {
-      arr: [i32, 4],
-      input_numbers: *mut *mut Vec<i32>
-    }
+    struct PublicInput {  
+        arg_one: i32,  
+        arg_two: u32,  
+    }  
 
     #[circuit]
-    fn circuit_func(s: PrivateInput, arg_one: &str, numbers: &mut Vec<i32>) {}
+    fn circuit_func(s: PublicInput, numbers: [i32; 4]) {}
     ```
 
   </TabItem>
@@ -156,16 +154,18 @@ There would be two ways to create a public input file for this example.
   <TabItem value='fullSpec' label='With extensions'>
     ```json
     [
-      {"string": "input_string"}, 
-      {"vector<int>": [1, 2, 3, 4]}
+      {"struct<int, int>": [10, 50]}, 
+      {"array<int>": [1, 2, 3, 4]}
     ]
     ```
   </TabItem>
   <TabItem value='lowSpec' label='Without extensions'>
     ```json
-    [
-      {"string": "input_string"},
-      {"vector": [
+    [ {"struct": [
+        {"int": 10},
+        {"int": 50}
+      ]},
+      {"array": [
         {"int": 1},
         {"int": 2},
         {"int": 3},

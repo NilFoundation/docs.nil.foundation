@@ -161,7 +161,7 @@ As the zkLLVM repository contains many large sub-modules, it is recommended to a
 This step is needed to define initial build targets and specify that zkLLVM should produce IRs of circuits in the `.ll` format compatible with Proof Market.
 
 <Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+  <TabItem value='unix' label='Unix Makefiles'>
     ```bash
     cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
     ```
@@ -178,7 +178,7 @@ This step is needed to define initial build targets and specify that zkLLVM shou
 The next step is to build the C++ compiler and the `assigner` tool.
 
 <Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+  <TabItem value='unix' label='Unix Makefiles'>
     ```bash
     make -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
     ```
@@ -195,7 +195,7 @@ The next step is to build the C++ compiler and the `assigner` tool.
 The first step to building the Rust compiler is adding Rust tools to `cmake`.
 
 <Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+  <TabItem value='unix' label='Unix Makefiles'>
     ```bash
     cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DRSLANG_BUILD_EXTENDED=TRUE -DRSLANG_BUILD_TOOLS=cargo .
     ```
@@ -216,7 +216,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pwd)/build/libs/circifier/llvm/lib"
 Use the below command to build `rustc` and `cargo`.
 
 <Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+  <TabItem value='unix' label='Unix Makefiles'>
     ```bash
     make -C ${ZKLLVM_BUILD:-build} rslang -j$(nproc)
     ```
@@ -251,7 +251,7 @@ If the terminal cannot find `rustc` and `cargo`, run `find ~/zkllvm -name rustc`
 To use the original bootstrap system supplied by Rust (`x.py`), build `zkllvm` first.
 
 <Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+  <TabItem value='unix' label='Unix Makefiles'>
     ```bash
     make -C ${ZKLLVM_BUILD:-build} -j$(nproc)
     ```

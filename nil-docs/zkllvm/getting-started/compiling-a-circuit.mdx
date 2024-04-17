@@ -5,107 +5,96 @@ import TabItem from '@theme/TabItem'
 
 This tutorial contains step-by-step instructions on how to compile the [**arithmetic circuit created previously**](./writing-a-simple-circuit).
 
-## Placing files in folders
+There are two possible ways for transforming a circuit into a proof binary and Solidity code.
 
-Take the `.cpp` or `.rs` file with the circuit and place it inside either the `./examples/cpp` (C++) the `./examples/rust` (Rust) directory.
+- By calling individual tools
+- By using [**the zkllvm-template project**](https://github.com/NilFoundation/zkllvm-template)
 
-Afterward, take the `.inp` file with the public input and add it to the `./examples/inputs` directory.
+## Calling individual tools
 
-## Adding a new build target
+The following diagram shows how individual tools interact when
 
-To complle a circuit, we would need to run a build system which means that changes to `cmake` are needed.
+- The C++ or the Rust compiler
+- `assigner`
+- `transpiler` (a tool for converting the circuit IR into a proof binary and Solidity code for deployment)
 
-Open the following file.
+### Running the compiler
 
-<Tabs groupId='language'>
-  <TabItem value='cpp' label='C++'>
-    `./examples/cpp/CMakeLists.txt`
-  </TabItem>
-  <TabItem value='rust' label='Rust'>
-    `./examples/rust/CMakeLists.txt`
-  </TabItem>
-</Tabs>
-
-Add the following line to the end of the file.
+To generate the circuit IR, do the following.
 
 <Tabs groupId='language'>
   <TabItem value='cpp' label='C++'>
 
-    ```
-    add_example_with_proving({name_of_build_target} SOURCES {name_of_file_with_code.cpp} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
-    pallas)
+    For a pre-built binary installation of `clang`:
+
+    ```bash
+    clang-zkllvm -S -emit-llvm  path/to/circuit.cpp
     ```
 
+    For a `clang` installation from sources:
+
+    ```bash
+    $CLANG_ZKLLVM -S -emit-llvm  path/to/circuit.cpp
+    ```
+
+    , where `$CLANG_ZKLLVM` is the `clang` binary built during the installation.
+
   </TabItem>
+
   <TabItem value='rust' label='Rust'>
 
+    For a pre-built binary installation of `rustc` and `cargo`:
+
+    ```bash
+    rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir -o ./circuit.ll circuit.rs
     ```
-    add_rust_example_with_proving({name_of_build_target} EXAMPLE_NAME {name_of_file_with_code} INPUT {name_of_public_inputs_file.inp} CURVE_TYPE
-    pallas)
+
+    ```bash
+    cargo +zkllvm build --target assigner-unknown-unknown
     ```
 
   </TabItem>
 </Tabs>
 
-, where `{name_of_build target}` is any string that describes the circuit, `{name_of_file_with_code}` is the name of the `.cpp`or `.rs` file with the circuit, and `{name_of_public_inputs_file}` is the name of the file with the public inputs.
+### Passing the IR to `assigner`
 
-:::info
+At this stage, the newly generated IR and the public info file are ready to be passed to `assigner`.
 
-Note that `.cpp` must follow the name of the circuit after the `SOURCES` directive when adding a new C++ build target.
+Run the following command to generate the circuit constraints and the assignment table.
 
-In contrast, the name of the circuit must be specified without `.rs` after the `EXAMPLE_NAME` directive when adding a new Rust build target.
+```bash
+assigner -b circuit.ll -i ../inputs/public_input.inp -c circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment
+```
 
-:::
+### Using `transpiler` to generate the circuit proof
 
-Save the file after making your changes.
+The `.crct` and `.tbl` files can be passed to the `transpiler` tool to generate a binary with the proof and Solidity files containing the circuit.
 
-## Reconfigure `cmake` and compile the circuit
+Run the below command to generate `proof.bin`.
 
-Reconfigure `cmake` with two additional options.
+```bash
+transpiler -m gen-test-proof -c circuit.crct -t assignment.tbl -o output -e pallas
+```
 
-<Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+Execute the following command to produce Solidity files.
 
-    ```bash
-    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE -DBUILD_TESTS=True -DGENERATE_EVM_VERIFIER=TRUE .
-    ```
+```bash
+transpiler -m gen-evm-verifier -c circuit.crct -t assignment.tbl -o output -e pallas --optimize-gates
+```
 
-  </TabItem>
-  <TabItem value='ninja' label='Ninja'>
+Congratulations! At this stage, we recommend taking a look at other examples in the zkLLVM repository and compiling them.
 
-    ```bash
-    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE -DBUILD_TESTS=True -DGENERATE_EVM_VERIFIER=TRUE .
-    ```
+## Using `zkllvm-template`
 
-  </TabItem>
-</Tabs>
+[**`zkllvm-template` is a project**](https://github.com/NilFoundation/zkllvm-template) designed to simplify working with complex circuits and zk-enabled apps.
 
-This will create a new build target for the chosen build system.
+To work with `zkllvm-template`, clone its repository with all sub-modules.
 
-To compile the circuit, run the following command.
+```bash
+git clone --recurse-submodules https://github.com/NilFoundation/zkllvm-template.git
+cd zkllvm-template
+```
 
-<Tabs groupId='buildSystem'>
-  <TabItem value='unix' label='Unix'>
+Additionally, [**install all required tools**](./installation).
 
-    ```bash
-    make -C build {name_of_build_target}_evm_verifier
-    ```
-
-  </TabItem>
-  <TabItem value='ninja' label='Ninja'>
-
-    ```bash
-    ninja -C build {name_of_build_target}_evm_verifier
-    ```
-
-  </TabItem>
-</Tabs>
-
-After a couple of seconds, the `./build/examples/cpp` (C++) or the `.build/examples/rust` (Rust) directory should contain a new directory titled `transpiler_output_{name_of_build_target}` which should have the following files.
-
-- The Solidity contract for deploying the circuit
-- The circuit proof
-- The circuit inputs
-- The circuit parameters
-
-Congratulations! At this stage, we recommend taking a look at other examples in the zkLLVM repository and compiling them. Note that they have already been included in `CMakeLists.txt` and have ready-made build targets.
+Within `zkllvm-template`, the `./main` folder 

@@ -18,6 +18,10 @@ However, using imports ensures that code is reusable between zkLLVM and native C
 
 The C++ and Rust dialects provided by `clang` and `rustc` respectively contain several built-in types simplifying working with elliptic curves. Here is a full list of these types.
 
+- `__zkllvm_curve_pallas`
+- `__zkllvm_curve_vesta`
+- `__zkllvm_curve_bls12381`
+- `__zkllvm_curve_curve25519`
 - `__zkllvm_field_pallas_base`
 - `__zkllvm_field_pallas_scalar`
 - `__zkllvm_field_vesta_base`
@@ -39,8 +43,6 @@ The below example uses Pallas curve base types in arbitrary calculations.
   <TabItem value='cpp' label='C++'>
 
     ```cpp
-
-    #include <nil/crypto3/algebra/curves/pallas.hpp>
 
     __zkllvm_field_pallas_base pow_quad(__zkllvm_field_pallas_base a) {
 
@@ -95,7 +97,7 @@ The below example uses Pallas curve base types in arbitrary calculations.
   </TabItem>
 </Tabs>
 
-The same example would look as follows if built-in types were not used.
+The same example would look as follows if it called the `crypto3` SDK .
 
 <Tabs groupId='language'>
   <TabItem value='cpp' label='C++'>
