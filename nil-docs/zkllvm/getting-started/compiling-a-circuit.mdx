@@ -12,11 +12,77 @@ There are two possible ways for transforming a circuit into a proof binary and S
 
 ## Calling individual tools
 
-The following diagram shows how individual tools interact when
+The following diagram shows the flow for converting a `.cpp` or a `.rs` file into a proof binary and Solidity code for deployment.
 
-- The C++ or the Rust compiler
-- `assigner`
-- `transpiler` (a tool for converting the circuit IR into a proof binary and Solidity code for deployment)
+```mermaid
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#0f0f0f',
+      'primaryTextColor': '#f1f1f1',
+      'primaryBorderColor': '#f1f1f1',
+      'lineColor': '#87B6FC',
+      'secondaryColor': '#f1f1f1',
+      'tertiaryColor': '#2f2f2f',
+    },
+    'flowchart':
+    {
+        'defaultRenderer': 'elk',
+        'curve': 'step'
+    }
+  }
+}%%
+flowchart TB
+    classDef transpilerTitle margin-right: 250px;
+    Transpiler:::transpilerTitle
+
+    CPP(C++ code)
+    RUST(Rust code)
+    CLANG(<code>clang</code>)
+    RUSTCOMP(<code>cargo</code> or <code>rustc</code>)
+    IR(Circuit IR)
+    INPUTS(Circuit inputs)
+    ASSIGNER(Assigner)
+    ASSIGNERRESULT(<code>.tbl</code> and <code>.crct</code> files)
+    TRANSPILER(<code>transpiler</code>)
+    PROOFBIN(Proof binary)
+    SOLIDITY(Solidity contracts)
+    CPP --> CLANG
+    RUST --> RUSTCOMP
+    CLANG --> IR
+    RUSTCOMP --> IR
+    IR --> ASSIGNER
+    INPUTS --> ASSIGNER
+    ASSIGNER --> ASSIGNERRESULT
+    ASSIGNERRESULT --> TRANSPILER
+    TRANSPILER --> PROOFBIN
+    TRANSPILER --> SOLIDITY
+    subgraph Code
+    CPP
+    RUST
+    end
+    subgraph Compilation
+    direction LR
+    CLANG
+    RUSTCOMP
+    IR
+    end
+    subgraph Assigner
+    direction LR
+    INPUTS
+    ASSIGNER
+    ASSIGNERRESULT
+    end
+    subgraph Transpiler
+    direction LR
+    TRANSPILER
+    PROOFBIN
+    SOLIDITY
+    end
+```
+
+Complete the below steps to follow this flow.
 
 ### Running the compiler
 
@@ -43,15 +109,33 @@ To generate the circuit IR, do the following.
 
   <TabItem value='rust' label='Rust'>
 
-    For a pre-built binary installation of `rustc` and `cargo`:
+    For a pre-built binary installation of `rustc`:
 
     ```bash
-    rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir -o ./circuit.ll circuit.rs
+    rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
     ```
+
+    Or for a pre-built binary installation of `cargo`:
 
     ```bash
     cargo +zkllvm build --target assigner-unknown-unknown
     ```
+
+    For an installation of `rustc` from sources:
+
+    ```bash
+    $RUSTC --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+    ```
+
+    Or for an installation of `cargo` and `rustc` from sources:
+
+    ```bash
+    RUSTC=$RUSTC $CARGO build --target assigner-unknown-unknown --release
+    ```
+
+    , where `$RUSTC` and `$CARGO` are binaries built during [**installation**](../getting-started/installation).
+
+    The `-C opt-level=3` option is needed to build the circuit into an IR that is most compatible with `assigner`. If it is ommitted, the IR will contain additional verbose code which may hinder `assigner` from generating constraints and the assignment table.
 
   </TabItem>
 </Tabs>
@@ -95,6 +179,15 @@ git clone --recurse-submodules https://github.com/NilFoundation/zkllvm-template.
 cd zkllvm-template
 ```
 
-Additionally, [**install all required tools**](./installation).
+Additionally, [**install all required tools**](./installation) from pre-built binaries.
 
-Within `zkllvm-template`, the `./main` folder 
+Within `zkllvm-template`, the `./main` folder contains the `main.cpp` file that acts as the entry point for the `clang` compiler.
+
+To run the compiler, execute the following command.
+
+```bash
+scripts/run.sh
+```
+
+This is equivalent to completing each individual step described in the previous section.
+
