@@ -1229,11 +1229,7 @@
     core-js-pure "^3.30.2"
     regenerator-runtime "^0.14.0"
 
-<<<<<<< HEAD
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.6", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
-=======
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.0", "@babel/runtime@^7.17.8", "@babel/runtime@^7.18.6", "@babel/runtime@^7.21.0", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
->>>>>>> 74a693b (add ui kit to the project)
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.8", "@babel/runtime@^7.18.6", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.6", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.24.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.4.tgz#de795accd698007a66ba44add6cc86542aff1edd"
   integrity sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==
@@ -1416,7 +1412,7 @@
     "@docsearch/css" "3.6.0"
     algoliasearch "^4.19.1"
 
-"@docusaurus/core@3.2.1", "@docusaurus/core@^3.2.0":
+"@docusaurus/core@3.2.1", "@docusaurus/core@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/core/-/core-3.2.1.tgz#e9216f9f642b2139541e21f9eebbdb11e12f66da"
   integrity sha512-ZeMAqNvy0eBv2dThEeMuNzzuu+4thqMQakhxsgT5s02A8LqRcdkg+rbcnuNqUIpekQ4GRx3+M5nj0ODJhBXo9w==
@@ -1562,21 +1558,6 @@
     react-helmet-async "*"
     react-loadable "npm:@docusaurus/react-loadable@5.5.2"
 
-"@docusaurus/plugin-client-redirects@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-client-redirects/-/plugin-client-redirects-3.2.1.tgz#15800aa34980158d37ba53d83bd2a7fe6eb3215f"
-  integrity sha512-GgzuqwbqNQSP5s/ouUrOQFuHI8m4Rn8a5CHuWkwpqj+5lbQMsABcvsoiWjrH9M00CzN48q+slSbJy7rtHjn7zg==
-  dependencies:
-    "@docusaurus/core" "3.2.1"
-    "@docusaurus/logger" "3.2.1"
-    "@docusaurus/utils" "3.2.1"
-    "@docusaurus/utils-common" "3.2.1"
-    "@docusaurus/utils-validation" "3.2.1"
-    eta "^2.2.0"
-    fs-extra "^11.1.1"
-    lodash "^4.17.21"
-    tslib "^2.6.0"
-
 "@docusaurus/plugin-content-blog@3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-content-blog/-/plugin-content-blog-3.2.1.tgz#1b28c45102abc4be1a57caba76672c5ccdacce63"
@@ -1694,7 +1675,7 @@
     sitemap "^7.1.1"
     tslib "^2.6.0"
 
-"@docusaurus/preset-classic@^3.2.0":
+"@docusaurus/preset-classic@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/preset-classic/-/preset-classic-3.2.1.tgz#25a18ebaf271ec91ab7430a76a9054f101593de1"
   integrity sha512-E3OHSmttpEBcSMhfPBq3EJMBxZBM01W1rnaCUTXy9EHvkmB5AwgTfW1PwGAybPAX579ntE03R+2zmXdizWfKnQ==
@@ -1773,7 +1754,7 @@
     tslib "^2.6.0"
     utility-types "^3.10.0"
 
-"@docusaurus/theme-mermaid@^3.2.0":
+"@docusaurus/theme-mermaid@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/theme-mermaid/-/theme-mermaid-3.2.1.tgz#ee17d8d2115f0c4a046427ade3c7a77fe4dfbf6f"
   integrity sha512-l1FzUPgDUor/25XeJDeO22dttmzB0QnmAbF2qKjDz3ENa9vlD5rd5r0NrItZIe8y7qoa+OOxkl5lLBKBxBVbLg==
