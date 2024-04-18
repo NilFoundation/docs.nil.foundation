@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 # Using const size containers
 
 Using const size containers in circuits is preferable compared to using dynamic size containers.
@@ -72,43 +75,49 @@ Consider the following examples in which const size containers are used to build
 
     #[circuit]
     #[unroll_for_loops]
-    pub fn balance(
-            layer_0_leaves: [BlockType; 0x20],
-            expected_root: Fq,
-            ) -> bool {
+    pub fn balance(layer_0_leaves: [BlockType; 0x20], expected_root: Fq) -> bool {
         let mut layer_1_leaves: [BlockType; 0x10] = [[Fq::ZERO, Fq::ZERO]; 0x10];
         let mut layer_2_leaves: [BlockType; 0x8] = [[Fq::ZERO, Fq::ZERO]; 0x8];
         let mut layer_3_leaves: [BlockType; 0x4] = [[Fq::ZERO, Fq::ZERO]; 0x4];
         let mut layer_4_leaves: [BlockType; 0x2] = [[Fq::ZERO, Fq::ZERO]; 0x2];
 
+        for leaf_index in 0..10 {
+            layer_1_leaves[leaf_index] = hash(
+                layer_0_leaves[2 * leaf_index],
+                layer_0_leaves[2 * leaf_index + 1],
+            );
+        }
 
-    for leaf_index in 0..10 {
-        layer_1_leaves[leaf_index] = hash(layer_0_leaves[2 * leaf_index], layer_0_leaves[2 * leaf_index + 1]);
-    }
+        for leaf_index in 0..8 {
+            layer_2_leaves[leaf_index] = hash(
+                layer_1_leaves[2 * leaf_index],
+                layer_1_leaves[2 * leaf_index + 1],
+            );
+        }
 
-    for leaf_index in 0..8 {
-        layer_2_leaves[leaf_index] = hash(layer_1_leaves[2 * leaf_index], layer_1_leaves[2 * leaf_index + 1]);
-    }
+        for leaf_index in 0..4 {
+            layer_3_leaves[leaf_index] = hash(
+                layer_2_leaves[2 * leaf_index],
+                layer_2_leaves[2 * leaf_index + 1],
+            );
+        }
 
-    for leaf_index in 0..4 {
-        layer_3_leaves[leaf_index] = hash(layer_2_leaves[2 * leaf_index], layer_2_leaves[2 * leaf_index + 1]);
-    }
+        for leaf_index in 0..2 {
+            layer_4_leaves[leaf_index] = hash(
+                layer_3_leaves[2 * leaf_index],
+                layer_3_leaves[2 * leaf_index + 1],
+            );
+        }
 
-    for leaf_index in 0..2 {
-        layer_4_leaves[leaf_index] = hash(layer_3_leaves[2 * leaf_index], layer_3_leaves[2 * leaf_index + 1]);
-    }
+        let real_root: BlockType = hash(layer_4_leaves[0], layer_4_leaves[1]);
 
+        let res: bool = real_root == expected_root;
 
-    let real_root: BlockType = hash(layer_4_leaves[0], layer_4_leaves[1]);
+        unsafe {
+            std::intrinsics::assigner_exit_check(res);
+        }
 
-    let res: bool = real_root == expected_root;
-
-    unsafe {
-        std::intrinsics::assigner_exit_check(res);
-    }
-
-    res
-
+        res
     }
 
     fn hash(block1: BlockType, block2: BlockType) -> BlockType {
@@ -118,4 +127,6 @@ Consider the following examples in which const size containers are used to build
     ```
   </TabItem>
 </Tabs>
+
+The example demonstrates that even complex data structures such as Merkle trees can be implemented from scratch using const size containers. When declaring a dynamic size container, consider the use case and replace it with a const size container if possible.
 
