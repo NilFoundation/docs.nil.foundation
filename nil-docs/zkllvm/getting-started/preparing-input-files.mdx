@@ -129,7 +129,7 @@ Consider the following example.
     };
 
     [[circuit]] void circuit_func(PublicInput s,
-    int numbers[4]);
+    std:array<int, 4>);
     ```
 
   </TabItem>
@@ -182,10 +182,34 @@ Similar rules would apply to the private input file.
 
 It is also possible to use mixed representations of aggregate types in the same input file as shown below.
 
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+    struct PublicInput {  
+        std::array<int, 3> array_of_3;  
+        __zkllvm_field_pallas_base field_pallas;  
+    };  
+    ```
+
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    struct PublicInput {  
+        array_of_3: [i32, 3],  
+        field_pallas: __zkllvm_field_pallas_base,  
+    }  
+
+    ```
+
+  </TabItem>
+</Tabs>
+
 ```json
 [{ "struct": [{ "array<int>": [1, 2, 3] }, { "field<pallas_base>": 8 }] }]
 ```
 
-`"struct"` is an aggregate type without an extension but its member (also aggregate types) are extended.
+`"struct"` is an aggregate type without an extension but its members (also aggregate types) are extended.
 
 :::
