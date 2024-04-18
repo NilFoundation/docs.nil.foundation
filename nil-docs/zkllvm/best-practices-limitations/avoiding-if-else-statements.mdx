@@ -7,6 +7,12 @@ import TabItem from '@theme/TabItem'
 
 However, they can be detrimental to circuit performance. A separate arithmetization constraint is generated for each branch of an `if`/`else` statement, leading to constraint duplication and large table sizes.
 
+:::info
+
+The goal of avoiding `if`/`else` statements is to generate `select` LLVM instructions that do not produce unnecessary IR branches. To learn more, [**click here**](https://llvm.org/docs/LangRef.html#select-instruction).
+
+:::
+
 To avoid complex and nested `if`/`else` statements, divide a circuit into several smaller functions where it would be possible to use the logical AND operator.
 
 <Tabs groupId='language'>
@@ -35,63 +41,29 @@ To avoid complex and nested `if`/`else` statements, divide a circuit into severa
   </TabItem>
 </Tabs>
 
-Here is how the example would look like with `if`/`else` statements.
+These functions can then be used with ternary operators, `match` statements and expressions, or similar tools replacing the `if`/`else` flow.
 
 <Tabs groupId='language'>
   <TabItem value='cpp' label='C++'>
     ```cpp
-    bool is_same(
-      typename hashes::sha2<256>::block_type block0,
-      typename hashes::sha2<256>::block_type block1) {
-
-    if (block0[0] == block1[0]) {
-      if (block0[1] == block1[1]) {
-        return true;
+    [[circuit]] typename typename hashes::sha2<256>::block_type circuit_func(
+        typename hashes::sha2<256>::block_type block0,
+        typename hashes::sha2<256>::block_type block1) {
+        
+        typename typename hashes::sha2<256>::block_type res = (is_same(a, b)) ? block0 : block1;
+        return res;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #[circuit]
+    pub fn circuit_func(first_input_block: BlockType, second_input_block: BlockType) -> BlockType {
+      let res: BlockType = match is_same(first_input_block, second_input_block) {
+        true => first_input_block,
+        _ => second_input_block
       }
-    }
-    return false;
-    }
-    ```
-  </TabItem>
-  <TabItem value='rust' label='Rust'>
-    ```rust
-    use ark_pallas::Fq;
-
-    type BlockType = [Fq; 2];
-
-    fn is_same(first_input_block: BlockType, second_input_block: BlockType) -> bool {
-        if first_input_block[0] == second_input_block[0] {
-          if first_input_block[1] == second_input_block[1] {
-            return true;
-          }
-        }
-        false
-    }
-    ```
-  </TabItem>
-</Tabs>
-
-These functions can then be used with ternary operators or similar tools replacing the `if`/`else` flow.
-
-<Tabs groupId='language'>
-  <TabItem value='cpp' label='C++'>
-    ```cpp
-    ...
-    ```
-  </TabItem>
-  <TabItem value='rust' label='Rust'>
-    ```rust
-    use ark_pallas::Fq;
-
-    type BlockType = [Fq; 2];
-
-    fn is_same(first_input_block: BlockType, second_input_block: BlockType) -> bool {
-        if first_input_block[0] == second_input_block[0] {
-          if first_input_block[1] == second_input_block[1] {
-            return true;
-          }
-        }
-        false
+      res
     }
     ```
   </TabItem>
