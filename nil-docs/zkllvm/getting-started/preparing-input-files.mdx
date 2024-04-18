@@ -90,7 +90,7 @@ Except `"int"` and `"string"`, keys can be extended by specifying additional typ
 
 :::info[Aggregate types]
 
-Aggregate types (`"struct"`, `"array"`, and `"vector"`) are extended with the types of the elements they contain. In case of `"array"` and `"vector"`, only a single type needs to be specified. For `"struct"`, it is possible to specify several types separated by a comma.
+Aggregate types (`"struct"`, `"array"`, and `"vector"`) are extended with the types of the elements they contain. In the case of `"array"` and `"vector"`, only a single type needs to be specified. For `"struct"`, it is possible to specify several types separated by a comma.
 
 :::
 
@@ -124,12 +124,12 @@ Consider the following example.
 
     ```cpp
     struct PublicInput {
-      arg_one: int;
-      arg_two: int;
+      int arg_one;
+      int arg_two;
     };
 
     [[circuit]] void circuit_func(PublicInput s,
-    int[4] numbers);
+    int numbers[4]);
     ```
 
   </TabItem>

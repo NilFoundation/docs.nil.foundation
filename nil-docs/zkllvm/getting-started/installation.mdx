@@ -25,6 +25,14 @@ apt install -y zkllvm
 
 This will install binaries for nearly all major components of zkLLVM such as `assigner` and the `clang` frontend. Note that the Rust frontend needs to be installed separately.
 
+To verify the installation, run:
+
+```bash
+clang-zkllvm --version
+```
+
+Note that the newly installed `clang` frontend is accessed via `clang-zkllvm`, not `clang`.
+
 ### Install Rust binaries
 
 First, install `rustup`.
@@ -62,6 +70,18 @@ Verify that the installation has been successful.
 ```bash
 rustc +zkllvm -V
 ```
+
+:::info[Command output]
+
+The output to the above command should follow the below format.
+
+```bash
+rustc x.y.z (abcabcabc yyyy-mm-dd) (zkLLVM x.y.z)
+```
+
+If `zkLLVM x.y.z` is missing from the output, the `zkllvm` toolchain needs to be reinstalled.
+
+:::
 
 ## Installing from sources
 

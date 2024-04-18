@@ -46,9 +46,26 @@ export default {
                     id: 'getting-started/preparing-input-files'
                 },
                 {
-                    type: 'doc',
+                    type: 'category',
                     label: 'Compiling a circuit',
-                    id: 'getting-started/compiling-a-circuit'
+                    collapsible: true,
+                    collapsed: false,
+                    link: {
+                        type: 'doc',
+                        id: 'getting-started/compiling-a-circuit',
+                    },
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Compiling C++ code',
+                            id: 'getting-started/compiling-cpp-code'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Compiling Rust code',
+                            id: 'getting-started/compiling-rust-code'
+                        }
+                    ]
                 },
                 {
                     type: 'doc',

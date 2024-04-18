@@ -1,5 +1,6 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import DocCardList from '@theme/DocCardList';
 
 # Compiling a circuit
 
@@ -40,7 +41,7 @@ flowchart TB
     CPP(C++ code)
     RUST(Rust code)
     CLANG(<code>clang</code>)
-    RUSTCOMP(<code>cargo</code> or <code>rustc</code>)
+    RUSTCOMP(<code>cargo</code> #40;<code>rustc</code>#41;)
     IR(Circuit IR)
     INPUTS(Circuit inputs)
     ASSIGNER(Assigner)
@@ -86,59 +87,9 @@ Complete the below steps to follow this flow.
 
 ### Running the compiler
 
-To generate the circuit IR, do the following.
+To generate the circuit IR, complete one of the following tutorials.
 
-<Tabs groupId='language'>
-  <TabItem value='cpp' label='C++'>
-
-    For a pre-built binary installation of `clang`:
-
-    ```bash
-    clang-zkllvm -S -emit-llvm  path/to/circuit.cpp
-    ```
-
-    For a `clang` installation from sources:
-
-    ```bash
-    $CLANG_ZKLLVM -S -emit-llvm  path/to/circuit.cpp
-    ```
-
-    , where `$CLANG_ZKLLVM` is the `clang` binary built during the installation.
-
-  </TabItem>
-
-  <TabItem value='rust' label='Rust'>
-
-    For a pre-built binary installation of `rustc`:
-
-    ```bash
-    rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
-    ```
-
-    Or for a pre-built binary installation of `cargo`:
-
-    ```bash
-    cargo +zkllvm build --target assigner-unknown-unknown
-    ```
-
-    For an installation of `rustc` from sources:
-
-    ```bash
-    $RUSTC --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
-    ```
-
-    Or for an installation of `cargo` and `rustc` from sources:
-
-    ```bash
-    RUSTC=$RUSTC $CARGO build --target assigner-unknown-unknown --release
-    ```
-
-    , where `$RUSTC` and `$CARGO` are binaries built during [**installation**](../getting-started/installation).
-
-    The `-C opt-level=3` option is needed to build the circuit into an IR that is most compatible with `assigner`. If it is ommitted, the IR will contain additional verbose code which may hinder `assigner` from generating constraints and the assignment table.
-
-  </TabItem>
-</Tabs>
+<DocCardList/>
 
 ### Passing the IR to `assigner`
 
@@ -171,6 +122,12 @@ Congratulations! At this stage, we recommend taking a look at other examples in 
 ## Using `zkllvm-template`
 
 [**`zkllvm-template` is a project**](https://github.com/NilFoundation/zkllvm-template) designed to simplify working with complex circuits and zk-enabled apps.
+
+:::warning
+
+`zkllvm-template` currently only supports C++ projects.
+
+:::
 
 To work with `zkllvm-template`, clone its repository with all sub-modules.
 

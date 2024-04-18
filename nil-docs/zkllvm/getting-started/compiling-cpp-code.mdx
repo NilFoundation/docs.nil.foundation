@@ -1,0 +1,29 @@
+# Compililing C++ code
+
+This tutorial shows how a `.cpp` file can be converted into a circuit IR.
+
+## Using `clang` from a pre-built binary
+
+If `clang` has been [**installed from a pre-built binary**](./installation#using-pre-built-binaries), use the following command.
+
+```bash
+clang-zkllvm -S -emit-llvm  path/to/circuit.cpp
+```
+
+If `clang` has been [**installed from sources**](./installation#installing-from-sources), export the `CLANG_ZKLLVM` environmental variable.
+
+```bash
+export CLANG_ZKLLVM="path/to/clang"
+```
+
+:::info[`clang` location]
+
+`"path/to/clang"` is usually equal to `"zkllvm/build/libs/circifier/llvm/bi"n`.
+
+:::
+
+Afterward, call `$CLANG_ZKLLVM`.
+
+```bash
+$CLANG_ZKLLVM -S -emit-llvm  path/to/circuit.cpp
+```
