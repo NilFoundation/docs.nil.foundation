@@ -1,4 +1,4 @@
-# docs.nil.foundation
+# Documentation Repository for =nil;
 
 This repository is the host of the Docusaurus project that handles the documentation for =nil; Foundation. 
 
