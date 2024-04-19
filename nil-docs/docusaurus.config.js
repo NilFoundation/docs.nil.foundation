@@ -119,7 +119,7 @@ const config = {
           {
             position: 'left',
             label: 'zkSharding',
-            to: '/zksharding/intro'
+            to: 'https://nil.foundation/blog/post/nil_zkSharding'
           },
           {
             position: 'left',
