@@ -13,10 +13,11 @@ const { theme } = createTheme(engine);
 
 
 export default function Root({ children }) {
-    return <StyletronProvider value={engine}>
-        <BaseProvider theme={theme}>
-            {children}
-        </BaseProvider>
-    </StyletronProvider>
+    return <>{children}</>;
+    // return <StyletronProvider value={engine}>
+    //     <BaseProvider theme={theme}>
+    //         {children}
+    //     </BaseProvider>
+    // </StyletronProvider>
 
 }
