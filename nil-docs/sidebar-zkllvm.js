@@ -40,6 +40,7 @@ export default {
                     label: 'zkLLVM template project',
                     id: 'getting-started/zkllvm-template-project'
                 },
+
             ]
         },
         {

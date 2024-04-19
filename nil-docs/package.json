@@ -22,7 +22,7 @@
     "@docusaurus/preset-classic": "^3.2.1",
     "@docusaurus/theme-mermaid": "^3.2.1",
     "@mdx-js/react": "^3.0.0",
-    "@nilfoundation/ui-kit": "^2.4.5",
+    "@nilfoundation/ui-kit": "^2.5.1",
     "@uiw/codemirror-themes": "4.21.0",
     "@uiw/react-codemirror": "4.21.0",
     "baseui": "^14.0.0",

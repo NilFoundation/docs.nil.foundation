@@ -2084,10 +2084,10 @@
   dependencies:
     "@types/mdx" "^2.0.0"
 
-"@nilfoundation/ui-kit@^2.4.5":
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/@nilfoundation/ui-kit/-/ui-kit-2.4.6.tgz#b56623891a0ff31d8a45e52adf59e5fedde11fd6"
-  integrity sha512-HDE1bg9Y/o46mqk8ESj4X4oUUXPBP9qQZEAgqVhi1UpVnfzyNm6+CDnTHBTPMX7fhhSs/7pzKgnmYdE5IE+qHg==
+"@nilfoundation/ui-kit@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@nilfoundation/ui-kit/-/ui-kit-2.5.1.tgz#ca89dc5c903bdd2cc9bb5177d2be060407155bb5"
+  integrity sha512-laECmBIfXxsLvuhPKGCmCVn4mFWHDi+x9ib4BhIjofkmduiv6xmDUyFm5xAo7kP0tUltqIAb8RFymVoCwKIAqg==
   dependencies:
     copy-to-clipboard "^3.3.3"
     inline-style-expand-shorthand "^1.6.0"
