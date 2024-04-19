@@ -1,3 +1,5 @@
+import {Accordion, Panel} from '@nilfoundation/ui-kit/dist/ui-kit.js'
+
 # Key components and tools
 
 ## zkLLVM Components
@@ -29,8 +31,8 @@ It is only necessary to generate constraints once per every circuit/input type p
 
 Together, these products ensure that the circuit can be proven with dynamic inputs.
 
-<details>
-<summary>Click here to learn more about assigner extendibility</summary>
+<Accordion>
+<Panel title='Click here to learn more about assigner extendibility'>
 <p>
 The core of <code>assigner</code> is an LLVM IR parser, which can be ported into any programming language. To access its current implementation, [**click here**](https://github.com/NilFoundation/zkllvm-assigner). This implementation is written in C++ and supports only the PLONK arithmetization.
 </p>
@@ -47,8 +49,10 @@ Note that the zkLLVM frontends output IRs that are modified compared to the IRs 
 </p>
 <p>
 When extending <code>assigner</code>, simply reusing an external parser will not work: it will need to be adapted to fully parse the modified IRs supplied by frontends.
-</p> 
-</details>
+</p>
+</Panel>
+</Accordion>
+
 
 ## Proof system components
 
