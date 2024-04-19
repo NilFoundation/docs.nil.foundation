@@ -1,0 +1,58 @@
+# Compiling Rust code
+
+This tutorial demonstrates how an `.rs` file can be converted into a circuit IR.
+
+The flow for compiling Rust code is similar to compiling any other `cargo` project. The only notable difference is specifying a different build target for `cargo` while the rest of the Rust developer experience remains the same. 
+
+## Using `cargo` from a pre-built binary
+
+If `cargo` has been [**installed from a pre-built binary**](./installation#using-pre-built-binaries), run the following command. 
+
+```bash
+cargo +zkllvm build --target assigner-unknown-unknown
+```
+
+After the build procedure is complete, the resulting `.ll` file will appear in the `./target/assigner-unknown-unknown/debug` directory. The file will have the same name as the name of the current `cargo` crate. 
+
+## Using `cargo` from sources
+
+If `cargo` has been [**installed from sources**](./installation#building-from-sources), export the `RUSTC` and `CARGO` environmental variables.
+
+```bash
+export CARGO="path/to/cargo"
+export RUSTC="path/to/rustc"
+```
+
+`cargo` should be located in `"/zkllvm/build/libs/rslang/build/host/stage2-tools-bin/cargo"`. 
+
+`rustc` should be located in `"zkllvm/build/libs/rslang/build/host/stage2/bin"`.
+
+Then, execute the following command.
+
+```bash
+RUSTC=$RUSTC $CARGO build --target assigner-unknown-unknown --release
+```
+
+The resulting `.ll` file should be located in the `./target/assigner-unknown-unknown/release` folder. 
+
+## Using `rustc` directly
+
+While using `rustc` instead of `cargo` is unconventional, it is still possible to call the compiler directly to produce `.ll` files.
+
+If `rustc` has been installed as from a pre-built binary, run this command.  
+
+```bash
+rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+```
+
+If `rustc` has been installed from sources, execute the following command. 
+
+```bash
+$RUSTC --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+```
+
+:::tip
+
+The `-C opt-level=3` option is needed to build the circuit into an IR that is most compatible with `assigner`. If it is ommitted, the IR will contain additional verbose code which may hinder `assigner` from generating constraints and the assignment table.
+
+:::

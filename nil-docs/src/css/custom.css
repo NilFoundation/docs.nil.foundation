@@ -65,6 +65,7 @@
   --ifm-color-info-dark: #87b6fc;
   --ifm-color-success-contrast-background: #13352b;
   --ifm-color-success-dark: #4db596;
+  --ifm-list-item-margin: 0px;
 }
 
 html[data-theme='dark'] {

@@ -26,21 +26,57 @@ export default {
         },
         {
             type: 'category',
-            label: 'Starting first project',
+            label: 'Getting started',
             collapsible: true,
             collapsed: false,
             items: [
                 {
                     type: 'doc',
-                    label: 'Installation',
+                    label: 'Installation and configuration',
                     id: 'getting-started/installation'
                 },
                 {
                     type: 'doc',
-                    label: 'zkLLVM template project',
-                    id: 'getting-started/zkllvm-template-project'
+                    label: 'Writing a simple circuit',
+                    id: 'getting-started/writing-a-simple-circuit'
                 },
-
+                {
+                    type: 'doc',
+                    label: 'Preparing input files',
+                    id: 'getting-started/preparing-input-files'
+                },
+                {
+                    type: 'category',
+                    label: 'Compiling a circuit',
+                    collapsible: true,
+                    collapsed: false,
+                    link: {
+                        type: 'doc',
+                        id: 'getting-started/compiling-a-circuit',
+                    },
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Compiling C++ code',
+                            id: 'getting-started/compiling-cpp-code'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Compiling Rust code',
+                            id: 'getting-started/compiling-rust-code'
+                        }
+                    ]
+                },
+                {
+                    type: 'doc',
+                    label: 'Verifying and proving a circuit',
+                    id: 'getting-started/verifying-a-circuit'
+                },
+                {
+                    type: 'doc',
+                    label: 'Using built-in types and functions',
+                    id: 'getting-started/built-ins'
+                }
             ]
         },
         {
