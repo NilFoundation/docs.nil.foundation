@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import styles from './styles.module.css';
 import Crypto3 from '../../../static/img/productImages/Crypto3.png';
 import zkLLVM from '../../../static/img/productImages/zkLLVM.png';
 import ProofMarket from '../../../static/img/productImages/PM.png';
 import zkSharding from '../../../static/img/productImages/zkSharding.png';
+
 
 const ProductsList =
   [

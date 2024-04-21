@@ -92,71 +92,72 @@ const config = {
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      colorMode: {
-        defaultMode: 'dark',
-        disableSwitch: true,
+    (
+      {
+        colorMode: {
+          defaultMode: 'dark',
+          disableSwitch: true,
 
-      },
-      navbar: {
-        title: '=nil; Foundation',
-        logo: {
-          alt: '=nil; Foundation Logo',
-          src: 'img/nil-logo.avif',
         },
-        items: [
-          {
-            position: 'left',
-            label: 'zkLLVM',
-            to: '/zkllvm/overview/what-is-zkllvm'
+        navbar: {
+          title: '=nil; Foundation',
+          logo: {
+            alt: '=nil; Foundation Logo',
+            src: 'img/nil-logo.avif',
+          },
+          items: [
+            {
+              position: 'left',
+              label: 'zkLLVM',
+              to: '/zkllvm/overview/what-is-zkllvm'
 
-          },
-          {
-            position: 'left',
-            label: 'Proof Market',
-            to: '/proof-market/intro'
-          },
-          {
-            position: 'left',
-            label: 'zkSharding',
-            to: 'https://nil.foundation/blog/post/nil_zkSharding'
-          },
-          {
-            position: 'left',
-            label: 'Crypto3',
-            to: '/crypto3/intro'
-          },
-        ],
-      },
-      footer: {
-        links: [
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                to: 'https://discord.gg/KmTAEjbmM3'
-              },
-              {
-                label: 'GitHub',
-                to: 'https://github.com/nilfoundation'
-              },
-              {
-                label: 'Telegram',
-                to: 'https://t.me/nilfoundation'
-              }
-            ],
-          }
-        ],
-        style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
-      },
-      prism: {
-        defaultLanguage: 'clike',
-        theme: prismThemes.vsDark,
-        darkTheme: prismThemes.vsDark,
-      },
-    }),
+            },
+            {
+              position: 'left',
+              label: 'Proof Market',
+              to: '/proof-market/intro'
+            },
+            {
+              position: 'left',
+              label: 'zkSharding',
+              to: 'https://nil.foundation/blog/post/nil_zkSharding'
+            },
+            {
+              position: 'left',
+              label: 'Crypto3',
+              to: '/crypto3/intro'
+            },
+          ],
+        },
+        footer: {
+          links: [
+            {
+              title: 'Community',
+              items: [
+                {
+                  label: 'Discord',
+                  to: 'https://discord.gg/KmTAEjbmM3'
+                },
+                {
+                  label: 'GitHub',
+                  to: 'https://github.com/nilfoundation'
+                },
+                {
+                  label: 'Telegram',
+                  to: 'https://t.me/nilfoundation'
+                }
+              ],
+            }
+          ],
+          style: 'dark',
+          copyright: `Copyright © ${new Date().getFullYear()} =nil; Foundation`,
+        },
+        prism: {
+          defaultLanguage: 'clike',
+          theme: prismThemes.vsDark,
+          darkTheme: prismThemes.vsDark,
+        },
+      }),
 };
 
 export default config;
