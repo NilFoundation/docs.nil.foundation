@@ -1,7 +1,7 @@
 .productDescription {
   width: 100%;
   display: flex;
-  flex: column;
+  flex-direction: column;
   padding-right: 24px;
   padding-left: 24px;
 }
@@ -17,6 +17,7 @@ p {
 }
 
 .rowFlex .col {
+  flex: 1 1 50%;
   margin-left: 10px;
   margin-right: 10px;
 }
