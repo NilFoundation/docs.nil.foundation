@@ -1,7 +1,7 @@
 .productDescription {
   width: 100%;
   display: flex;
-  flex: row;
+  flex: column;
   padding-right: 24px;
   padding-left: 24px;
 }
