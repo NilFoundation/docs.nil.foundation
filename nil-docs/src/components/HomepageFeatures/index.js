@@ -4,6 +4,8 @@ import Crypto3 from '../../../static/img/productImages/Crypto3.png';
 import zkLLVM from '../../../static/img/productImages/zkLLVM.png';
 import ProofMarket from '../../../static/img/productImages/PM.png';
 import zkSharding from '../../../static/img/productImages/zkSharding.png';
+import { Card, StyledBody } from '@nilfoundation/ui-kit/dist/ui-kit.js'
+
 
 const ProductsList =
   [
@@ -51,62 +53,118 @@ const ProductsList =
 
   ]
 
-
-
-const NilProductDescription = ({ text, image, onDocsClick }) => {
-  return (
-    <div onClick={onDocsClick}>
-      <img src={image} />
-      <div className={styles.productDescription}>
-        <p>{text}</p>
-      </div>
-    </div>
-  );
-};
-
-function NilProduct({ image, description, onDocsClick }) {
-  return (
-    <div>
-      <NilProductDescription text={description} image={image} onDocsClick={onDocsClick} />
-    </div>
-  );
-}
-
-
-
 export default function HomepageNilProducts() {
   const GoToDocs = (Url) => () => {
     window.open(Url, '_self');
   };
+
   return (
     <div className='container' id='productContainer'>
       <div className={'row' + ' ' + styles.rowFlex}>
         <div className='col col-6'>
-          <div id='zkllvm-docs'>
-            <NilProduct image={ProductsList[0].image} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
+          <div id='zkllvm-docs' className={styles.cardContainer}>
+            <Card className={styles.productCard} title='zkLLVM' headerImage={zkLLVM} border={true} onClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}>
+              <StyledBody>
+                {ProductsList[0].description}
+              </StyledBody>
+            </Card>
           </div>
         </div>
         <div className='col col-6'>
           <div id='proof-market-docs'>
-            <NilProduct image={ProductsList[1].image} description={ProductsList[1].description} onDocsClick={GoToDocs("/proof-market/intro")} ></NilProduct>
+            <Card title='Proof Market' headerImage={ProofMarket} border={true} onClick={GoToDocs("/proof-market/intro")}>
+              <StyledBody>
+                {ProductsList[1].description}
+              </StyledBody>
+            </Card>
           </div>
         </div>
       </div>
       <div className={'row' + ' ' + styles.rowFlex}>
         <div className='col col-6'>
           <div id='zk-sharding-docs'>
-            <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
+            <Card title='zkSharding' headerImage={zkSharding} border={true} onClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}>
+              <StyledBody>
+                {ProductsList[2].description}
+              </StyledBody>
+            </Card>
           </div>
         </div>
         <div className='col col-6'>
           <div id='crypto3-docs'>
-            <NilProduct image={ProductsList[3].image} description={ProductsList[3].description} onDocsClick={GoToDocs("/crypto3/intro")}></NilProduct>
+            <Card title='Crypto3' headerImage={Crypto3} border={true} onClick={GoToDocs("/crypto3/intro")}>
+              <StyledBody>
+                {ProductsList[3].description}
+              </StyledBody>
+            </Card>
           </div>
         </div>
       </div>
     </div >
   );
+
+
+
+
+
+
 }
+
+
+// const NilProductDescription = ({ text, image, onDocsClick }) => {
+//   return (
+//     <div onClick={onDocsClick}>
+//       <img src={image} />
+//       <div className={styles.productDescription}>
+//         <p>{text}</p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// function NilProduct({ image, description, onDocsClick }) {
+//   return (
+//     <div>
+//       <NilProductDescription text={description} image={image} onDocsClick={onDocsClick} />
+//     </div>
+//   );
+// }
+
+
+
+// export default function HomepageNilProducts() {
+//   const GoToDocs = (Url) => () => {
+//     window.open(Url, '_self');
+//   };
+//   return (
+//     <div className='container' id='productContainer'>
+//       <div className={'row' + ' ' + styles.rowFlex}>
+//         <div className='col col-6'>
+//           <div id='zkllvm-docs'>
+//             <NilProduct image={ProductsList[0].image} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
+//           </div>
+//         </div>
+//         <div className='col col-6'>
+//           <div id='proof-market-docs'>
+//             <NilProduct image={ProductsList[1].image} description={ProductsList[1].description} onDocsClick={GoToDocs("/proof-market/intro")} ></NilProduct>
+//           </div>
+//         </div>
+//       </div>
+//       <div className={'row' + ' ' + styles.rowFlex}>
+//         <div className='col col-6'>
+//           <div id='zk-sharding-docs'>
+//             <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
+//           </div>
+//         </div>
+//         <div className='col col-6'>
+//           <div id='crypto3-docs'>
+//             <NilProduct image={ProductsList[3].image} description={ProductsList[3].description} onDocsClick={GoToDocs("/crypto3/intro")}></NilProduct>
+//           </div>
+//         </div>
+//       </div>
+//     </div >
+//   );
+// }
 
 
 

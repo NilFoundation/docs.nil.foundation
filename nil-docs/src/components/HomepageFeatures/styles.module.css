@@ -5,6 +5,16 @@
   padding-left: 24px;
 }
 
+.cardContainer {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+.b2 {
+  max-width: 100% !important;
+}
+
 .rowFlex {
   display: flex;
   flex-wrap: wrap;
