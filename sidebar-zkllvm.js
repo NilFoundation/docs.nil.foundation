@@ -93,7 +93,7 @@ export default {
                     items: [
                         {
                             type: 'doc',
-                            label: 'Avoiding `if`/`else` statements',
+                            label: 'Avoiding if/else statements',
                             id: 'best-practices-limitations/avoiding-if-else-statements'
                         },
                         {
@@ -101,12 +101,12 @@ export default {
                             label: 'Using const size containers',
                             id: 'best-practices-limitations/using-const-size-containers'
                         },
-                        {
-                            type: 'doc',
-                            label: 'Limitations',
-                            id: 'best-practices-limitations/limitations'
-                        }
                     ]
+                },
+                {
+                    type: 'doc',
+                    label: 'Limitations',
+                    id: 'best-practices-limitations/limitations'
                 }
             ]
         },
