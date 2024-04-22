@@ -1,0 +1,13 @@
+.sectionCard {
+    cursor: pointer;
+    border: 2px solid;
+    transition: all 0.3s ease;
+    border-color: #2f2f2f;
+    margin: 10px;
+    flex:content;
+}
+
+.sectionCard:hover {
+    border-color: #f1f1f1;
+
+}

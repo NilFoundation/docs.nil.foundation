@@ -1,6 +1,11 @@
 export default {
     proofmarket: [
         {
+            type: 'link',
+            label: 'GitHub',
+            href: 'https://github.com/NilFoundation/proof-market-toolchain',
+        },
+        {
             type: 'doc',
             label: '=nil; Proof Market',
             id: 'intro'
