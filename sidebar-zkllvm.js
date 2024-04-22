@@ -79,37 +79,37 @@ export default {
                 }
             ]
         },
-        {
-            type: 'category',
-            label: 'Best practices and limitations',
-            collapsible: true,
-            collapsed: true,
-            items: [
-                {
-                    type: 'category',
-                    label: 'Writing performant circuits',
-                    collapsible: true,
-                    collapsed: false,
-                    items: [
-                        {
-                            type: 'doc',
-                            label: 'Avoiding `if`/`else` statements',
-                            id: 'best-practices-limitations/avoiding-if-else-statements'
-                        },
-                        {
-                            type: 'doc',
-                            label: 'Using const size containers',
-                            id: 'best-practices-limitations/using-const-size-containers'
-                        },
-                        {
-                            type: 'doc',
-                            label: 'Limitations',
-                            id: 'best-practices-limitations/limitations'
-                        }
-                    ]
-                }
-            ]
-        },
+        // {
+        //     type: 'category',
+        //     label: 'Best practices and limitations',
+        //     collapsible: true,
+        //     collapsed: true,
+        //     items: [
+        //         {
+        //             type: 'category',
+        //             label: 'Writing performant circuits',
+        //             collapsible: true,
+        //             collapsed: false,
+        //             items: [
+        //                 {
+        //                     type: 'doc',
+        //                     label: 'Avoiding if/else statements',
+        //                     id: 'best-practices-limitations/avoiding-if-else-statements'
+        //                 },
+        //                 {
+        //                     type: 'doc',
+        //                     label: 'Using const size containers',
+        //                     id: 'best-practices-limitations/using-const-size-containers'
+        //                 },
+        //             ]
+        //         },
+        //         {
+        //             type: 'doc',
+        //             label: 'Limitations',
+        //             id: 'best-practices-limitations/limitations'
+        //         }
+        //     ]
+        // },
         {
             type: 'category',
             label: 'Circuit development',
