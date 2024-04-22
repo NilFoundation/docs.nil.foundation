@@ -1,0 +1,132 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Using const size containers
+
+Using const size containers in circuits is preferable compared to using dynamic size containers.
+
+When compiled into a circuit, const size containers carry the same costs regardless of the memory type they are using. This means that const size containers offer incresed reusability and efficiency across memory types and platforms.
+
+Consider the following examples in which const size containers are used to build a four-layer Merkle tree.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/hash/algorithm/hash.hpp>
+    #include <nil/crypto3/hash/poseidon.hpp>
+
+    using namespace nil::crypto3;
+    using namespace nil::crypto3::algebra::curves;
+
+    [[circuit]] bool merkle_tree_poseidon (
+        typename pallas::base_field_type::value_type expected_root,
+        [[private_input]] std::array<typename pallas::base_field_type::value_type, 0x20> layer_0_leaves) {
+
+            std::array<typename pallas::base_field_type::value_type, 0x10> layer_1_leaves;
+            std::size_t layer_1_size = 0x10;
+            std::array<typename pallas::base_field_type::value_type, 0x8> layer_2_leaves;
+            std::size_t layer_2_size = 0x8;
+            std::array<typename pallas::base_field_type::value_type, 0x4> layer_3_leaves;
+            std::size_t layer_3_size = 0x4;
+            std::array<typename pallas::base_field_type::value_type, 0x2> layer_4_leaves;
+            std::size_t layer_4_size = 0x2;
+            typename pallas::base_field_type::value_type root;
+
+            for (std::size_t leaf_index = 0; leaf_index < layer_1_size; leaf_index++) {
+            layer_1_leaves[leaf_index] =
+                hash<hashes::poseidon>(layer_0_leaves[2 * leaf_index], layer_0_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_2_size; leaf_index++) {
+            layer_2_leaves[leaf_index] =
+                hash<hashes::poseidon>(layer_1_leaves[2 * leaf_index], layer_1_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_3_size; leaf_index++) {
+            layer_3_leaves[leaf_index] =
+                hash<hashes::poseidon>(layer_2_leaves[2 * leaf_index], layer_2_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_4_size; leaf_index++) {
+            layer_4_leaves[leaf_index] =
+                hash<hashes::poseidon>(layer_3_leaves[2 * leaf_index], layer_3_leaves[2 * leaf_index + 1]);
+        }
+
+        typename pallas::base_field_type::value_type real_root = hash<hashes::poseidon>(layer_4_leaves[0], layer_4_leaves[1]);
+
+        bool res = (real_root == expected_root);
+        __builtin_assigner_exit_check(res);
+
+        return res;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use std::intrinsics::assigner_sha2_256;
+
+    use ark_ff::AdditiveGroup;
+    use ark_pallas::Fq;
+    use unroll::unroll_for_loops;
+
+    type BlockType = [Fq; 2];
+
+    #[circuit]
+    #[unroll_for_loops]
+    pub fn balance(layer_0_leaves: [BlockType; 0x20], expected_root: Fq) -> bool {
+        let mut layer_1_leaves: [BlockType; 0x10] = [[Fq::ZERO, Fq::ZERO]; 0x10];
+        let mut layer_2_leaves: [BlockType; 0x8] = [[Fq::ZERO, Fq::ZERO]; 0x8];
+        let mut layer_3_leaves: [BlockType; 0x4] = [[Fq::ZERO, Fq::ZERO]; 0x4];
+        let mut layer_4_leaves: [BlockType; 0x2] = [[Fq::ZERO, Fq::ZERO]; 0x2];
+
+        for leaf_index in 0..10 {
+            layer_1_leaves[leaf_index] = hash(
+                layer_0_leaves[2 * leaf_index],
+                layer_0_leaves[2 * leaf_index + 1],
+            );
+        }
+
+        for leaf_index in 0..8 {
+            layer_2_leaves[leaf_index] = hash(
+                layer_1_leaves[2 * leaf_index],
+                layer_1_leaves[2 * leaf_index + 1],
+            );
+        }
+
+        for leaf_index in 0..4 {
+            layer_3_leaves[leaf_index] = hash(
+                layer_2_leaves[2 * leaf_index],
+                layer_2_leaves[2 * leaf_index + 1],
+            );
+        }
+
+        for leaf_index in 0..2 {
+            layer_4_leaves[leaf_index] = hash(
+                layer_3_leaves[2 * leaf_index],
+                layer_3_leaves[2 * leaf_index + 1],
+            );
+        }
+
+        let real_root: BlockType = hash(layer_4_leaves[0], layer_4_leaves[1]);
+
+        let res: bool = real_root == expected_root;
+
+        unsafe {
+            std::intrinsics::assigner_exit_check(res);
+        }
+
+        res
+    }
+
+    fn hash(block1: BlockType, block2: BlockType) -> BlockType {
+        let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
+        [sha[0].into(), sha[1].into()]
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+The example demonstrates that even complex data structures such as Merkle trees can be implemented from scratch using const size containers. When declaring a dynamic size container, consider the use case and replace it with a const size container if possible.
+
