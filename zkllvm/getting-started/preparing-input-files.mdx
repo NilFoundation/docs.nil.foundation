@@ -1,0 +1,215 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Preparing input files
+
+This tutorial shows how to prepare input files for a circuit, which is a required step before compiling a circuit and running the `assigner` tool.
+
+Input files contain data that is supposed to be passed to a circuit. Input can be of two types:
+
+- Public input
+- Private input
+
+:::info[Public and private inputs]
+
+Public input is data that is available both to the prover and the verifier. Private input is available only to the prover. The prover needs to convince the verifier that they possess valid private input that satisfies the conditions in the circuit.
+
+:::
+
+## Structuring an input file
+
+An input file has the `.inp` extension and expects data in the JSON format where the key is a data type, and the value is actual data as shown in the below example.
+
+```json
+[
+  {
+    "field<pallas_base>": 43
+  },
+  {
+    {
+      "array<field>": [
+      1230, 1231, 1232, 1233
+      ]
+    }
+  },
+  {
+    "curve": [1, 1]
+  }
+]
+```
+
+:::info[File separation]
+
+Public and private inputs must be specified in separate files.
+
+:::
+
+## Creating new input files
+
+To create an input file for the circuit defined in the previous tutorial, do the following.
+
+1. Create a new `.inp` file.
+
+2. Copy and paste this JSON array into the file.
+
+```json
+[{ "int": 5 }, { "int": 11 }]
+```
+
+The tutorial circuit only has public input and, therefore, no additional `.inp` files are needed.
+
+The following sub-sections elaborate on the structure and contents of input files. They are optional for completing the tutorial.
+
+## Specifying keys and values
+
+Note that input files only support the following keys (types).
+
+- `"string"` (C-like strings)
+- `"int"` (integers)
+- `"field"` (field elements)
+- `"curve"` (curve elements)
+- `"array"` (`std::array`)
+- `"vector"` (an `ext_vector_type` containing integer, field, or curve elements)
+- `"struct"` (struct or class types)
+
+The table below summarizes what values are accepted by each key.
+
+|                        Key (Type)                         | Values                                                                                               |
+| :-------------------------------------------------------: | :--------------------------------------------------------------------------------------------------- |
+|                        `"string"`                         | Scalar constants                                                                                     |
+| `"int"`, `"field"` and aggregated types that contain them | Scalar constants, strings (in case a number foes not fit within 64 bits), hexadecimal strings        |
+|                         `"curve"`                         | Arrays of numbers containing exactly two values                                                      |
+|             `"array"`, `"vector"`, `"struct"`             | Suitable aggregate types containing exactly the number of elements specified in the type description |
+
+## Extending keys in input files
+
+Except `"int"` and `"string"`, keys can be extended by specifying additional type details in angle brackets (`"<>"`) as shown in the below examples.
+
+- `"field<pallas_scalar>"`
+- `"vector<int>"`
+
+:::info[Aggregate types]
+
+Aggregate types (`"struct"`, `"array"`, and `"vector"`) are extended with the types of the elements they contain. In the case of `"array"` and `"vector"`, only a single type needs to be specified. For `"struct"`, it is possible to specify several types separated by a comma.
+
+:::
+
+:::info[Fields and curves]
+
+The `"field"` and `"curve"` keys can be extended by specifying the kind of their elements.
+
+:::
+
+The `"field"` key supports the following extensions.
+
+- `pallas_base`
+- `bls12381_base`
+- `ed25519_base`
+- `pallas_scalar`
+- `bls12381_scalar`
+- `ed25519_scalar`
+
+The `"curve"` key supports the following extensions.
+
+- `pallas`
+- `bls12381`
+- `ed25519`
+
+If an aggregate type is not extended, its elements must be specified as separate key-value pairs in the input file with keys containing their type descriptions.
+
+Consider the following example.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+    struct PublicInput {
+      int arg_one;
+      int arg_two;
+    };
+
+    [[circuit]] void circuit_func(PublicInput s,
+    std::array<int, 4> numbers);
+    ```
+
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    struct PublicInput {  
+        arg_one: i32,  
+        arg_two: u32,  
+    }  
+
+    #[circuit]
+    fn circuit_func(s: PublicInput, numbers: [i32; 4]) {}
+    ```
+
+  </TabItem>
+</Tabs>
+
+There would be two ways to create a public input file for this example.
+
+<Tabs>
+  <TabItem value='fullSpec' label='With extensions'>
+    ```json
+    [
+      {"struct<int, int>": [10, 50]}, 
+      {"array<int>": [1, 2, 3, 4]}
+    ]
+    ```
+  </TabItem>
+  <TabItem value='lowSpec' label='Without extensions'>
+    ```json
+    [ {"struct": [
+        {"int": 10},
+        {"int": 50}
+      ]},
+      {"array": [
+        {"int": 1},
+        {"int": 2},
+        {"int": 3},
+        {"int": 4}
+      ]}
+    ]
+    ```
+  </TabItem>
+</Tabs>
+
+Similar rules would apply to the private input file.
+
+:::tip[Mixed representation]
+
+It is also possible to use mixed representations of aggregate types in the same input file as shown below.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+    struct PublicInput {  
+        std::array<int, 3> array_of_3;  
+        __zkllvm_field_pallas_base field_pallas;  
+    };  
+    ```
+
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    struct PublicInput {  
+        array_of_3: [i32, 3],  
+        field_pallas: __zkllvm_field_pallas_base,  
+    }  
+
+    ```
+
+  </TabItem>
+</Tabs>
+
+```json
+[{ "struct": [{ "array<int>": [1, 2, 3] }, { "field<pallas_base>": 8 }] }]
+```
+
+`"struct"` is an aggregate type without an extension but its members (also aggregate types) are extended.
+
+:::

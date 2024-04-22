@@ -1,0 +1,105 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Ebrima';
+  src: url('../../static/fonts/ebrima.ttf');
+}
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-footer-background-color: #212121;
+
+  --ifm-background-color: #212121;
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Ebrima';
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #f1f1f1;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-navbar-link-color: #8a8a8a;
+  --ifm-navbar-link-hover-color: #0f0f0f;
+  --ifm-link-color: #adcdfd;
+  --ifm-link-hover-color: #cee0fb;
+  --ifm-toc-link-color: #bdbdbd;
+  --ifm-toc-link-hover-color: #f1f1f1;
+  --ifm-menu-color: #bdbdbd;
+  --ifm-menu-hover-color: #f1f1f1;
+  --ifm-menu-color-active: #f1f1f1;
+  --ifm-menu-color-background-active: #8a8a8a;
+  --ifm-menu-link-color: #f1f1f1;
+  --ifm-menu-font-size: 0.9rem;
+  --aa-text-color-rgb: 189, 189, 189 !important;
+  --aa-background-color-rgb: 47, 47, 47 !important;
+  --aa-primary-color-rgb: 189, 189, 189 !important;
+  --aa-muted-color-rgb: 138, 138, 138 !important;
+  --ifm-color-warning-contrast-background: #722f01;
+  --ifm-color-warning-dark: #fe7c27;
+  --ifm-color-info-contrast-background: #0a3068;
+  --ifm-color-info-dark: #87b6fc;
+  --ifm-color-success-contrast-background: #13352b;
+  --ifm-color-success-dark: #4db596;
+  --ifm-list-item-margin: 0px;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: #212121;
+  --ifm-background-surface-color: #121212;
+  --ifm-footer-background-color: #212121;
+  --ifm-navbar-primary-color: #212121;
+}
+
+.footer {
+  background-color: #212121;
+}
+
+.navbar {
+  background-color: #f2f2f2;
+}
+
+.table-of-contents {
+  font-size: 1rem;
+}
+
+.breadcrumbs__link {
+  font-size: 0.9rem;
+}
+
+.clean-btn {
+  color: #0f0f0f;
+}
+
+.communityLinksContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}

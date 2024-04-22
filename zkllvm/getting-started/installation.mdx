@@ -1,0 +1,286 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Installation and configuration
+
+## Using pre-built binaries
+
+The easiest way to access zkLLVM is to install pre-built binaries of its key components. 
+
+:::info
+
+All pre-built binaries discussed below are only supported on x86-64 systems.
+
+:::
+
+### Install zkLLVM binaries
+
+zkLLVM is distributed as a Deb package which can be installed using the following commands.
+
+```bash
+echo 'deb [trusted=yes]  http://deb.nil.foundation/ubuntu/ all main' >>/etc/apt/sources.list
+apt update
+apt install -y zkllvm
+```
+
+This will install binaries for nearly all major components of zkLLVM such as `assigner` and the `clang` frontend. Note that the Rust frontend needs to be installed separately.
+
+To verify the installation, run:
+
+```bash
+clang-zkllvm --version
+```
+
+Note that the newly installed `clang` frontend is accessed via `clang-zkllvm`, not `clang`.
+
+### Install Rust binaries
+
+First, install `rustup`.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Then, install `rslang` by executing the following command.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py | python - --channel nightly
+```
+
+Alternatively, download `rslang-installer.py` and run it.
+
+```bash
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+python rslang-installer.py --channel nightly
+```
+
+:::info[Standalone installation]
+
+To install `rslang` without `rustup`, run the below command.
+
+```bash
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+python rslang-installer.py --no-rustup --prefix PATH
+```
+
+:::
+
+Verify that the installation has been successful.
+
+```bash
+rustc +zkllvm -V
+```
+
+:::info[Command output]
+
+The output to the above command should follow the below format.
+
+```bash
+rustc x.y.z (abcabcabc yyyy-mm-dd) (zkLLVM x.y.z)
+```
+
+If `zkLLVM x.y.z` is missing from the output, the `zkllvm` toolchain needs to be reinstalled.
+
+:::
+
+## Building from sources
+
+To build zkLLVM from its source repository, follow the below steps.
+
+### Install dependencies
+
+Install the following dependencies.
+
+- [**Boost**](https://www.boost.org/) >= 1.76.0
+- [**CMake**](https://cmake.org/) >= 3.5
+- [**Clang**](https://clang.llvm.org/) >= 12.0
+- [**Python**](https://www.python.org/) >= 3.7
+- [**Rust**](https://www.rust-lang.org/) >= 1.68 (only if there is a need to use the Rust frontend)
+
+Every dependency apart from Rust can be installed by executing the following command.
+
+```bash
+sudo apt install build-essential libssl-dev cmake clang-12 git curl pkg-config zlib
+```
+
+To install Rust, execute the following command.
+
+```bash
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
+
+:::tip[Ninja]
+
+The [**Ninja build system**](https://ninja-build.org/) can make building zkLLVM from sources faster and more convenient. While it is not a direct dependency, using Ninja is preferable to simply using Unix makefiles. Install Ninja by running the below command.
+
+```bash
+sudo apt-get install ninja-build
+```
+
+:::
+
+:::tip[Installing Boost]
+
+Installing Boost from sources is the most consistent way to ensure that the latest version of Boost is installed that matches the above version constraint.
+
+To install Boost from sources, do the following.
+
+1. Navigate to the folder where you want to install Boost and download Boost.
+
+```bash
+wget https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0_rc1.tar.gz
+```
+
+2. Extract the archive with Boost.
+
+```bash
+cd boost_1_84_0
+```
+
+3. Prepare the build system for Boost by running `bootstrap.sh`.
+
+```bash
+./bootstrap.sh
+```
+
+4. Install Boost system-wide.
+
+```bash
+sudo ./b2 install
+```
+
+:::
+
+### Clone the repository
+
+Clone the repository and all of its sub-modules.
+
+```bash
+git clone --recurse-submodules https://github.com/NilFoundation/zkLLVM.git
+cd zkllvm
+```
+
+:::tip
+
+As the zkLLVM repository contains many large sub-modules, it is recommended to add the following lines to the global Git configuration file before attempting to clone it.
+
+```bash
+[core]
+  packedGitLimit = 512m
+  packedGitWindowSize = 512m
+[pack]
+  deltaCacheSize = 2047m
+  packSizeLimit = 2047m
+  windowMemory = 2047m
+```
+
+:::
+
+### Configure `cmake`
+
+This step is needed to define initial build targets and specify that zkLLVM should produce IRs of circuits in the `.ll` format compatible with Proof Market.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix Makefiles'>
+    ```bash
+    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DCIRCUIT_ASSEMBLY_OUTPUT=TRUE .
+    ```
+  </TabItem>
+</Tabs>
+
+### Build `clang` and `assigner`
+
+The next step is to build the C++ compiler and the `assigner` tool.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix Makefiles'>
+    ```bash
+    make -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    ninja -C ${ZKLLVM_BUILD:-build} assigner clang -j$(nproc)
+    ```
+  </TabItem>
+</Tabs>
+
+### Build the Rust compiler
+
+The first step to building the Rust compiler is adding Rust tools to `cmake`.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix Makefiles'>
+    ```bash
+    cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DRSLANG_BUILD_EXTENDED=TRUE -DRSLANG_BUILD_TOOLS=cargo .
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    cmake -G "Ninja" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release -DRSLANG_BUILD_EXTENDED=TRUE -DRSLANG_BUILD_TOOLS=cargo .
+    ```
+  </TabItem>
+</Tabs>
+
+Afterward, export the path containing LLVM libraries.
+
+```bash
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pwd)/build/libs/circifier/llvm/lib"
+```
+
+Use the below command to build `rustc` and `cargo`.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix Makefiles'>
+    ```bash
+    make -C ${ZKLLVM_BUILD:-build} rslang -j$(nproc)
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    ninja -C ${ZKLLVM_BUILD:-build} rslang -j$(nproc)
+    ```
+  </TabItem>
+</Tabs>
+
+After the build completes, export the `RSLANG` environment variable.
+
+```bash
+export RSLANG="$(pwd)/build/libs/rslang/build/host"
+```
+
+Verify the versions of `rustc` and `cargo` by running the following commands.
+
+```bash
+RUSTC=$RSLANG/stage1/bin/rustc $RSLANG/stage1-tools-bin/cargo --version
+```
+
+:::tip[Finding `rustc` and `cargo`]
+
+If the terminal cannot find `rustc` and `cargo`, run `find ~/zkllvm -name rustc` and `find ~/zkllvm -name cargo`.
+
+:::
+
+:::info[Advanced compiling with Rust]
+
+To use the original bootstrap system supplied by Rust (`x.py`), build `zkllvm` first.
+
+<Tabs groupId='buildSystem'>
+  <TabItem value='unix' label='Unix Makefiles'>
+    ```bash
+    make -C ${ZKLLVM_BUILD:-build} -j$(nproc)
+    ```
+  </TabItem>
+  <TabItem value='ninja' label='Ninja'>
+    ```bash
+    ninja -C ${ZKLLVM_BUILD:-build} -j$(nproc)
+    ```
+  </TabItem>
+</Tabs>
+
+:::
