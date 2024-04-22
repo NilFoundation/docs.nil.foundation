@@ -103,7 +103,7 @@ const config = {
           title: '=nil; Foundation',
           logo: {
             alt: '=nil; Foundation Logo',
-            src: 'img/nil-logo.avif',
+            src: 'img/nil-logo.png',
           },
           items: [
             {
