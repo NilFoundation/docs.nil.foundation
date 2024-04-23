@@ -1,0 +1,28 @@
+# Glossary
+
+This page defines the key terms used in Proof Market. 
+
+## Circuit
+
+A circuit is an algebraic representation of an algorithm consisting of a series of polynomial equations. 
+
+The [**zkLLVM compiler**](../zkllvm/overview/what-is-zkllvm) allows anyone to write a circuit in either C++ or Rust. Circuit code can be compiled into an intermediate representation (IR) in `.ll` format, which can then be used to generate a statement.
+
+## Order
+
+An order is a call for a specific proof made by a proof requester. 
+
+## Statement
+
+A statement is the primary object of trade in Proof Market.
+
+A statement contains a circuit and additional metadata for trading. To publish a statement, create a [**circuit IR**](../zkllvm/getting-started/compiling-a-circuit), attach metadata, and perform an API request.
+
+## Proof requester
+
+An entity (either digital or physical) that wants to use zero-knowledge proofs in its activities such as cross-cluster operations.
+
+## Proof producer
+
+A Proof Market participant that allocates resources for producing the proofs asked for by proof producers.
+
