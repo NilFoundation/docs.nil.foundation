@@ -102,7 +102,6 @@ const config = {
         navbar: {
           title: '=nil; Foundation',
           logo: {
-            alt: '=nil; Foundation Logo',
             src: 'img/nil-logo.png',
           },
           items: [
