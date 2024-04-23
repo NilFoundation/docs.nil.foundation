@@ -6,7 +6,6 @@ import {
 import {translate} from '@docusaurus/Translate';
 import HomeBreadcrumbItem from '@theme/DocBreadcrumbs/Items/Home';
 import {Breadcrumbs as NilBreadcrumbs, BreadcrumbsItem as NilBreadcrumbsItem} from "@nilfoundation/ui-kit/dist/ui-kit.js";
-import styles from './styles.module.css';
 
 export default function DocBreadcrumbs(): JSX.Element | null {
   const breadcrumbs = useSidebarBreadcrumbs();
@@ -30,24 +29,33 @@ export default function DocBreadcrumbs(): JSX.Element | null {
         ? undefined
         : item.href;
         const isDisabled = href === undefined;
-        const name = isDisabled ? '' : styles.breadcrumbWithLink;
-        let isActive: boolean;
-        
-        if (!isLast && !isDisabled) {
-          isActive = true;
-        } else if (isLast) {
-          isActive = false;
-        } else {
-          isActive = undefined;
-        }
-        return (
-          <div className={name}>          
-            <NilBreadcrumbsItem isActive={isActive} href={href} disabled={isDisabled}>
-              {item.label}
-            </NilBreadcrumbsItem>
-          </div>
 
-        );
+        if (!isLast && !isDisabled) {
+          return (
+            <div className='inactiveContainer'>          
+              <NilBreadcrumbsItem href={href} isActive>
+                {item.label}
+              </NilBreadcrumbsItem>
+            </div>
+          );
+
+        } else if (!isLast && isDisabled) {
+          return (
+            <div className='disabledContainer'>          
+              <NilBreadcrumbsItem href={href} disabled>
+                {item.label}
+              </NilBreadcrumbsItem>
+            </div>
+          );
+        } else {
+          return (
+            <div>          
+              <NilBreadcrumbsItem href={href}>
+                {item.label}
+              </NilBreadcrumbsItem>
+            </div>
+          );
+        }
       })}
     </NilBreadcrumbs>
   );

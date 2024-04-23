@@ -104,7 +104,14 @@ html[data-theme='dark'] {
   margin-bottom: 10px;
 }
 
-.bm:hover {
-  color: #FFF !important;
-} 
+/* nav[aria-label='Breadcrumbs'] ol li a:hover {
+  color: #bdbdbd !important;
+} */
 
+div.disabledContainer a:hover {
+  color: rgb(114, 114, 114) !important;
+}
+
+div.inactiveContainer a:hover {
+  color: #bdbdbd !important;
+}
