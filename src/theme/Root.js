@@ -1,23 +1,6 @@
-import { BaseProvider } from "baseui";
-import { Client as Styletron } from "styletron-engine-atomic";
-import { Provider as StyletronProvider } from "styletron-react";
-import { createTheme } from "@nilfoundation/ui-kit/dist/ui-kit.js";
-import { Client, Server } from 'styletron-engine-atomic'
+import React from 'react';
 
-const engine =
-    typeof window === 'undefined'
-        ? new Server()
-        : new Client()
-
-const { theme } = createTheme(engine);
-
-
+// Default implementation, that you can customize
 export default function Root({ children }) {
-
-    return <StyletronProvider value={engine}>
-        <BaseProvider theme={theme}>
-            {children}
-        </BaseProvider>
-    </StyletronProvider>
-
+    return <>{children}</>;
 }
