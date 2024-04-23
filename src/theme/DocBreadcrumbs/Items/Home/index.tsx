@@ -4,12 +4,12 @@ import {Breadcrumbs, BreadcrumbsItem as NilBreadcrumbsItem} from "@nilfoundation
 export default function HomeBreadcrumbItem(): JSX.Element {
 
   return (
-    <div className='inactiveContainer'>
 
-      <NilBreadcrumbsItem href='/' isActive>
+
+      <NilBreadcrumbsItem href='/'>
         Home
       </NilBreadcrumbsItem>
-    </div>
+
 
   );
 }

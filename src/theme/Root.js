@@ -4,7 +4,11 @@ import { Provider as StyletronProvider } from "styletron-react";
 import { createTheme } from "@nilfoundation/ui-kit/dist/ui-kit.js";
 import { Client, Server } from 'styletron-engine-atomic'
 
-const engine = new Styletron();
+const engine =
+    typeof window === 'undefined'
+        ? new Server()
+        : new Client()
+
 const { theme } = createTheme(engine);
 
 

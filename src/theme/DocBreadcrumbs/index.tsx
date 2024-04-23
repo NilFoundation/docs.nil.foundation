@@ -32,28 +32,28 @@ export default function DocBreadcrumbs(): JSX.Element | null {
 
         if (!isLast && !isDisabled) {
           return (
-            <div className='inactiveContainer'>          
-              <NilBreadcrumbsItem href={href} isActive>
+       
+              <NilBreadcrumbsItem href={href}>
                 {item.label}
               </NilBreadcrumbsItem>
-            </div>
+
           );
 
         } else if (!isLast && isDisabled) {
           return (
-            <div className='disabledContainer'>          
+       
               <NilBreadcrumbsItem href={href} disabled>
                 {item.label}
               </NilBreadcrumbsItem>
-            </div>
+
           );
         } else {
           return (
-            <div>          
-              <NilBreadcrumbsItem href={href}>
+        
+              <NilBreadcrumbsItem href={href} isActive>
                 {item.label}
               </NilBreadcrumbsItem>
-            </div>
+
           );
         }
       })}
