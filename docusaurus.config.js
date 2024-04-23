@@ -52,7 +52,6 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
   plugins: [
-    '@cmfcmf/docusaurus-search-local',
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -94,6 +93,15 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
+        algolia: {
+          appId: 'KDQGY81FVN',
+          apiKey: '8ad8d801f2775ff3cf8c4433dfe290e4',
+          indexName: 'nil',
+          contextualSearch: true,
+          searchParameters: {},
+          searchPagePath: 'search',
+          insights: false,
+        },
         colorMode: {
           defaultMode: 'dark',
           disableSwitch: true,
