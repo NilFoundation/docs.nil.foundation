@@ -66,6 +66,7 @@
   --ifm-color-success-contrast-background: #13352b;
   --ifm-color-success-dark: #4db596;
   --ifm-list-item-margin: 0px;
+  --ifm-toc-border-color: rgba(14, 14, 14, 0);
 }
 
 html[data-theme='dark'] {
@@ -104,7 +105,23 @@ html[data-theme='dark'] {
   margin-bottom: 10px;
 }
 
-.bm:hover {
-  color: #FFF !important;
-} 
+nav[aria-label='Breadcrumbs'] ol li:not(:last-child) {
+  font-size: x-large;
+  --ifm-link-hover-color: #bdbdbd !important;
+}
+
+nav[aria-label='Breadcrumbs'] ol li:last-child {
+  font-size: large;
+  --ifm-link-hover-color: #f2f2f2 !important;
+}
+
+nav[aria-label='Breadcrumbs'] ol li p {
+  font-size: medium !important;
+}
+
+nav ul li {
+  font-size: large !important;
+}
+
+
 
