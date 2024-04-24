@@ -1,0 +1,1264 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"MetamaskAuthMessage": {
+				"properties": {
+					"msg": {
+						"type": "string"
+					},
+					"expiration": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"msg",
+					"expiration"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthUser": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"jwt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"jwt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MetamaskAuthRequest": {
+				"properties": {
+					"msg": {
+						"type": "string"
+					},
+					"signRaw": {
+						"type": "string"
+					},
+					"addressRaw": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"msg",
+					"signRaw",
+					"addressRaw"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserDetails": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"address": {
+						"type": "string"
+					},
+					"balance": {
+						"type": "number",
+						"format": "double"
+					},
+					"producer": {
+						"type": "boolean"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"address",
+					"balance",
+					"producer",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SystemInfo": {
+				"properties": {
+					"depositAddress": {
+						"type": "string"
+					},
+					"network": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"depositAddress",
+					"network"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StatementItem": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"input_description": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"definition": {}
+				},
+				"required": [
+					"id",
+					"name",
+					"description",
+					"url",
+					"input_description",
+					"type",
+					"definition"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateStatementRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"input_description": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"isPrivate": {
+						"type": "boolean"
+					},
+					"definition": {}
+				},
+				"required": [
+					"name",
+					"description",
+					"url",
+					"input_description",
+					"type",
+					"isPrivate",
+					"definition"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RequestStatus": {
+				"enum": [
+					0,
+					1,
+					2
+				],
+				"type": "number"
+			},
+			"RequestItem": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/RequestStatus"
+					},
+					"statementId": {
+						"type": "number",
+						"format": "double"
+					},
+					"cost": {
+						"type": "number",
+						"format": "double"
+					},
+					"proofId": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"input": {},
+					"aggregatedModeId": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					}
+				},
+				"required": [
+					"id",
+					"status",
+					"statementId",
+					"cost",
+					"proofId",
+					"input",
+					"aggregatedModeId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateRequestRequest": {
+				"properties": {
+					"statementId": {
+						"type": "number",
+						"format": "double"
+					},
+					"input": {},
+					"cost": {
+						"type": "number",
+						"format": "double"
+					},
+					"aggregatedModeId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"statementId",
+					"input",
+					"cost"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProposalStatus": {
+				"enum": [
+					0,
+					1,
+					2,
+					3
+				],
+				"type": "number"
+			},
+			"ProposalItem": {
+				"properties": {
+					"statementId": {
+						"type": "number",
+						"format": "double"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"cost": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/ProposalStatus"
+					}
+				},
+				"required": [
+					"statementId",
+					"id",
+					"cost",
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateProposalRequest": {
+				"properties": {
+					"statementId": {
+						"type": "number",
+						"format": "double"
+					},
+					"cost": {
+						"type": "number",
+						"format": "double"
+					},
+					"waitingDurationSeconds": {
+						"type": "number",
+						"format": "double"
+					},
+					"maxGenerationDurationSeconds": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"statementId",
+					"cost",
+					"waitingDurationSeconds",
+					"maxGenerationDurationSeconds"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProofItem": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"proof": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"proof"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SubmitProofRequest": {
+				"properties": {
+					"proof": {},
+					"request_key": {
+						"type": "number",
+						"format": "double"
+					},
+					"proposal_key": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"proof",
+					"request_key",
+					"proposal_key"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterProducerResponse": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"result": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"id",
+					"result"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StatementBookItem": {
+				"properties": {
+					"cost": {
+						"type": "number",
+						"format": "double"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"cost",
+					"createdAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StatementBook": {
+				"properties": {
+					"proposals": {
+						"items": {
+							"$ref": "#/components/schemas/StatementBookItem"
+						},
+						"type": "array"
+					},
+					"requests": {
+						"items": {
+							"$ref": "#/components/schemas/StatementBookItem"
+						},
+						"type": "array"
+					},
+					"lastMatchCost": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"instantMatchCost": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"processingMatchCount": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"proposals",
+					"requests",
+					"lastMatchCost",
+					"instantMatchCost",
+					"processingMatchCount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BookAssignedItem": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"proposalId": {
+						"type": "number",
+						"format": "double"
+					},
+					"requestId": {
+						"type": "number",
+						"format": "double"
+					},
+					"statementId": {
+						"type": "number",
+						"format": "double"
+					},
+					"input": {
+						"type": "string"
+					},
+					"definition": {
+						"type": "string"
+					},
+					"matchedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"proposalId",
+					"requestId",
+					"statementId",
+					"input",
+					"definition",
+					"matchedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "proof-market-v2",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/user/metamask/message": {
+			"get": {
+				"operationId": "MetamaskAuthMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MetamaskAuthMessage"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/user/metamask": {
+			"post": {
+				"operationId": "MetamaskAuth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthUser"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MetamaskAuthRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/info": {
+			"get": {
+				"operationId": "Me",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserDetails"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/system/info": {
+			"get": {
+				"operationId": "SystemInfo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SystemInfo"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/statement/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StatementItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/statement": {
+			"get": {
+				"operationId": "GetByFilter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/StatementItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"default": 10,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "owned",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateStatement",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StatementItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateStatementRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/request/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteRequest",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/request": {
+			"get": {
+				"operationId": "GetByFilter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/RequestItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "costFrom",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "createdAtFrom",
+						"required": true,
+						"schema": {
+							"format": "date-time",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "owned",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "statementId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/RequestStatus"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"default": 10,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateRequest",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RequestItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateRequestRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/proposal/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProposalItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteProposal",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/proposal": {
+			"get": {
+				"operationId": "GetByFilter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ProposalItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"default": 10,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "owned",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "statementId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/ProposalStatus"
+						}
+					},
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateProposal",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProposalItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateProposalRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/proof/{id}": {
+			"get": {
+				"operationId": "GetById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProofItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/proof": {
+			"post": {
+				"operationId": "SubmitProof",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProofItem"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SubmitProofRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/producer/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RegisterProducerResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/producer/deregister": {
+			"post": {
+				"operationId": "Deregister",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RegisterProducerResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/book/{statementId}": {
+			"get": {
+				"operationId": "StatementBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StatementBook"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "statementId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/book/assigned": {
+			"get": {
+				"operationId": "Assigned",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/BookAssignedItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

@@ -28,11 +28,16 @@
     "baseui": "^14.0.0",
     "clsx": "^2.0.0",
     "docusaurus-lunr-search": "^3.3.2",
+    "docusaurus-plugin-openapi-docs": "3.0.0-beta.9",
+    "docusaurus-preset-openapi": "^0.7.4",
+    "docusaurus-theme-openapi-docs": "^2.1.3",
     "lightweight-charts": "^4.1.3",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-markdown": "^9.0.1",
+    "redoc": "^2.1.3",
+    "redocusaurus": "^2.0.2",
     "styletron-engine-atomic": "^1.6.2",
     "styletron-react": "^6.1.1"
   },
@@ -40,6 +45,9 @@
     "@docusaurus/module-type-aliases": "^3.1.1",
     "@docusaurus/tsconfig": "^3.2.1",
     "@docusaurus/types": "^3.1.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
   "browserslist": {

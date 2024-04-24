@@ -1,3 +1,12 @@
+import {Card, CardSection} from '@site/src/components/CardSection'
+import NewCircuit from '@site/static/img/proof-market-icons/new-circuit.png'
+import Verify from '@site/static/img/proof-market-icons/verify.png'
+import Statements from '@site/static/img/proof-market-icons/statements.png'
+import Register from '@site/static/img/proof-market-icons/sign-up.png'
+import Request from '@site/static/img/proof-market-icons/request.png'
+import Payments from '@site/static/img/proof-market-icons/payments.png'
+import API from '@site/static/img/proof-market-icons/api.png'
+
 # Application developers
 
 ## Introduction
@@ -6,16 +15,34 @@ Application developers are those users of Proof Market who fulfill the role of [
 
 :::info[Example]
 
+Imagine a developer of a decentralized chess club app where player records are stored on the blockchain and verification occurs via zero-knowledge proofs.
 
+Every time a player wins or loses a match, the app would need to spend significant resources to generate proof that the player record change is valid.
+
+Instead, the app can request the necessary proof via the [**Proof Market API**](./application-developers/api-requests) and update player records as soon as the correct proof is provided by the designated proof producer.
 
 :::
 
-Note that using Proof Market as an application developer requires some familiarity with either C++ or Rust, and [**the zkLLVM compiler**].  
+Note that using Proof Market as an application developer requires some familiarity with either C++ or Rust, and [**the zkLLVM compiler**](../../zkllvm/overview/what-is-zkllvm).  
 
 ## Tutorials
 
 Complete the below tutorials to use Proof Market fully as an application developer.
 
+<CardSection>
+    <Card icon={<img src={NewCircuit}/>} id='app-tut-1' title='Writing a new circuit' description='Learn more about writing a new circuit' to='/application-developers/tutorials/writing-new-circuit'/>
+    <Card icon={<img src={Verify}/>} id='app-tut-2' title='Verifying a proof' description='Use in-EVM proof verification' to='/application-developers/tutorials/verifying-a-proof'/>
+    <Card icon={<img src={Register}/>} id='app-tut-3' title='Signing up' description='Register inside Proof Market' to='/application-developers/tutorials/signing-up'/>
+    <Card icon={<img src={Statements}/>} id='app-tut-4' title='Managing statements' description='Learn how to create and manage statements' to='/application-developers/tutorials/managing-statements'/>
+    <Card icon={<img src={Request}/>} id='app-tut-5' title='Managing requests' description='Start publishing new proof requests' to='/application-developers/tutorials/managing-requests'/>
+    <Card icon={<img src={Payments}/>} id='app-tut-6' title='Managing payments' description='Discover how payments work in Proof Market' to='/application-developers/tutorials/managing-payments'/>
+</CardSection>
+
+
 ## API requests
 
 Learn more about what API requests you will have to make to manage statements and payments.
+
+<CardSection>
+    <Card icon={<img src={API}/>} id='api-app-devs' title='API requests' description='See useful API requests' to='/application-developers/api-requests'/>
+</CardSection>

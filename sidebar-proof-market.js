@@ -12,6 +12,24 @@ export default {
         },
         {
             type: 'category',
+            label: 'Application developers',
+            collapsible: true,
+            collapsed: false,
+            items: [
+                {
+                    type: 'doc',
+                    label: 'Introduction',
+                    id: 'application-developers/intro'
+                },
+                {
+                    type: 'doc',
+                    label: 'API requests',
+                    id: 'application-developers/api-requests'
+                }
+            ]
+        },
+        {
+            type: 'category',
             label: 'Proof Market overview',
             collapsible: true,
             collapsed: false,
@@ -194,5 +212,6 @@ export default {
             label: 'Contact us',
             id: 'misc/contact'
         },
+
     ],
 };

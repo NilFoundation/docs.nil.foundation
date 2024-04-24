@@ -5,12 +5,17 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import { themes as prismThemes } from 'prism-react-renderer';
+import tailwindPlugin from "./plugins/tailwind-config.cjs";
+import type * as Redocusaurus from 'redocusaurus';
+
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '=nil; Foundation Documentation Portal',
   tagline: '',
   favicon: 'img/nil-logo.avif',
+
+  plugins: [tailwindPlugin],
 
   // Set the production url of your site here
   url: 'https://docs.nil.foundation/',
@@ -46,11 +51,31 @@ const config = {
         }
       ),
     ],
+
+    
+    [
+      'redocusaurus',
+      {
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          // Pass it a path to a local OpenAPI YAML file
+          {
+            // Redocusaurus will automatically bundle your spec into a single file during the build
+            spec: './swagger.json',
+            id: 'using-single-yaml'
+          },
+        ],
+        theme: {
+          // Change with your site colors
+          primaryColor: '#1890ff',
+        },
+      },
+    ] satisfies Redocusaurus.PresetEntry,
   ],
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-redoc'],
   plugins: [
     '@cmfcmf/docusaurus-search-local',
     [

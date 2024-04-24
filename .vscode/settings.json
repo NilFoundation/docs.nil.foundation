@@ -8,5 +8,6 @@
             "language": "markdown",
             "scheme": "file"
         }
-    ]
+    ],
+    "css.customData": [".vscode/tailwind.json"]
 }
