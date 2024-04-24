@@ -56,18 +56,14 @@ const config = {
     [
       'redocusaurus',
       {
-        // Plugin Options for loading OpenAPI files
         specs: [
-          // Pass it a path to a local OpenAPI YAML file
           {
-            // Redocusaurus will automatically bundle your spec into a single file during the build
             spec: './swagger.json',
             id: 'using-single-yaml'
           },
         ],
         theme: {
-          // Change with your site colors
-          primaryColor: '#1890ff',
+          primaryColor: '#212121',
         },
       },
     ] satisfies Redocusaurus.PresetEntry,

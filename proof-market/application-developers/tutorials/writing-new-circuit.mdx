@@ -1,0 +1,60 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Writing a new circuit
+
+This tutorial covers developing a simple circuit and compiling it.
+
+## Meeting the prerequisites
+
+First, install the zkLLVM compiler from a pre-built binary distributed as a Debian package.
+
+```bash
+echo 'deb [trusted=yes]  http://deb.nil.foundation/ubuntu/ all main' >>/etc/apt/sources.list
+apt update
+apt install -y zkllvm
+```
+
+To learn about other means of installing zkLLVM, [**click here**](../../../zkllvm/getting-started/installation#building-from-sources).
+
+## Writing the circuit code
+
+First, create a new `.cpp` (C++) or a new `.rs` (Rust) file. 
+
+:::tip
+
+When using Rust, we recommend initializing a new Cargo crate and writing the circuit code in `./src/main.rs`. This will allow for using `cargo` as a compiler rather than `rustc`.
+
+:::
+
+Copy and paste the following code inside the file.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```cpp
+    struct PublicInput {
+      int arg_one;
+      int arg_two;
+    };
+
+    [[circuit]] void circuit_func(PublicInput s,
+    std::array<int, 4> numbers);
+    ```
+
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+
+    ```rust
+    struct PublicInput {  
+        arg_one: i32,  
+        arg_two: u32,  
+    }  
+
+    #[circuit]
+    fn circuit_func(s: PublicInput, numbers: [i32; 4]) {}
+    ```
+
+  </TabItem>
+</Tabs>
+

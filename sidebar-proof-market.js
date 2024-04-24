@@ -25,6 +25,19 @@ export default {
                     type: 'doc',
                     label: 'API requests',
                     id: 'application-developers/api-requests'
+                },
+                {
+                    type: 'category',
+                    label: 'Tutorials',
+                    collapsible: true,
+                    collapsed: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Writing a new circuit',
+                            id: 'application-developers/tutorials/writing-new-circuit'
+                        }
+                    ]
                 }
             ]
         },
