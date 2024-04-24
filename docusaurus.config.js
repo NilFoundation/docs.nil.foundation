@@ -10,7 +10,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 const config = {
   title: '=nil; Foundation Documentation Portal',
   tagline: '',
-  favicon: 'img/nil-logo.avif',
+  favicon: 'img/nil-logo.png',
 
   // Set the production url of your site here
   url: 'https://docs.nil.foundation/',
