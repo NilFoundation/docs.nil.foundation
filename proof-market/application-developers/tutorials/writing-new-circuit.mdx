@@ -15,6 +15,20 @@ apt update
 apt install -y zkllvm
 ```
 
+To install the Rust compiler from a pre-built binary, run the following commands.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py | python - --channel nightly
+```
+
+Verify the installation.
+
+```bash
+clang-zkllvm --version
+rustc +zkllvm -V
+```
+
 To learn about other means of installing zkLLVM, [**click here**](../../../zkllvm/getting-started/installation#building-from-sources).
 
 ## Writing the circuit code
@@ -33,28 +47,79 @@ Copy and paste the following code inside the file.
   <TabItem value='cpp' label='C++'>
 
     ```cpp
-    struct PublicInput {
-      int arg_one;
-      int arg_two;
-    };
+    int pow_2(int a) {
+        int res = 1;
+        for (int i = 0; i < 2; ++i) {
+            res *= a;
+        }
+        return res;
+    }
 
-    [[circuit]] void circuit_func(PublicInput s,
-    std::array<int, 4> numbers);
+    [[circuit]] int int_arithmetic_example(int a, int b) {
+        int c = (a + b) * a + b * (a + b) * (a + b);
+        const int constant = 77;
+        return c * c * c * (b - a) + pow_2(a) + constant;
+    }
     ```
 
   </TabItem>
   <TabItem value='rust' label='Rust'>
 
     ```rust
-    struct PublicInput {  
-        arg_one: i32,  
-        arg_two: u32,  
-    }  
+    #![no_main]
+
+    use ark_ff::{Field, MontFp};
+    use ark_pallas::Fq;
+    use unroll::unroll_for_loops;
+
+    #[unroll_for_loops]
+    fn pow_2(a: i32) -> i32 {
+        let mut : i32 = 1;
+        for i in 0..2 {
+            acc = acc * a;
+        }
+
+        acc
+    }
 
     #[circuit]
-    fn circuit_func(s: PublicInput, numbers: [i32; 4]) {}
+    pub fn field_arithmetic_example(a: Fq, b: Fq) -> Fq {
+        let c = (a + b) * a + b * (a + b) * (a + b);
+        const CONSTANT: i32 = 77;
+        c * c * c / (b - a) + pow_2(a) + CONSTANT
+    }
     ```
 
   </TabItem>
 </Tabs>
 
+## Compiling the circuit
+
+Run the following command to produce circuit IR.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+
+    ```bash
+    clang-zkllvm -S -emit-llvm -target assigner -O1 -o circuit.ll path/to/circuit.cpp
+    ```
+
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+
+    Using `cargo`:
+
+    ```bash
+    cargo +zkllvm build --target assigner-unknown-unknown
+    ```
+
+    Using `rustc`:
+
+    ```bash
+    rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir -C opt-level=3 circuit.rs 
+    ```
+
+  </TabItem>
+</Tabs>
+
+This should produce an `.ll` file with the circuit IR, which can then be transformed into a statement.
