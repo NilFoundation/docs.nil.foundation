@@ -1,0 +1,81 @@
+# Verifying a proof
+
+This tutorial demonstrates how [**the initial circuit**](./writing-new-circuit) can be verified on-chain and off-chain.
+
+Regardless of whether verification is done on-chain or off-chain, a circuit needs to be accompanied by a public inputs file.
+
+## Creating a public inputs file
+
+Create a new `.inp` file and copy-paste the following JSON array inside it.
+
+```json
+[{ "int": 5 }, { "int": 11 }]
+```
+
+The circuit function in the tutorial circuit accepts two integers the values of which are taken from the `.inp` file.
+
+[**Click here**](../../../zkllvm/getting-started/preparing-input-files) to learn more about input files.
+
+## On-chain verification
+
+### Meeting the prerequisites
+
+In-EVM verification is done via the [**EVM Placeholder proof system verifier**](https://github.com/NilFoundation/evm-placeholder-verification).
+
+To install it, install Node.js and `npm`. Afterward, run the following commands.
+
+```bash
+git clone https://github.com/NilFoundation/evm-placeholder-verification.git
+cd evm-placeholder-verification/
+npm install
+npx hardhat compile
+```
+
+### Creating the proof
+
+At this stage, the circuit IR needs to be passed to the `assigner` tool which will generate the circuit constraints and the assignment table.
+
+```bash
+assigner -b -i path/to/input.inp -c circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment path/to/circuit.ll
+```
+
+Afterward, run the `transpiler` tool on the newly generated `.crct` and `.tbl` files. This tool will produce a binary with the proof as well as Solidity contracts for the circuit.
+
+```bash
+transpiler -m gen-evm-verifier -c path/to/circuit.crct -t path/to/assignment.tbl -o output -e pallas --optimize-gates
+```
+
+The `.output` directory should contain all files necessary for proof verification.
+
+### Validating the proof
+
+To validate the proof, copy and paste the `./output` folder into the `path/to/evm-placeholder-verification/contracts/zkllvm` directory.
+
+Afterward, navigate to this directory and run the below command. 
+
+```bash
+npx hardhat deploy
+```
+This will deploy all circuits in the ./evm-placeholder-verification/contracts/** directory including the new circuit to a local EVM network.
+
+Verify the proof:
+
+```bash
+npx hardhat verify-circuit-proof --test path/to/output
+```
+
+, where the last argument is the path to the `./output` directory created after running the `transpiler` tool.
+
+The terminal should display the following output.
+
+```bash
+Run modular verifier for: path/to/output
+Verify : ../contracts/zkllvm/path/to/output/proof.bin
+[ 999n, 5n ]
+⛽Gas used:  5097062
+Events received:
+✅ProofVerified
+```
+
+## Off-chain verification
+

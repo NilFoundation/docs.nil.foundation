@@ -47,18 +47,11 @@ Copy and paste the following code inside the file.
   <TabItem value='cpp' label='C++'>
 
     ```cpp
-    int pow_2(int a) {
-        int res = 1;
-        for (int i = 0; i < 2; ++i) {
-            res *= a;
-        }
-        return res;
-    }
-
-    [[circuit]] int int_arithmetic_example(int a, int b) {
-        int c = (a + b) * a + b * (a + b) * (a + b);
-        const int constant = 77;
-        return c * c * c * (b - a) + pow_2(a) + constant;
+    [[circuit]] int multiplication_example(
+    int a,
+    int b) {
+      auto c = a*b;
+      return c;
     }
     ```
 
@@ -66,27 +59,10 @@ Copy and paste the following code inside the file.
   <TabItem value='rust' label='Rust'>
 
     ```rust
-    #![no_main]
-
-    use ark_ff::{Field, MontFp};
-    use ark_pallas::Fq;
-    use unroll::unroll_for_loops;
-
-    #[unroll_for_loops]
-    fn pow_2(a: i32) -> i32 {
-        let mut : i32 = 1;
-        for i in 0..2 {
-            acc = acc * a;
-        }
-
-        acc
-    }
-
     #[circuit]
-    pub fn field_arithmetic_example(a: Fq, b: Fq) -> Fq {
-        let c = (a + b) * a + b * (a + b) * (a + b);
-        const CONSTANT: i32 = 77;
-        c * c * c / (b - a) + pow_2(a) + CONSTANT
+    pub fn multiplication_example(a: i32, b: i32) -> i32 {
+      let c = a * b;
+      c
     }
     ```
 
