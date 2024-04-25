@@ -132,7 +132,7 @@ export default {
         },
         {
             type: 'category',
-            label: 'Tutorial',
+            label: 'Use cases',
             collapsible: true,
             collapsed: true,
             items: [
