@@ -5,7 +5,13 @@ import TabItem from '@theme/TabItem'
 
 `if`/`else` statements are a popular instrument of control flow. 
 
-However, they can be detrimental to circuit performance. A separate arithmetization constraint is generated for each branch of an `if`/`else` statement, leading to constraint duplication and large table sizes.
+However, they can be detrimental to circuit performance as the use of `if`/`else` statements results in an exponential growth of the constraint table.
+
+:::info[Constraint table]
+
+The rate at which new constraints are generated is 2^*N*, where *N* is the number of `if`/`else` statements in a circuit. 
+
+:::
 
 :::info
 

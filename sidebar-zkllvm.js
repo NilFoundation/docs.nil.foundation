@@ -86,28 +86,35 @@ export default {
             collapsed: true,
             items: [
                 {
-                    type: 'category',
-                    label: 'Writing performant circuits',
-                    collapsible: true,
-                    collapsed: false,
-                    items: [
-                        {
-                            type: 'doc',
-                            label: 'Avoiding if/else statements',
-                            id: 'best-practices-limitations/avoiding-if-else-statements'
-                        },
-                        {
-                            type: 'doc',
-                            label: 'Using const size containers',
-                            id: 'best-practices-limitations/using-const-size-containers'
-                        },
-                    ]
+                    type: 'doc',
+                    label: 'Refactoring if/else statements',
+                    id: 'best-practices-limitations/avoiding-if-else-statements'
                 },
                 {
                     type: 'doc',
-                    label: 'Limitations',
-                    id: 'best-practices-limitations/limitations'
-                }
+                    label: 'Using statically allocated structures',
+                    id: 'best-practices-limitations/using-stat-structures'
+                },
+                {
+                    type: 'doc',
+                    label: 'Avoiding dynamic loops',
+                    id: 'best-practices-limitations/dynamic-loops'
+                },
+                {
+                    type: 'doc',
+                    label: 'Passing arguments by value',
+                    id: 'best-practices-limitations/passing-args-by-value'
+                },
+                {
+                    type: 'doc',
+                    label: 'Avoiding system interfaces',
+                    id: 'best-practices-limitations/system-interfaces'
+                },
+                {
+                    type: 'doc',
+                    label: 'Unrolling loops',
+                    id: 'best-practices-limitations/unrolling-loops'
+                },
             ]
         },
         {
@@ -116,46 +123,6 @@ export default {
             collapsible: true,
             collapsed: true,
             items: [
-                {
-                    type: 'doc',
-                    label: 'Full circuit generation pipeline',
-                    id: 'circuit-development/circuit-generation',
-                },
-                {
-                    type: 'doc',
-                    label: 'Circuit-friendy compiler extensions',
-                    id: 'circuit-development/compiler-extensions',
-                },
-                {
-                    type: 'doc',
-                    label: 'Limitations',
-                    id: 'circuit-development/limitations',
-                },
-                {
-                    type: 'doc',
-                    label: 'Input format for circuits',
-                    id: 'circuit-development/input',
-                },
-                {
-                    type: 'doc',
-                    label: 'Proof generation',
-                    id: 'circuit-development/proof-generation',
-                },
-                {
-                    type: 'doc',
-                    label: 'Proof verification',
-                    id: 'circuit-development/proof-verifier',
-                },
-                {
-                    type: 'doc',
-                    label: 'Tools',
-                    id: 'circuit-development/tools',
-                },
-                {
-                    type: 'doc',
-                    label: 'Effective circuit development',
-                    id: 'circuit-development/optimizations',
-                },
                 {
                     type: 'doc',
                     label: 'Standard library',
@@ -189,20 +156,6 @@ export default {
                     label: 'Constructing a zkBridge',
                     id: 'tutorials/zkbridge'
                 },
-            ]
-        },
-        {
-            type: 'category',
-            label: 'Architecture design example',
-            collapsible: true,
-            collapsed: true,
-            items: [
-                {
-                    type: 'doc',
-                    label: 'zkApplication circuit development',
-                    id: 'tutorials/hashes'
-                },
-
             ]
         },
         {

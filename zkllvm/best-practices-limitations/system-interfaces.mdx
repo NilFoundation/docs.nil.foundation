@@ -1,0 +1,49 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# System interfaces
+
+Circuit functions do not have access to any system interfaces. For example, they cannot make network requests or open and modify files. 
+
+The following examples contain invalid circuit functions that attempt to perform operations involving system interfaces.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    
+    #include <iostream>
+    #include <fstream>
+    using namespace std;
+
+    void write_to_file() {
+        ofstream local_file;
+        local_file.open("example.txt");
+        local_file << "A circuit cannot do this!";
+        local_file.close();
+    }
+    
+    [[circuit]] int circuit_func() {
+        open_file();
+        return 0;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    use std::fs::File;
+    use std::io::Write;
+
+    fn write_to_file() -> std::io::Result<()> {
+        let mut file = File::create("./example.txt")?;
+        file.write_all("A circuit cannot do this!".as_bytes())?;
+        Ok(())
+    }
+
+    #[circuit]
+    fn circuit_func() -> i32 {
+        let _ = write_to_file();
+        0
+    }
+    ```
+  </TabItem>
+</Tabs>

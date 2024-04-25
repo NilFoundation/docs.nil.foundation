@@ -1,0 +1,27 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Passing arguments by value
+
+Circuit functions accept arguments from [**public and private input files**](../getting-started/preparing-input-files). These arguments cannot contain memory addresses as there is no guarantee that an address will be valid when a circuit is eventually run.
+
+As a result, arguments passed to circuit functions should be passed by value rather than by reference. 
+
+The following examples contain examples of passing by value and passing by reference.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    bool passing_by_reference(int *x) {}
+
+    bool passing_by_value(int x) {}
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    fn passing_by_reference(x: &mut i32) -> bool {}
+
+    fn passing_by_value(x: i32) -> bool {}
+    ```
+  </TabItem>
+</Tabs>
