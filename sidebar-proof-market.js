@@ -36,6 +36,16 @@ export default {
                             type: 'doc',
                             label: 'Writing a new circuit',
                             id: 'application-developers/tutorials/writing-new-circuit'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Verifying a proof',
+                            id: 'application-developers/tutorials/verifying-a-circuit'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Writing a new circuit',
+                            id: 'application-developers/tutorials/managing-statements'
                         }
                     ]
                 }

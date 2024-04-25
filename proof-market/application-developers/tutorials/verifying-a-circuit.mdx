@@ -1,8 +1,40 @@
 # Verifying a proof
 
-This tutorial demonstrates how [**the initial circuit**](./writing-new-circuit) can be verified on-chain and off-chain.
+This tutorial demonstrates how the proof for [**the initial circuit**](./writing-new-circuit) can be verified on-chain.
 
-Regardless of whether verification is done on-chain or off-chain, a circuit needs to be accompanied by a public inputs file.
+:::info
+
+With some modification, this tutorial can be applied to any other proof including those received from proof producers. 
+
+Whenever a proof is generated for an order, Proof Market handles verification on its own behind the scenes. Verifying a proof manually is just an optional security mechanism.  
+
+:::
+
+<details>
+<summary>Click here to learn more about how Proof Market validates proofs</summary>
+<p>
+Whenever a proof producer submits a proof, they have to make a `POST` request to the `/proof` endpoint. The request has to contain the IDs of the related statement and request as well as the proof itself.
+</p>
+<p>
+Afterward, Proof Market retrieves the original statement and request and generates the assignment table and the circuit constraints for the circuit attached to the statement. These outputs are passed to the <code>proof-generator</code> tool for verifying the proof.
+</p>
+<p>
+If the verification succeeds, the request is considered completed.
+</p>
+</details>
+
+## Meeting the prerequisites
+
+In-EVM verification is done via the [**EVM Placeholder proof system verifier**](https://github.com/NilFoundation/evm-placeholder-verification).
+
+To install it, install Node.js and `npm`. Afterward, run the following commands.
+
+```bash
+git clone https://github.com/NilFoundation/evm-placeholder-verification.git
+cd evm-placeholder-verification/
+npm install
+npx hardhat compile
+```
 
 ## Creating a public inputs file
 
@@ -16,22 +48,8 @@ The circuit function in the tutorial circuit accepts two integers the values of 
 
 [**Click here**](../../../zkllvm/getting-started/preparing-input-files) to learn more about input files.
 
-## On-chain verification
 
-### Meeting the prerequisites
-
-In-EVM verification is done via the [**EVM Placeholder proof system verifier**](https://github.com/NilFoundation/evm-placeholder-verification).
-
-To install it, install Node.js and `npm`. Afterward, run the following commands.
-
-```bash
-git clone https://github.com/NilFoundation/evm-placeholder-verification.git
-cd evm-placeholder-verification/
-npm install
-npx hardhat compile
-```
-
-### Creating the proof
+## Creating the proof
 
 At this stage, the circuit IR needs to be passed to the `assigner` tool which will generate the circuit constraints and the assignment table.
 
@@ -47,7 +65,7 @@ transpiler -m gen-evm-verifier -c path/to/circuit.crct -t path/to/assignment.tbl
 
 The `.output` directory should contain all files necessary for proof verification.
 
-### Validating the proof
+## Validating the proof
 
 To validate the proof, copy and paste the `./output` folder into the `path/to/evm-placeholder-verification/contracts/zkllvm` directory.
 
@@ -76,6 +94,4 @@ Verify : ../contracts/zkllvm/path/to/output/proof.bin
 Events received:
 ✅ProofVerified
 ```
-
-## Off-chain verification
 
