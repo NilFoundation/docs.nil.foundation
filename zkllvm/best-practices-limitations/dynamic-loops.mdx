@@ -1,0 +1,65 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Dynamic loops
+
+Dynamic loops are loops where the number of cycles is not necessarily known at compile time.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    [[circuit]] int circuit_funct(int a, int b) {
+        for (int j=0; j < b; j++) {
+            a *= a;
+        }
+
+        return a
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #[circuit]
+    pub fn cirucit_func(a: i32, b: i32) {
+        for i in 0..b {
+            a *= a;
+        }
+        a
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+Dynamic loops must be replaced with static loops where the number of cycles is a literal or otherwise a value known at compile time.
+
+:::tip
+
+In addition to using literals, it is also possible to use the `constexpr` (C++) or the `const` (Rust) specifiers.
+
+:::
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    [[circuit]] int circuit_funct(int a) {
+        for (int j=0; j < 10; j++) {
+            a *= a;
+        }
+
+        return a
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #[circuit]
+    pub fn cirucit_func(a: i32) {
+        for i in 0..10 {
+            a *= a;
+        }
+        a
+    }
+    ```
+  </TabItem>
+</Tabs>
+

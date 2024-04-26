@@ -1,0 +1,66 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Unrolling loops
+
+Loop unrolling is the process of transforming a loop into a series of statements, which helps eliminate branching and add additional code optimizations.
+
+When compiling C++ code, loop unrolling occurs automatically.
+
+However, functions in Rust have to explicitly use the `#[unroll_for_loops]` directive (imported from the `unroll` crate) for loop unrolling to work.
+
+Consider the following examples.
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/algebra/curves/pallas.hpp>
+
+    using namespace nil::crypto3::algebra::curves;
+    typename pallas::base_field_type::value_type pow_2(typename pallas::base_field_type::value_type a) {
+        typename pallas::base_field_type::value_type res = 1;
+        for (int i = 0; i < 2; ++i) {
+            res *= a;
+        }
+        return res;
+    }
+
+    [[circuit]] typename pallas::base_field_type::value_type
+        field_arithmetic_example(typename pallas::base_field_type::value_type a,
+                                typename pallas::base_field_type::value_type b) {
+
+        typename pallas::base_field_type::value_type c = (a + b) * a + b * (a + b) * (a + b);
+        const typename pallas::base_field_type::value_type constant = 0x12345678901234567890_cppui255;
+        return c * c * c / (b - a) + pow_2(a) + constant;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+    #![feature(const_trait_impl)]
+    #![feature(effects)]
+
+    use ark_ff::{Field, MontFp};
+    use ark_pallas::Fq;
+    use unroll::unroll_for_loops;
+
+    #[unroll_for_loops]
+    fn pow_2(a: Fq) -> Fq {
+        let mut acc = Fq::ONE;
+        for i in 0..2 {
+            acc = acc * a;
+        }
+
+        acc
+    }
+
+    #[circuit]
+    pub fn field_arithmetic_example(a: Fq, b: Fq) -> Fq {
+        let c = (a + b) * a + b * (a + b) * (a + b);
+        const CONSTANT: Fq = MontFp!("0x12345678901234567890");
+        c * c * c / (b - a) + pow_2(a) + CONSTANT
+    }
+    ```
+  </TabItem>
+</Tabs>
