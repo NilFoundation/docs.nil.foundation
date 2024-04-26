@@ -2085,9 +2085,9 @@
     "@types/mdx" "^2.0.0"
 
 "@nilfoundation/ui-kit@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@nilfoundation/ui-kit/-/ui-kit-2.5.1.tgz#ca89dc5c903bdd2cc9bb5177d2be060407155bb5"
-  integrity sha512-laECmBIfXxsLvuhPKGCmCVn4mFWHDi+x9ib4BhIjofkmduiv6xmDUyFm5xAo7kP0tUltqIAb8RFymVoCwKIAqg==
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/@nilfoundation/ui-kit/-/ui-kit-2.5.3.tgz#b76832627125418c64570c2d8981e8f21c5bf084"
+  integrity sha512-DMEMootdrv6eQzhZIGOGHSPpotNOBsKOh8otk6/XWBeZLhZ/1x5ezYuceUDYdZ4aWWldcrTqOsN01R/BGkWHFg==
   dependencies:
     copy-to-clipboard "^3.3.3"
     inline-style-expand-shorthand "^1.6.0"
@@ -6381,7 +6381,7 @@ isexe@^2.0.0:
 
 isobject@^3.0.1:
   version "3.0.1"
-  resolved "https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
 
 jest-util@^29.7.0:

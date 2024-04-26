@@ -10,7 +10,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 const config = {
   title: '=nil; Foundation Documentation Portal',
   tagline: '',
-  favicon: 'img/nil-logo.avif',
+  favicon: 'img/nil-logo.png',
 
   // Set the production url of your site here
   url: 'https://docs.nil.foundation/',
@@ -52,7 +52,6 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
   plugins: [
-    '@cmfcmf/docusaurus-search-local',
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -94,6 +93,15 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
+        algolia: {
+          appId: 'KDQGY81FVN',
+          apiKey: '8ad8d801f2775ff3cf8c4433dfe290e4',
+          indexName: 'nil',
+          contextualSearch: true,
+          searchParameters: {},
+          searchPagePath: 'search',
+          insights: false,
+        },
         colorMode: {
           defaultMode: 'dark',
           disableSwitch: true,
@@ -102,7 +110,6 @@ const config = {
         navbar: {
           title: '=nil; Foundation',
           logo: {
-            alt: '=nil; Foundation Logo',
             src: 'img/nil-logo.png',
           },
           items: [
