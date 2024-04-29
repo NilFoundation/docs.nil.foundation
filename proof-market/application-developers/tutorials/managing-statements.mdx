@@ -28,6 +28,15 @@ To create a new statement, perform a [**`POST` request to `/statement`**](../../
 
 The response will contain a newly generated `StatementItem` object.
 
+:::tip[Circuit inputs]
+
+When creating a new statement, specify circuit inputs in the `"input_description"` key as a sequence of values and types separated by spaces. Consider these examples.
+
+- `2 int 5 int`
+- `10 field 98 int`
+
+:::
+
 ## Accessing statement statistics
 
 After selecting an existing statement or creating a new one, the app must attain statistics about the requests made by other users and the proposals made by proof producers.
