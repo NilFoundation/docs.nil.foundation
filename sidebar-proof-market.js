@@ -62,6 +62,32 @@ export default {
             ]
         },
         {
+            type: 'category',
+            label: 'Proof producers',
+            collapsed: false,
+            collapsible: true,
+            items: [
+                {
+                    type: 'doc',
+                    label: 'Introduction',
+                    id: 'proof-producers/intro'
+                },
+                {
+                    type: 'category',
+                    label: 'Tutorials',
+                    collapsed: true,
+                    collapsible: false,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Running a producer process',
+                            id: 'proof-producers/tutorials/running-producer-process'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             type: 'doc',
             label: 'API reference',
             id: 'api-reference'

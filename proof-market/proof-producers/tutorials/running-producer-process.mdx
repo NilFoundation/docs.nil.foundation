@@ -1,0 +1,43 @@
+# Running a producer process
+
+The producer process can be divided into four major steps covered in this tutorial.
+
+## 1. Meeting the requirements
+
+Proof generation is a resource-intensive task. The following specs are recommended for proof producers.
+
+- Ubuntu 20+
+- At least 10 CPU cores
+- At least 16 GBs of RAM
+
+## 2. Learning the fundamentals
+
+Proof producers generate zero-knowledge proofs for statements, which can be defined as arithmetic circuits with arbitrary metadata. 
+
+To offer their services, proof producers make proposals. A proposal consists of a specific statement as well as the price for which a proof producer is willing to generate the proof for it. Proof producers can post proposals autonomously or in response to specific requests made by other users.
+
+:::info
+
+A statement includes a circuit and its public inputs. Every time the inputs for a circuit change, a new statement must be created.
+
+This means that applications should request proofs regularly and a well-functioning proof producer process should include periodic checks for new statements. 
+
+:::
+
+After Proof Market matches a proposal and a statement, the proof producer must generate proof and submit it. On successful proof verification (which is done by Proof Market itself), the proof producer earns a monetary reward.
+
+## 3. Creating a schedule 
+
+Using Proof Market as a proof producer involves making periodic requests to the Proof Market REST API.
+
+To simplify working with Proof Market, use `cron` or a similar service for scheduling background tasks. For example, the following `cron` task will fetch a list of all available statements every two hours.
+
+```bash
+1 0-22/2 * * * curl -X 'GET' 'https://proof-market.nil.foundation/statement?limit=10&offset=0&owned=false' -H 'accept: application/json'
+```
+
+:::tip
+
+Use [**Crontab Guru**](https://crontab.guru/) to verify Cron statements before scheduling tasks.
+
+:::

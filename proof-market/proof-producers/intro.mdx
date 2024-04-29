@@ -1,0 +1,43 @@
+import {Card, CardSection} from '@site/src/components/CardSection'
+import Process from '@site/static/img/proof-market-icons/process.png'
+import Registration from '@site/static/img/proof-market-icons/registration.png'
+import Statements from '@site/static/img/proof-market-icons/statements.png'
+import Proposal from '@site/static/img/proof-market-icons/proposal.png'
+import Rewards from '@site/static/img/proof-market-icons/reward.png'
+import API from '@site/static/img/proof-market-icons/api.png'
+
+# Proof producers
+
+## Introduction
+
+Proof producers generate and submit proofs in response to open requests. By taking on the costs of proof generation, proof producers earn monetary rewards for completed orders.
+
+:::info[Example]
+
+Imagine a zero-knowledge chess club dApp where player records are stored on the blockchain.
+
+Each time a match finishes, the app requests a new zero-knowledge proof to convince the blockchain that the match really happened and its results are valid.
+
+By generating new proofs for these requests, the proof producer reliably earns compensation.
+
+:::
+
+## Tutorials
+
+Complete the below tutorials to learn how Proof Market works for proof producers.
+
+<CardSection>
+    <Card icon={<img src={Process}/>} id='prod-tut-1' title='Running a producer process' description='Learn how to run an efficient producer process' to='./tutorials/writing-new-circuit'/>
+    <Card icon={<img src={Registration}/>} id='prod-tut-2' title='Registering as a new producer' description='Sign up as a proof producer' to='./tutorials/verifying-a-circuit'/>
+    <Card icon={<img src={Statements}/>} id='prod-tut-3' title='Managing statements' description='Learn how to create and manage statements' to='./tutorials/signing-up'/>
+    <Card icon={<img src={Proposal}/>} id='app-tut-4' title='Proposal submission and approval' description='Begin generating proofs and completing orders' to='./tutorials/managing-statements'/>
+    <Card icon={<img src={Rewards}/>} id='app-tut-5' title='Managing incentives' description='Earn compensation for proof generation' to='./tutorials/managing-requests'/>
+</CardSection>
+
+## API requests
+
+Learn more about what API requests you will have to make as part of the proof producer process.
+
+<CardSection>
+    <Card icon={<img src={API}/>} id='api-app-devs' title='API requests' description='See useful API requests' to='../api-reference'/>
+</CardSection>
