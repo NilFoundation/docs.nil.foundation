@@ -8,8 +8,45 @@ This tutorial explains what statements are and their role in application develop
 
 Statements are circuits with additional metadata such as a name and an ID.
 
-The primary purpose of statements is to 'wrap' circuits inside a tradeable entity that can be used to match application developers and proof producers. 
+The primary purpose of statements is to 'wrap' circuits inside a tradeable entity that can be used to match proof requesters and proof producers. 
 
-## Creating a new statement
+## Attaining available statements
 
-<ApiSchema pointer="#/components/schemas/StatementItem" />;
+If reusing an existing circuit is sufficient for the app, check the list of available statements to see whether there exist ready-made statements.
+
+To do so, send a [**`GET` request to `/statement`**](../../api-reference#operation/GetByFilter), which should return a list of `StatementItem` objects.
+
+<ApiSchema pointer="#/components/schemas/StatementItem"/>
+
+If there is no need to create a new statement, skip the next step.
+
+## Creating a new statement (Optional)
+
+To create a new statement, perform a [**`POST` request to `/statement`**](../../api-reference#operation/CreateStatement) with the following request body.
+
+<ApiSchema pointer="#/components/schemas/CreateStatementRequest"/>
+
+The response will contain a newly generated `StatementItem` object.
+
+## Accessing statement statistics
+
+After selecting an existing statement or creating a new one, the app must attain statistics about the requests made by other users and the proposals made by proof producers.
+
+Perform a [**`GET` request to `/book/{statementId}`**](../../api-reference#operation/StatementBook) to produce the below response.
+
+<ApiSchema pointer="#/components/schemas/StatementBook"/>
+
+## Attaining user balance (Optional)
+
+Optionally, the app may also request information about the user's balance to evaluate what the user can pay for requesting a proof.
+
+Send a [**`GET` request to `/user/info`**](../../api-reference#operation/UserDetails) and receive this response:
+
+<ApiSchema pointer="#/components/schemas/UserDetails"/>
+
+The `"balance"` key should contain information about the user's remaining funds.
+
+
+
+
+

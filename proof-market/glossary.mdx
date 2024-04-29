@@ -10,24 +10,6 @@ The [**zkLLVM compiler**](../zkllvm/overview/what-is-zkllvm) allows anyone to wr
 
 Note that a circuit is typically provided by a proof requester.
 
-## Order
-
-An order is a call for a specific proof made by a proof requester. When an order is placed, Proof Market attempts to match it with proposals submitted by proof producers.
-
-:::info[Order statuses]
-
-An order may have the following statuses.
-
-* *Created*: the initial status for any order before it is matched with a proposal. 
-* *Processing*: the status assigned after an order is matched with a proposal. At this stage, Proof Market awaits a proof producer to generate proof.
-* *Completed*: the final status for any successful order. It is assigned after proof is provided by a proof producer.
-* *Withdrawn*: the final status for an unsuccessful order. An order can fail for the following reasons.
-    - The order was canceled before it matched with a proof producer
-    - The proof producer submitted the wrong proof
-    - No proof was submitted by the proof producer before order timeout
-
-:::
-
 ## Statement
 
 A statement is the primary object of trade in Proof Market.
@@ -48,3 +30,16 @@ A Proof Market participant that allocates resources for producing the proofs ask
 
 A proposal is an offer made by a proof producer to generate proof for a specific statement.
 
+## Request
+
+A request is an ask made to generate a proof for a specific statement and with given public inputs. Whenever public inputs change, a new request has to be posted.
+
+:::info[Request statuses]
+
+A request may have the following statuses.
+
+* `CREATED`: the initial status for any request before it is matched with a proposal.
+* `PENDING`: the status assigned after a request is matched with a proposal. At this stage, Proof Market awaits a proof producer to generate proof.
+* `DONE`: he final status for any successful request. It is assigned after proof is provided by a proof producer.
+
+:::

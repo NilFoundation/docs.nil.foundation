@@ -1,14 +1,14 @@
 export default {
     proofmarket: [
         {
-            type: 'link',
-            label: 'GitHub',
-            href: 'https://github.com/NilFoundation/proof-market-toolchain',
-        },
-        {
             type: 'doc',
             label: '=nil; Proof Market',
             id: 'intro'
+        },
+        {
+            type: 'doc',
+            label: 'Glossary',
+            id: 'glossary'
         },
         {
             type: 'category',
@@ -20,11 +20,6 @@ export default {
                     type: 'doc',
                     label: 'Introduction',
                     id: 'application-developers/intro'
-                },
-                {
-                    type: 'doc',
-                    label: 'API requests',
-                    id: 'application-developers/api-requests'
                 },
                 {
                     type: 'category',
@@ -44,12 +39,32 @@ export default {
                         },
                         {
                             type: 'doc',
-                            label: 'Writing a new circuit',
+                            label: 'Signing up',
+                            id: 'application-developers/tutorials/signing-up'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Managing statements',
                             id: 'application-developers/tutorials/managing-statements'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Managing request',
+                            id: 'application-developers/tutorials/managing-requests'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Managing payments',
+                            id: 'application-developers/tutorials/managing-payments'
                         }
                     ]
                 }
             ]
+        },
+        {
+            type: 'doc',
+            label: 'API reference',
+            id: 'api-reference'
         },
         {
             type: 'category',
@@ -72,47 +87,6 @@ export default {
                     label: 'Web interface',
                     id: 'market/web-interface'
                 },
-            ]
-        },
-        {
-            type: 'category',
-            label: 'Application developers',
-            collapsible: true,
-            collapsed: false,
-            items: [
-                {
-                    type: 'doc',
-                    label: 'Getting started',
-                    id: 'toolchain/sign-up'
-                },
-                {
-                    type: 'doc',
-                    label: 'Toolchain installation',
-                    id: 'toolchain/installation'
-                },
-                {
-                    type: 'doc',
-                    label: 'Circuits and statements',
-                    id: 'developers/statements'
-                },
-                {
-                    type: 'doc',
-                    label: 'Requesting and obtaining proofs',
-                    id: 'developers/proofs'
-                },
-                {
-                    type: 'category',
-                    label: 'EVM development',
-                    collapsible: true,
-                    collapsed: true,
-                    items: [
-                        {
-                            type: 'doc',
-                            label: 'Placeholder verifier',
-                            id: 'evm/verifier'
-                        },
-                    ],
-                }
             ]
         },
         {

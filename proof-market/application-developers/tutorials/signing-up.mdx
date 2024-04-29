@@ -1,4 +1,37 @@
+import ApiSchema from '@theme/ApiSchema';
+
 # Signing up
 
 This tutorial showcases how authorization works in Proof Market and its API.
+
+:::info[Metamask]
+
+Authorization inside Proof Market requires a Metamask wallet.
+
+:::
+
+## Performing the initial request
+
+First, send a [**`GET` request to the `/user/metamask/message`**](../../api-reference#operation/MetamaskAuthMessage) endpoint to produce the following response.
+
+<ApiSchema pointer="#/components/schemas/MetamaskAuthMessage"/>
+
+## Receiving a JWT
+
+To receive a web token, perform a [**`POST` request to `/user/metamask`**](../../api-reference#operation/MetamaskAuthRequest) with this request body:
+
+<ApiSchema pointer="#/components/schemas/MetamaskAuthRequest"/>
+
+:::tip
+
+Use the Metamask `personal_sign` method to sign the message. 
+
+:::
+
+The `jwt` field in the response will contain the token.
+
+<ApiSchema pointer="#/components/schemas/AuthUser"/>
+
+The token should be used in all subsequent response headers under the `"authorization"` key.
+
 

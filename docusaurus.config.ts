@@ -58,8 +58,8 @@ const config = {
       {
         specs: [
           {
-            spec: './swagger.json',
-            id: 'using-single-yaml'
+            spec: './proof-market/swagger.json',
+            id: 'using-single-json'
           },
         ],
         theme: {

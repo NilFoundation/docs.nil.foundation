@@ -1,0 +1,67 @@
+import ApiSchema from '@theme/ApiSchema';
+
+# Managing requests 
+
+This tutorial is a step-by-step guide to attaining proofs via requests.
+
+## Definition
+
+Think of a request as an order to generate proof for a circuit given specific public inputs. Each time public inputs change, the app needs to place a new request for proof.
+
+Requests have a cost that is set by the proof requester. High costs attract more proof producers, and speed up matching, but they cannot be borne by many users.
+
+## Creating a new request
+
+To create a request, perform a [**`POST` request to `/request`**](../../api-reference#operation/CreateRequest) with the following body.
+
+<ApiSchema pointer="#/components/schemas/CreateRequestRequest"/>
+
+The call should produce a response containing a `ResponseItem` object:
+
+<ApiSchema pointer="#/components/schemas/RequestItem"/>
+
+After the request is created, Proof Market will begin the process of matching it with proposals.
+
+## Deleting a request (Optional)
+
+Deleting a request is necessary if a previously placed request needs to be recreated.
+
+:::info[Examples]
+
+Recreating a request may be needed in the following cases.
+
+- The user wants to recreate a request manually due to their preferences
+- The proof producer has provided invalid proof
+- The order has not been matched with a proposal 
+
+:::
+
+To do so, send a [**`DELETE` call to `/request/{requestId}`**](../../api-reference#operation/DeleteRequest).
+
+This operation will return a `204` with no content in the response.
+
+## Monitoring the request status
+
+While matching is ongoing, periodically check the request status and, if needed, update the app accordingly.
+
+Perform a [**`GET` request to `/request/{requestId}`**](../../api-reference#operation/GetById) to receive the required `RequestItem` object and check its `"status"` key.
+
+Whenever request status reaches `DONE`, store `"proofId"` from the `RequestItem` object and notify the user.
+
+## Attaining proof
+
+:::info[Proof verification]
+
+Once a proof is submitted for a request, Proof Market verifies it automatically.
+
+[**Click here**](./verifying-a-circuit) to learn more about verifying a proof manually.
+
+:::
+
+To receive the newly generated proof, send a [**`GET` call to `/proof/{proofId}`**](../../api-reference#operation/GetById). 
+
+The response should contain the `ProofItem` object with the proof itself placed under the `"proof"` key.
+
+<ApiSchema pointer="#/components/schemas/ProofItem"/>
+
+

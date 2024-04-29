@@ -1,0 +1,25 @@
+import ApiSchema from '@theme/ApiSchema';
+
+# Managing payments 
+
+This tutorial details how Proof Market handles payments.
+
+## Attaining contract details
+
+Proof Market exists as a contract that can be called from any application. 
+
+To attain the network and the deposit address of the contract, perform a [**`POST` request to `/system/info`**](../../api-reference#operation/SystemInfo). This should produce the following response.
+
+<ApiSchema pointer="#/components/schemas/SystemInfo"/>
+
+The contract stores the addresses of Proof Market users (including proof requesters and proof producers) in the `balances` mapping.
+
+The contract has three public functions for handling payments.
+
+- `function deposit() public payable {}`
+- `function withdraw(address payable user, uint256 amount) public`
+- `function transfer(address from, address to, uint256 amount) public`
+
+## Paying for proofs
+
+To pay for a generated proof, simply call the `transfer(address from, address to, uint256 amount)` function inside an application.

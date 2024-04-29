@@ -54,7 +54,7 @@ The circuit function in the tutorial circuit accepts two integers the values of 
 At this stage, the circuit IR needs to be passed to the `assigner` tool which will generate the circuit constraints and the assignment table.
 
 ```bash
-assigner -b -i path/to/input.inp -c circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment path/to/circuit.ll
+assigner -b -i path/to/input.inp -c path/to/circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment path/to/circuit.ll
 ```
 
 Afterward, run the `transpiler` tool on the newly generated `.crct` and `.tbl` files. This tool will produce a binary with the proof as well as Solidity contracts for the circuit.

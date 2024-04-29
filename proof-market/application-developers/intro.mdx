@@ -11,7 +11,22 @@ import API from '@site/static/img/proof-market-icons/api.png'
 
 ## Introduction
 
-Application developers are those users of Proof Market who fulfill the role of [**proof producers**](../glossary#proof-producer).
+Application developers are those users of Proof Market who fulfill the role of [**proof requesters**](../glossary#proof-requester).
+
+Proof Market functions as a simple REST API. The basic flow of using it is as follows.
+
+1. [**Authorize the user inside Proof Market**](./tutorials/signing-up)
+2. [**Use circuits**](./tutorials/writing-new-circuit) for in-app use cases that require verification (and optionally [**verify their proofs**](./tutorials/verifying-a-circuit))
+3. [**Use existing and new statements**](./tutorials/managing-statements) to request circuit proofs
+
+:::info[Reusing circuits and statements]
+
+Writing circuits and creating statements for them from scratch is not necessary. An app can reuse statements posted on Proof Market by other developers. 
+
+:::
+
+4. [**Post requests**](./tutorials/managing-requests) for proofs
+5. [**Ensure payment for generated proofs**](./tutorials/managing-payments)
 
 :::info[Example]
 
@@ -22,6 +37,7 @@ Every time a player wins or loses a match, the app would need to spend significa
 Instead, the app can request the necessary proof via the [**Proof Market API**](./application-developers/api-requests) and update player records as soon as the correct proof is provided by the designated proof producer.
 
 :::
+
 
 Note that using Proof Market as an application developer requires some familiarity with either C++ or Rust, and [**the zkLLVM compiler**](../../zkllvm/overview/what-is-zkllvm).  
 
@@ -44,5 +60,5 @@ Complete the below tutorials to use Proof Market fully as an application develop
 Learn more about what API requests you will have to make to manage statements and payments.
 
 <CardSection>
-    <Card icon={<img src={API}/>} id='api-app-devs' title='API requests' description='See useful API requests' to='/application-developers/api-requests'/>
+    <Card icon={<img src={API}/>} id='api-app-devs' title='API requests' description='See useful API requests' to='../api-reference'/>
 </CardSection>

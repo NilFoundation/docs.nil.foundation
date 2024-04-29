@@ -232,3 +232,40 @@ html[data-theme='dark'] {
   font-weight: 500;
   position: absolute;
 }
+
+.rqxDC.get {
+  background-color: #40997E !important;
+}
+
+.rqxDC.post {
+  background-color: #589AFC !important;
+}
+
+.rqxDC.delete {
+  background-color: #FC3642 !important;
+}
+
+.bGjEKx {
+  background-color: #40997E !important;
+}
+
+.fJjfr {
+  background-color: #589AFC !important;
+}
+
+.hoOuFV {
+  background-color: #FC3642 !important;
+}
+
+.jGdkPR {
+  background-color: #727272 !important;
+}
+
+.fIqGlH {
+  background-color: #286653;
+  color: #BDBDBD;
+}
+
+.hAodMU > ul > li.tab-success {
+  color: #1C4D3E;
+}
