@@ -1,0 +1,29 @@
+import ApiSchema from '@theme/ApiSchema';
+
+# Managing statements
+
+This tutorial explains what statements are and how they can be used by proof producers.
+
+## Definition
+
+Statements are circuits with additional metadata such as a name and an ID.
+
+The primary purpose of statements is to 'wrap' circuits inside a tradeable entity that can be used to match proof requesters and proof producers. 
+
+## Attaining available statements
+
+Regularly check the list of available statements to see new opportunities for offering proof generation services.
+
+To do so, send a [**`GET` request to `/statement`**](../../api-reference#operation/GetByFilter), which should return a list of `StatementItem` objects.
+
+<ApiSchema pointer="#/components/schemas/StatementItem"/>
+
+## Accessing statement statistics
+
+After selecting a statement, attain statistics about the requests made by application developers and the proposals made by proof producers.
+
+Perform a [**`GET` request to `/book/{statementId}`**](../../api-reference#operation/StatementBook) to produce the below response.
+
+<ApiSchema pointer="#/components/schemas/StatementBook"/>
+
+The information in the statement book should be used when setting the price of subsequent proposals.

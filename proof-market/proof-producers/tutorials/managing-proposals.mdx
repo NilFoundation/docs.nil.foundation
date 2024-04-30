@@ -1,0 +1,51 @@
+import ApiSchema from '@theme/ApiSchema';
+
+# Managing proposals
+
+This tutorial covers the essential steps for handling proposals as a proof producer.
+
+## Definition
+
+A proposal is a formal claim that a proof producer is willing to generate proof for a statement for a particular price.
+
+Proof producers can post proposals in response to existing requests or in anticipation of future requests. Whenever there are proposals and requests for a statement, Proof Market runs a matching process. After a proposal is matched with a statement, the proof producer can proceed with generating proof.
+
+:::info
+
+Each proposal has a `"waitingDurationSeconds"` property set by the proof producer. If the matching process exceeds the number of seconds specified under this property, matching is canceled and the proposal needs to be recreated.
+
+:::
+
+## Creating a new proposal
+
+Send a [**`POST` request to `/proposal`**](../../api-reference#operation/CreateProposal) to create a new proposal.
+
+<ApiSchema pointer='#/components/schemas/CreateProposalRequest'/>
+
+This call should produce the below response.
+
+<ApiSchema pointer='#/components/schemas/ProposalItem'/>
+
+## Checking for matched requests
+
+As the matching process is ongoing, make [**periodic calls to `/book/assigned`**](../../api-reference#operation/Assigned) to get a list of `BookAssignedItem` objects.
+
+<ApiSchema pointer='#/components/schemas/BookAssignedItem'/>
+
+A `BookAssignedItem` object represents an agreed-upon opportunity to generate a proof. It contains the circuit inputs under the `"input"` key.
+
+To attain the corresponding statement with the circuit definition, perform [**a `GET` request to `/statement/{statementId}`**](../../api-reference#operation/GetById).
+
+<ApiSchema pointer='#/components/schemas/StatementItem'/>
+
+## Submitting the proof
+
+After [**generating the proof**](../../../zkllvm/getting-started/verifying-a-circuit), send [**a `POST` call to `/proof`**](../../api-reference#operation/SubmitProof) with this request body:
+
+<ApiSchema pointer='#/components/schemas/SubmitProofRequest'/>
+
+This will produce the following response.
+
+<ApiSchema pointer='#/components/schemas/ProofItem'/>
+
+Note that Proof Market validates all submitted proofs. If a submitted proof is invalid, the user would need to send another request while the proof producer would need to send a new proposal.

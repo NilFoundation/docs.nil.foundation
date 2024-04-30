@@ -12,6 +12,16 @@ import API from '@site/static/img/proof-market-icons/api.png'
 
 Proof producers generate and submit proofs in response to open requests. By taking on the costs of proof generation, proof producers earn monetary rewards for completed orders.
 
+Proof Market offers [**an easy-to-use REST API**](../api-reference). Here is the basic flow of using it as a proof producer.
+
+1. [**Authorize inside Proof Market**](./tutorials/registering-new-producer) as a proof producer
+2. [**Check for available statements**](./tutorials/managing-proposals)
+3. [**Post a new proposal**](./tutorials/managing-proposals) for the chosen statement
+4. Wait for Proof Market to match your proposal with a request
+5. [**Generate a proof**](../../zkllvm/getting-started/verifying-a-circuit) for the circuit contained in the statement
+6. [**Receive a reward**](./tutorials/managing-incentives) for the generated proof
+
+
 :::info[Example]
 
 Imagine a zero-knowledge chess club dApp where player records are stored on the blockchain.
@@ -27,11 +37,11 @@ By generating new proofs for these requests, the proof producer reliably earns c
 Complete the below tutorials to learn how Proof Market works for proof producers.
 
 <CardSection>
-    <Card icon={<img src={Process}/>} id='prod-tut-1' title='Running a producer process' description='Learn how to run an efficient producer process' to='./tutorials/writing-new-circuit'/>
-    <Card icon={<img src={Registration}/>} id='prod-tut-2' title='Registering as a new producer' description='Sign up as a proof producer' to='./tutorials/verifying-a-circuit'/>
-    <Card icon={<img src={Statements}/>} id='prod-tut-3' title='Managing statements' description='Learn how to create and manage statements' to='./tutorials/signing-up'/>
-    <Card icon={<img src={Proposal}/>} id='app-tut-4' title='Proposal submission and approval' description='Begin generating proofs and completing orders' to='./tutorials/managing-statements'/>
-    <Card icon={<img src={Rewards}/>} id='app-tut-5' title='Managing incentives' description='Earn compensation for proof generation' to='./tutorials/managing-requests'/>
+    <Card icon={<img src={Process}/>} id='prod-tut-1' title='Running a producer process' description='Learn how to run an efficient producer process' to='./tutorials/running-producer-process'/>
+    <Card icon={<img src={Registration}/>} id='prod-tut-2' title='Registering as a new producer' description='Sign up as a proof producer' to='./tutorials/registering-new-producer'/>
+    <Card icon={<img src={Statements}/>} id='prod-tut-3' title='Managing statements' description='Learn how to create and manage statements' to='./tutorials/managing-statements'/>
+    <Card icon={<img src={Proposal}/>} id='prod-tut-4' title='Proposal submission and approval' description='Begin generating proofs and completing orders' to='./tutorials/managing-proposals'/>
+    <Card icon={<img src={Rewards}/>} id='prod-tut-5' title='Managing incentives' description='Earn compensation for proof generation' to='./tutorials/managing-incentives'/>
 </CardSection>
 
 ## API requests

@@ -1,0 +1,52 @@
+import ApiSchema from '@theme/ApiSchema';
+
+# Registering as a new producer
+
+This tutorial details how to register as a new proof producer.
+
+:::info[Metamask]
+
+Authorization inside Proof Market requires a Metamask wallet.
+
+:::
+
+## Performing the initial request
+
+[**Consume the `/user/metamask/message`**](../../api-reference#operation/MetamaskAuthMessage) endpoint to produce the following response.
+
+<ApiSchema pointer="#/components/schemas/MetamaskAuthMessage"/>
+
+## Receiving a JWT
+
+To receive a web token, perform a [**`POST` request with the `"msg"` received previously to `/user/metamask`**](../../api-reference#operation/MetamaskAuthRequest) with this request body:
+
+<ApiSchema pointer="#/components/schemas/MetamaskAuthRequest"/>
+
+:::tip
+
+Use the Metamask `personal_sign` method to sign the message. 
+
+:::
+
+The `"jwt"` field in the response will contain the token.
+
+<ApiSchema pointer="#/components/schemas/AuthUser"/>
+
+The token should be used in the `"authorization"` key in all subsequent response headers.
+
+## Attaining the user info
+
+To verify that a new user has been created successfully, make a [**`GET` call to `/user/info`**](../../api-reference#operation/Me). This should produce the below response:
+
+<ApiSchema pointer="#/components/schemas/UserDetails"/>
+
+## Changing the account status (Optional)
+
+The `"producer"` key in the previous response formally marks an account as a proof producer. 
+
+If it equals 'false', [**consume the `/producer/register` endpoint**](../../api-reference#operation/Register) to change its value.
+
+<ApiSchema pointer="#/components/schemas/RegisterProducerResponse"/>
+
+To reverse this action, call [**the `/producer/deregister` endpoint**](../../api-reference#operation/Deregister).
+
