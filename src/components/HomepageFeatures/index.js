@@ -31,10 +31,9 @@ const ProductsList =
       image: zkSharding,
       description: (
         <>
-          <p>=nil; is a sharded blockchain that resolves Ethereum scalability issues via zkSharding.</p>
-          <p>=nil; aims to achieve global scale without state, liquidity or user fragmentation.</p>
+          <p>=nil; zkSharding is the first Ethereum zkRollup with sharding — an alternative to the current Ethereum scalability ecosystem.</p>
+          <p>The unique combination of zkRollup and sharding enables secure and parallel transaction execution across dedicated shards while maintaining Ethereum's economic security and providing application developers with full composability and transparent data access.</p>
           <p><a href="https://nil.foundation/blog/post/nil_zkSharding">https://nil.foundation/blog/post/nil_zkSharding</a></p>
-          <p>Documentation, tutorials and recipes for application developers, proof producers, and validators.</p>
         </>
       ),
     },
@@ -96,7 +95,7 @@ export default function HomepageNilProducts() {
       <div className={'row' + ' ' + styles.rowFlex}>
         <div className='col col-6'>
           <div id='zk-sharding-docs'>
-            <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("/nil/intro")}></NilProduct>
+            <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("https://nil.foundation/blog/post/nil_zkSharding")}></NilProduct>
           </div>
         </div>
         <div className='col col-6'>
