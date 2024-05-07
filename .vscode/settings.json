@@ -3,6 +3,10 @@
         {
             "language": "mdx",
             "scheme": "file"
+        },
+        {
+            "language": "markdown",
+            "scheme": "file"
         }
     ]
 }
