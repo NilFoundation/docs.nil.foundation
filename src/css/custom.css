@@ -18,9 +18,9 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-footer-background-color: #212121;
+  --ifm-footer-background-color: #181A1B;
 
-  --ifm-background-color: #212121;
+  --ifm-background-color: #181A1B;
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
@@ -70,7 +70,7 @@
 }
 
 html[data-theme='dark'] {
-  --ifm-background-color: #212121;
+  --ifm-background-color: #181A1B;
   --ifm-background-surface-color: #121212;
   --ifm-footer-background-color: #212121;
   --ifm-navbar-primary-color: #212121;
