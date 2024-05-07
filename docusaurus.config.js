@@ -82,10 +82,10 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'nil',
-        path: 'nil',
-        routeBasePath: 'nil',
-        sidebarPath: './sidebar-nil.js'
+        id: 'zksharding',
+        path: 'zksharding',
+        routeBasePath: 'zksharding',
+        sidebarPath: './sidebars.js'
       }
     ],
   ],
@@ -126,8 +126,8 @@ const config = {
             },
             {
               position: 'left',
-              label: '=nil;',
-              to: '/nil/intro'
+              label: 'zkSharding',
+              to: 'https://nil.foundation/blog/post/nil_zkSharding'
             },
             {
               position: 'left',
