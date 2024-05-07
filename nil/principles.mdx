@@ -1,0 +1,58 @@
+# Principles
+
+This page offers a high-level explanation of the architecture of =nil;.
+
+## Flows
+
+The following diagram shows how =nil; organizes execution shards, the main shard, the transfer of ZKPs, and communications with Ethereum.
+
+<img src={Flows}/ >
+
+In brief, each execution shard is responsible for generating a ZKP for their respective state change. Then the proofs are verified via a [**HotStuff2-based**](https://eprint.iacr.org/2023/397.pdf) global consensus protocol. 
+
+The main shard uses all received ZKPs to create a 'master' ZKP that is then transmitted to Ethereum. The global state of =nil; is verified and transactions reach finality.
+
+## Consensus shard
+
+The consensus shard performs two essential functions:
+
+* The shard stores and sets consensus rules and parameters
+* The shard stores hashes of the most recent blocks from execution shards and ensures synchronization between execution shards
+
+:::info
+
+There is only one consensus shard in the cluster.
+
+:::
+
+## Execution shards
+
+As implied by their name, execution shards process transactions. 
+
+Each shard is allocated with a subset of accounts from the global state. The shard is responsible for executing transactions made to and from these accounts. Consensus is handled by a committee made up of several validators.
+
+:::info[Block capacity]
+
+Execution shards have a preset block capacity determined by the consensus shard. If a shard reaches capacity, it is split into two. If at least half of the available capacity is vacant, the shard is merged with another shard.
+
+:::
+
+:::info[Validator rotation]
+
+At the end of each epoch, a new set of validators is generated for each execution shard based on the Verifiable Secret Sharing (VSS) scheme.
+
+:::
+
+## Cross-shard communication
+
+Instead of handling cross-shard communication via bridges (which are often insecure and unstable), =nil; integrates such communications in its protocol.
+
+Whenever an outgoing message is sent, validators must track it across the shards that are located close to its shard of origin. The message starts 'hopping' along these shards. During each 'hop', the protocol evaluates where the message should go next.
+
+If this next shard is the same as the current shard, the message must be recorded in the block of the current shard.
+
+## Co-location
+
+=nil; also offers participants the option of contract co-location, which is a consistent way to ensure that two accounts are always located within the same shard.
+
+Co-location provides the fastest possible transaction speeds by eliminating the need for sending outgoing messages. However, note that using contract co-location incurs ownership and economic restrictions.

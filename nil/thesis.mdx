@@ -32,15 +32,9 @@ Instead of focusing on improving interoperability (which only produces a 'bandai
 
 :::
 
-zkSharding allows for combining horizontal and vertical sharding within the scope of one sharded network.
+zkSharding allows for combining horizontal and vertical scalability within the scope of one sharded network.
 
 * More shards can be added as needed without compromising security
 * Nodes in a shard can employ parallelized VMs for vertical intra-shard scaling
 
 Cross-shard communications are incorporated directly into the =nil; protocol. This means that the issue of fragmentation is avoided entirely as each shard can call contracts deployed on a different shard via transactions verified through ZKP.
-
-## Flows
-
-The following diagram shows how =nil; organizes execution shards, the main shard, the transfer of ZKPs, and communications with Ethereum.
-
-<img src={Flows}/ >
