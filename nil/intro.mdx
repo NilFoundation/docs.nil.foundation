@@ -1,3 +1,7 @@
+import Thesis from '@site/static/img/nil/nil-icons/thesis.png'
+import Principles from '@site/static/img/nil/nil-icons/principles.png'
+import {Card, CardSection} from '@site/src/components/CardSection'
+
 # Overview
 
 ## Definition
@@ -22,6 +26,11 @@ As =nil; is highly scalable, it is ideal for applications that are demanding in 
 
 ## Structure of the Documentation
 
+### Introduction
 
+Learn the basics of what =nil; is and how it works.
 
-
+<CardSection>
+    <Card icon={<img src={Thesis}/>} id='thesis' title='Thesis' description='Read about the "how" and "why" of =nil;' to='./thesis'/>
+    <Card icon={<img src={Principles}/>} id='principles' title='Principles' description='Grasp the fundamentals of the architecture of =nil;' to='./principles'/>
+</CardSection>
