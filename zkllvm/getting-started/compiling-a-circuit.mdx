@@ -98,7 +98,7 @@ At this stage, the newly generated IR and the public info file are ready to be p
 Run the following command to generate the circuit constraints and the assignment table.
 
 ```bash
-assigner -b circuit.ll -i ../inputs/public_input.inp -c circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment
+assigner -b path/to/circuit.ll -i path/to/public_input.inp -c circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment
 ```
 
 ### Using `transpiler` to generate the circuit proof
@@ -108,13 +108,13 @@ The `.crct` and `.tbl` files can be passed to the `transpiler` tool to generate 
 Run the below command to generate `proof.bin`.
 
 ```bash
-transpiler -m gen-test-proof -c circuit.crct -t assignment.tbl -o output -e pallas
+transpiler -m gen-test-proof -c path/to/circuit.crct -t path/to/assignment.tbl -o output -e pallas
 ```
 
 Execute the following command to produce Solidity files.
 
 ```bash
-transpiler -m gen-evm-verifier -c circuit.crct -t assignment.tbl -o output -e pallas --optimize-gates
+transpiler -m gen-evm-verifier -c path/to/circuit.crct -t path/to/assignment.tbl -o output -e pallas --optimize-gates
 ```
 
 Congratulations! At this stage, we recommend taking a look at other examples in the zkLLVM repository and compiling them.
