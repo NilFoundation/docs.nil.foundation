@@ -8,9 +8,11 @@ import {Card, CardSection} from '@site/src/components/CardSection'
 
 =nil; is a sharded blockchain that leverages the following features:
 
-* **Modularity**. =nil; offers an execution layer while using Ethereum for data availability and consensus.
-* **Horizontal scalability**. In =nil;, execution is spread across shards, allowing for completing tasks in parallel.
+* **Modularity**. =nil; acts as an execution layer while using Ethereum for data availability and consensus.
+* **Horizontal scalability**. In =nil;, state is spread across shards with cross-shard communications being a built-in feature of the protocol.
 * **Vertical scalability**. Validator implementation in =nil; is scaled vertically via intra-shard parallelization.
+
+=nil; transcends the typical monolithic vs. modular discourse by relying on zkSharding, a new type of sharding architecture. In zkSharding, execution shards produce zero-knowledge proofs (ZKPs) verifying intra-shard state transitions while the state of the cluster is managed by a designated consensus shard. The consensus shard is responsible for producing a 'master' ZKP that is sent to Ethereum for global state verification.
 
 =nil; offers an effective strategy for scaling Ethereum while avoiding the limitations typically associated with the modular approach such as state and liquidity fragmentation.
 

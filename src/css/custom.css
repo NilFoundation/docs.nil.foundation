@@ -72,12 +72,12 @@
 html[data-theme='dark'] {
   --ifm-background-color: #181A1B;
   --ifm-background-surface-color: #121212;
-  --ifm-footer-background-color: #212121;
+  --ifm-footer-background-color: #181A1B;
   --ifm-navbar-primary-color: #212121;
 }
 
 .footer {
-  background-color: #212121;
+  background-color: #181A1B;
 }
 
 .navbar {
