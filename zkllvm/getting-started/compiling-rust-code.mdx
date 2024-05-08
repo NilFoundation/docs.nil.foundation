@@ -42,13 +42,13 @@ While using `rustc` instead of `cargo` is unconventional, it is still possible t
 If `rustc` has been installed as from a pre-built binary, run this command.  
 
 ```bash
-rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir path/to/circuit.rs -C opt-level=3
 ```
 
 If `rustc` has been installed from sources, execute the following command. 
 
 ```bash
-$RUSTC --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+$RUSTC --target assigner-unknown-unknown --emit=llvm-ir path/to/circuit.rs -C opt-level=3
 ```
 
 :::tip
