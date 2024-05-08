@@ -9,10 +9,10 @@ The flow for compiling Rust code is similar to compiling any other `cargo` proje
 If `cargo` has been [**installed from a pre-built binary**](./installation#using-pre-built-binaries), run the following command. 
 
 ```bash
-cargo +zkllvm build --target assigner-unknown-unknown
+cargo +zkllvm build --target assigner-unknown-unknown --release
 ```
 
-After the build procedure is complete, the resulting `.ll` file will appear in the `./target/assigner-unknown-unknown/debug` directory. The file will have the same name as the name of the current `cargo` crate. 
+After the build procedure is complete, the resulting `.ll` file will appear in the `./target/assigner-unknown-unknown/release` directory. The file will have the same name as the name of the current `cargo` crate. 
 
 ## Using `cargo` from sources
 
