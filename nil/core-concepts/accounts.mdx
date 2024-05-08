@@ -1,1 +1,21 @@
-# 
+# Accounts
+
+## Definition
+
+In =nil;, an account is the minimal unit of data for sharding. An account consists of an address, its balance, its storage root and the hash of its source code.
+
+Each execution shard handles only a dedicated part of all accounts in the global state of the cluster.
+
+Accounts are distributed among shards using the following deterministic function.
+
+$$
+F_s : (pk, M_{shards})\to id_{shard}
+$$
+
+, where $pk$ is the public key of an account and $M_{shards}$ is the history and metadata of each execution shard.
+
+## Security and rollbacks
+
+In the case of a malicious node initiating an attack, the validator committee for the affected shard must initiate a rollback of all affected accounts.
+
+This means that the corrupted accounts must be 'reset' to their last verified state.

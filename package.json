@@ -18,9 +18,9 @@
     "@aldridged/docusaurus-plugin-lunr": "^1.0.0-alpha.10",
     "@cmfcmf/docusaurus-search-local": "^1.1.0",
     "@codemirror/state": "6.4.0",
-    "@docusaurus/core": "^3.2.1",
-    "@docusaurus/preset-classic": "^3.2.1",
-    "@docusaurus/theme-mermaid": "^3.2.1",
+    "@docusaurus/core": "^3.3.2",
+    "@docusaurus/preset-classic": "^3.3.2",
+    "@docusaurus/theme-mermaid": "^3.3.2",
     "@mdx-js/react": "^3.0.0",
     "@nilfoundation/ui-kit": "^2.5.1",
     "@uiw/codemirror-themes": "4.21.0",
@@ -33,13 +33,15 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-markdown": "^9.0.1",
+    "rehype-katex": "7",
+    "remark-math": "6",
     "styletron-engine-atomic": "^1.6.2",
     "styletron-react": "^6.1.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.1.1",
-    "@docusaurus/tsconfig": "^3.2.1",
-    "@docusaurus/types": "^3.1.1",
+    "@docusaurus/module-type-aliases": "^3.3.2",
+    "@docusaurus/tsconfig": "^3.3.2",
+    "@docusaurus/types": "^3.3.2",
     "typescript": "^5.4.5"
   },
   "browserslist": {
