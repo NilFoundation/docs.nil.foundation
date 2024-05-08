@@ -1,0 +1,18 @@
+# Shards and parallelized execution
+
+## Definition
+
+Shards are smaller chains that are usually responsible for managing a portion of the global state of the 'main' chain. In =nil;, there exist two types of shards.
+
+* Execution shards process transactions of the accounts allocated to these shards
+* The consensus shard coordinates execution shards and submits ZKPs of the global state to Ethereum
+
+## Execution shards
+
+An execution shard has the allocated accounts, executes transactions related to these accounts, and generates ZKPs verifying state transitions.
+
+:::info[Mempools]
+
+Although each shard has its own mempool of transactions, there are no restrictions for the participants on what shard they can cooperate with.
+
+:::
