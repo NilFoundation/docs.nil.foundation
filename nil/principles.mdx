@@ -49,9 +49,9 @@ At the end of each epoch, a new set of validators is generated for each executio
 
 Instead of handling cross-shard communication via bridges (which are often insecure and unstable), =nil; integrates such communications in its protocol.
 
-Whenever an outgoing message is sent, validators must track it across the shards that are located close to its shard of origin. The message starts 'hopping' along these shards. During each 'hop', the protocol evaluates where the message should go next.
+Each group of validators (a committee) is responsible for overseeing a particular shard. A committee regularly monitors the shards that are located close to the shard that they are supposed to govern. 
 
-If this next shard is the same as the current shard, the message must be recorded in the block of the current shard.
+If the committee tracks an ongoing message, it must compute the shard where the message should go based on the information included in the message. If this shard is the same as the shard that the committee is overseeing, the message must be included in the block currently produced by the shard.
 
 ## Contract co-location
 
