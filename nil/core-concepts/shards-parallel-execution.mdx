@@ -9,10 +9,78 @@ Shards are smaller chains that are usually responsible for managing a portion of
 
 ## Execution shards
 
-An execution shard has the allocated accounts, executes transactions related to these accounts, and generates ZKPs verifying state transitions.
+All work related to processing transactions, storing accounts, and managing the local state occurs at the execution shard level. Execution shards are also responsible for three other significant functions.
 
 :::info[Mempools]
 
 Although each shard has its own mempool of transactions, there are no restrictions for the participants on what shard they can cooperate with.
 
+While there exists a theoretical risk of nodes deciding to only partner with shards that host high-gain dApps (such as decentralized exchanges), this risk is negligible for two reasons.
+
+* The expected gain for participating in shards where competition is less intense could outweigh the expected gain for partnering with high-load shards
+* Execution shards are merged if their builders are inactive and their block count is below half of the block capacity of these shards
+
 :::
+
+### Message passing checks
+
+To support [**cross-shard communications**](../principles#cross-shard-communication), execution shards must record all necessary outgoing messages from their neighbors.
+
+Every outgoing message has a $destShard$ field, whose value is used in the following function to compute where the message should go.
+
+$$
+nextShard = NextHop(destShard, shardId)
+$$
+
+If $nextShard$ equals the current shard, the message must be included in the block for the block to be considered valid. The block proposer is also responsible for broadcasting a Merkle proof of inclusion to neighboring shards.
+
+### Split/merge conditions checks
+
+Execution shards are [**split and merged**](../principles#execution-shards) depending on how close they are to block capacity.
+
+The protocol defines $N$, the number of replication cycles to pass before a split/merge check, and $T$, the block capacity threshold.
+
+After $N$ replication cycles pass, the following events occur:
+
+* If a shard approaches $T$ blocks, it is split into two
+* If a shard has fewer than $\frac{T}{2}$ blocks, it is merged with another shard
+
+### State consensus checks
+
+In =nil;, validators govern entire neighborhoods of shards based on the Hamming distance between shards.
+
+$$
+committee(shardId) = \bigcup_{\substack{s\in shardIds\\dist(s,shardId)\le R}}assignment(s)
+$$
+
+, where $R\ge 0$ is the neighborhood size set at the protocol level. The exact value of $R$ depends on what committee size is sufficiently large to afford acceptable safety guarantees.
+
+:::info[Cross-shard communications]
+
+The solution described above also benefits cross-shard communication. Validators always have access to neighboring shards and, therefore, can retrieve outgoing messages and compute where these messages should be going.
+
+:::
+
+## Consensus shard
+
+In contrast to execution shards, [**the consensus shard**](../principles#consensus-shard) is responsible for the following functions:
+
+* Managing global consensus
+* Producing 'master' ZKPs for verifying global state changes
+* Setting the protocol rules and parameters
+
+:::note[Security and global consensus]
+
+Although =nil; relies on ZKPs to verify state transitions statelessly, ZKPs can be costly to generate. As a result, a standard security protocol is used to provide security guarantees while ZKPs are generated.
+
+=nil; adopts the [**Multi-Threshold BFT security protocol**](https://dl.acm.org/doi/10.1145/3460120.3484554) so that the safety threshold at the local level is not tied to the safety threshold of the cluster.
+
+After running the local consensus protocol, leaders of all committees transmit block digests and quorum certificates to the leader of the consensus shard. The consensus shard leader then proposes a new block to the consensus shard committee, which includes the entire set of validators. These validators run a HotStuff-2 consensus protocol to achieve global consensus.
+
+:::
+
+## Parallelized execution
+
+Parallelized execution is a form of vertical scaling via the use of parallelized virtual machines (VMs). Such VMs avoid processing transactions one-by-one and, instead, utilize multi-threaded and multi-core processes to complete tasks in parallel.
+
+

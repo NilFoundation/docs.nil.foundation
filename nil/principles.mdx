@@ -33,6 +33,8 @@ As implied by their name, execution shards process transactions.
 
 Each shard is allocated with a subset of accounts from the global state. The shard is responsible for executing transactions made to and from these accounts. Consensus is handled by a committee made up of several validators.
 
+To learn more about execution shards, [**click here**](./core-concepts/shards-parallel-execution#execution-shards).
+
 :::info[Block capacity]
 
 Execution shards have a preset block capacity determined by the consensus shard. If a shard reaches capacity, it is split into two. If at least half of the available capacity is vacant, the shard is merged with another shard.
@@ -52,6 +54,8 @@ Instead of handling cross-shard communication via bridges (which are often insec
 Each group of validators (a committee) is responsible for overseeing a particular group of shards (a neighborhood). A committee regularly monitors the messages that are made to and from accounts within a neighborhood. 
 
 If the committee tracks an ongoing message, it must compute the shard where the message should go based on the information included in the message. If this shard is the same as the shard where the message is currently located, the message must be included in the block currently produced by the shard.
+
+To learn more about cross-shard communication, [**click here**](./core-concepts/shards-parallel-execution#message-passing-checks).
 
 ## Contract co-location
 
