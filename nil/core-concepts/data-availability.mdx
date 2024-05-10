@@ -55,6 +55,8 @@ If there are sufficient transactions, the synchronization committee can compose 
 }%%
 flowchart TB
     classDef subgraphTitleHidden display: none;
+    Actors:::subgraphTitleHidden
+    Eth:::subgraphTitleHidden
     subgraph Top["L2 network"]
         direction LR
         SHRD(Shard)
@@ -65,14 +67,35 @@ flowchart TB
         direction LR
         ETHX(Ethereum TX)
         ETHB(Ethereum block)
-        SLTONE[Slot 1]
-        SLTTWO[Slot 2]
-        SLTTHREE[Slot 3]
-        SLTDTS[Slot ...]
+        subgraph Eth
+            direction LR
+            ETHB
+            ETHX
+        end
+        subgraph Slots
+            direction LR
+            SLTONE[Slot 1]
+            SLTTWO[Slot 2]
+            SLTDTS[Slot ...]
+            SLTTHREE[Slot 31]
+        end
+        subgraph Actors
+            direction LR
+            SRCHR((Searcher))
+            BLDR((Builder))
+            RLR((Relayer))
+            SRCHR --> BLDR
+            BLDR --> RLR
+        end
+        RLR -- Soft finalization --> Slots
+        ETHB --> Slots 
     end
+    SYNCCOM --> BLDR
+    SYNCCOM --- ETHB
 ```
 
 If there are too few data availability or state-proof transactions, the synchronization committee can decide to send them directly to builders and searchers as a bundle.
 
 ## At the consensus shard level
 
+The consensus shard periodically transmits global state diffs to Ethereum. These state diffs contain all L2 transactions applied to the previous state, allowing L1 to reconstruct the full L2 state when needed.
