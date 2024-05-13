@@ -6,10 +6,46 @@ In =nil;, a transaction passes the following stages before reaching finality.
 
 1. A transaction is submitted by an account
 2. (Optional) Validators track the transaction to determine the shard where the transaction is supposed to be included in a block
-3. The transaction goes to the mempool of the shard chosen during the previous step
+3. The transaction goes to the mempool of an execution shard
 4. The transaction passes the 'searcher-builder-relayer' stages and the block with the transaction is sent to the proposer
 5. The block passes local consensus while the shard generates a ZKP
-6. The ZKP and the block are sent to the consensus shard that produces a 'master' ZKP and sends it to Ethereum along with additional data
-7. The consensus sends a DA transaction to Ethereum and the transaction achieves soft finality
+6. The ZKP and the block are sent to the consensus shard that produces a 'master' ZKP
+7. The consensus sends shard a DA transaction to Ethereum and the transaction achieves soft finality
 8. Absolute finality is reached once all ZKPs are verified
 
+Additional remarks about each of the above stages are given below.
+
+## Stages
+
+### Transaction submission and processing
+
+Whenever a user submits a new transaction, it is added to the mempool of the shard where the user's account is located.
+
+If the transaction is an outgoing message (e.g., it relates to an account located on another shard), validators must track it across shards and ensure its inclusion in the new block of its destination shard.
+
+To learn more about cross-shard communication, [**click here**](./core-concepts/shards-parallel-execution#message-passing-checks).
+
+### Passing searchers, builders, and relayers
+
+=nil; adopts the proposer-builder separation model. As a result, its approach to sequencing relies on searchers to find profitable transactions, builders to build valuable blocks, and relayers to compare the value of different blocks. More information about sequencing in =nil; is available [**here**](./sequencing).
+
+At the end of this stage, the transaction is included in a valid block that is sent for verification via local consensus. [**Click here**](./shards-parallel-execution#consensus-shard) to learn more about local consensus.
+
+### Achieving soft finality
+
+After the block containing the transaction is built, execution shards produce a ZKP and send it to the consensus shard along with block hashes. Using the received block hashes, the consensus shard creates a new block along with a special [**data availability transaction**](./data-availability) sent to Ethereum. 
+
+When the data from the data availability transaction is verified in an Ethereum slot, the transaction achieves soft (probabilistic) finality.
+
+:::note[ZKPs]
+
+ZKPs are generated at the execution level and at the consensus shard level to allow for trustless verification of state transitions. ZKP generation is handled by dedicated participants (proof producers). To learn more about this process, [**click here**](./finality).
+
+:::
+
+
+### Achieving hard finality
+
+To achieve hard (absolute) finality, the consensus shard also verifies the proof from the shard with the transaction and creates a 'master' ZKP. 
+
+The 'master' ZKP is then sent to the =nil; smart contract on Ethereum where it is verified. At this stage, the transaction achieves absolute finality.

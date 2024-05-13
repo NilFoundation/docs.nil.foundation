@@ -36,6 +36,11 @@ export default {
                 },
                 {
                     type: 'doc',
+                    label: 'Transaction lifecycle',
+                    id: 'core-concepts/transaction-lifecycle',
+                },
+                {
+                    type: 'doc',
                     label: 'Shards and parallelized execution',
                     id: 'core-concepts/shards-parallel-execution',
                 },
@@ -43,11 +48,6 @@ export default {
                     type: 'doc',
                     label: 'Sequencing',
                     id: 'core-concepts/sequencing',
-                },
-                {
-                    type: 'doc',
-                    label: 'Transaction lifecycle',
-                    id: 'core-concepts/transaction-lifecycle',
                 },
                 {
                     type: 'doc',
