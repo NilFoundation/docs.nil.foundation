@@ -83,20 +83,20 @@ export default function HomepageNilProducts() {
     <div className='container' id='productContainer'>
       <div className={'row' + ' ' + styles.rowFlex}>
         <div className='col col-6'>
-          <div id='zkllvm-docs'>
-            <NilProduct image={ProductsList[0].image} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
+          <div id='zk-sharding-docs'>
+            <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("/nil/intro")}></NilProduct>
           </div>
         </div>
         <div className='col col-6'>
-          <div id='proof-market-docs'>
-            <NilProduct image={ProductsList[1].image} description={ProductsList[1].description} onDocsClick={GoToDocs("/proof-market/intro")} ></NilProduct>
+          <div id='zkllvm-docs'>
+            <NilProduct image={ProductsList[0].image} description={ProductsList[0].description} onDocsClick={GoToDocs("/zkllvm/overview/what-is-zkllvm")}></NilProduct>
           </div>
         </div>
       </div>
       <div className={'row' + ' ' + styles.rowFlex}>
         <div className='col col-6'>
-          <div id='zk-sharding-docs'>
-            <NilProduct image={ProductsList[2].image} description={ProductsList[2].description} onDocsClick={GoToDocs("/nil/intro")}></NilProduct>
+          <div id='proof-market-docs'>
+            <NilProduct image={ProductsList[1].image} description={ProductsList[1].description} onDocsClick={GoToDocs("/proof-market/intro")} ></NilProduct>
           </div>
         </div>
         <div className='col col-6'>

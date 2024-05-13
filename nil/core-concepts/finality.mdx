@@ -7,7 +7,7 @@
 1. [**At the execution shard level**](./shards-parallel-execution#state-consensus-checks), local consensus ensures that only valid blocks are built
 2. Execution shards generate ZKPs verifying the correctness of execution. These ZKPs are then sent to the consensus shard along with block headers
 3. The consensus shard verifies the ZKPs received from execution shards and generates a 'master' ZKP
-4. The 'master' ZKP and state diffs of block headers are sent to Etherum
+4. The 'master' ZKP and state diffs of block headers are sent to Ethereum
 
 :::info[Generating ZKPs]
 
@@ -19,7 +19,7 @@ Additional remarks on probabilistic and absolute finality are given below.
 
 ## Probabilistic finality
 
-Probabilistic finalization occurs when a data availability transaction posted by the consensus shard is placed in a verified block on L1. There are no additional mechanisms for ensuring probabilistic finalization as Ethereum validators are deemed sufficiently reliable.
+Probabilistic finality occurs when a data availability transaction posted by the consensus shard is placed in a verified block on L1. There are no additional mechanisms for ensuring probabilistic finalization as Ethereum validators are deemed sufficiently reliable.
 
 ## Absolute finality
 
@@ -29,3 +29,4 @@ $$
 Finalization_t = \begin{Bmatrix} true, if V_{zk}(proof_t) \bigwedge V_{diff}(Diff_t), where : V - verification function \\ false, otherwise \end{Bmatrix}
 $$
 
+## 

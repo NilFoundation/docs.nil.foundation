@@ -1,2 +1,15 @@
 # Transaction lifecycle
 
+## Definition
+
+In =nil;, a transaction passes the following stages before reaching finality.
+
+1. A transaction is submitted by an account
+2. (Optional) Validators track the transaction to determine the shard where the transaction is supposed to be included in a block
+3. The transaction goes to the mempool of the shard chosen during the previous step
+4. The transaction passes the 'searcher-builder-relayer' stages and the block with the transaction is sent to the proposer
+5. The block passes local consensus while the shard generates a ZKP
+6. The ZKP and the block are sent to the consensus shard that produces a 'master' ZKP and sends it to Ethereum along with additional data
+7. The consensus sends a DA transaction to Ethereum and the transaction achieves soft finality
+8. Absolute finality is reached once all ZKPs are verified
+

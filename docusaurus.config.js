@@ -129,6 +129,11 @@ const config = {
           items: [
             {
               position: 'left',
+              label: '=nil;',
+              to: '/nil/intro'
+            },
+            {
+              position: 'left',
               label: 'zkLLVM',
               to: '/zkllvm/overview/what-is-zkllvm'
 
@@ -137,11 +142,6 @@ const config = {
               position: 'left',
               label: 'Proof Market',
               to: '/proof-market/intro'
-            },
-            {
-              position: 'left',
-              label: '=nil;',
-              to: '/nil/intro'
             },
             {
               position: 'left',
