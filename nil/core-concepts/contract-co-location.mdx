@@ -1,0 +1,118 @@
+# Contract co-location
+
+## Definition
+
+[**Cross-shard communications**](./shards-parallel-execution#message-passing-checks) are a built-in feature of the =nil; protocol.
+
+However, participants can also incur ownership and economic restrictions to ensure that two accounts are consistently located within the same shard (co-location). If two accounts are co-located, transactions involving these accounts are processed faster compared to transactions requiring cross-shard communications.
+
+:::info[Splitting and merging]
+
+Co-location persists during [**shard splitting and merging**](./shards-parallel-execution#splitmerge-conditions-checks). This means it is a reliable way of avoiding the typical overheads associated with cross-shard communication.
+
+:::
+
+## Scalability considerations
+
+On the one hand, contract co-location presents a valuable opportunity for developers wanting to ensure the lowest possible transaction processing times for their users.
+
+On the other hand, co-location encourages having as many accounts as possible on one shard, undermining horizontal scaling.
+
+To mitigate this, =nil; imposes economic and ownership restrictions on account co-location. These restrictions are expressed in terms of co-location depth, which is the number of addresses ($N$) a given address is co-located with. 
+
+:::note[Formula]
+
+The co-location formula of an address $A$ is as follows:
+
+$$
+\vert S_A \vert = \vert \bigcup S \vert S \bigcap A \vert
+$$
+
+:::
+
+### Economic restrictions
+
+The cost of each co-location depends on the resulting co-location depth of an address.
+
+When an address is initialized, its basic initial creation cost includes the following:
+
+* The basic transaction fee
+* The address activation cost
+* The bytecode size of the application
+* The constructor call cost
+* The cost of data reserved by the application
+* The cost of setting initial values
+
+The basic address creation cost $b$ is multiplied by the co-location multiplier $k$ as shown in the following formula:
+
+$$
+address \space creation \space fee = b * k^{\vert M_A \vert}
+$$
+
+The higher the co-location depth, the higher the co-location multiplier and the total costs of creating a new account.
+
+### Ownership restrictions
+
+Only addresses controlled by the same key can be co-located.
+
+:::tip[Justification]
+
+Ownership restrictions prevent malicious users from attacking popular applications. Without them, such users would have been able to co-locate their addresses with other popular addresses, significantly increasing the costs of co-location in a given shard.
+
+:::
+
+To enforce ownership restrictions, the consensus shard runs a special application known as the co-location manager. The co-location manager stores an explicit map, where sets of co-located addresses are bound to the accounts (domains) that initialized them.
+
+Coupled with economic restrictions, the costs of co-location are equal to:
+
+$$
+address \space creation \space fee = b * k^{\vert M_A \vert} + e
+$$
+
+, where $e$ are the costs of calling the co-location manager.
+
+:::tip[Structure]
+
+```bash
+class CoLocationManager {
+    // Data structure to store co-location domains
+    domains: map[address -> array[address]];
+
+    // Attempts to co-locate two addresses
+    co-locate: function(pair<address, address>) -> bool {
+        // Checks and updates 'domains' to include the new co-location if possible
+        // Returns true if co-location is successful, false otherwise
+    };
+
+    // Releases the co-location relationship between two addresses
+    release: function(pair<address, address>) -> bool {
+    // Updates 'domains' to remove the specified co-location
+    // Returns true if the operation is successful, false otherwise
+    };
+
+    // Checks if two addresses are co-located
+    is_co_located: function(pair<address, address>) -> bool {
+    // Returns true if the addresses are in the same co-location group, false otherwise
+    };
+
+    // Calculates the fee for address creation or co-location based on co-location depth
+    calculate_fee: function(address) -> number {
+    // Calculates and returns the fee based on the co-location depth of the address
+    };
+
+    // Retrieves the co-location group for a given address
+    get_co_location_group: function(address) -> array[address] {
+    // Returns the array of addresses that are co-located with the address
+    };
+}
+```
+
+:::
+
+Validators assigned to a shard must track the co-location manager and process the transactions made by accounts on the same shard.
+
+:::info[Sync execution]
+
+As co-location ensures that accounts always stay on the same shard, it allows for sync execution of account code. This means that Ethereum applications can be re-deployed and run on =nil; without the need to modify their code to handle async operations.
+
+:::

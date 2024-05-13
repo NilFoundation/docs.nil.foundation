@@ -126,7 +126,7 @@ $$
 size = shards * (nonce + storage + balance + merkle_path) = 400 * 32 * 6 = 76800
 $$
 
-:::note
+:::info
 
 The calculation discards the sizes of metadata and aggregate committee signatures as they are relatively small.
 
@@ -148,7 +148,7 @@ $$
 
 Assuming that ETH is $2900 and gas price is 15 gwei, the cost of a DA transaction is $53.2962.
 
-:::note
+:::info
 
 The calculation above does not account for the period between diffs. This omission is justified given that changes always affect the same accounts, the commitment size of the diffs remains consistent.
 
