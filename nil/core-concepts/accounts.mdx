@@ -27,9 +27,9 @@ There exist two possible methods for rolling back accounts.
 
 =nil; employs the 'carpet' method: during a rollback, all accounts are reset to their previous valid states regardless of whether they were affected by the attack.
 
-:::info[Justification]
+:::tip[Justification]
 
-Rolling back all accounts might seem excessive. After all, it is redundant to reset all accounts to their previous states if only a few accounts were affected by the attack.
+Rolling back all accounts might seem excessive.
 
 However, attacks propagate faster than state transition proofs are generated. While the cluster is figuring out what accounts to roll back, the attack might grow in size, making the 'surgical' method costly and risky. 
 

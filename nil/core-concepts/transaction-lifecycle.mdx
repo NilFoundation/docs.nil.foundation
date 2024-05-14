@@ -19,7 +19,7 @@ Additional remarks about each of the above stages are given below.
 
 ### Transaction submission and processing
 
-Whenever a user submits a new transaction, it is added to the mempool of the shard where the user's account is located.
+Whenever a user submits a new transaction, it is added to the mempool of an execution shard. 
 
 If the transaction is an outgoing message (e.g., it relates to an account located on another shard), validators must track it across shards and ensure its inclusion in the new block of its destination shard.
 
