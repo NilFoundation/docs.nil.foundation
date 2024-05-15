@@ -1,0 +1,188 @@
+# Primer
+
+This primer acts as an intro guide to writing complex circuits and compiling them. 
+
+## Dependency management
+
+Most circuits that cover common use cases (e.g., circuits verifying state transitions) require the use of external dependencies. 
+
+In such cases, [**using `clang` or `rustc` directly**](../getting-started/compiling-a-circuit) is discouraged. Instead, it would be necessary to use a dedicated build management system:
+
+* CMake for C++
+* Cargo for Rust
+
+:::tip[`clang`]
+
+When calling `clang` directly, dependency management can also be handled via the following methods:
+
+* Via the CLI
+* Via env variables
+* Via updating the system path
+
+Using CMake is still preferable as it offers several valuable features (such as external library detection) that simplify working with complex circuits.
+
+:::
+
+:::info
+
+This primer uses `crypto3` (C++) and `arkworks` (Rust) to show how to use libraries in a circuit. The primer can be reused for any other suitable library.
+
+:::
+
+### Using CMake
+
+Switch to the working directory:
+
+```bash
+mkdir new_circuit && cd new_circuit
+```
+
+Create a directory for CMake modules:
+
+```bash
+mkdir cmake && cd cmake
+```
+
+Add the [**`CircuitCompile.cmake` module from the zkLLVM repository**](https://github.com/NilFoundation/zkLLVM/blob/master/cmake/CircuitCompile.cmake) to the `./new_circuit/cmake` directory:
+
+```
+new_circuit
+-- cmake
+    -- CircuitCompile.cmake
+```
+
+Create the circuit:
+
+```bash
+cd .. && mkdir src
+```
+
+```bash
+cd src && touch main.cpp
+```
+
+Add circuit code that references an external library:
+
+```cpp
+#include <nil/crypto3/hash/algorithm/hash.hpp>
+#include <nil/crypto3/hash/sha2.hpp>
+
+...
+
+[[circuit]] bool circuit_func() {...}
+```
+
+Create a configuration file for CMake:
+
+```bash
+cd .. && touch CMakeLists.txt
+```
+
+Inside `CMakeLists.txt`, set the project and include the `CircuitCompile.cmake` module:
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+
+project(hashes_circuit
+    VERSION 1.0
+    DESCRIPTION "Tutorial circuit with hashes"
+    LANGUAGES CXX)
+
+list(APPEND CMAKE_MODULE_PATH "path/to/cmake")
+
+include(CircuitCompile)
+```
+
+Add the required library and Boost to the project configuration:
+
+```cmake
+set(crypto3_DIR "path/to/crypto3_headers")
+
+find_package(crypto3 REQUIRED)
+
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+```
+
+:::tip[Boost]
+
+Adding Boost is mandatory.
+
+:::
+
+Set the circuit source and add a build target:
+
+```cmake
+add_circuit(
+    circuit SOURCES ${SOURCES}
+    LINK_LIBRARIES
+    crypto3::all
+    ${Boost_LIBRARIES}
+)
+```
+
+, where `circuit` is the desired target name.
+
+Compile the circuit with:
+
+```bash
+cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
+make -C ${ZKLLVM_BUILD:-build} circuit -j$(nproc)
+```
+
+The circuit IR should appear in the `./build` folder.
+
+:::warning
+
+The `CircuitCompile.cmake` module does not support using custom paths to `clang` built from sources (as well as custom paths to a linker). To use this module, [**install the `zkllvm` Deb package**](../getting-started/installation#install-zkllvm-binaries).
+
+:::
+
+### Using Cargo
+
+Create a new `cargo` project:
+
+```bash
+cargo new new_circuit --bin
+cd new_circuit
+```
+
+:::tip
+
+Optionally add the `--vcs none` option to prevent `cargo` from automatically creating a Git repository.
+
+:::
+
+Open the `Cargo.toml` file and add the following dependencies:
+
+```toml
+ark-pallas = { git = "https://github.com/NilFoundation/arkworks-curves.git", features = ["zkllvm"] }
+unroll = { git = "https://github.com/NilFoundation/zkllvm-unroll.git" }
+```
+
+:::tip
+
+Adding `unroll` [**is mandatory**](../best-practices-limitations/unrolling-loops) for circuits that use loops.
+
+:::
+
+Add circuit code that references an external library:
+
+```rust
+#![no_main]
+
+use ark_pallas::Fq;
+...
+
+type BlockType = [Fq; 2];
+
+#[circuit]
+pub fn sha256_example() -> BlockType {...}
+```
+
+Compile the circuit with:
+
+```bash
+cargo +zkllvm build --target assigner-unknown-unknown --release
+```
+
+To learn more about additional compilation options, [**click here**](../getting-started/compiling-rust-code).

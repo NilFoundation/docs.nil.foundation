@@ -1,4 +1,76 @@
-# First circuit with hashes
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Write a circuit with hashes
+
+This 'how-to' series constructs a 'mock' zero knowledge bridge from scratch. The series starts with writing a simple circuit that uses hashes and ends with creating an algorithm for state-proof verification.
+
+## Prerequisites
+
+Read the following tutorials before proceeding further.
+
+* [**Writing a simple circuit**](../../getting-started/writing-a-simple-circuit)
+* [**Compiling a circuit**](../../getting-started/compiling-a-circuit)
+* [**Built-ins**](../../getting-started/built-ins)
+* [**Primer**](../primer)
+
+## Key components
+
+The circuit consists of the following components:
+
+### Haders / modules
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/hash/algorithm/hash.hpp>
+    #include <nil/crypto3/hash/sha2.hpp>
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    use std::intrinsics::assigner_sha2_256;
+    use ark_pallas::Fq;
+    ```
+  </TabItem>
+</Tabs>
+
+### Structs and types
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    struct block_data_type {
+        typename hashes::sha2<256>::block_type prev_block_hash;
+        typename hashes::sha2<256>::block_type data;
+    };
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    type BlockType = [Fq; 2];
+    ```
+  </TabItem>
+</Tabs>
+
+### Auxiliary functions
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    struct block_data_type {
+        typename hashes::sha2<256>::block_type prev_block_hash;
+        typename hashes::sha2<256>::block_type data;
+    };
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    type BlockType = [Fq; 2];
+    ```
+  </TabItem>
+</Tabs>
+
 
 Circuit development slightly differs from the usual software development. The main difference is that you only can use pure functions in your circuits. We will provide other recommendations for efficient circuit development in this tutorial and the following ones.
 
