@@ -152,16 +152,31 @@ Optionally add the `--vcs none` option to prevent `cargo` from automatically cre
 
 :::
 
-Open the `Cargo.toml` file and add the following dependencies:
+Open the `Cargo.toml` file and add the following dependencies and feature flags:
 
 ```toml
-ark-pallas = { git = "https://github.com/NilFoundation/arkworks-curves.git", features = ["zkllvm"] }
+ark-pallas = { git = "https://github.com/NilFoundation/arkworks-curves.git" }
 unroll = { git = "https://github.com/NilFoundation/zkllvm-unroll.git" }
+
+...
+
+[features]
+zkllvm = ["ark-ff/zkllvm"]
 ```
 
 :::tip
 
 Adding `unroll` [**is mandatory**](../best-practices-limitations/unrolling-loops) for circuits that use loops.
+
+:::
+
+:::tip
+
+The `"zkllvm"` feature flag is necessary to ensure compatibility with the original Rust compiler. 
+
+If this feature is enabled for a project, built-in zkLLVM types are used to represent curves, fields, and other elements. If this feature is disabled, type definitions from the `arkworks` project are used.
+
+The flag should only be used if `assigner-unknown-unknown` is the specified build target when calling `cargo`. If it is not used, calling `assigner` on the resulting circuit IR may fail.
 
 :::
 
@@ -182,7 +197,7 @@ pub fn sha256_example() -> BlockType {...}
 Compile the circuit with:
 
 ```bash
-cargo +zkllvm build --target assigner-unknown-unknown --release
+cargo +zkllvm build --target assigner-unknown-unknown --features zkllvm --release
 ```
 
 To learn more about additional compilation options, [**click here**](../getting-started/compiling-rust-code).
