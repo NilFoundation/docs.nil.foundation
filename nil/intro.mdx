@@ -13,13 +13,13 @@ import Contract from '@site/static/img/nil/nil-icons/contract.png'
 
 ## Definition
 
-=nil; is a sharded blockchain that leverages the following features:
+=nil; is an Ethereum layer-2 blockchain powered by zkSharding. The design of =nil; embodies three core qualities:
 
+* **Horizontal scalability**. =nil; unlocks the power of many machines by partitioning state across shards with cross-shard communications being a built-in feature of the protocol.
 * **Modularity**. =nil; acts as an execution layer while using Ethereum for data availability and consensus.
-* **Horizontal scalability**. In =nil;, state is spread across shards with cross-shard communications being a built-in feature of the protocol.
-* **Vertical scalability**. Validator implementation in =nil; is scaled vertically via intra-shard parallelization.
+* **Verifiable security**. The entire =nil; network can be verified with a single zero-knowledge proof attesting to the correctness of all shards.
 
-=nil; transcends the typical monolithic vs. modular discourse by relying on zkSharding, a new type of sharding architecture. In zkSharding, execution shards produce zero-knowledge proofs (ZKPs) verifying intra-shard state transitions while the state of the cluster is managed by a designated consensus shard. The consensus shard is responsible for producing a 'master' ZKP that is sent to Ethereum for global state verification.
+The design of =nil; transcends the typical monolithic vs. modular discourse as it emphasizes horizontal scalability above all else. =nil; scales out beyond the constraints of a single machine's processing power, by leveraging zkSharding, a new type of sharding architecture. In zkSharding, execution shards produce zero-knowledge proofs (ZKPs) verifying intra-shard state transitions while the state of the cluster is managed by a designated consensus shard. The consensus shard is responsible for synchronizing execution shards and producing a 'master' ZKP that is sent to Ethereum for global state verification.
 
 =nil; offers an effective strategy for scaling Ethereum while avoiding the limitations typically associated with the modular approach such as state and liquidity fragmentation.
 
@@ -30,12 +30,6 @@ As =nil; is highly scalable, it is ideal for applications that are demanding in 
 * Crowdsourcing platforms
 * Autonomous virtual worlds
 * Decentralized exchanges
-
-:::
-
-:::info[Throughput]
-
-The scaling solution introduced by =nil; offers a throughput of up to 60,000 transactions per second.
 
 :::
 
