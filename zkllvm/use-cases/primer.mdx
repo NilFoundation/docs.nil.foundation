@@ -93,19 +93,21 @@ list(APPEND CMAKE_MODULE_PATH "path/to/cmake")
 include(CircuitCompile)
 ```
 
-Add the required library and Boost to the project configuration:
+Add the required library to the project configuration:
 
 ```cmake
 set(crypto3_DIR "path/to/crypto3_headers")
 
 find_package(crypto3 REQUIRED)
-
-find_package(Boost REQUIRED COMPONENTS system filesystem)
 ```
 
 :::tip[Boost]
 
-Adding Boost is mandatory.
+`crypto3` already depends on Boost. If an alternative library (that does not depend on Boost) is used, add Boost to the CMake configuration:
+
+```cmake
+find_package(Boost REQUIRED COMPONENTS system filesystem)
+```
 
 :::
 
@@ -125,15 +127,26 @@ add_circuit(
 Compile the circuit with:
 
 ```bash
-cmake -G "Unix Makefiles" -B ${ZKLLVM_BUILD:-build} -DCMAKE_BUILD_TYPE=Release .
+
+cmake -G "Unix Makefiles" -B build -DCMAKE_BUILD_TYPE=Release .
 make -C ${ZKLLVM_BUILD:-build} circuit -j$(nproc)
 ```
-
-The circuit IR should appear in the `./build` folder.
 
 :::warning
 
 The `CircuitCompile.cmake` module does not support using custom paths to `clang` built from sources (as well as custom paths to a linker). To use this module, [**install the `zkllvm` Deb package**](../getting-started/installation#install-zkllvm-binaries).
+
+:::
+
+:::tip
+
+Instead of specifying `crypto3_DIR` in `CMakeLists.txt`, it is possible to specify it when calling `cmake`:
+
+```bash
+cmake -G "Unix Makefiles" -B build -DCMAKE_BUILD_TYPE=Release . -Dcrypto3_DIR=/path/to/crypto3/installation
+```
+
+This method is useful if a dependency is installed in a custom location rather than `/usr/local/` or any other location requiring root permissions.
 
 :::
 
