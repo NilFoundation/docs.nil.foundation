@@ -4,14 +4,14 @@
 
 In =nil;, data availability (DA) is ensured via the following methods:
 
-* L2 submits DA transactions to Ethereum with the process governed by a dedicated committee
-* The consensus shard also submits snapshots of the global state via state diffs
+* The synchronization committee (operating on top of the consensus shard) submits DA transactions to Ethereum
+* The consensus shard submits snapshots of the global state as state diffs to Ethereum  
 
 ## DA transactions
 
 ### The synchronization committee
 
-Ensuring the availability of L2 data is delegated to the syncronization committee.
+The synchronization committee ensures that the cluster posts the necessary data to Ethereum.
 
 Any validator can opt in to be a member of the synchronization committee. When a validator joins the committee, they automatically stop being an active validator so that their stake can only be slashed for one role at a given time. This is enforced by the committee election algorithm.
 
@@ -23,7 +23,7 @@ The synchronization committee operates for one epoch (the duration of epochs is 
 
 :::info[Protocol]
 
-The protocol of the syncronization committee is operated through an application deployed on top of the consensus shard.
+The protocol of the synchronization committee is operated through an application deployed on top of the consensus shard.
 
 :::
 
@@ -34,8 +34,8 @@ The basic algorithm of how the synchronization committee operates is as follows.
 1. The synchronization committee generates a state difference for a shard between time $T$ and time $T + p$
 2. A pre-selected node proposes a hash of the state difference
 3. The synchronization committee votes on the hash
-4. If the hash attains $2/3 + 1$ votes, the hash, the state difference, and the aggregate signature are composed into an Ethereum DA transaction sent via the consensus shard
-5. If the hash attains $1/3$ votes against it, the syncronization committee leader is slashed
+4. If the hash attains $2/3 + 1$ votes, the hash, the state difference, and the aggregate signature are composed into an Ethereum DA transaction and the transaction is sent to L1
+5. If the hash attains $1/3$ votes against it, the synchronization committee leader is slashed
 
 If there are sufficient transactions, the synchronization committee can compose them into an L1 block. This includes the block in the nearest L1 epoch slot (which achieves soft finality faster) and allows the block to participate in relay auctions. This case is shown in the following diagram.
 
@@ -99,72 +99,11 @@ flowchart TB
     SYNCCOM --- ETHB
 ```
 
-If there are too few DA or state-proof transactions, the synchronization committee can decide to send them directly to builders and searchers as a bundle.
-
-## Impact on transaction costs
-
-This sub-section estimates the cost of a data availability transaction given the following considerations:
-
-* The DA transaction primarily consists of state roots of the submissions made by execution shards to the consensus shard
-* The consensus shard submits its snapshot every three (3) seconds, which is exactly half of the current Ethereum slot time
-* Every execution shard transaction results in a change to its account nonce (32 bytes), account balance (32 bytes), and storage (32 bytes state root hash)
-
-The calculation also makes the following assumptions:
-
-* There are 400 execution shards which achieve the target of 60,000 transactions per second
-* The average depth of the Merkle State Trie path is three (3)
-
-:::tip[Justification]
-
-The probability of choosing three identical three-byte prefixes for 400 keys (shards) is 0.475% which is considered as the worst case scenario.
-
-:::
-
-The total data size (in bytes) for a DA transaction is calculated as follows:
-
-$$
-size = shards * (nonce + storage + balance + merkle_path) = 400 * 32 * 6 = 76800
-$$
-
-:::info
-
-The calculation discards the sizes of metadata and aggregate committee signatures as they are relatively small.
-
-:::
-
-The ratio of zeros to non-zeros in the data packet is estimated at $1/256$. The total cost of a DA transaction is calculated as follows.
-
-$$
-Gas_{zero} = 1 / 256 * 76800 * 4(gas_cost) = 1200
-$$
-
-$$
-Gas_{non-zero} = 255 / 256 * 76800 * 16(gas_cost) = 1224000
-$$
-
-$$
-Gas_{total} = Gas_{zero} + Gas_{non-zero} = 1225200
-$$
-
-Assuming that ETH is \$2900 and gas price is 15 gwei, the cost of a DA transaction is \$53.2962.
-
-:::info
-
-The calculation above does not account for the period between diffs. This omission is justified given that changes always affect the same accounts, the commitment size of the diffs remains consistent.
-
-If the calculation accounted for periods and additional transactions, the additional cost per user transaction would be calculated as follows.
-
-$$
-1225200 / (6 * 60000) = 3.403 \space gas
-$$
-
-If state diff submissions are made at the same interval as DA transactions, the cost would be six times higher ($0.00084).
-
-:::
+If there are too few DA or state-proof transactions, the synchronization committee can decide to send them directly to L1 builders and searchers as a bundle.
 
 ## Consensus shard snapshots
 
-The consensus shard periodically transmits global state diffs to Ethereum. These state diffs contain all L2 transactions applied to the previous state, allowing L1 to reconstruct the full L2 state when needed.
+The consensus shard periodically transmits global state diffs to Ethereum. These state diffs contain all transactions applied to the previous state, thus allowing Ethereum to offer full data availability guarantees for the consensus shard.
 
 ### L1 data storage
 

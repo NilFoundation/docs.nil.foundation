@@ -2,13 +2,19 @@
 
 ## Definition
 
-[**Cross-shard communications**](./shards-parallel-execution#message-passing-checks) are a built-in feature of the =nil; protocol.
+[**Cross-shard communications**](./shards-parallel-execution#message-passing-checks) are a built-in feature of the =nil; protocol ensuring horizontal scalability with no fragmentation.
 
-However, participants can also incur ownership and economic restrictions to ensure that two accounts are consistently located within the same shard (co-location). If two accounts are co-located, transactions involving these accounts are processed faster compared to transactions requiring cross-shard communications.
+When two 
 
-:::info[Splitting and merging]
+However, participants can also incur ownership and economic restrictions to ensure that two accounts are located within the same shard (co-location). 
 
-Co-location persists during [**shard splitting and merging**](./shards-parallel-execution#splitmerge-conditions-checks). This means it is a reliable way of avoiding the typical overheads associated with cross-shard communication.
+:::note[Explanation]
+
+When two accounts (Account 1 and Account 2) are co-located, communications between them can occur synchronously similarly to regular Ethereum transactions. 
+
+However, this is not the case if Account 1 and Account 2 are placed in different shards and Account 1 calls a function in Account 2. In this situation, the transaction from Account 1 must create another transaction that subsequently performs an async call to the function in Account 2. This async transaction could then be executed in a future block in the shard where Account 2 is located.
+
+This ensures that sharding does not result in fragmentation but adds execution overhead.
 
 :::
 
@@ -16,13 +22,13 @@ Co-location persists during [**shard splitting and merging**](./shards-parallel-
 
 On the one hand, contract co-location presents a valuable opportunity for developers wanting to ensure the lowest possible transaction processing times for their users.
 
-On the other hand, co-location encourages having as many accounts as possible on one shard, undermining horizontal scaling.
+On the other hand, co-location encourages having as many accounts as possible on one shard, undermining the benefits of horizontal scaling.
 
 To mitigate this, =nil; imposes economic and ownership restrictions on account co-location. These restrictions are expressed in terms of co-location depth, which is the number of addresses ($N$) a given address is co-located with. 
 
 :::note[Formula]
 
-The co-location formula of an address $A$ is as follows:
+The co-location depth formula of an address $A$ is as follows:
 
 $$
 \vert S_A \vert = \vert \bigcup S \vert S \bigcap A \vert
@@ -110,9 +116,3 @@ class CoLocationManager {
 :::
 
 Validators assigned to a shard must track the co-location manager and process the transactions made by accounts on the same shard.
-
-:::info[Sync execution]
-
-As co-location ensures that accounts always stay on the same shard, it allows for sync execution of account code. This means that Ethereum applications can be re-deployed and run on =nil; without the need to modify their code to handle async operations.
-
-:::
