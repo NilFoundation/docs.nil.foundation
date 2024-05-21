@@ -4,9 +4,9 @@
 
 [**Cross-shard communications**](./shards-parallel-execution#message-passing-checks) are a built-in feature of the =nil; protocol ensuring horizontal scalability with no fragmentation.
 
-When two 
+However, =nil; also supports contract co-location, which is a technique for ensuring that two accounts are located on the same shard. In this case, interaction between these accounts does not require cross-shard communications.
 
-However, participants can also incur ownership and economic restrictions to ensure that two accounts are located within the same shard (co-location). 
+In plain terms, co-location is a request made to change the value stored under the account's address in [**the mapping of accounts and shards**](./accounts) stored in the consensus shard. 
 
 :::note[Explanation]
 
