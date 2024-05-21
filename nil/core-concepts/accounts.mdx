@@ -4,21 +4,19 @@
 
 In =nil;, an account is the minimal unit of data for sharding. An account consists of an address, its balance, its storage root and the hash of its source code.
 
-Each execution shard handles only a dedicated part of all accounts in the global state of the cluster.
+Each execution shard handles only a dedicated part of all accounts in the global state of the cluster while the consensus shard stores the mapping of accounts and their corresponding shards.
 
-Accounts are distributed among shards using the following deterministic function.
+:::info[Execution shards]
 
-$$
-F_s : (pk, M_{shards})\to id_{shard}
-$$
+Each execution shard acts as a separate blockchain that starts from a genesis block and continues until a possible last block. When an account is placed in a shard, its location persists unless [**contract co-location**](./contract-co-location) is employed.
 
-, where $pk$ is the public key of an account and $M_{shards}$ is the history and metadata of each execution shard.
+:::
 
 ## Security and rollbacks
 
-In the case of a malicious node initiating an attack, the validator committee for the affected shard must initiate a rollback of all affected accounts.
+In the case of malicious nodes taking over a shard (and forcing commitment to corrupted data), validators for all other execution shards must initiate a rollback of all affected accounts. 
 
-This means that the corrupted accounts must be 'reset' to their last verified state.
+The rollback must revert accounts to their last verified state, meaning the state before the corrupted shard had started sending messages to other shards.
 
 There exist two possible methods for rolling back accounts.
 
@@ -33,6 +31,6 @@ Rolling back all accounts might seem excessive.
 
 However, attacks propagate faster than state transition proofs are generated. While the cluster is figuring out what accounts to roll back, the attack might grow in size, making the 'surgical' method costly and risky. 
 
-This makes the 'carpet' method more preferable despite its limitations.
+For now, this makes the 'carpet' method preferable despite its limitations. 
 
 :::
