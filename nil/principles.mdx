@@ -10,7 +10,7 @@ The following diagram shows how =nil; organizes execution shards, the main shard
 
 <img src={Flows}/ >
 
-In brief, each execution shard is responsible for generating a ZKP for their respective state change. Then the proofs are verified via a [**HotStuff2-based**](https://eprint.iacr.org/2023/397.pdf) global consensus protocol. 
+Each execution shard is responsible for generating a ZKP for their respective state change. While ZKPs are generated, execution shards employ a protocol based on [**Sync HotStuff**](https://eprint.iacr.org/2019/270.pdf) to reach consensus. Afterward, the proofs are verified via a [**HotStuff2-based**](https://eprint.iacr.org/2023/397.pdf) global consensus protocol. 
 
 The main shard uses all received ZKPs to create a 'master' ZKP that is then transmitted to Ethereum. The global state of =nil; is verified and transactions reach finality.
 
@@ -31,15 +31,9 @@ There is only one consensus shard in the cluster.
 
 As implied by their name, execution shards process transactions. 
 
-Each shard is allocated with a subset of accounts from the global state. The shard is responsible for executing transactions made to and from these accounts. Consensus is handled by a committee made up of several validators.
+Each shard is allocated with a subset of accounts from the global state. The shard is responsible for executing transactions made to and from these accounts. Consensus is handled by a committee of randomly selected validators.
 
 To learn more about execution shards, [**click here**](./core-concepts/shards-parallel-execution#execution-shards).
-
-:::info[Block capacity]
-
-Execution shards have a preset block capacity determined by the consensus shard. If a shard reaches capacity, it is split into two. If at least half of the available capacity is vacant, the shard is merged with another shard.
-
-:::
 
 :::info[Validator rotation]
 
@@ -61,4 +55,8 @@ To learn more about cross-shard communication, [**click here**](./core-concepts/
 
 =nil; also offers participants the option of contract co-location, which is a consistent way to ensure that two accounts are always located within the same shard.
 
-Co-location provides the fastest possible transaction speeds by eliminating the need for sending outgoing messages. However, note that using contract co-location incurs ownership and economic restrictions.
+When two accounts (Account 1 and Account 2) are co-located, communications between them can occur syncronously similarly to Ethereum transactions. 
+
+However, this is not the case if Account 1 and Account 2 are placed in different shards and Account 1 calls a function in Account 2. In this situation, the transaction from Account 1 must create another transaction that subsequently performs an async call to the function in Account 2. This async transaction could then be executed in a future block in the shard where Account 2 is located. 
+
+This mechanism creates overhead that contract co-location avoids entirely. To learn more about contract co-location and its benefits, [**click here**](./core-concepts/contract-co-location).
