@@ -28,7 +28,7 @@ export default {
             type: 'category',
             label: 'Getting started',
             collapsible: true,
-            collapsed: false,
+            collapsed: true,
             items: [
                 {
                     type: 'doc',
@@ -116,6 +116,11 @@ export default {
                     label: 'Unrolling loops',
                     id: 'best-practices-limitations/unrolling-loops'
                 },
+                {
+                    type: 'doc',
+                    label: 'Structs and enums in Rust',
+                    id: 'best-practices-limitations/rust-derive'
+                }
             ]
         },
         {

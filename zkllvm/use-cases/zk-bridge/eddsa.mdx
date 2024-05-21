@@ -162,19 +162,6 @@ fn hash(r: EdwardsAffine, pk: EdwardsAffine, m: EdDSAMessageBlockType) -> Fr {
 
 ## Public input
 
-The `eddsa_message_block_type` / `EdDSAMessageBlockType` field is expressed as follows:
-
-```json
-{
-    "vector": [
-        {"field": "0x3992d30ed00000001"},
-        {"field": "0x891a63f02533e46"},
-        {"field": "0"},
-        {"field": "0x100000000000000"}
-    ]
-}
-```
-
 The public input for the circuit could look as follows:
 
 ```json
