@@ -22,6 +22,11 @@ export default {
                     label: 'Key components and tools',
                     id: 'overview/key-components-tools'
                 },
+                {
+                    type: 'doc',
+                    label: 'Usage flow',
+                    id: 'overview/usage-flow'
+                }
             ]
         },
         {
@@ -86,7 +91,7 @@ export default {
             collapsed: true,
             items: [
                 {
- 
+
                     type: 'doc',
                     label: 'Refactoring if/else statements',
                     id: 'best-practices-limitations/avoiding-if-else-statements'
