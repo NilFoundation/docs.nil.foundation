@@ -18,21 +18,14 @@ State fragmentation is described as the inability for one piece of state (i.e. u
 
 Instead of focusing on improving interoperability (which only produces a 'bandaid' fix to the fragmentation problem), the goal of =nil; is to maximise scalability.
 
-=nil; achieves this by integrating both horizontal and vertical scaling supported by zkSharding.
+=nil; achieves this by by leveraging horizontal scaling supported by the zkSharding architecture.
 
 :::info[Definitions]
 
 **Horizontal scaling** refers to improving the throughput of a chain by adding more nodes. 
 
-**Vertical scaling** is improving the throughput of a chain by upgrading the capacity of existing nodes or upgrading hardware utilization.
-
 **zkSharding** is a type of sharding architecture in which the shards responsible for execution algo generate zero-knowledge proofs (ZKP) verifying intra-shard state transitions. There is also a dedicated shard for coordinating execution shards and communicating with Ethereum.
 
 :::
 
-zkSharding allows for combining horizontal and vertical scalability within the scope of one sharded network.
-
-* More shards can be added as needed without compromising security
-* Nodes in a shard can employ parallelized VMs for vertical intra-shard scaling
-
-Cross-shard communications are incorporated directly into the =nil; protocol. This means that the issue of fragmentation is avoided entirely as each shard can call contracts deployed on a different shard.
+In addition, cross-shard communications are incorporated directly into the =nil; protocol. This means that the issue of fragmentation is avoided entirely as each shard can call contracts deployed on a different shard.
