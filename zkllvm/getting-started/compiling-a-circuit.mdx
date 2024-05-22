@@ -13,85 +13,13 @@ There are two possible ways for transforming a circuit into a proof binary and S
 
 ## Calling individual tools
 
-The following diagram shows the flow for converting a `.cpp` or a `.rs` file into a proof binary and Solidity code for deployment.
-
-```mermaid
-%%{
-  init: {
-    'theme': 'base',
-    'themeVariables': {
-      'primaryColor': '#0f0f0f',
-      'primaryTextColor': '#f1f1f1',
-      'primaryBorderColor': '#f1f1f1',
-      'lineColor': '#87B6FC',
-      'secondaryColor': '#f1f1f1',
-      'tertiaryColor': '#2f2f2f',
-    },
-    'flowchart':
-    {
-        'defaultRenderer': 'elk',
-        'curve': 'step'
-    }
-  }
-}%%
-flowchart TB
-    classDef transpilerTitle margin-right: 250px;
-    Transpiler:::transpilerTitle
-
-    CPP(C++ code)
-    RUST(Rust code)
-    CLANG(<code>clang</code>)
-    RUSTCOMP(<code>cargo</code> #40;<code>rustc</code>#41;)
-    IR(Circuit IR)
-    INPUTS(Circuit inputs)
-    ASSIGNER(Assigner)
-    ASSIGNERRESULT(<code>.tbl</code> and <code>.crct</code> files)
-    TRANSPILER(<code>transpiler</code>)
-    PROOFBIN(Proof binary)
-    SOLIDITY(Solidity contracts)
-    CPP --> CLANG
-    RUST --> RUSTCOMP
-    CLANG --> IR
-    RUSTCOMP --> IR
-    IR --> ASSIGNER
-    INPUTS --> ASSIGNER
-    ASSIGNER --> ASSIGNERRESULT
-    ASSIGNERRESULT --> TRANSPILER
-    TRANSPILER --> PROOFBIN
-    TRANSPILER --> SOLIDITY
-    subgraph Code
-    CPP
-    RUST
-    end
-    subgraph Compilation
-    direction LR
-    CLANG
-    RUSTCOMP
-    IR
-    end
-    subgraph Assigner
-    direction LR
-    INPUTS
-    ASSIGNER
-    ASSIGNERRESULT
-    end
-    subgraph Transpiler
-    direction LR
-    TRANSPILER
-    PROOFBIN
-    SOLIDITY
-    end
-```
-
-Complete the below steps to follow this flow.
-
-### Running the compiler
+### Run the compiler
 
 To generate the circuit IR, complete one of the following tutorials.
 
 <DocCardList/>
 
-### Passing the IR to `assigner`
+### Pass the IR to `assigner`
 
 At this stage, the newly generated IR and the public info file are ready to be passed to `assigner`.
 
@@ -101,7 +29,7 @@ Run the following command to generate the circuit constraints and the assignment
 assigner -b path/to/circuit.ll -i path/to/public_input.inp -c circuit.crct -t assignment.tbl -e pallas --generate-type circuit-assignment
 ```
 
-### Using `transpiler` to generate the circuit proof
+### Use `transpiler` to generate the circuit proof
 
 The `.crct` and `.tbl` files can be passed to the `transpiler` tool to generate a binary with the proof and Solidity files containing the circuit.
 
