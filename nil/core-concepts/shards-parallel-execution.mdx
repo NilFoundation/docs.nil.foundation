@@ -31,7 +31,7 @@ If $nextShard$ equals the current shard, the message must be included in the blo
 
 ### State consensus checks
 
-In =nil;, validators govern entire neighborhoods of shards based on the Hamming distance between shards.
+In =nil;, validators verify entire neighborhoods of shards based on the Hamming distance between shards.
 
 $$
 committee(shardId) = \bigcup_{\substack{s\in shardIds\\dist(s,shardId)\le R}}assignment(s)
