@@ -2,27 +2,19 @@
 
 Whenever a Rust circuit is compiled, `rustc` applies various optimizations to reduce its memory usage.
 
-Among these memory optimizations is [**reordering fields in structs and enums to avoid unnecessary 'paddings' in circuit IRs**](https://users.rust-lang.org/t/disable-struct-reordering-optimization-when-emitting-llvm-bitcode/74951). Consider the following example:
+Among these memory optimizations is [**reordering fields in structs and enums to avoid unnecessary 'paddings' in circuit IRs**](https://doc.rust-lang.org/nomicon/repr-rust.html). Consider the following example:
 
 ```rust
-use ark_curve25519::{EdwardsAffine, Fr};
 use ark_pallas::Fq;
 
 type BlockType = [Fq; 2];
-type EdDSAMessageBlockType = [Fq; 4];
 
 #[derive(Copy, Clone)]
 pub struct BlockDataType {
     prev_block_hash: BlockType,
     data: BlockType,
-    validators_signatures: [EdDSASignatureType; 4],
-    validators_keys: [EdwardsAffine; 4],
-}
-
-#[derive(Copy, Clone)]
-pub struct EdDSASignatureType {
-    r: EdwardsAffine,
-    s: Fr,
+    validators_signature: i32,
+    validators_key: u64,
 }
 ```
 
@@ -37,31 +29,22 @@ The public input representation of the `BlockDataType` struct would look as foll
         "array": [{"field": 3}, {"field": 1}]
     },
     {
-        "array": [
-            {"struct": [{"curve": [4, 5]}, {"field": 8}]},
-            {"struct": [{"curve": [4, 5]}, {"field": 8}]},
-            {"struct": [{"curve": [4, 5]}, {"field": 8}]},
-            {"struct": [{"curve": [4, 5]}, {"field": 8}]}
-        ]
+        "int": 1
     },
     {
-        "array": [
-            {"curve": ["0x4f043d481c8f09de646b1aa05de7ebfab126fc8bbb74f42532378c4dec6e76ec", "0x58719b60b26bd8b8b76de1a886ed82aa11692b4dc5494fe96d5b31f1c63f36a8"]},
-            {"curve": ["0x4f043d481c8f09de646b1aa05de7ebfab126fc8bbb74f42532378c4dec6e76ec", "0x58719b60b26bd8b8b76de1a886ed82aa11692b4dc5494fe96d5b31f1c63f36a8"]},
-            {"curve": ["0x4f043d481c8f09de646b1aa05de7ebfab126fc8bbb74f42532378c4dec6e76ec", "0x58719b60b26bd8b8b76de1a886ed82aa11692b4dc5494fe96d5b31f1c63f36a8"]},
-            {"curve": ["0x4f043d481c8f09de646b1aa05de7ebfab126fc8bbb74f42532378c4dec6e76ec", "0x58719b60b26bd8b8b76de1a886ed82aa11692b4dc5494fe96d5b31f1c63f36a8"]}
-        ]
+        "int": 1
     }
 ]
 ```
 
-When compiling the `BlockDataType` struct, `rustc` will reorder its fields.
+When compiling the `BlockDataType` struct, `rustc` may reorder its fields.
 
-When `assigner` is called on a circuit with this struct, the circuit IR will conflict with the public input as the field order in the IR and the public input file will no longer match.
+When `assigner` is called on a circuit with this struct, the circuit IR would conflict with the public input as the field order in the IR and the public input file would no longer match.
 
 To avoid this problem, use the `#[repr(C)]` directive:
 
 ```rust
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct BlockDataType {
     prev_block_hash: BlockType,
