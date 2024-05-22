@@ -3,7 +3,7 @@ import TabItem from '@theme/TabItem'
 
 # Write a circuit with hashes
 
-This 'how-to' series constructs a 'mock' zero knowledge bridge from scratch. The series starts with writing a simple circuit that uses hashes and ends with creating an algorithm for state-proof verification.
+This 'how-to' series constructs a 'mock' zero-knowledge bridge from scratch. The series starts with writing a simple circuit that uses hashes and ends with creating an algorithm for state-proof verification.
 
 ## Prerequisites
 
@@ -100,26 +100,18 @@ The circuit consists of the following components:
     [[circuit]] bool verify_protocol_state_proof (
         typename sha2<256>::block_type last_confirmed_block_hash,
         std::array<block_data_type, 2> unconfirmed_blocks) {
-        for (int i = 0; i < 2; i++) {
-            if (i == 0) {
-                if (!is_same(
-                    unconfirmed_blocks[i].prev_block_hash,
-                    last_confirmed_block_hash)) {
-                    return false;
-                }
-            } else {
-                typename sha2<256>::block_type evaluated_block_hash =
-                    hash<sha2<256>>(
-                        unconfirmed_blocks[i-1].prev_block_hash,
-                        unconfirmed_blocks[i-1].data);
-                if (!is_same(
-                    unconfirmed_blocks[i].prev_block_hash,
-                    evaluated_block_hash)) {
-                    return false;
-                }
-            }
+        bool res = true;
+        if (!is_same(unconfirmed_blocks[0].prev_block_hash, last_confirmed_block_hash)) {
+            return false;
         }
-        return true;
+        for (int i = 1; i < 2; i++) {
+            typename sha2<256>::block_type evaluated_block_hash =
+                        hash<sha2<256>>(
+                            unconfirmed_blocks[i-1].prev_block_hash,
+                            unconfirmed_blocks[i-1].data);
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }  
+        return res;
     }
     ```
   </TabItem>
@@ -128,23 +120,24 @@ The circuit consists of the following components:
     #[circuit]
     #[unroll_for_loops]
     fn verify_protocol_state_proof(
-        last_confirmed_block_hash: Fq,
+        last_confirmed_block_hash: BlockType,
         unconfirmed_blocks: [BlockDataType; 2],
     ) -> bool {
-        for i in 0..2 {
-            if i == 0 {
-                if is_same(unconfirmed_blocks[i][0], last_confirmed_block_hash) {
-                    false
-                }
-            } else {
-                let evaluated_block_hash =
-                    hash(unconfirmed_blocks[i - 1][0], unconfirmed_blocks[i - 1][1]);
-                if is_same(unconfirmed_blocks[i][0], evaluated_block_hash) {
-                    false
-                }
-            }
-            true
+        let mut res: bool = true;
+        if !is_same(
+            unconfirmed_blocks[0].prev_block_hash,
+            last_confirmed_block_hash,
+        ) {
+            return false;
         }
+        for i in 1..2 {
+            let evaluated_block_hash = hash(
+                unconfirmed_blocks[i - 1].prev_block_hash,
+                unconfirmed_blocks[i - 1].data,
+            );
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }
+        res
     }
     ```
   </TabItem>
@@ -176,26 +169,18 @@ The circuit consists of the following components:
     [[circuit]] bool verify_protocol_state_proof (
         typename sha2<256>::block_type last_confirmed_block_hash,
         std::array<block_data_type, 2> unconfirmed_blocks) {
-        for (int i = 0; i < 2; i++) {
-            if (i == 0) {
-                if (!is_same(
-                    unconfirmed_blocks[i].prev_block_hash,
-                    last_confirmed_block_hash)) {
-                    return false;
-                }
-            } else {
-                typename sha2<256>::block_type evaluated_block_hash =
-                    hash<sha2<256>>(
-                        unconfirmed_blocks[i-1].prev_block_hash,
-                        unconfirmed_blocks[i-1].data);
-                if (!is_same(
-                    unconfirmed_blocks[i].prev_block_hash,
-                    evaluated_block_hash)) {
-                    return false;
-                }
-            }
+        bool res = true;
+        if (!is_same(unconfirmed_blocks[0].prev_block_hash, last_confirmed_block_hash)) {
+            return false;
         }
-        return true;
+        for (int i = 1; i < 2; i++) {
+            typename sha2<256>::block_type evaluated_block_hash =
+                        hash<sha2<256>>(
+                            unconfirmed_blocks[i-1].prev_block_hash,
+                            unconfirmed_blocks[i-1].data);
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }  
+        return res;
     }
     ```
   </TabItem>
@@ -205,6 +190,7 @@ The circuit consists of the following components:
 
     use ark_pallas::Fq;
     use std::intrinsics::assigner_sha2_256;
+    use unroll::unroll_for_loops;
 
     type BlockType = [Fq; 2];
 
@@ -225,23 +211,24 @@ The circuit consists of the following components:
     #[circuit]
     #[unroll_for_loops]
     fn verify_protocol_state_proof(
-        last_confirmed_block_hash: Fq,
+        last_confirmed_block_hash: BlockType,
         unconfirmed_blocks: [BlockDataType; 2],
     ) -> bool {
-        for i in 0..2 {
-            if i == 0 {
-                if is_same(unconfirmed_blocks[i][0], last_confirmed_block_hash) {
-                    false
-                }
-            } else {
-                let evaluated_block_hash =
-                    hash(unconfirmed_blocks[i - 1][0], unconfirmed_blocks[i - 1][1]);
-                if is_same(unconfirmed_blocks[i][0], evaluated_block_hash) {
-                    false
-                }
-            }
-            true
+        let mut res: bool = true;
+        if !is_same(
+            unconfirmed_blocks[0].prev_block_hash,
+            last_confirmed_block_hash,
+        ) {
+            return false;
         }
+        for i in 1..2 {
+            let evaluated_block_hash = hash(
+                unconfirmed_blocks[i - 1].prev_block_hash,
+                unconfirmed_blocks[i - 1].data,
+            );
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }
+        res
     }
     ```
   </TabItem>
@@ -251,49 +238,101 @@ The circuit consists of the following components:
 
 The public input for the circuit could look as follows:
 
-```json
-[
-    {
-        "vector": [
-            {"field": "4209827349872394872394872394872398472398472398472398472398472398"},
-            {"field": "9823472983472938472938472938472983472983472983472983472983472983"}
-        ]
-    },
-    {
-        "array": [
-            {
-                "struct": [
-                    {
-                        "vector": [
-                            {"field": "129837498237498237498237498237498237498237498237498237498237"},
-                            {"field": "23984723984723984723984723984723984723984723984723984723984"}
-                        ]
-                    },
-                    {
-                        "vector": [
-                            {"field": "3872498273498237498237498237498237498237498237498237498237498"},
-                            {"field": "1823048723048723048723048723048723048723048723048723048723048"}
-                        ]
-                    }
-                ]
-            },
-            {
-                "struct": [
-                    {
-                        "vector": [
-                            {"field": "978293748293748293748239874823984723984723984723984723984723"},
-                            {"field": "5092384750293847502938475029384750293847502938475029384750293"}
-                        ]
-                    },
-                    {
-                        "vector": [
-                            {"field": "3948572039847502938475029384750293847502938475029384750293847"},
-                            {"field": "5029384750293847502938475029384750293847502938475029384750293"}
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-]
-```
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```json
+    [
+        {
+            "vector": [
+                {"field": "4209827349872394872394872394872398472398472398472398472398472398"},
+                {"field": "9823472983472938472938472938472983472983472983472983472983472983"}
+            ]
+        },
+        {
+            "array": [
+                {
+                    "struct": [
+                        {
+                            "vector": [
+                                {"field": "129837498237498237498237498237498237498237498237498237498237"},
+                                {"field": "23984723984723984723984723984723984723984723984723984723984"}
+                            ]
+                        },
+                        {
+                            "vector": [
+                                {"field": "3872498273498237498237498237498237498237498237498237498237498"},
+                                {"field": "1823048723048723048723048723048723048723048723048723048723048"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "struct": [
+                        {
+                            "vector": [
+                                {"field": "978293748293748293748239874823984723984723984723984723984723"},
+                                {"field": "5092384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        },
+                        {
+                            "vector": [
+                                {"field": "3948572039847502938475029384750293847502938475029384750293847"},
+                                {"field": "5029384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```json
+    [
+        {
+            "array": [
+                {"field": "4209827349872394872394872394872398472398472398472398472398472398"},
+                {"field": "9823472983472938472938472938472983472983472983472983472983472983"}
+            ]
+        },
+        {
+            "array": [
+                {
+                    "struct": [
+                        {
+                            "array": [
+                                {"field": "129837498237498237498237498237498237498237498237498237498237"},
+                                {"field": "23984723984723984723984723984723984723984723984723984723984"}
+                            ]
+                        },
+                        {
+                            "array": [
+                                {"field": "3872498273498237498237498237498237498237498237498237498237498"},
+                                {"field": "1823048723048723048723048723048723048723048723048723048723048"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "struct": [
+                        {
+                            "array": [
+                                {"field": "978293748293748293748239874823984723984723984723984723984723"},
+                                {"field": "5092384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        },
+                        {
+                            "array": [
+                                {"field": "3948572039847502938475029384750293847502938475029384750293847"},
+                                {"field": "5029384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    ```
+  </TabItem>
+</Tabs>
