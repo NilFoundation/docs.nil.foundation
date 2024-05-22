@@ -226,7 +226,7 @@ The circuit consists of the following components:
                 unconfirmed_blocks[i - 1].prev_block_hash,
                 unconfirmed_blocks[i - 1].data,
             );
-            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+            res = res && is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
         }
         res
     }

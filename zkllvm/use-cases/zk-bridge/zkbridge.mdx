@@ -91,11 +91,12 @@ Read the following tutorials before proceeding further.
 
 :::info[Rust directives]
 
-The `#[derive(Copy, Clone)]` makes it so that circuit code does not unintentionally take ownership of variables that are supposed to be changed/used later.
+The `#[derive(Copy, Clone)]` makes it so functions do not take ownership of the variables belonging to custom structs if these variables are passed by value.
 
 To learn more about the `#[derive(C)]` directive, [**click here**](../../best-practices-limitations/rust-derive).
 
 :::
+
 
 ### Additional functions 
 
@@ -214,13 +215,31 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
   </TabItem>
   <TabItem value='rust' label='Rust'>
     ```rust
-    #![no_main]
+    #[circuit]
+    #[unroll_for_loops]
+    pub fn verify_protocol_state_proof(
+        last_confirmed_block_hash: BlockType,
+        unconfirmed_blocks: [BlockDataType; 2],
+    ) -> bool {
+        let mut is_correct = is_same(
+            unconfirmed_blocks[0].prev_block_hash,
+            last_confirmed_block_hash,
+        );
+        is_correct = is_correct && verify_signature(unconfirmed_blocks[0]);
 
-    use std::intrinsics::assigner_sha2_256;
+        for i in 1..2 {
+            let evaluated_block_hash: BlockType = hash_256(
+                unconfirmed_blocks[i - 1].prev_block_hash,
+                unconfirmed_blocks[i - 1].data,
+            );
 
-    use ark_ff::AdditiveGroup;
-    use ark_pallas::Fq;
-    use unroll::unroll_for_loops;
+            is_correct =
+                is_correct && is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+            is_correct = is_correct && verify_signature(unconfirmed_blocks[i]);
+        }
+
+        is_correct
+    }
     ```
   </TabItem>
 </Tabs>
@@ -407,6 +426,7 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
     ```
   </TabItem>
 </Tabs>
+
 
 ## Public input
 
