@@ -37,20 +37,6 @@ Switch to the working directory:
 mkdir new_circuit && cd new_circuit
 ```
 
-Create a directory for CMake modules:
-
-```bash
-mkdir cmake && cd cmake
-```
-
-Add the [**`CircuitCompile.cmake` module from the zkLLVM repository**](https://github.com/NilFoundation/zkLLVM/blob/master/cmake/CircuitCompile.cmake) to the `./new_circuit/cmake` directory:
-
-```
-new_circuit
--- cmake
-    -- CircuitCompile.cmake
-```
-
 Create the circuit:
 
 ```bash
@@ -88,7 +74,7 @@ project(hashes_circuit
     DESCRIPTION "Tutorial circuit with hashes"
     LANGUAGES CXX)
 
-list(APPEND CMAKE_MODULE_PATH "path/to/cmake")
+list(APPEND CMAKE_MODULE_PATH "/usr/lib/zkllvm/share/zkllvm")
 
 include(CircuitCompile)
 ```
@@ -96,20 +82,10 @@ include(CircuitCompile)
 Add the required library to the project configuration:
 
 ```cmake
-set(crypto3_DIR "path/to/crypto3_headers")
+set(crypto3_DIR "path/to/crypto3/installation")
 
 find_package(crypto3 REQUIRED)
 ```
-
-:::tip[Boost]
-
-`crypto3` already depends on Boost. If an alternative library (that does not depend on Boost) is used, add Boost manually:
-
-```cmake
-find_package(Boost REQUIRED COMPONENTS system filesystem)
-```
-
-:::
 
 Set the circuit source and add a build target:
 
@@ -120,10 +96,8 @@ add_circuit(
     circuit SOURCES ${SOURCES}
     LINK_LIBRARIES
     crypto3::all
-    ${Boost_LIBRARIES}
 )
 
-set(binary_name circuit.ll)
 ```
 
 , where `circuit` is the desired target name.
@@ -132,9 +106,10 @@ Compile the circuit with:
 
 ```bash
 cmake -G "Unix Makefiles" -B ./build -DCMAKE_BUILD_TYPE=Release .
-cd build
 make -C ./build circuit -j$(nproc)
 ```
+
+`add_circuit()` will generate the circuit IR under the name `circuit.ll`.
 
 :::warning
 
@@ -150,7 +125,7 @@ Instead of specifying `crypto3_DIR` in `CMakeLists.txt`, it is possible to speci
 cmake -G "Unix Makefiles" -B ./build -DCMAKE_BUILD_TYPE=Release . -Dcrypto3_DIR=/path/to/crypto3/installation
 ```
 
-This method is useful if a dependency is installed in a custom location rather than `/usr/local/` or any other location requiring root permissions.
+This method is useful if `crypto3_DIR` is not a fixed path and cannot be 'hardcoded' in the CMake configuration file.
 
 :::
 
