@@ -1,0 +1,268 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Create a Merkle tree commitment scheme
+
+A Merkle tree is a widely used commitment scheme:
+
+* Each leaf node in a Merkle tree contains a hash of a data block
+* Each non-leaf node contains a hash of its children
+
+Merkle trees are a good choice for a simple zkBridge given their simplicity.
+
+## Prerequisites
+
+Read the following tutorials before proceeding further.
+
+* [**Primer**](../primer)
+* [**Write a circuit with hashes**](./hashes)
+* [**Verify EdDSA signatures**](./eddsa)
+
+## Circuit code
+
+### Headers and namespaces / crates and modules
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/hash/algorithm/hash.hpp>
+    #include <nil/crypto3/hash/sha2.hpp>
+
+    using namespace nil::crypto3;
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use std::intrinsics::assigner_sha2_256;
+
+    use ark_ff::AdditiveGroup;
+    use ark_pallas::Fq;
+    use unroll::unroll_for_loops;
+    ```
+  </TabItem>
+</Tabs>
+
+### Additional types and functions (Rust only)
+
+```rust
+type BlockType = [Fq; 2];
+
+fn hash(block1: BlockType, block2: BlockType) -> BlockType {
+    let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
+    [sha[0].into(), sha[1].into()]
+}
+```
+
+### Circuit function
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    [[circuit]] typename hashes::sha2<256>::block_type
+        balance(std::array<typename hashes::sha2<256>::block_type, 0x10> layer_0_leaves) {
+
+        std::array<typename hashes::sha2<256>::block_type, 0x8> layer_1_leaves;
+        constexpr std::size_t layer_1_size = layer_1_leaves.size();
+        std::array<typename hashes::sha2<256>::block_type, 0x4> layer_2_leaves;
+        constexpr std::size_t layer_2_size = layer_2_leaves.size();
+        std::array<typename hashes::sha2<256>::block_type, 0x2> layer_3_leaves;
+        constexpr std::size_t layer_3_size = layer_3_leaves.size();
+        typename hashes::sha2<256>::block_type root;
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_1_size; leaf_index++) {
+            layer_1_leaves[leaf_index] =
+                hash<hashes::sha2<256>>(layer_0_leaves[2 * leaf_index], layer_0_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_2_size; leaf_index++) {
+            layer_2_leaves[leaf_index] =
+                hash<hashes::sha2<256>>(layer_1_leaves[2 * leaf_index], layer_1_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_3_size; leaf_index++) {
+            layer_3_leaves[leaf_index] =
+                hash<hashes::sha2<256>>(layer_2_leaves[2 * leaf_index], layer_2_leaves[2 * leaf_index + 1]);
+        }
+
+        root = hash<hashes::sha2<256>>(layer_3_leaves[0], layer_3_leaves[1]);
+
+        return root;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #[circuit]
+    #[unroll_for_loops]
+    pub fn balance(layer_0_leaves: [BlockType; 0x10]) -> BlockType {
+        let mut layer_1_leaves: [BlockType; 0x8] = [[Fq::ZERO, Fq::ZERO]; 0x8];
+        let mut layer_2_leaves: [BlockType; 0x4] = [[Fq::ZERO, Fq::ZERO]; 0x4];
+        let mut layer_3_leaves: [BlockType; 0x2] = [[Fq::ZERO, Fq::ZERO]; 0x2];
+
+        for leaf_index in 0..8 {
+            layer_1_leaves[leaf_index] = hash(layer_0_leaves[2 * leaf_index], layer_0_leaves[2 * leaf_index + 1]);
+        }
+
+        for leaf_index in 0..4 {
+            layer_2_leaves[leaf_index] = hash(layer_1_leaves[2 * leaf_index], layer_1_leaves[2 * leaf_index + 1]);
+        }
+
+        for leaf_index in 0..2 {
+            layer_3_leaves[leaf_index] = hash(layer_2_leaves[2 * leaf_index], layer_2_leaves[2 * leaf_index + 1]);
+        }
+
+        let root: BlockType = hash(layer_3_leaves[0], layer_3_leaves[1]);
+
+        root
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Full code
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/hash/algorithm/hash.hpp>
+    #include <nil/crypto3/hash/sha2.hpp>
+
+    using namespace nil::crypto3;
+
+    [[circuit]] typename hashes::sha2<256>::block_type
+        balance(std::array<typename hashes::sha2<256>::block_type, 0x10> layer_0_leaves) {
+
+        std::array<typename hashes::sha2<256>::block_type, 0x8> layer_1_leaves;
+        constexpr std::size_t layer_1_size = layer_1_leaves.size();
+        std::array<typename hashes::sha2<256>::block_type, 0x4> layer_2_leaves;
+        constexpr std::size_t layer_2_size = layer_2_leaves.size();
+        std::array<typename hashes::sha2<256>::block_type, 0x2> layer_3_leaves;
+        constexpr std::size_t layer_3_size = layer_3_leaves.size();
+        typename hashes::sha2<256>::block_type root;
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_1_size; leaf_index++) {
+            layer_1_leaves[leaf_index] =
+                hash<hashes::sha2<256>>(layer_0_leaves[2 * leaf_index], layer_0_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_2_size; leaf_index++) {
+            layer_2_leaves[leaf_index] =
+                hash<hashes::sha2<256>>(layer_1_leaves[2 * leaf_index], layer_1_leaves[2 * leaf_index + 1]);
+        }
+
+        for (std::size_t leaf_index = 0; leaf_index < layer_3_size; leaf_index++) {
+            layer_3_leaves[leaf_index] =
+                hash<hashes::sha2<256>>(layer_2_leaves[2 * leaf_index], layer_2_leaves[2 * leaf_index + 1]);
+        }
+
+        root = hash<hashes::sha2<256>>(layer_3_leaves[0], layer_3_leaves[1]);
+
+        return root;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use std::intrinsics::assigner_sha2_256;
+
+    use ark_ff::AdditiveGroup;
+    use ark_pallas::Fq;
+    use unroll::unroll_for_loops;
+
+    type BlockType = [Fq; 2];
+
+    #[circuit]
+    #[unroll_for_loops]
+    pub fn balance(layer_0_leaves: [BlockType; 0x10]) -> BlockType {
+        let mut layer_1_leaves: [BlockType; 0x8] = [[Fq::ZERO, Fq::ZERO]; 0x8];
+        let mut layer_2_leaves: [BlockType; 0x4] = [[Fq::ZERO, Fq::ZERO]; 0x4];
+        let mut layer_3_leaves: [BlockType; 0x2] = [[Fq::ZERO, Fq::ZERO]; 0x2];
+
+        for leaf_index in 0..8 {
+            layer_1_leaves[leaf_index] = hash(layer_0_leaves[2 * leaf_index], layer_0_leaves[2 * leaf_index + 1]);
+        }
+
+        for leaf_index in 0..4 {
+            layer_2_leaves[leaf_index] = hash(layer_1_leaves[2 * leaf_index], layer_1_leaves[2 * leaf_index + 1]);
+        }
+
+        for leaf_index in 0..2 {
+            layer_3_leaves[leaf_index] = hash(layer_2_leaves[2 * leaf_index], layer_2_leaves[2 * leaf_index + 1]);
+        }
+
+        let root: BlockType = hash(layer_3_leaves[0], layer_3_leaves[1]);
+
+        root
+    }
+
+    fn hash(block1: BlockType, block2: BlockType) -> BlockType {
+        let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
+        [sha[0].into(), sha[1].into()]
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## Public input
+
+The public input for the circuit could look as follows:
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```json
+    [ 
+        { 
+            "array": [ 
+                {"vector": [{"field": 1},{"field": 2}]}, 
+                {"vector": [{"field": 3},{"field": 4}]}, 
+                {"vector": [{"field": 5},{"field": 6}]}, 
+                {"vector": [{"field": 7},{"field": 8}]}, 
+                {"vector": [{"field": 9},{"field": 10}]}, 
+                {"vector": [{"field": 11},{"field": 12}]}, 
+                {"vector": [{"field": 13},{"field": 14}]}, 
+                {"vector": [{"field": 15},{"field": 16}]}, 
+                {"vector": [{"field": 17},{"field": 18}]}, 
+                {"vector": [{"field": 19},{"field": 20}]},
+                {"vector": [{"field": 21},{"field": 22}]}, 
+                {"vector": [{"field": 23},{"field": 24}]}, 
+                {"vector": [{"field": 25},{"field": 26}]}, 
+                {"vector": [{"field": 27},{"field": 28}]}, 
+                {"vector": [{"field": 29},{"field": 30}]}, 
+                {"vector": [{"field": 31},{"field": 32}]}
+            ] 
+        } 
+    ]
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```json
+    [ 
+        { 
+            "array": [ 
+                {"array": [{"field": 1},{"field": 2}]}, 
+                {"array": [{"field": 3},{"field": 4}]}, 
+                {"array": [{"field": 5},{"field": 6}]}, 
+                {"array": [{"field": 7},{"field": 8}]}, 
+                {"array": [{"field": 9},{"field": 10}]}, 
+                {"array": [{"field": 11},{"field": 12}]}, 
+                {"array": [{"field": 13},{"field": 14}]}, 
+                {"array": [{"field": 15},{"field": 16}]}, 
+                {"array": [{"field": 17},{"field": 18}]}, 
+                {"array": [{"field": 19},{"field": 20}]},
+                {"array": [{"field": 21},{"field": 22}]},
+                {"array": [{"field": 23},{"field": 24}]},
+                {"array": [{"field": 25},{"field": 26}]},
+                {"array": [{"field": 27},{"field": 28}]},
+                {"array": [{"field": 29},{"field": 30}]},
+                {"array": [{"field": 31},{"field": 32}]},
+            ] 
+        } 
+    ]
+    ```
+  </TabItem>
+</Tabs>
+

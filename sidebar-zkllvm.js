@@ -33,7 +33,7 @@ export default {
             type: 'category',
             label: 'Getting started',
             collapsible: true,
-            collapsed: false,
+            collapsed: true,
             items: [
                 {
                     type: 'doc',
@@ -121,20 +121,12 @@ export default {
                     label: 'Unrolling loops',
                     id: 'best-practices-limitations/unrolling-loops'
                 },
-            ]
-        },
-        {
-            type: 'category',
-            label: 'Circuit development',
-            collapsible: true,
-            collapsed: true,
-            items: [
                 {
                     type: 'doc',
-                    label: 'Standard library',
-                    id: 'circuit-development/standalone-clang',
-                },
-            ],
+                    label: 'Structs and enums in Rust',
+                    id: 'best-practices-limitations/rust-derive'
+                }
+            ]
         },
         {
             type: 'category',
@@ -144,24 +136,38 @@ export default {
             items: [
                 {
                     type: 'doc',
-                    label: 'First circuit with hashes',
-                    id: 'tutorials/hashes'
+                    label: 'Primer',
+                    id: 'use-cases/primer'
                 },
                 {
-                    type: 'doc',
-                    label: 'EsDSA signature verifications',
-                    id: 'tutorials/eddsa'
+                    type: 'category',
+                    label: 'Construct a zkBridge',
+                    collapsible: true,
+                    collapsed: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Write a circuit with hashes',
+                            id: 'use-cases/zk-bridge/hashes'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Verify EdDSA signatures',
+                            id: 'use-cases/zk-bridge/eddsa'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Create a Merkle tree commitment scheme',
+                            id: 'use-cases/zk-bridge/merkle-tree'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Write an algorithm for state-proof verification',
+                            id: 'use-cases/zk-bridge/zkbridge'
+                        },
+                    ]
                 },
-                {
-                    type: 'doc',
-                    label: 'Merkle tree commitment schemes',
-                    id: 'tutorials/merkle-tree'
-                },
-                {
-                    type: 'doc',
-                    label: 'Constructing a zkBridge',
-                    id: 'tutorials/zkbridge'
-                },
+
             ]
         },
         {
@@ -172,18 +178,8 @@ export default {
             items: [
                 {
                     type: 'doc',
-                    label: 'Contributing',
-                    id: 'misc/contributing'
-                },
-                {
-                    type: 'doc',
                     label: 'Code of conduct',
                     id: 'misc/code-of-conduct'
-                },
-                {
-                    type: 'doc',
-                    label: 'Contact',
-                    id: 'misc/contact'
                 },
             ]
         },
