@@ -9,7 +9,6 @@ use ark_pallas::Fq;
 
 type BlockType = [Fq; 2];
 
-#[derive(Copy, Clone)]
 pub struct BlockDataType {
     prev_block_hash: BlockType,
     data: BlockType,
@@ -50,7 +49,6 @@ use ark_pallas::Fq;
 type BlockType = [Fq; 2];
 
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct BlockDataType {
     prev_block_hash: BlockType,
     data: BlockType,
