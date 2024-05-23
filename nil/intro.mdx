@@ -4,7 +4,6 @@ import {Card, CardSection} from '@site/src/components/CardSection'
 import Accounts from '@site/static/img/nil/nil-icons/accounts.png'
 import Transaction from '@site/static/img/nil/nil-icons/transaction.png'
 import Shards from '@site/static/img/nil/nil-icons/shards.png'
-import Sequencing from '@site/static/img/nil/nil-icons/sequencing.png'
 import Finality from '@site/static/img/nil/nil-icons/finality.png'
 import Data from '@site/static/img/nil/nil-icons/data.png'
 import Contract from '@site/static/img/nil/nil-icons/contract.png'
@@ -48,13 +47,24 @@ Learn the basics of what =nil; is and how it works.
 
 Familiarize yourself with the key components of the architecture of =nil;.
 
-
 <CardSection>
     <Card icon={<img src={Accounts}/>} id='accounts' title='Accounts' description='Learn about how =nil; handles accounts' to='./core-concepts/accounts'/>
     <Card icon={<img src={Transaction}/>} id='lifecycle' title='Transaction lifecycle' description='Follow a transaction to finality' to='./core-concepts/transaction-lifecycle'/>
     <Card icon={<img src={Shards}/>} id='shards' title='Shards and parallelized execution' description='See how =nil; achieves scalability' to='./core-concepts/shards-parallel-execution'/>
-    <Card icon={<img src={Sequencing}/>} id='sequencing' title='Sequencing' description='Read about how =nil; adopts the PBS model' to='./core-concepts/sequencing'/>
+    <Card icon={<img src={Contract}/>} id='contract' title='Contract co-location' description='Ensure account placement on the same shard' to='./core-concepts/contract-co-location'/>
+</CardSection>
+
+### Specification
+
+Learn more about how =nil; resolves issues central to any blockchain.
+
+:::info[WIP provisions]
+
+The materials in this section may describe features and components that are not yet part of =nil;.
+
+:::
+
+<CardSection>
     <Card icon={<img src={Finality}/>} id='finality' title='Finality' description='Learn about the strong security guarantees of =nil;' to='./core-concepts/finality'/>
     <Card icon={<img src={Data}/>} id='data' title='Data availability' description='See how =nil; achieves DA at all levels' to='./core-concepts/data-availability'/>
-    <Card icon={<img src={Contract}/>} id='contract' title='Contract co-location' description='Ensure account placement on the same shard' to='./core-concepts/contract-co-location'/>
 </CardSection>

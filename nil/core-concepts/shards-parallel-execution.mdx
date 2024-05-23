@@ -9,7 +9,7 @@ Shards are smaller chains that are usually responsible for managing a portion of
 
 ## Execution shards
 
-All work related to processing transactions, storing accounts, and managing the local state occurs at the execution shard level. Execution shards fulfill three other roles listed below.
+All work related to processing transactions, storing accounts, and managing the local state occurs at the execution shard level. Execution shards are also tasked with passing message passing checks.
 
 :::info[Mempools]
 
@@ -19,31 +19,16 @@ Although each shard has its own mempool of transactions, there are no restrictio
 
 ### Message passing checks
 
-To support [**cross-shard communications**](../principles#cross-shard-communication), execution shards must record all necessary outgoing messages from their neighbors.
+To support [**cross-shard communications**](../principles#cross-shard-communication), execution shards must record all necessary outgoing messages posted in other execution shards.
 
-Every outgoing message has a $destShard$ field, whose value is used in the following function to compute where the message should go.
+Each message contains information about its destination account. If a shard sees that a message targets one of the accounts in the shard, the shard must include this message in its next block. Such outgoing messages are called necessary messages and new blocks are considered invalid unless they include all necessary messages.
 
-$$
-nextShard = NextHop(destShard, shardId)
-$$
+:::info
 
-If $nextShard$ equals the current shard, the message must be included in the block for the block to be considered valid. The block proposer is also responsible for broadcasting a Merkle proof of inclusion to neighboring shards.
-
-### State consensus checks
-
-In =nil;, validators verify entire neighborhoods of shards based on the Hamming distance between shards.
-
-$$
-committee(shardId) = \bigcup_{\substack{s\in shardIds\\dist(s,shardId)\le R}}assignment(s)
-$$
-
-, where $R\ge 0$ is the neighborhood size set at the protocol level. The exact value of $R$ depends on what committee size is sufficiently large to afford acceptable safety guarantees.
-
-:::info[Cross-shard communications]
-
-The solution described above also benefits cross-shard communication. Validators always have access to neighboring shards and, therefore, can retrieve outgoing messages and compute where these messages should be going.
+As the number of execution shards grows, this process may be changed so that shards are only tasked with tracking messages from their neighbors. The closeness of shards can be determined by their Hamming distance.
 
 :::
+
 
 ## Consensus shard
 
@@ -53,12 +38,11 @@ In contrast to execution shards, [**the consensus shard**](../principles#consens
 * Producing 'master' ZKPs for verifying global state changes
 * Setting the protocol rules and parameters
 
-:::note[Security and global consensus]
+:::note[Security guarantees]
 
 Although =nil; relies on ZKPs to verify state transitions statelessly, ZKPs can be costly to generate. As a result, a standard security protocol is used to provide security guarantees while ZKPs are generated.
 
-=nil; adopts the [**Multi-Threshold BFT security protocol**](https://dl.acm.org/doi/10.1145/3460120.3484554) so that the safety threshold at the local level is not tied to the safety threshold of the cluster.
-
+The committee of an execution shard runs a [**Multi-Threshold BFT security protocol**](https://dl.acm.org/doi/10.1145/3460120.3484554) which is a varioation of Sync HotStuff. This is done so that the safety threshold at the local level is not tied to the safety threshold of the cluster.
 
 After running the local consensus protocol, leaders of all committees transmit block digests and quorum certificates to the leader of the consensus shard. The consensus shard leader then proposes a new block to the consensus shard committee, which includes the entire set of validators. These validators run a HotStuff-2 consensus protocol to achieve global consensus.
 

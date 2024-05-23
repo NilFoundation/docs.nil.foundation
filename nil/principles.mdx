@@ -45,9 +45,7 @@ At the end of each epoch, a new set of validators is generated for each executio
 
 Instead of handling cross-shard communication via bridges (which are often insecure and unstable), =nil; integrates such communications in its protocol.
 
-Each group of validators (a committee) is responsible for overseeing a particular group of shards (a neighborhood). A committee regularly monitors the messages that are made to and from accounts within a neighborhood. 
-
-If the committee tracks an ongoing message, it must compute the shard where the message should go based on the information included in the message. If this shard is the same as the shard where the message is currently located, the message must be included in the block currently produced by the shard.
+Each execution shard is tasked with surveying other execution shards and retrieving necessary transactions. A transaction is necessary for a shard if the shard holds the account that the transaction calls. Blocks within a shard are considered invalid unless they include all necessary messages. 
 
 To learn more about cross-shard communication, [**click here**](./core-concepts/shards-parallel-execution#message-passing-checks).
 

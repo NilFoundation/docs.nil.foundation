@@ -46,26 +46,29 @@ export default {
                 },
                 {
                     type: 'doc',
-                    label: 'Sequencing',
-                    id: 'core-concepts/sequencing',
-                },
-                {
-                    type: 'doc',
-                    label: 'Finality',
-                    id: 'core-concepts/finality',
-                },
-                {
-                    type: 'doc',
-                    label: 'Data availability',
-                    id: 'core-concepts/data-availability',
-                },
-                {
-                    type: 'doc',
                     label: 'Contract co-location',
                     id: 'core-concepts/contract-co-location',
                 },
             ]
         },
+        {
+            type: 'category',
+            label: 'Specification',
+            collapsed: true,
+            collapsible: true,
+            items: [
+                {
+                    type: 'doc',
+                    label: 'Finality',
+                    id: 'specification/finality',
+                },
+                {
+                    type: 'doc',
+                    label: 'Data availability',
+                    id: 'specification/data-availability',
+                },
+            ]
+        }
 
     ]
 }

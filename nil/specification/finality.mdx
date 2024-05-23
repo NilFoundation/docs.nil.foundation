@@ -4,18 +4,28 @@
 
 =nil; offers strong guarantees for each confirmation step involved in reaching probabilistic and absolute finality. Here is a high-level overview of the finality procedure:
 
-1. [**At the execution shard level**](./shards-parallel-execution#state-consensus-checks), local consensus ensures that only valid blocks are built
+1. At the execution shard level, local consensus ensures that only valid blocks are built
 2. Execution shards generate ZKPs verifying the correctness of execution. These ZKPs are then sent to the consensus shard along with block headers
 3. The consensus shard verifies the ZKPs received from execution shards and generates a 'master' ZKP
 4. The 'master' ZKP and state diffs of block headers are sent to Ethereum
 
 :::info[Generating ZKPs]
 
-Generating ZKPs is a resource-intensive process. While ZKPs are generated, =nil; relies on a separate security protocol to ensure that local and global consensus and reached. To learn more, [**click here**](./shards-parallel-execution#consensus-shard).
+Generating ZKPs is a resource-intensive process. While ZKPs are generated, =nil; relies on a separate security protocol to ensure that local and global consensus and reached. To learn more, [**click here**](../core-concepts/shards-parallel-execution#consensus-shard).
 
 :::
 
 The below sub-sections provide additional remarks on state transition proofs, and probabilistic and absolute finality.
+
+## State consensus checks
+
+In =nil;, validators verify entire neighborhoods of shards based on the Hamming distance between shards.
+
+$$
+committee(shardId) = \bigcup_{\substack{s\in shardIds\\dist(s,shardId)\le R}}assignment(s)
+$$
+
+, where $R\ge 0$ is the neighborhood size set at the protocol level. The exact value of $R$ depends on what committee size is sufficiently large to afford acceptable safety guarantees.
 
 ## State transition proofs
 

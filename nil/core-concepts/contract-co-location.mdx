@@ -14,7 +14,7 @@ When two accounts (Account 1 and Account 2) are co-located, communications betwe
 
 However, this is not the case if Account 1 and Account 2 are placed in different shards and Account 1 calls a function in Account 2. In this situation, the transaction from Account 1 must create another transaction that subsequently performs an async call to the function in Account 2. This async transaction could then be executed in a future block in the shard where Account 2 is located.
 
-This ensures that sharding does not result in fragmentation but adds execution overhead.
+This ensures that sharding does not result in fragmentation.
 
 :::
 
