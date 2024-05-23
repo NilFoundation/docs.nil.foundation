@@ -71,7 +71,6 @@ Read the following tutorials before proceeding further.
     type EdDSAMessageBlockType = [Fq; 4];
 
     #[repr(C)]
-    #[derive(Copy, Clone)]
     pub struct BlockDataType {
         prev_block_hash: BlockType,
         data: BlockType,
@@ -80,7 +79,6 @@ Read the following tutorials before proceeding further.
     }
 
     #[repr(C)]
-    #[derive(Copy, Clone)]
     pub struct EdDSASignatureType {
         r: EdwardsAffine,
         s: Fr,
@@ -90,8 +88,6 @@ Read the following tutorials before proceeding further.
 </Tabs>
 
 :::info[Rust directives]
-
-The `#[derive(Copy, Clone)]` makes it so functions do not take ownership of the variables belonging to custom structs if these variables are passed by value.
 
 To learn more about the `#[derive(C)]` directive, [**click here**](../../best-practices-limitations/rust-derive).
 
@@ -133,22 +129,22 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
   </TabItem>
   <TabItem value='rust' label='Rust'>
     ```rust
-    pub fn hash_512(r: EdwardsAffine, pk: EdwardsAffine, m: EdDSAMessageBlockType) -> Fr {
+    pub fn hash_512(r: &EdwardsAffine, pk: &EdwardsAffine, m: &EdDSAMessageBlockType) -> Fr {
         assigner_sha2_512(r.0, pk.0, [m[0].0, m[1].0, m[2].0, m[3].0]).into()
     }
 
-    pub fn hash_256(block1: BlockType, block2: BlockType) -> BlockType {
+    pub fn hash_256(block1: &BlockType, block2: &BlockType) -> BlockType {
         let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
         [sha[0].into(), sha[1].into()]
     }
 
     pub fn verify_eddsa_signature(
-        input: EdDSASignatureType,
-        pk: EdwardsAffine,
-        m: EdDSAMessageBlockType,
+        input: &EdDSASignatureType,
+        pk: &EdwardsAffine,
+        m: &EdDSAMessageBlockType,
     ) -> bool {
         let b = EdwardsAffine::one();
-        let k = hash_512(input.r, pk, m);
+        let k = hash_512(&input.r, pk, m);
         b * input.s == input.r + (pk * k)
     }
 
@@ -157,7 +153,7 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
     }
 
     #[unroll_for_loops]
-    pub fn verify_signature(unconfirmed_block: BlockDataType) -> bool {
+    pub fn verify_signature(unconfirmed_block: &BlockDataType) -> bool {
         let mut is_verified: bool = true;
         let message: EdDSAMessageBlockType = [
             unconfirmed_block.prev_block_hash[0],
@@ -169,9 +165,9 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
         for i in 0..4 {
             is_verified = is_verified
                 && verify_eddsa_signature(
-                    unconfirmed_block.validators_signatures[i],
-                    unconfirmed_block.validators_keys[i],
-                    message,
+                    &unconfirmed_block.validators_signatures[i],
+                    &unconfirmed_block.validators_keys[i],
+                    &message,
                 );
         }
 
@@ -186,30 +182,21 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
 <Tabs groupId='language'>
   <TabItem value='cpp' label='C++'>
     ```cpp
-    #[circuit]
-    #[unroll_for_loops]
-    pub fn verify_protocol_state_proof(
-        last_confirmed_block_hash: BlockType,
-        unconfirmed_blocks: [BlockDataType; 2],
-    ) -> bool {
-        let mut is_correct = is_same(
-            unconfirmed_blocks[0].prev_block_hash,
-            last_confirmed_block_hash,
-        );
-        is_correct = is_correct && verify_signature(unconfirmed_blocks[0]);
-
-        for i in 1..2 {
-            let evaluated_block_hash: BlockType = hash_256(
-                unconfirmed_blocks[i - 1].prev_block_hash,
-                unconfirmed_blocks[i - 1].data,
-            );
-
-            is_correct =
-                is_correct && is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
-            is_correct = is_correct && verify_signature(unconfirmed_blocks[i]);
+    [[circuit]] bool verify_protocol_state_proof (
+        typename sha2<256>::block_type last_confirmed_block_hash,
+        std::array<block_data_type, 2> unconfirmed_blocks) {
+        bool res = true;
+        if (!is_same(unconfirmed_blocks[0].prev_block_hash, last_confirmed_block_hash)) {
+            return false;
         }
-
-        is_correct
+        for (int i = 1; i < 2; i++) {
+            typename sha2<256>::block_type evaluated_block_hash =
+                        hash<sha2<256>>(
+                            unconfirmed_blocks[i-1].prev_block_hash,
+                            unconfirmed_blocks[i-1].data);
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }  
+        return res;
     }
     ```
   </TabItem>
@@ -225,17 +212,17 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
             unconfirmed_blocks[0].prev_block_hash,
             last_confirmed_block_hash,
         );
-        is_correct = is_correct && verify_signature(unconfirmed_blocks[0]);
+        is_correct = is_correct && verify_signature(&unconfirmed_blocks[0]);
 
         for i in 1..2 {
             let evaluated_block_hash: BlockType = hash_256(
-                unconfirmed_blocks[i - 1].prev_block_hash,
-                unconfirmed_blocks[i - 1].data,
+                &unconfirmed_blocks[i - 1].prev_block_hash,
+                &unconfirmed_blocks[i - 1].data,
             );
 
             is_correct =
                 is_correct && is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
-            is_correct = is_correct && verify_signature(unconfirmed_blocks[i]);
+            is_correct = is_correct && verify_signature(&unconfirmed_blocks[i]);
         }
 
         is_correct
@@ -338,7 +325,6 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
     type EdDSAMessageBlockType = [Fq; 4];
 
     #[repr(C)]
-    #[derive(Copy, Clone)]
     pub struct BlockDataType {
         prev_block_hash: BlockType,
         data: BlockType,
@@ -347,28 +333,27 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
     }
 
     #[repr(C)]
-    #[derive(Copy, Clone)]
     pub struct EdDSASignatureType {
         r: EdwardsAffine,
         s: Fr,
     }
 
-    pub fn hash_512(r: EdwardsAffine, pk: EdwardsAffine, m: EdDSAMessageBlockType) -> Fr {
+    pub fn hash_512(r: &EdwardsAffine, pk: &EdwardsAffine, m: &EdDSAMessageBlockType) -> Fr {
         assigner_sha2_512(r.0, pk.0, [m[0].0, m[1].0, m[2].0, m[3].0]).into()
     }
 
-    pub fn hash_256(block1: BlockType, block2: BlockType) -> BlockType {
+    pub fn hash_256(block1: &BlockType, block2: &BlockType) -> BlockType {
         let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
         [sha[0].into(), sha[1].into()]
     }
 
     pub fn verify_eddsa_signature(
-        input: EdDSASignatureType,
-        pk: EdwardsAffine,
-        m: EdDSAMessageBlockType,
+        input: &EdDSASignatureType,
+        pk: &EdwardsAffine,
+        m: &EdDSAMessageBlockType,
     ) -> bool {
         let b = EdwardsAffine::one();
-        let k = hash_512(input.r, pk, m);
+        let k = hash_512(&input.r, pk, m);
         b * input.s == input.r + (pk * k)
     }
 
@@ -377,7 +362,7 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
     }
 
     #[unroll_for_loops]
-    pub fn verify_signature(unconfirmed_block: BlockDataType) -> bool {
+    pub fn verify_signature(unconfirmed_block: &BlockDataType) -> bool {
         let mut is_verified: bool = true;
         let message: EdDSAMessageBlockType = [
             unconfirmed_block.prev_block_hash[0],
@@ -389,9 +374,9 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
         for i in 0..4 {
             is_verified = is_verified
                 && verify_eddsa_signature(
-                    unconfirmed_block.validators_signatures[i],
-                    unconfirmed_block.validators_keys[i],
-                    message,
+                    &unconfirmed_block.validators_signatures[i],
+                    &unconfirmed_block.validators_keys[i],
+                    &message,
                 );
         }
 
@@ -408,17 +393,17 @@ To learn more about the `#[derive(C)]` directive, [**click here**](../../best-pr
             unconfirmed_blocks[0].prev_block_hash,
             last_confirmed_block_hash,
         );
-        is_correct = is_correct && verify_signature(unconfirmed_blocks[0]);
+        is_correct = is_correct && verify_signature(&unconfirmed_blocks[0]);
 
         for i in 1..2 {
             let evaluated_block_hash: BlockType = hash_256(
-                unconfirmed_blocks[i - 1].prev_block_hash,
-                unconfirmed_blocks[i - 1].data,
+                &unconfirmed_blocks[i - 1].prev_block_hash,
+                &unconfirmed_blocks[i - 1].data,
             );
 
             is_correct =
                 is_correct && is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
-            is_correct = is_correct && verify_signature(unconfirmed_blocks[i]);
+            is_correct = is_correct && verify_signature(&unconfirmed_blocks[i]);
         }
 
         is_correct
