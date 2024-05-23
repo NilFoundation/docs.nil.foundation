@@ -67,6 +67,11 @@ export default {
                     label: 'Data availability',
                     id: 'specification/data-availability',
                 },
+                {
+                    type: 'doc',
+                    label: 'Sequencing',
+                    id: 'specification/sequencing',
+                },
             ]
         }
 
