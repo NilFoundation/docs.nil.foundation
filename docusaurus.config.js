@@ -39,15 +39,20 @@ const config = {
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      (
-        {
-          theme: {
-            customCss: './src/css/custom.css',
+      "@metamask/docusaurus-openrpc/dist/preset",
+      /** @type {import('@metamask/docusaurus-openrpc/dist/preset').Options} */
+      ({
+        docs: {
+          openrpc: {
+            openrpcDocument: "./nil/references/json-rpc/openrpc.json",
+            path: "nil/references/json-rpc/",
+            sidebarLabel: "JSON-RPC API",
           },
-        }
-      ),
+        },
+        theme: {
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      }),
     ],
   ],
   markdown: {
@@ -91,6 +96,7 @@ const config = {
         sidebarPath: './sidebar-nil.js',
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
+
       }
     ],
   ],
