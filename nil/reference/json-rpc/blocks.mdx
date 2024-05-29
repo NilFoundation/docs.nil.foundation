@@ -1,0 +1,47 @@
+# Blocks JSON-RPC reference
+
+## `getBlockByNumber`
+
+Returns information about a block with the given number.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the block was generated. |
+| `number` | `BlockNumber` | The number of the block whose information is requested. |
+| `fullTx` | `bool` | The flag that determines whether full transaction information is returned in the output.  |
+
+## `getBlockByHash`
+
+Returns information about a block with the given hash.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the block was generated. |
+| `hash` | `Hash` | The hash of the block whose information is requested. |
+| `fullTx` | `bool` | The flag that determines whether full transaction information is returned in the output.  |
+
+## `getBlockTransactionCountByNumber`
+
+Returns the total number of transactions recorded in the block with the given number.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the block was generated. |
+| `blockNr` | `BlockNumber` | The hash of the block whose transaction count is requested. |
+
+## `getBlockTransactionCountByHash`
+
+Returns the total number of transactions recorded in the block with the given hash.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the block was generated. |
+| `blockHash` | `Hash` | The hash of the block whose transaction count is requested. |

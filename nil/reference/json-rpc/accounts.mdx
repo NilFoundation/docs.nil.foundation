@@ -1,0 +1,63 @@
+# Accounts JSON-RPC reference
+
+## `getBalance`
+
+Returns the balance of the account with the given address.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the address is located. |
+| `address` | `Address` | The address of the account whose balance is requested. |
+| `blockNrOrHash` | `BlockNumberOrHash` | The number/hash of the block from which the account balance is requested.  |
+
+### Output
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": "771264389016728901276",
+  "id": 1
+}
+```
+
+## `getTransactionCount`
+
+Returns the number of all transactions (nonce) sent from the given address.
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the address is located. |
+| `address` | `Address` | The address of the account whose nonce is requested. |
+| `blockNrOrHash` | `BlockNumberOrHash` | The number/hash of the block from which the nonce is requested.  |
+
+### Output
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": "787",
+  "id": 1
+}
+```
+
+## `getCode`
+
+Returns the byte code of the given address if the account at the address is a smart contract.
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `shardId` | `ShardId` | The ID of the shard where the address is located. |
+| `address` | `Address` | The address of the account whose bytecode is requested. |
+| `blockNrOrHash` | `BlockNumberOrHash` | The number/hash of the block from which the bytecode is requested.  |
+
+### Output
+
+```json
+{
+  "jsonrpc": "2.0",
+  "result": "698787af9lklfe120890",
+  "id": 1
+}
+```
