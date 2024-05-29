@@ -34,7 +34,10 @@
               
           ],
           "result": {
-              
+              "name": "Test",
+              "schema": {
+                    "$ref": "#/components/schemas/Test"
+              }
           },
           "examples": [
               
@@ -68,7 +71,10 @@
               
           ],
           "result": {
-              
+              "name": "Test",
+              "schema": {
+                    "$ref": "#/components/schemas/Test"
+              }
           },
           "examples": [
               
@@ -102,7 +108,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -136,7 +145,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -170,7 +182,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -198,7 +213,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -226,7 +244,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -248,7 +269,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -264,7 +288,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -280,7 +307,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -302,7 +332,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -324,7 +357,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -346,7 +382,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -374,7 +413,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -402,7 +444,10 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
@@ -425,34 +470,38 @@
             
         ],
         "result": {
-            
+            "name": "Test",
+            "schema": {
+                  "$ref": "#/components/schemas/Test"
+            }
         },
         "examples": [
             
         ]
-    } 
+    }
+      
   ],
   "components": {
       "errors": {      },
       "schemas": {
           "ShardIdAddress": {
             "title": "ShardId",
-            "type": "uint32",
+            "type": "integer",
             "description": "The ID of the shard where the address is located."
           },
           "AddressBalance": {
             "title": "Address",
-            "type": "[20]byte",
+            "type": "array",
             "description": "The address of the account whose balance is requested."
           },
           "AddressTransactionCount": {
             "title": "Address",
-            "type": "[20]byte",
+            "type": "array",
             "description": "The address of the account whose nonce is requested."
           },
           "AddressBytecode": {
             "title": "Address",
-            "type": "[20]byte",
+            "type": "array",
             "description": "The address of the account whose bytecode is requested."
           },
           "BlockNumberOrHashBalance": {
@@ -461,31 +510,23 @@
             "description": "The number/hash of the block from which the account balance is requested.",
             "properties": {
                 "BlockNumber": {
-                  "type": "BlockNumber",
-                  "description": "(Optional) The number of the block."
+                  "type": "integer",
+                  "description": "(Optional) The number of the block. Either this or BlockHash is required."
                 },
                 "BlockHash": {
-                  "type": "Hash",
-                  "description": "(Optional) The hash of the block."
+                  "type": "string",
+                  "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
                 },
                 "RequireCanonical": {
-                  "type": "bool",
+                  "type": "boolean",
                   "description": "The flag that determines whether the block must be a part of the canonical chain."
                 }
             },
-            "oneOf": [
-              {
-                "required": [
-                  "BlockNumber",
-                  "RequireCanonical"
-                ]
-              },
-              {
-                "required": [
-                  "BlockHash",
-                  "RequireCanonical"
-                ]
-              }
+
+            "required": [
+                "BlockNumber",
+                "BlockHash",
+                "RequireCanonical"
             ]
           },
           "BlockNumberOrHashTransactionCount": {
@@ -494,31 +535,22 @@
             "description": "The number/hash of the block from which the nonce is requested.",
             "properties": {
                 "BlockNumber": {
-                  "type": "BlockNumber",
-                  "description": "(Optional) The number of the block."
+                  "type": "integer",
+                  "description": "(Optional) The number of the block. Either this or BlockHash is required."
                 },
                 "BlockHash": {
-                  "type": "Hash",
-                  "description": "(Optional) The hash of the block."
+                  "type": "string",
+                  "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
                 },
                 "RequireCanonical": {
-                  "type": "bool",
+                  "type": "boolean",
                   "description": "The flag that determines whether the block must be a part of the canonical chain."
                 }
             },
-            "oneOf": [
-              {
-                "required": [
-                  "BlockNumber",
-                  "RequireCanonical"
-                ]
-              },
-              {
-                "required": [
-                  "BlockHash",
-                  "RequireCanonical"
-                ]
-              }
+            "required": [
+                "BlockNumber",
+                "BlockHash",
+                "RequireCanonical"
             ]
           },
           "BlockNumberOrHashBytecode": {
@@ -527,15 +559,15 @@
             "description": "The number/hash of the block from which the bytecode is requested.",
             "properties": {
                 "BlockNumber": {
-                  "type": "BlockNumber",
+                  "type": "integer",
                   "description": "(Optional) The number of the block."
                 },
                 "BlockHash": {
-                  "type": "Hash",
+                  "type": "string",
                   "description": "(Optional) The hash of the block."
                 },
                 "RequireCanonical": {
-                  "type": "bool",
+                  "type": "boolean",
                   "description": "The flag that determines whether the block must be a part of the canonical chain."
                 }
             },
@@ -556,32 +588,32 @@
           },
           "ShardIdGetBlock": {
             "title": "ShardId",
-            "type": "uint32",
+            "type": "integer",
             "description": "The ID of the shard where the block was generated."
           },
           "BlockNumberInformation": {
             "title": "BlockNumber",
-            "type": "int64",
+            "type": "integer",
             "description": "The number of the block whose information is requested."
           },
           "BlockNumberTransactionCount": {
             "title": "BlockNumber",
-            "type": "int64",
+            "type": "integer",
             "description": "The number of the block whose transaction count is requested."
           },
           "BlockHashInformation": {
             "title": "Hash",
-            "type": "Hash",
+            "type": "string",
             "description": "The hash of the block whose information is requested."
           },
           "BloclHashTransactionCount": {
             "title": "Hash",
-            "type": "Hash",
+            "type": "string",
             "description": "The hash of the block whose transaction count is requested."
           },
           "FullTx": {
             "title": "fullTx",
-            "type": "hash",
+            "type": "string",
             "description": "The flag that determines whether full transaction information is returned in the output."
           },
           "FilterId":{
@@ -600,46 +632,51 @@
             "description": "The parameters that define the subset of blocks and/or addresses for which the filter produces notifications.",
             "properties": {
               "BlockHash": {
-                "type": "Hash",
+                "type": "string",
                 "description": "The hash of the block from which information should be polled."
               },
               "FromBlock": {
-                "type": "uint256",
+                "type": "integer",
                 "description": "The beggining of the block range for which information should be polled."
               },
               "ToBlock": {
-                "type": "uint256",
+                "type": "integer",
                 "description": "The end of the block range for which information should be polled. If omitted, the range will extend to the latest block."
               },
               "Addresses": {
-                "type": "[]Address",
+                "type": "array",
                 "description": "The list of addresses for which information should be polled."
               },
               "Topics": {
-                "type": "[][]Hash",
+                "type": "array",
                 "description": "A list of lists containing topics about which information should be polled."
               }
             }
           },
           "ShardIdGetMessageByHash": {
             "title": "ShardId",
-            "type": "uint32",
+            "type": "integer",
             "description": "The ID of the shard where the message was included in a block."
           },
           "MessageHash": {
             "title": "Hash",
-            "type": "Hash",
+            "type": "string",
             "description": "The hash of the message whose structure is requested."
           },
           "ReceiptHash": {
             "title": "Hash",
-            "type": "Hash",
+            "type": "string",
             "description": "The hash of the message whose receipt is requested."
           },
           "TransactionHash": {
             "title": "Hash",
-            "type": "Hash",
+            "type": "string",
             "description": "The bytecode representing the content of the message/contract code."
+          },
+          "Test": {
+            "title": "Test",
+            "type": "string",
+            "description": "Test result"
           }
 
       },
