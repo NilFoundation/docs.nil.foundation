@@ -1,205 +1,652 @@
 {
-    "openrpc": "1.0.0-rc1",
-    "info": {
+  "openrpc": "1.2.4",
+  "info": {
+      "title": "JSON-RPC API",
       "version": "1.0.0",
-      "title": "Petstore",
-      "license": {
-        "name": "MIT"
-      }
-    },
-    "servers": [
+      "description": "This section lists the JSON-RPC methods exposed by the =nil; RPC node."
+  },
+  "methods": [
       {
-        "url": "docs.com"
-      }
-    ],
-    "methods": [
-      {
-        "name": "list_pets",
-        "summary": "List all pets",
-        "tags": [
-          {
-            "name": "pets"
-          }
-        ],
-        "params": [
-          {
-            "name": "limit",
-            "description": "How many items to return at one time (max 100)",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1
-            }
-          }
-        ],
-        "result": {
-          "name": "pets",
-          "description": "A paged array of pets",
-          "schema": {
-            "$ref": "#/components/schemas/Pets"
-          }
-        },
-        "errors": [
-          {
-            "code": 100,
-            "message": "pets busy"
-          }
-        ],
-        "examples": [
-          {
-            "name": "listPetExample",
-            "description": "List pet example",
-            "params": [
+          "name": "getBalance",
+          "summary": "Returns the balance of the account with the given address.",
+          "description": "",
+          "params": [
               {
-                "name": "limit",
-                "value": 1
-              }
-            ],
-            "result": {
-              "name": "listPetResultExample",
-              "value": [
-                {
-                  "id": 7,
-                  "name": "fluffy",
-                  "tag": "poodle"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "create_pet",
-        "summary": "Create a pet",
-        "tags": [
-          {
-            "name": "pets"
-          }
-        ],
-        "params": [
-          {
-            "name": "newPetName",
-            "description": "Name of pet to create",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "newPetTag",
-            "description": "Pet tag to create",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "examples": [
-          {
-            "name": "createPetExample",
-            "description": "Create pet example",
-            "params": [
-              {
-                "name": "newPetName",
-                "value": "fluffy"
+                  "name": "shardId",
+                  "schema": {
+                      "$ref": "#/components/schemas/ShardIdAddress"
+                  }
               },
               {
-                "name": "tag",
-                "value": "poodle"
+                "name": "address",
+                "schema": {
+                    "$ref": "#/components/schemas/AddressBalance"
+                }
+              },
+              {
+                "name": "blockNrOrHash",
+                "schema": {
+                    "$ref": "#/components/schemas/BlockNumberOrHashBalance"
+                }
               }
-            ],
-            "result": {
-              "name": "listPetResultExample",
-              "value": 7
-            }
-          }
-        ],
-        "result": {
-          "$ref": "#/components/contentDescriptors/PetId"
-        }
+          ],
+          "errors": [
+              
+          ],
+          "result": {
+              
+          },
+          "examples": [
+              
+          ]
       },
       {
-        "name": "get_pet",
-        "summary": "Info for a specific pet",
-        "tags": [
-          {
-            "name": "pets"
-          }
-        ],
+          "name": "getTransactionCount",
+          "summary": "Returns the number of all transactions (nonce) sent from the given address.",
+          "description": "",
+          "params": [
+              {
+                  "name": "shardId",
+                  "schema": {
+                      "$ref": "#/components/schemas/ShardIdAddress"
+                  }
+              },
+              {
+                "name": "address",
+                "schema": {
+                    "$ref": "#/components/schemas/AddressTransactionCount"
+                }
+              },
+              {
+                "name": "blockNrOrHash",
+                "schema": {
+                    "$ref": "#/components/schemas/BlockNumberOrHashTransactionCount"
+                }
+              }
+          ],
+          "errors": [
+              
+          ],
+          "result": {
+              
+          },
+          "examples": [
+              
+          ]
+    },
+    {
+        "name": "getCode",
+        "summary": "Returns the byte code of the given address if the account at the address is a smart contract.",
+        "description": "",
         "params": [
-          {
-            "$ref": "#/components/contentDescriptors/PetId"
-          }
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdAddress"
+                }
+            },
+            {
+              "name": "address",
+              "schema": {
+                  "$ref": "#/components/schemas/AddressBytecode"
+              }
+            },
+            {
+              "name": "blockNrOrHash",
+              "schema": {
+                  "$ref": "#/components/schemas/BlockNumberOrHashBytecode"
+              }
+            }
+        ],
+        "errors": [
+            
         ],
         "result": {
-          "name": "pet",
-          "description": "Expected response to a valid request",
-          "schema": {
-            "$ref": "#/components/schemas/Pet"
-          }
+            
         },
         "examples": [
-          {
-            "name": "getPetExample",
-            "description": "get pet example",
-            "params": [
-              {
-                "name": "petId",
-                "value": 7
-              }
-            ],
-            "result": {
-              "name": "getPetExampleResult",
-              "value": {
-                "name": "fluffy",
-                "tag": "poodle",
-                "id": 7
-              }
-            }
-          }
+            
         ]
-      }
-    ],
-    "components": {
-      "contentDescriptors": {
-        "PetId": {
-          "name": "petId",
-          "required": true,
-          "description": "The id of the pet to retrieve",
-          "schema": {
-            "$ref": "#/components/schemas/PetId"
-          }
-        }
-      },
-      "schemas": {
-        "PetId": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "Pet": {
-          "type": "object",
-          "required": [
-            "id",
-            "name"
-          ],
-          "properties": {
-            "id": {
-              "$ref": "#/components/schemas/PetId"
+    },
+    {
+        "name": "getBlockByNumber",
+        "summary": "Returns information about a block with the given number.",
+        "description": "",
+        "params": [
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdGetBlock"
+                }
             },
-            "name": {
-              "type": "string"
+            {
+              "name": "number",
+              "schema": {
+                  "$ref": "#/components/schemas/BlockNumberInformation"
+              }
             },
-            "tag": {
-              "type": "string"
+            {
+              "name": "fullTx",
+              "schema": {
+                  "$ref": "#/components/schemas/FullTx"
+              }
             }
-          }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
         },
-        "Pets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Pet"
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getBlockByHash",
+        "summary": "Returns information about a block with the given hash.",
+        "description": "",
+        "params": [
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdGetBlock"
+                }
+            },
+            {
+                "name": "hash",
+                "schema": {
+                    "$ref": "#/components/schemas/BlockHashInformation"
+                }
+            },
+            {
+                "name": "fullTx",
+                "schema": {
+                    "$ref": "#/components/schemas/FullTx"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getBlockTransactionCountByNumber",
+        "summary": "Returns the total number of transactions recorded in the block with the given number.",
+        "description": "",
+        "params": [
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdGetBlock"
+                }
+            },
+            {
+                "name": "blockNr",
+                "schema": {
+                    "$ref": "#/components/schemas/BlockNumberTransactionCount"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getBlockTransactionCountByHash",
+        "summary": "Returns the total number of transactions recorded in the block with the given hash.",
+        "description": "",
+        "params": [
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdGetBlock"
+                }
+            },
+            {
+                "name": "blockNr",
+                "schema": {
+                    "$ref": "#/components/schemas/BloclHashTransactionCount"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "newFilter",
+        "summary": "Creates a new filter notifying when the state changes for a subset of blocks and/or addresses.",
+        "description": "",
+        "params": [
+            {
+                "name": "query",
+                "schema": {
+                    "$ref": "#/components/schemas/FilterQuery"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "newBlockFilter",
+        "summary": "Creates a new filter notifying when a new block arrives.",
+        "description": "",
+        "params": [
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "newPendingTransactionFilter",
+        "summary": "Creates a new transaction filter.",
+        "description": "",
+        "params": [
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "uninstallFilter",
+        "summary": "Removes a filter with the given ID.",
+        "description": "",
+        "params": [
+            {
+                "name": "id",
+                "schema": {
+                    "$ref": "#/components/schemas/FilterIdRemoved"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getFilterChanges",
+        "summary": "Returns an array of logs, block headers, or pending transactions that have been recorded since the last time the filter with the given ID was polled.",
+        "description": "",
+        "params": [
+            {
+                "name": "id",
+                "schema": {
+                    "$ref": "#/components/schemas/FilterId"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getFilterLogs",
+        "summary": "Returns an array of logs that have been recorded since the last time the filter with the given ID was polled.",
+        "description": "",
+        "params": [
+            {
+                "name": "id",
+                "schema": {
+                    "$ref": "#/components/schemas/FilterId"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getInMessageByHash",
+        "summary": "Returns the structure of the message with the given hash.",
+        "description": "",
+        "params": [
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdGetMessageByHash"
+                }
+            },
+            {
+                "name": "hash",
+                "schema": {
+                    "$ref": "#/components/schemas/MessageHash"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "getInMessageReceipt",
+        "summary": "Returns the receipt for the message with the given hash.",
+        "description": "",
+        "params": [
+            {
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdGetMessageByHash"
+                }
+            },
+            {
+                "name": "hash",
+                "schema": {
+                    "$ref": "#/components/schemas/ReceiptHash"
+                }
+            }
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    },
+    {
+        "name": "sendRawTransaction",
+        "summary": "Creates a new message or a contract creation operation for a previously signed message.",
+        "description": "",
+        "params": [
+            {
+                "name": "encoded",
+                "schema": {
+                    "$ref": "#/components/schemas/TransactionHash"
+                }
+            }
+
+        ],
+        "errors": [
+            
+        ],
+        "result": {
+            
+        },
+        "examples": [
+            
+        ]
+    } 
+  ],
+  "components": {
+      "errors": {      },
+      "schemas": {
+          "ShardIdAddress": {
+            "title": "ShardId",
+            "type": "uint32",
+            "description": "The ID of the shard where the address is located."
+          },
+          "AddressBalance": {
+            "title": "Address",
+            "type": "[20]byte",
+            "description": "The address of the account whose balance is requested."
+          },
+          "AddressTransactionCount": {
+            "title": "Address",
+            "type": "[20]byte",
+            "description": "The address of the account whose nonce is requested."
+          },
+          "AddressBytecode": {
+            "title": "Address",
+            "type": "[20]byte",
+            "description": "The address of the account whose bytecode is requested."
+          },
+          "BlockNumberOrHashBalance": {
+            "title": "BlockNumberOrHash",
+            "type": "object",
+            "description": "The number/hash of the block from which the account balance is requested.",
+            "properties": {
+                "BlockNumber": {
+                  "type": "BlockNumber",
+                  "description": "(Optional) The number of the block."
+                },
+                "BlockHash": {
+                  "type": "Hash",
+                  "description": "(Optional) The hash of the block."
+                },
+                "RequireCanonical": {
+                  "type": "bool",
+                  "description": "The flag that determines whether the block must be a part of the canonical chain."
+                }
+            },
+            "oneOf": [
+              {
+                "required": [
+                  "BlockNumber",
+                  "RequireCanonical"
+                ]
+              },
+              {
+                "required": [
+                  "BlockHash",
+                  "RequireCanonical"
+                ]
+              }
+            ]
+          },
+          "BlockNumberOrHashTransactionCount": {
+            "title": "BlockNumberOrHash",
+            "type": "object",
+            "description": "The number/hash of the block from which the nonce is requested.",
+            "properties": {
+                "BlockNumber": {
+                  "type": "BlockNumber",
+                  "description": "(Optional) The number of the block."
+                },
+                "BlockHash": {
+                  "type": "Hash",
+                  "description": "(Optional) The hash of the block."
+                },
+                "RequireCanonical": {
+                  "type": "bool",
+                  "description": "The flag that determines whether the block must be a part of the canonical chain."
+                }
+            },
+            "oneOf": [
+              {
+                "required": [
+                  "BlockNumber",
+                  "RequireCanonical"
+                ]
+              },
+              {
+                "required": [
+                  "BlockHash",
+                  "RequireCanonical"
+                ]
+              }
+            ]
+          },
+          "BlockNumberOrHashBytecode": {
+            "title": "BlockNumberOrHash",
+            "type": "object",
+            "description": "The number/hash of the block from which the bytecode is requested.",
+            "properties": {
+                "BlockNumber": {
+                  "type": "BlockNumber",
+                  "description": "(Optional) The number of the block."
+                },
+                "BlockHash": {
+                  "type": "Hash",
+                  "description": "(Optional) The hash of the block."
+                },
+                "RequireCanonical": {
+                  "type": "bool",
+                  "description": "The flag that determines whether the block must be a part of the canonical chain."
+                }
+            },
+            "oneOf": [
+              {
+                "required": [
+                  "BlockNumber",
+                  "RequireCanonical"
+                ]
+              },
+              {
+                "required": [
+                  "BlockHash",
+                  "RequireCanonical"
+                ]
+              }
+            ]
+          },
+          "ShardIdGetBlock": {
+            "title": "ShardId",
+            "type": "uint32",
+            "description": "The ID of the shard where the block was generated."
+          },
+          "BlockNumberInformation": {
+            "title": "BlockNumber",
+            "type": "int64",
+            "description": "The number of the block whose information is requested."
+          },
+          "BlockNumberTransactionCount": {
+            "title": "BlockNumber",
+            "type": "int64",
+            "description": "The number of the block whose transaction count is requested."
+          },
+          "BlockHashInformation": {
+            "title": "Hash",
+            "type": "Hash",
+            "description": "The hash of the block whose information is requested."
+          },
+          "BloclHashTransactionCount": {
+            "title": "Hash",
+            "type": "Hash",
+            "description": "The hash of the block whose transaction count is requested."
+          },
+          "FullTx": {
+            "title": "fullTx",
+            "type": "hash",
+            "description": "The flag that determines whether full transaction information is returned in the output."
+          },
+          "FilterId":{
+            "title": "id",
+            "type": "string",
+            "description": "The ID of the filter that should be polled."
+          },
+          "FilterIdRemoved":{
+            "title": "id",
+            "type": "string",
+            "description": "The ID of the filter that should be removed."
+          },
+          "FilterQuery": {
+            "title": "FilterQuery",
+            "type": "object",
+            "description": "The parameters that define the subset of blocks and/or addresses for which the filter produces notifications.",
+            "properties": {
+              "BlockHash": {
+                "type": "Hash",
+                "description": "The hash of the block from which information should be polled."
+              },
+              "FromBlock": {
+                "type": "uint256",
+                "description": "The beggining of the block range for which information should be polled."
+              },
+              "ToBlock": {
+                "type": "uint256",
+                "description": "The end of the block range for which information should be polled. If omitted, the range will extend to the latest block."
+              },
+              "Addresses": {
+                "type": "[]Address",
+                "description": "The list of addresses for which information should be polled."
+              },
+              "Topics": {
+                "type": "[][]Hash",
+                "description": "A list of lists containing topics about which information should be polled."
+              }
+            }
+          },
+          "ShardIdGetMessageByHash": {
+            "title": "ShardId",
+            "type": "uint32",
+            "description": "The ID of the shard where the message was included in a block."
+          },
+          "MessageHash": {
+            "title": "Hash",
+            "type": "Hash",
+            "description": "The hash of the message whose structure is requested."
+          },
+          "ReceiptHash": {
+            "title": "Hash",
+            "type": "Hash",
+            "description": "The hash of the message whose receipt is requested."
+          },
+          "TransactionHash": {
+            "title": "Hash",
+            "type": "Hash",
+            "description": "The bytecode representing the content of the message/contract code."
           }
-        }
-      }
-    }
+
+      },
+      "tags": {},
+      "contentDescriptors": {},
+      "examplePairings": {},
+      "links": {},
+      "examples": {}
   }
-  
+}
