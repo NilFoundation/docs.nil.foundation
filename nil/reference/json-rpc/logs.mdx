@@ -2,7 +2,7 @@
 
 ## `newFilter`
 
-Creates a new filter notifying on state changes for a subset of blocks and/or addresses.
+Creates a new filter notifying when the state changes for a subset of blocks and/or addresses.
 
 ### Inputs
 
@@ -12,4 +12,47 @@ Creates a new filter notifying on state changes for a subset of blocks and/or ad
 
 ## `newBlockFilter`
 
-Creates a new filter 
+Creates a new filter notifying when a new block arrives.
+
+### Inputs
+
+No inputs.
+
+## `newPendingTransactionFilter`
+
+Creates a new transaction filter.
+
+### Inputs
+
+No inputs.
+
+## `uninstallFilter`
+
+Removes a filter with the given ID.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `id` | `string` | The ID of the filter that should be removed. |
+
+## `getFilterChanges`
+
+Returns an array of logs, block headers, or pending transactions that have been recorded since the last time the filter with the given ID was polled.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `id` | `string` | The ID of the filter that should be polled. |
+
+## `getFilterLogs`
+
+Returns an array of logs that have been recorded since the last time the filter with the given ID was polled.
+
+### Inputs
+
+| Parameter | Type | Description |
+|:--:|:--:|:--|
+| `id` | `string` | The ID of the filter that should be polled. |
+
