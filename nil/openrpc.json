@@ -8,14 +8,19 @@
   "methods": [
       {
           "name": "getBalance",
+          "tags": [
+            {
+                "$ref": "#/components/tags/Accounts"
+            }
+          ],
           "summary": "Returns the balance of the account with the given address.",
           "description": "",
           "params": [
               {
-                  "name": "shardId",
-                  "schema": {
-                      "$ref": "#/components/schemas/ShardIdAddress"
-                  }
+                "name": "shardId",
+                "schema": {
+                    "$ref": "#/components/schemas/ShardIdAddress"
+                }
               },
               {
                 "name": "address",
@@ -45,6 +50,11 @@
       },
       {
           "name": "getTransactionCount",
+          "tags": [
+            {
+                "$ref": "#/components/tags/Accounts"
+            }
+          ],
           "summary": "Returns the number of all transactions (nonce) sent from the given address.",
           "description": "",
           "params": [
@@ -82,6 +92,11 @@
     },
     {
         "name": "getCode",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Accounts"
+          }
+        ],
         "summary": "Returns the byte code of the given address if the account at the address is a smart contract.",
         "description": "",
         "params": [
@@ -119,6 +134,11 @@
     },
     {
         "name": "getBlockByNumber",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Blocks"
+          }
+        ],
         "summary": "Returns information about a block with the given number.",
         "description": "",
         "params": [
@@ -156,6 +176,11 @@
     },
     {
         "name": "getBlockByHash",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Blocks"
+          }
+        ],
         "summary": "Returns information about a block with the given hash.",
         "description": "",
         "params": [
@@ -193,6 +218,11 @@
     },
     {
         "name": "getBlockTransactionCountByNumber",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Blocks"
+          }
+        ],
         "summary": "Returns the total number of transactions recorded in the block with the given number.",
         "description": "",
         "params": [
@@ -224,6 +254,11 @@
     },
     {
         "name": "getBlockTransactionCountByHash",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Blocks"
+          }
+        ],
         "summary": "Returns the total number of transactions recorded in the block with the given hash.",
         "description": "",
         "params": [
@@ -255,6 +290,11 @@
     },
     {
         "name": "newFilter",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Logs"
+          }
+        ],
         "summary": "Creates a new filter notifying when the state changes for a subset of blocks and/or addresses.",
         "description": "",
         "params": [
@@ -280,6 +320,11 @@
     },
     {
         "name": "newBlockFilter",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Logs"
+          }
+        ],
         "summary": "Creates a new filter notifying when a new block arrives.",
         "description": "",
         "params": [
@@ -299,6 +344,11 @@
     },
     {
         "name": "newPendingTransactionFilter",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Logs"
+          }
+        ],
         "summary": "Creates a new transaction filter.",
         "description": "",
         "params": [
@@ -318,6 +368,11 @@
     },
     {
         "name": "uninstallFilter",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Logs"
+          }
+        ],
         "summary": "Removes a filter with the given ID.",
         "description": "",
         "params": [
@@ -343,6 +398,11 @@
     },
     {
         "name": "getFilterChanges",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Logs"
+          }
+        ],
         "summary": "Returns an array of logs, block headers, or pending transactions that have been recorded since the last time the filter with the given ID was polled.",
         "description": "",
         "params": [
@@ -368,6 +428,11 @@
     },
     {
         "name": "getFilterLogs",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Logs"
+          }
+        ],
         "summary": "Returns an array of logs that have been recorded since the last time the filter with the given ID was polled.",
         "description": "",
         "params": [
@@ -393,6 +458,11 @@
     },
     {
         "name": "getInMessageByHash",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Messages"
+          }
+        ],
         "summary": "Returns the structure of the message with the given hash.",
         "description": "",
         "params": [
@@ -424,6 +494,11 @@
     },
     {
         "name": "getInMessageReceipt",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Receipts"
+          }
+        ],
         "summary": "Returns the receipt for the message with the given hash.",
         "description": "",
         "params": [
@@ -455,6 +530,11 @@
     },
     {
         "name": "sendRawTransaction",
+        "tags": [
+          {
+              "$ref": "#/components/tags/Transactions"
+          }
+        ],
         "summary": "Creates a new message or a contract creation operation for a previously signed message.",
         "description": "",
         "params": [
@@ -491,17 +571,17 @@
           },
           "AddressBalance": {
             "title": "Address",
-            "type": "array",
+            "type": "string",
             "description": "The address of the account whose balance is requested."
           },
           "AddressTransactionCount": {
             "title": "Address",
-            "type": "array",
+            "type": "string",
             "description": "The address of the account whose nonce is requested."
           },
           "AddressBytecode": {
             "title": "Address",
-            "type": "array",
+            "type": "string",
             "description": "The address of the account whose bytecode is requested."
           },
           "BlockNumberOrHashBalance": {
@@ -509,48 +589,61 @@
             "type": "object",
             "description": "The number/hash of the block from which the account balance is requested.",
             "properties": {
-                "BlockNumber": {
-                  "type": "integer",
-                  "description": "(Optional) The number of the block. Either this or BlockHash is required."
-                },
-                "BlockHash": {
-                  "type": "string",
-                  "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
-                },
-                "RequireCanonical": {
-                  "type": "boolean",
-                  "description": "The flag that determines whether the block must be a part of the canonical chain."
-                }
+              "RequireCanonical": {
+                "type": "boolean",
+                "description": "The flag that determines whether the block must be a part of the canonical chain."
+              }
             },
-
             "required": [
-                "BlockNumber",
-                "BlockHash",
                 "RequireCanonical"
+            ],
+            "oneOf": [
+              { "properties": {
+                  "BlockHash": {
+                    "type": "string",
+                    "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
+                  }
+              },
+                "required": ["BlockHash"]},
+                { "properties": {
+                  "BlockNumber": {
+                    "type": "integer",
+                    "description": "(Optional) The number of the block. Either this or BlockHash is required."
+                  }
+              },
+                "required": ["BlockNumber"]}
             ]
+            
           },
+    
           "BlockNumberOrHashTransactionCount": {
             "title": "BlockNumberOrHash",
             "type": "object",
             "description": "The number/hash of the block from which the nonce is requested.",
             "properties": {
-                "BlockNumber": {
-                  "type": "integer",
-                  "description": "(Optional) The number of the block. Either this or BlockHash is required."
-                },
-                "BlockHash": {
-                  "type": "string",
-                  "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
-                },
-                "RequireCanonical": {
-                  "type": "boolean",
-                  "description": "The flag that determines whether the block must be a part of the canonical chain."
-                }
+              "RequireCanonical": {
+                "type": "boolean",
+                "description": "The flag that determines whether the block must be a part of the canonical chain."
+              }
             },
             "required": [
-                "BlockNumber",
-                "BlockHash",
                 "RequireCanonical"
+            ],
+            "oneOf": [
+              { "properties": {
+                  "BlockHash": {
+                    "type": "string",
+                    "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
+                  }
+              },
+                "required": ["BlockHash"]},
+                { "properties": {
+                  "BlockNumber": {
+                    "type": "integer",
+                    "description": "(Optional) The number of the block. Either this or BlockHash is required."
+                  }
+              },
+                "required": ["BlockNumber"]}
             ]
           },
           "BlockNumberOrHashBytecode": {
@@ -558,32 +651,29 @@
             "type": "object",
             "description": "The number/hash of the block from which the bytecode is requested.",
             "properties": {
-                "BlockNumber": {
-                  "type": "integer",
-                  "description": "(Optional) The number of the block."
-                },
-                "BlockHash": {
-                  "type": "string",
-                  "description": "(Optional) The hash of the block."
-                },
-                "RequireCanonical": {
-                  "type": "boolean",
-                  "description": "The flag that determines whether the block must be a part of the canonical chain."
-                }
-            },
-            "oneOf": [
-              {
-                "required": [
-                  "BlockNumber",
-                  "RequireCanonical"
-                ]
-              },
-              {
-                "required": [
-                  "BlockHash",
-                  "RequireCanonical"
-                ]
+              "RequireCanonical": {
+                "type": "boolean",
+                "description": "The flag that determines whether the block must be a part of the canonical chain."
               }
+            },
+            "required": [
+                "RequireCanonical"
+            ],
+            "oneOf": [
+              { "properties": {
+                  "BlockHash": {
+                    "type": "string",
+                    "description": "(Optional) The hash of the block. Either this or BlockNumber is required."
+                  }
+              },
+                "required": ["BlockHash"]},
+                { "properties": {
+                  "BlockNumber": {
+                    "type": "integer",
+                    "description": "(Optional) The number of the block. Either this or BlockHash is required."
+                  }
+              },
+                "required": ["BlockNumber"]}
             ]
           },
           "ShardIdGetBlock": {
@@ -680,7 +770,33 @@
           }
 
       },
-      "tags": {},
+      "tags": {
+        "Accounts": {
+            "name": "Accounts",
+            "description": "Methods for interacting with accounts."
+        },
+        "Blocks": {
+            "name": "Blocks",
+            "description": "Methods for interacting with blocks."
+        },
+        "Logs": {
+            "name": "Logs",
+            "description": "Methods for interacting with logs."
+        },
+        "Messages": {
+            "name": "Messages",
+            "description": "Methods for interacting with messages."
+        },
+        "Receipts": {
+            "name": "Receipts",
+            "description": "Methods for interacting with receipts."
+        },
+        "Transactions": {
+            "name": "Transactions",
+            "description": "Methods for interacting with transactions."
+        }
+
+      },
       "contentDescriptors": {},
       "examplePairings": {},
       "links": {},
