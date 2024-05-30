@@ -2,16 +2,18 @@
 
 ## Definition
 
-In =nil;, data availability (DA) is ensured via the following methods:
-
-* The synchronization committee (operating on top of the consensus shard) submits DA transactions to Ethereum
-* The consensus shard submits snapshots of the global state as state diffs to Ethereum  
+In =nil;, data availability (DA) is ensured by the synchronization committee (operating on top of the consensus shard) submitting DA transactions to Ethereum
 
 ## DA transactions
 
 ### The synchronization committee
 
-The synchronization committee ensures that the cluster posts the necessary data to Ethereum.
+The synchronization committee is a group of peers that jointly execute the following functions:
+
+* Agreeing on the next commitment to L1
+* Sending proof requests to proof producers
+* Paying for proofs and verifying them
+* Compising DA transactions, compressing them and sending them to Ethereum
 
 Any validator can opt in to be a member of the synchronization committee. When a validator joins the committee, they automatically stop being an active validator so that their stake can only be slashed for one role at a given time. This is enforced by the committee election algorithm.
 
@@ -100,38 +102,6 @@ flowchart TB
 ```
 
 If there are too few DA or state-proof transactions, the synchronization committee can decide to send them directly to L1 builders and searchers as a bundle.
-
-## Consensus shard snapshots
-
-The consensus shard periodically transmits global state diffs to Ethereum. These state diffs contain all transactions applied to the previous state, thus allowing Ethereum to offer full data availability guarantees for the consensus shard.
-
-### L1 data storage
-
-A dedicated smart contract deployed on L1 is responsible for accepting state diffs from L2, verifying signatures, and ensuring the persistent storage of data on-chain. 
-
-State diffs from the consensus shard are stored in the Ethereum *calldata*. Metadata is stored as a sequential chain with the following mapping:
-
-```bash
-head: hash32;
-mapping (hash32 => struct) {
-    signature : hash32,
-    da_hash : hash32,
-    period : uint32 (>= 1),
-    prev_da : hash32,
-    zk_proof_hash : hash32,
-    zk_verification_passed : bool
-}
-```
-
-Here are the definitions of the key fields in the mapping:
-
-* `da_hash` The hash of the current data availability transaction
-* `period` The number of consolidated blocks. This number is defined by the protocol parameters and is, therefore, specified explicitly
-* `prev_da` The hash of the previous data availability transaction
-* `zk_proof_hash` The hash of the state transition proof
-* `zk_verification_passed` The current verification status
-
-`da_hash`, `prev_da`, and `zk_proof_hash` all act as the means for navigating state diffs in the *calldata*.
 
 ## Execution shards
 
