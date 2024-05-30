@@ -24,95 +24,10 @@ On the one hand, contract co-location presents a valuable opportunity for develo
 
 On the other hand, co-location encourages having as many accounts as possible on one shard, undermining the benefits of horizontal scaling.
 
-To mitigate this, =nil; imposes economic and ownership restrictions on account co-location. These restrictions are expressed in terms of co-location depth, which is the number of addresses ($N$) a given address is co-located with. 
+This concern, however, is mitigated by basic market mechanics: 
 
-:::note[Formula]
+* The more accounts exist on the same shard (and the more transactions are submitted by them), the higher the gas price 
+* The higher the gas price, the higher the cost of each transaction
+* The higher the cost of each transaction, the lower the benefits-to-costs ratio of co-locating additional accounts
 
-The co-location depth formula of an address $A$ is as follows:
-
-$$
-\vert S_A \vert = \vert \bigcup S \vert S \bigcap A \vert
-$$
-
-:::
-
-### Economic restrictions
-
-The cost of each co-location depends on the resulting co-location depth of an address.
-
-When an address is initialized, its basic initial creation cost includes the following:
-
-* The basic transaction fee
-* The address activation cost
-* The bytecode size of the application
-* The constructor call cost
-* The cost of data reserved by the application
-* The cost of setting initial values
-
-The basic address creation cost $b$ is multiplied by the co-location multiplier $k$ as shown in the following formula:
-
-$$
-address \space creation \space fee = b * k^{\vert M_A \vert}
-$$
-
-The higher the co-location depth, the higher the co-location multiplier and the total costs of creating a new account.
-
-### Ownership restrictions
-
-Only addresses controlled by the same key can be co-located.
-
-:::tip[Justification]
-
-Ownership restrictions prevent malicious users from attacking popular applications. Without them, such users would have been able to co-locate their addresses with other popular addresses, significantly increasing the costs of co-location in a given shard.
-
-:::
-
-To enforce ownership restrictions, the consensus shard runs a special application known as the co-location manager. The co-location manager stores an explicit map, where sets of co-located addresses are bound to the accounts (domains) that initialized them.
-
-Coupled with economic restrictions, the costs of co-location are equal to:
-
-$$
-address \space creation \space fee = b * k^{\vert M_A \vert} + e
-$$
-
-, where $e$ are the costs of calling the co-location manager.
-
-:::tip[Structure]
-
-```bash
-class CoLocationManager {
-    // Data structure to store co-location domains
-    domains: map[address -> array[address]];
-
-    // Attempts to co-locate two addresses
-    co-locate: function(pair<address, address>) -> bool {
-        // Checks and updates 'domains' to include the new co-location if possible
-        // Returns true if co-location is successful, false otherwise
-    };
-
-    // Releases the co-location relationship between two addresses
-    release: function(pair<address, address>) -> bool {
-    // Updates 'domains' to remove the specified co-location
-    // Returns true if the operation is successful, false otherwise
-    };
-
-    // Checks if two addresses are co-located
-    is_co_located: function(pair<address, address>) -> bool {
-    // Returns true if the addresses are in the same co-location group, false otherwise
-    };
-
-    // Calculates the fee for address creation or co-location based on co-location depth
-    calculate_fee: function(address) -> number {
-    // Calculates and returns the fee based on the co-location depth of the address
-    };
-
-    // Retrieves the co-location group for a given address
-    get_co_location_group: function(address) -> array[address] {
-    // Returns the array of addresses that are co-located with the address
-    };
-}
-```
-
-:::
-
-Validators assigned to a shard must track the co-location manager and process the transactions made by accounts on the same shard.
+It is up to the market participants to determine whether co-location is worth incurring high transaction costs.
