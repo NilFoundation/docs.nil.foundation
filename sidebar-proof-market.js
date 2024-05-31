@@ -49,7 +49,7 @@ export default {
                         },
                         {
                             type: 'doc',
-                            label: 'Managing request',
+                            label: 'Managing requests',
                             id: 'application-developers/tutorials/managing-requests'
                         },
                         {

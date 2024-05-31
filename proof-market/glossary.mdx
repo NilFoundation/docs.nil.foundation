@@ -24,7 +24,13 @@ An entity (an application or a user) that wants to use zero-knowledge proofs to 
 
 ## Proof producer
 
-A Proof Market participant that generates proofs that have been asked for by proof requesters.
+A Proof Market participant to whom the proof requester wants to deletage proof production. Proof producers are tasked with generating proofs in response to open requests and submitting these proofs to requesters.
+
+:::tip[Requirements]
+
+There are no specific requirements for becoming a proof producer. This role can be filled by anyone with spare bandwith and sufficiently strong hardware.
+
+:::
 
 ## Proposal
 
@@ -41,5 +47,6 @@ A request may have the following statuses.
 * `CREATED`: the initial status for any request before it is matched with a proposal.
 * `PENDING`: the status assigned after a request is matched with a proposal. At this stage, Proof Market awaits a proof producer to generate a proof.
 * `DONE`: the final status for any successful request. It is assigned after proof is provided by a proof producer.
+* `ERROR`: the final status for an unsuccessful request. It is assigned for any reason that causes a request to fail.
 
 :::

@@ -2,7 +2,11 @@ import ApiSchema from '@theme/ApiSchema';
 
 # Managing payments 
 
-This tutorial details how Proof Market handles payments.
+This tutorial details how Proof Market handles payments. The general payment flow is as follows:
+
+* An application stakes the Proof Market contract at the user's request
+* Whenever an application needs to pay for a proof, the contract automatically handles the payment between the requester and the producer
+* The user can withdraw their stake at any time
 
 ## Attaining contract details
 
@@ -20,6 +24,50 @@ The contract has three public functions for handling payments.
 - `function withdraw(address payable user, uint256 amount) public`
 - `function transfer(address from, address to, uint256 amount) public`
 
+The code of the Proof Market smart contract [**can be accessed here**](https://github.com/NilFoundation/proof-market-contracts/blob/master/contracts/proof-market-cent.sol).
+
+## Staking the contract
+
+The Proof Market contract stores a mapping of users' addresses and their Proof Market balances.
+
+To stake the contract, an application must call the `function deposit() public payable {}` method:
+
+```ts
+import {ethers} from "ethers"
+
+...
+
+
+contract.deposit({value: 5000});
+```
+
+This must be done before the application requests proofs. After `deposit()` is called, the smart contract will update the balance of the address.
+
 ## Paying for proofs
 
-To pay for a generated proof, simply call the `transfer(address from, address to, uint256 amount)` function inside an application.
+Paying for proofs occurs automatically after a request reaches the `DONE` status and a valid proof is submitted by the proof producer.
+
+The fee specified in the request is taken from the user's balance in the Proof Market contract and is transferred to the address of the proof producer.
+
+### Attaining user balance (Optional)
+
+Optionally, the app may request information about the user's balance to evaluate whether the user can pay the specified fee for a proof.
+
+Send a [**`GET` request to `/user/info`**](../../api-reference#operation/UserDetails) and receive this response:
+
+<ApiSchema pointer="#/components/schemas/UserDetails"/>
+
+The `"balance"` key should contain information about the user's remaining funds.
+
+## Withdrawing funds
+
+If the user requests a withdrawal of funds, call the `withdraw()` method in the Proof Market smart contract.
+
+```ts
+import {ethers} from "ethers"
+
+...
+
+
+contract.withdraw(userAddress, valueToWithdraw);
+```

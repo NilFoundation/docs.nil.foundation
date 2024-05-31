@@ -16,16 +16,18 @@ Application developers create dApps whose users can verify something on the bloc
 Proof Market functions as a simple REST API. The basic flow of using it is as follows.
 
 1. [**Authorize the user inside Proof Market**](./tutorials/signing-up)
-2. [**Use circuits**](./tutorials/writing-new-circuit) for in-app use cases that require verification (and optionally [**verify their proofs**](./tutorials/verifying-a-circuit))
-3. [**Use existing and new statements**](./tutorials/managing-statements) to request circuit proofs
+2. [**Use circuits**](./tutorials/writing-new-circuit) inside an application (and optionally [**verify the circuit proofs**](./tutorials/verifying-a-circuit))
+3. [**Use statements**](./tutorials/managing-statements) to represent changes that the user wants to verify
 
-:::info[Reusing circuits and statements]
+:::info[Statements]
 
-Writing circuits and creating statements for them from scratch is not necessary. An app can reuse statements posted on Proof Market by other developers. 
+A [**statement**](../glossary.mdx#statement) represents a circuit, its inputs and additional metadata.
+
+Whenever a user completes an action inside an app that requires verification, a new set of inputs is produced for the corresponding circuit. This necessitates generating a new statement and a corresponding request for attaining proof.
 
 :::
 
-4. [**Post requests**](./tutorials/managing-requests) for proofs
+4. [**Post requests**](./tutorials/managing-requests) for proofs whenever the user asks to verify their actions
 5. [**Ensure payment for generated proofs**](./tutorials/managing-payments)
 
 :::info[Example]
@@ -38,8 +40,7 @@ Instead, the app can request the necessary proof via the [**Proof Market API**](
 
 :::
 
-
-Note that using Proof Market as an application developer requires some familiarity with either C++ or Rust, and [**the zkLLVM compiler**](../../zkllvm/overview/what-is-zkllvm).  
+Note that using Proof Market as an application developer requires some familiarity with either C++ or Rust, and [**the zkLLVM compiler**](../../zkllvm/overview/what-is-zkllvm). This is needed for writing new circuits, converting them into intermediate representations, and using these representations for on-chain and off-chain verification.  
 
 ## Tutorials
 

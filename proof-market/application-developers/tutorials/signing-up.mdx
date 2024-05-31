@@ -4,11 +4,49 @@ import ApiSchema from '@theme/ApiSchema';
 
 This tutorial showcases how authorization works in Proof Market and its API.
 
-:::info[Metamask]
+:::info
 
-Authorization inside Proof Market requires a Metamask wallet.
+Authorization inside Proof Market requires an ETH wallet that can use its private key to sign messages.
 
 :::
+
+## Overview
+
+The below diagram shows the flow for authorizing a new user inside Proof Market.
+
+```mermaid
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#0f0f0f',
+      'primaryTextColor': '#f1f1f1',
+      'primaryBorderColor': '#f1f1f1',
+      'lineColor': '#87B6FC',
+      'secondaryColor': '#f1f1f1',
+      'tertiaryColor': '#2f2f2f',
+    },
+    'flowchart':
+    {
+        'defaultRenderer': 'elk',
+        'curve': 'step'
+    }
+  }
+}%%
+flowchart TB
+    Start(Attain a message for the user to sign)
+    Middle(Allow the user to sign the message)
+    End(Send the signed message to receive a JWT)
+    Start --> Middle
+    Middle --> End
+```
+
+:::tip[Justification]
+
+The sign up flow ensures security while allowing Proof Market usage for anyone with an ETH wallet. When an initial request is made, Proof Market issues a random message that the user can sign off-chain with any method of their choice without exposing their private key. The request for a JWT only requires the account address and the signed message.
+
+:::
+
 
 ## Performing the initial request
 
@@ -16,17 +54,29 @@ First, send a [**`GET` request to the `/user/metamask/message`**](../../api-refe
 
 <ApiSchema pointer="#/components/schemas/MetamaskAuthMessage"/>
 
+## Signing the message
+
+At this point, the user needs to sign the message contained in the `"msg"` key received during the previous request.
+
+Depending on the implementation, any application can add this functionality by using [**the `eth_sign` or the `personal_sign` methods**](https://docs.metamask.io/wallet/how-to/sign-data/#use-personal_sign).
+
+:::info
+
+Before calling any of the above methods, an application must call `eth_requestAccounts`.
+
+:::
+
+
+Alternatively, the user may be prompted to sign the message using any method of their choice and any tool of their choice such as the MetaMask browser extension.
+
+
 ## Receiving a JWT
+
+At this stage, an application must be aware of the signed message and the user's account address.
 
 To receive a web token, perform a [**`POST` request to `/user/metamask`**](../../api-reference#operation/MetamaskAuthRequest) with this request body:
 
 <ApiSchema pointer="#/components/schemas/MetamaskAuthRequest"/>
-
-:::tip
-
-Use the Metamask `personal_sign` method to sign the message. 
-
-:::
 
 The `"jwt"` field in the response will contain the token.
 
