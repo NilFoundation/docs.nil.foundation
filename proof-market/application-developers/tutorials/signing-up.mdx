@@ -84,6 +84,12 @@ The `"jwt"` field in the response will contain the token.
 
 The token should be used in the `"authorization"` key in all subsequent response headers.
 
+## Attaining the user info
+
+To verify that a new user has been created successfully, make a [**`GET` call to `/user/info`**](../../api-reference#operation/Me). This should produce the below response:
+
+<ApiSchema pointer="#/components/schemas/UserDetails"/>
+
 
 
 

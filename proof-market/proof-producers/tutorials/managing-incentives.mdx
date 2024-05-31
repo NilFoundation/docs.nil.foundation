@@ -2,7 +2,10 @@ import ApiSchema from '@theme/ApiSchema';
 
 # Managing incentives
 
-This tutorial explains how proof producers can receive compensation for successfully completed proposals.
+This tutorial explains how proof producers can receive compensation for successfully completed proposals. The general flow is as follows:
+
+* An application stakes the Proof Market contract at the user's request
+* Whenever an application needs to pay for a proof, the contract automatically handles the payment between the requester and the producer
 
 ## Contract details
 
@@ -20,8 +23,10 @@ The contract has three public functions for handling payments.
 - `function withdraw(address payable user, uint256 amount) public`
 - `function transfer(address from, address to, uint256 amount) public`
 
+The code of the Proof Market smart contract [**can be accessed here**](https://github.com/NilFoundation/proof-market-contracts/blob/master/contracts/proof-market-cent.sol).
+
 ## Receiving rewards
 
-Whenever a valid proof is submitted and verified, the proof requester calls the `transfer(address from, address to, uint256 amount)` function to send a reward to the proof producer.
+The user must stake the Proof Market contract before requesting a proof.
 
-As Metamask is used to authorize inside Proof Market, no additional actions are required on the part of the proof producer.
+Whenever a valid proof is submitted and verified, the Proof Market contract automatically calls the `transfer(address from, address to, uint256 amount)` function to send a reward to the proof producer.

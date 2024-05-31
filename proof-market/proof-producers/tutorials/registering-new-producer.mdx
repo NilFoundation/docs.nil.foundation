@@ -4,11 +4,45 @@ import ApiSchema from '@theme/ApiSchema';
 
 This tutorial details how to register as a new proof producer.
 
-:::info[Metamask]
+## Overview
 
-Authorization inside Proof Market requires a Metamask wallet.
+The following diagram shows the flow for registering as a new proof producer:
+
+```mermaid
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#0f0f0f',
+      'primaryTextColor': '#f1f1f1',
+      'primaryBorderColor': '#f1f1f1',
+      'lineColor': '#87B6FC',
+      'secondaryColor': '#f1f1f1',
+      'tertiaryColor': '#2f2f2f',
+    },
+    'flowchart':
+    {
+        'defaultRenderer': 'elk',
+        'curve': 'step'
+    }
+  }
+}%%
+flowchart TB
+    Start(Attain a message to sign)
+    Middle(Sign the message)
+    End(Send the signed message to receive a JWT)
+    PS(Change the account into a proof producer account)
+    Start --> Middle
+    Middle --> End
+    End --> PS
+```
+
+:::tip[Justification]
+
+The sign up flow ensures security while allowing Proof Market usage for anyone with an ETH wallet. When an initial request is made, Proof Market issues a random message that can be signed off-chain without exposing the account private key. The request for a JWT only requires the account address and the signed message.
 
 :::
+
 
 ## Performing the initial request
 
@@ -16,17 +50,17 @@ Authorization inside Proof Market requires a Metamask wallet.
 
 <ApiSchema pointer="#/components/schemas/MetamaskAuthMessage"/>
 
+## Signing the message
+
+At this point, the message needs to be signed for the result to be passed into the next request.
+
+Signing the message can be done via [**the `eth_sign` method, the MetaMask `personal_sign` method**](https://docs.metamask.io/wallet/how-to/sign-data/#use-personal_sign) or any other suitable method or tool that produces a valid signature.
+
 ## Receiving a JWT
 
 To receive a web token, perform a [**`POST` request with the `"msg"` received previously to `/user/metamask`**](../../api-reference#operation/MetamaskAuthRequest) with this request body:
 
 <ApiSchema pointer="#/components/schemas/MetamaskAuthRequest"/>
-
-:::tip
-
-Use the Metamask `personal_sign` method to sign the message. 
-
-:::
 
 The `"jwt"` field in the response will contain the token.
 
@@ -40,7 +74,7 @@ To verify that a new user has been created successfully, make a [**`GET` call to
 
 <ApiSchema pointer="#/components/schemas/UserDetails"/>
 
-## Changing the account status (Optional)
+## Changing the account status
 
 The `"producer"` key in the previous response formally marks an account as a proof producer. 
 
