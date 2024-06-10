@@ -93,6 +93,22 @@ const config = {
         rehypePlugins: [rehypeKatex],
       }
     ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        out: "./nil/reference/client",
+        outputFileStrategy: "modules",
+        fileExtension: ".mdx",
+        useCodeBlocks: true,
+        parametersFormat: "table",
+        entryPoints: [
+          "./nil/nil.js/src"
+        ],
+        skipErrorChecking: true,
+
+      }
+
+    ]
   ],
   stylesheets: [
     {
