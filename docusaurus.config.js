@@ -49,7 +49,7 @@ const config = {
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           openrpc: {
-            openrpcDocument: "./nil/openrpc.json",
+            openrpcDocument: "./nil/openrpc_auto.json",
             path: "references",
             sidebarLabel: "JSON-RPC API",
           },
