@@ -1,0 +1,197 @@
+# Primer
+
+This primer acts as an intro guide to writing complex circuits and compiling them. 
+
+## Dependency management
+
+Most circuits that cover common use cases (e.g., circuits verifying state transitions) require the use of external dependencies. 
+
+In such cases, [**using `clang` or `rustc` directly**](../getting-started/compiling-a-circuit) is discouraged. Instead, it is preferable to use a dedicated build management system:
+
+* CMake for C++
+* Cargo for Rust
+
+:::tip[`clang`]
+
+When calling `clang` directly, dependency management can also be handled via the following methods:
+
+* Via the CLI
+* Via env variables
+* Via updating the system path
+
+Using CMake is still preferable as it offers several valuable features (such as external library detection) that simplify working with complex circuits.
+
+:::
+
+:::info
+
+This primer uses `crypto3` (C++) and `arkworks` (Rust) to show how to use external libraries in a circuit. The primer can be reused for any other suitable library.
+
+:::
+
+### Using CMake
+
+Switch to the working directory:
+
+```bash
+mkdir new_circuit && cd new_circuit
+```
+
+Create the circuit:
+
+```bash
+cd .. && mkdir src
+```
+
+```bash
+cd src && touch main.cpp
+```
+
+Add circuit code that references an external library:
+
+```cpp
+#include <nil/crypto3/hash/algorithm/hash.hpp>
+#include <nil/crypto3/hash/sha2.hpp>
+
+...
+
+[[circuit]] bool circuit_func() {...}
+```
+
+Create a configuration file for CMake:
+
+```bash
+cd .. && touch CMakeLists.txt
+```
+
+Inside `CMakeLists.txt`, set the project config and include the `CircuitCompile.cmake` module:
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+
+project(hashes_circuit
+    VERSION 1.0
+    DESCRIPTION "Tutorial circuit with hashes"
+    LANGUAGES CXX)
+
+list(APPEND CMAKE_MODULE_PATH "/usr/lib/zkllvm/share/zkllvm")
+
+include(CircuitCompile)
+```
+
+Add the required library to the project configuration:
+
+```cmake
+set(crypto3_DIR "path/to/crypto3/installation")
+
+find_package(crypto3 REQUIRED)
+```
+
+Set the circuit source and add a build target:
+
+```
+set(SOURCES src/main.cpp)
+
+add_circuit(
+    circuit SOURCES ${SOURCES}
+    LINK_LIBRARIES
+    crypto3::all
+)
+
+```
+
+, where `circuit` is the desired target name.
+
+Compile the circuit with:
+
+```bash
+cmake -G "Unix Makefiles" -B ./build -DCMAKE_BUILD_TYPE=Release .
+make -C ./build circuit -j$(nproc)
+```
+
+`add_circuit()` will generate the circuit IR under the name `circuit.ll`.
+
+:::warning
+
+The `CircuitCompile.cmake` module does not support using custom paths to `clang` built from sources (as well as custom paths to a linker). To use this module, it is necessary to [**install the `zkllvm` Deb package**](../getting-started/installation#install-zkllvm-binaries).
+
+:::
+
+:::tip
+
+Instead of specifying `crypto3_DIR` in `CMakeLists.txt`, it is possible to specify it when calling `cmake`:
+
+```bash
+cmake -G "Unix Makefiles" -B ./build -DCMAKE_BUILD_TYPE=Release . -Dcrypto3_DIR=/path/to/crypto3/installation
+```
+
+This method is useful if `crypto3_DIR` is not a fixed path and cannot be 'hardcoded' in the CMake configuration file.
+
+:::
+
+### Using Cargo
+
+Create a new `cargo` project:
+
+```bash
+cargo new new_circuit --bin
+cd new_circuit
+```
+
+:::tip
+
+Optionally add the `--vcs none` option to prevent `cargo` from automatically creating a Git repository.
+
+:::
+
+Open the `Cargo.toml` file and add the following dependencies and feature flags:
+
+```toml
+ark-pallas = { git = "https://github.com/NilFoundation/arkworks-curves.git" }
+unroll = { git = "https://github.com/NilFoundation/zkllvm-unroll.git" }
+
+...
+
+[features]
+zkllvm = ["ark-ff/zkllvm"]
+```
+
+:::tip
+
+Adding `unroll` [**is mandatory**](../best-practices-limitations/unrolling-loops) for circuits that use loops.
+
+:::
+
+:::tip
+
+The `"zkllvm"` feature flag is necessary to ensure compatibility with the original Rust compiler.
+
+When calling Cargo, use the `--features zkllvm` option to enable the feature for the specified package. If the feature is enabled, built-in zkLLVM types are used to represent curves, fields, and other elements. If this feature is disabled, type definitions from the `arkworks` project are used.
+
+The flag should only be used if `assigner-unknown-unknown` is the specified build target when calling `cargo`. If it is not used, calling `assigner` on the resulting circuit IR may fail.
+
+If `cargo` is called for any other build target, omit the `--features zkllvm` option when calling Cargo.
+
+:::
+
+Add circuit code that references an external library:
+
+```rust
+#![no_main]
+
+use ark_pallas::Fq;
+...
+
+type BlockType = [Fq; 2];
+
+#[circuit]
+pub fn sha256_example() -> BlockType {...}
+```
+
+Compile the circuit with:
+
+```bash
+cargo +zkllvm build --target assigner-unknown-unknown --features zkllvm --release
+```
+
+To learn more about additional compilation options, [**click here**](../getting-started/compiling-rust-code).

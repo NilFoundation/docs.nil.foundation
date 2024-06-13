@@ -9,10 +9,10 @@ The flow for compiling Rust code is similar to compiling any other `cargo` proje
 If `cargo` has been [**installed from a pre-built binary**](./installation#using-pre-built-binaries), run the following command. 
 
 ```bash
-cargo +zkllvm build --target assigner-unknown-unknown
+cargo +zkllvm build --target assigner-unknown-unknown --release
 ```
 
-After the build procedure is complete, the resulting `.ll` file will appear in the `./target/assigner-unknown-unknown/debug` directory. The file will have the same name as the name of the current `cargo` crate. 
+After the build procedure is complete, the resulting `.ll` file will appear in the `./target/assigner-unknown-unknown/release` directory. The file will have the same name as the name of the current `cargo` crate. 
 
 ## Using `cargo` from sources
 
@@ -42,13 +42,13 @@ While using `rustc` instead of `cargo` is unconventional, it is still possible t
 If `rustc` has been installed as from a pre-built binary, run this command.  
 
 ```bash
-rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+rustc +zkllvm --target assigner-unknown-unknown --emit=llvm-ir path/to/circuit.rs -C opt-level=3
 ```
 
 If `rustc` has been installed from sources, execute the following command. 
 
 ```bash
-$RUSTC --target assigner-unknown-unknown --emit=llvm-ir multiplication_example.rs -C opt-level=3
+$RUSTC --target assigner-unknown-unknown --emit=llvm-ir path/to/circuit.rs -C opt-level=3
 ```
 
 :::tip
