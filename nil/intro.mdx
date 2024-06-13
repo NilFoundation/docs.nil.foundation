@@ -1,0 +1,62 @@
+import Thesis from '@site/static/img/nil/nil-icons/thesis.png'
+import Principles from '@site/static/img/nil/nil-icons/principles.png'
+import {Card, CardSection} from '@site/src/components/CardSection'
+import Accounts from '@site/static/img/nil/nil-icons/accounts.png'
+import Transaction from '@site/static/img/nil/nil-icons/transaction.png'
+import Shards from '@site/static/img/nil/nil-icons/shards.png'
+import Finality from '@site/static/img/nil/nil-icons/finality.png'
+import Data from '@site/static/img/nil/nil-icons/data.png'
+import Contract from '@site/static/img/nil/nil-icons/contract.png'
+import Sequencing from '@site/static/img/nil/nil-icons/sequencing.png'
+
+# Overview
+
+## Definition
+
+=nil; is an Ethereum layer-2 blockchain powered by zkSharding. The design of =nil; embodies three core qualities:
+
+* **Horizontal scalability**. =nil; unlocks the power of many machines by partitioning state across shards with cross-shard communications being a built-in feature of the protocol.
+* **Modularity**. =nil; acts as an execution layer while using Ethereum for data availability and consensus.
+* **Verifiable security**. The entire =nil; network can be verified with a single zero-knowledge proof attesting to the correctness of all shards.
+
+The design of =nil; transcends the typical monolithic vs. modular discourse as it emphasizes horizontal scalability above all else. =nil; scales out beyond the constraints of a single machine's processing power, by leveraging zkSharding, a new type of sharding architecture. In zkSharding, execution shards produce zero-knowledge proofs (ZKPs) verifying intra-shard state transitions while the state of the cluster is managed by a designated consensus shard. The consensus shard is responsible for synchronizing execution shards and producing a 'master' ZKP that is sent to Ethereum for global state verification.
+
+=nil; offers an effective strategy for scaling Ethereum while avoiding the limitations typically associated with the modular approach such as state and liquidity fragmentation.
+
+## Structure of the documentation
+
+### Introduction
+
+Learn the basics of what =nil; is and how it works.
+
+<CardSection>
+    <Card icon={<img src={Thesis}/>} id='thesis' title='Thesis' description='Read about the "how" and "why" of =nil;' to='./thesis'/>
+    <Card icon={<img src={Principles}/>} id='principles' title='Principles' description='Grasp the fundamentals of the architecture of =nil;' to='./principles'/>
+</CardSection>
+
+### Core concepts
+
+Familiarize yourself with the key components of the architecture of =nil;.
+
+<CardSection>
+    <Card icon={<img src={Accounts}/>} id='accounts' title='Accounts' description='Learn about how =nil; handles accounts' to='./core-concepts/accounts'/>
+    <Card icon={<img src={Transaction}/>} id='lifecycle' title='Transaction lifecycle' description='Follow a transaction to finality' to='./core-concepts/transaction-lifecycle'/>
+    <Card icon={<img src={Shards}/>} id='shards' title='Shards and parallelized execution' description='See how =nil; achieves scalability' to='./core-concepts/shards-parallel-execution'/>
+    <Card icon={<img src={Contract}/>} id='contract' title='Contract co-location' description='Ensure account placement on the same shard' to='./core-concepts/contract-co-location'/>
+</CardSection>
+
+### Specification
+
+Learn more about how =nil; plans to resolve issues central to any blockchain.
+
+:::info[WIP provisions]
+
+The materials in this section may describe features and components that are not yet part of =nil;.
+
+:::
+
+<CardSection>
+    <Card icon={<img src={Sequencing}/>} id='sequencing' title='Sequencing' description='Read about how =nil; adopts the PBS model' to='./specification/sequencing'/>
+    <Card icon={<img src={Finality}/>} id='finality' title='Finality' description='Learn about the strong security guarantees of =nil;' to='./specification/finality'/>
+    <Card icon={<img src={Data}/>} id='data' title='Data availability' description='See how =nil; achieves DA at all levels' to='./specification/data-availability'/>
+</CardSection>
