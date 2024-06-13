@@ -4,7 +4,7 @@
  * work well for content-centric websites.
  */
 
-* {
+ * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
 
@@ -273,4 +273,3 @@ nav ul li {
 .has-sub-sections > .section-content .section-description {
   font-size: 14px;
 }
-
