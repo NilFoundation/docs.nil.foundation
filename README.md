@@ -10,7 +10,7 @@ There exist four separate sets of docs in the following folders.
 
 * `./zkllvm`
 * `./proof-market`
-* `./zksharding`
+* `./nil`
 * `./crypto3`
 
 Each set of docs is connected to a single React app which is configured in the `docusaurus.config.js` file.

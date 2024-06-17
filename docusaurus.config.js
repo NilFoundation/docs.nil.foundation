@@ -177,6 +177,7 @@ const config = {
           defaultLanguage: 'clike',
           theme: prismThemes.vsDark,
           darkTheme: prismThemes.vsDark,
+          additionalLanguages: ['bash', 'solidity']
         },
       }),
 };
