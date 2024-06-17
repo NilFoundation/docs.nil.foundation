@@ -53,6 +53,27 @@ export default {
         },
         {
             type: 'category',
+            label: 'Getting started',
+            collapsed: false,
+            collapsible: true,
+            items: [
+                {
+                    type: 'category',
+                    label: 'Essentials',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Handling async execution',
+                            id: 'getting-started/essentials/handling-async-execution'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            type: 'category',
             label: 'Specification',
             collapsed: true,
             collapsible: true,
