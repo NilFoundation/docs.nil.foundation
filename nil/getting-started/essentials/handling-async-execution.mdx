@@ -94,7 +94,17 @@ Whenever the `call()` function is called inside Contract 1, a new transaction is
 
 In this pattern, Contract 1 calls a function inside Contract 2 that makes an async call back to Contract 1.
 
-Contract 1 is a basic contract for voting:
+
+## Additional practices
+
+=nil; adds two Solidity function modifiers:
+
+* `onlyInternal`. If this modifier is added, the function can only be called synchronously.
+* `onlyExternal`. If this modifier is added, the function can only be called asynchronously.
+
+If a function has the `onlyInternal` modifier, it can be called by the contract where this function is declared and other contracts existing on the same shard (if the function is public). A function with the `onlyExternal` modifier behaves the opposite way: it must be called either by a contract on a different shard or by a contract on the same shard but via the `async_call()` function.
+
+Consider the below examples. Contract 1 is a basic contract for voting:
 
 ```solidity
 import "./nil.sol";
@@ -105,16 +115,35 @@ contract Elections {
 
     mapping(string => uint256) public votes;
 
-    function request_vote(address dst, string candidate) public payable {
-        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("verify_vote()"));
+    function requestVote(address dst, string candidate) onlyInternal public {
+        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
         emit CallCompleted(dst);
     }
 
-    function add_vote(string candidate)
+    function addVote(string candidate) onlyExternal public {
+        votes[candidate]++;
+    }
 }
 ```
 
-Contract 2 hold some verification 
+Contract 2 holds some verification logic:
+
+```solidity
+import "./nil.sol";
+
+contract Verifier {
+
+    using nil for address; 
+
+    mapping(string => bool) 
+
+    function verifyVote(address dst, string candidate) onlyExternal public {
+        if candidate 
+        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
+        emit CallCompleted(dst);
+    }
+}
+```
 
 
 
