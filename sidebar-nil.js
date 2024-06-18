@@ -74,6 +74,27 @@ export default {
         },
         {
             type: 'category',
+            label: 'Guides',
+            collapsed: true,
+            collapsible: true,
+            items: [
+                {
+                    type: 'category',
+                    label: 'Architecture',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Handling differences between Ethereum and =nil;',
+                            id: 'guides/architecture/ethereum-nil-diffs'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            type: 'category',
             label: 'Specification',
             collapsed: true,
             collapsible: true,

@@ -8,7 +8,7 @@ This tutorial provides a brief theoretical and practical primer on async executi
 
 Consider a smart contract with the following code:
 
-```sol
+```sol showLineNumbers
 import "./nil.sol";
 
 contract Caller {
@@ -18,7 +18,7 @@ contract Caller {
     event CallCompleted(address indexed dst)
 
     function call(address dst) public payable {
-        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("funcName"));
+        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("funcName"));
         emit CallCompleted(dst);
     }
 }
@@ -38,7 +38,6 @@ The `address.async_call()` function is a shortcut for executing a precompiled co
 
 :::
 
-
 ## Examples
 
 Consider two contracts deployed on two different shards in =nil;:
@@ -54,32 +53,28 @@ In this pattern, Contract 1 simply calls a function in Contract 2 without receiv
 
 Contract 1 has the following structure:
 
-```sol
+```solidity showLineNumbers
 import "./nil.sol";
 
 contract Caller {
 
     using nil for address; 
 
-    event CallCompleted(address indexed dst)
-
     function call(address dst) public payable {
-        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("increment()"));
-        emit CallCompleted(dst);
+        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("increment()"));
     }
 }
 ```
 
 Contract 2 has the following structure:
 
-```solidity
+```solidity showLineNumbers
 contract Receiver {
 
     uint256 private value;
 
     function increment() public {
         value += 1;
-        emit ValueChanged(value);
     }
 
     function getValue() public view returns (uint256) {
@@ -94,6 +89,49 @@ Whenever the `call()` function is called inside Contract 1, a new transaction is
 
 In this pattern, Contract 1 calls a function inside Contract 2 that makes an async call back to Contract 1.
 
+Contract 1 acts as a simple escrow mechanism:
+
+```solidity showLineNumbers
+import "./nil.sol";
+
+contract Escrow {
+
+    using nil for address; 
+    mapping (address => uint256) private deposits;
+
+    function deposit() public payable {
+        deposits[msg.sender] += msg.value;
+    }
+
+    function submitForVerification(address dst, address participantOne, address participantTwo) public {
+        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify(address, address)", participantOne, participantTwo));
+    }
+
+    function resolve(address participantOne, address participantTwo) public {
+        deposits[participantOne] -= msg.value;
+        deposits[participantTwo] += msg.value;
+    }
+}
+```
+
+Contract 2 acts as a validator for escrow resolution:
+
+```solidity showLineNumbers
+import "./nil.sol";
+
+contract Validator {
+    
+    using nil for address;
+
+    function verify(address dst, address participantOne, address participantTwo) public {
+        if (participantOne != participantTwo) {
+            dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("resolve(address, address)", participantOne, participantTwo));
+        }
+    }
+}
+```
+
+Contract 2 triggers the `resolve()` function within Contract ` as a callback but only if the escrow participants are two distinct addresses.
 
 ## Additional practices
 
@@ -106,7 +144,7 @@ If a function has the `onlyInternal` modifier, it can be called by the contract 
 
 Consider the below examples. Contract 1 is a basic contract for voting:
 
-```solidity
+```solidity showLineNumbers
 import "./nil.sol";
 
 contract Elections {
@@ -116,8 +154,7 @@ contract Elections {
     mapping(string => uint256) public votes;
 
     function requestVote(address dst, string candidate) onlyInternal public {
-        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
-        emit CallCompleted(dst);
+        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
     }
 
     function addVote(string candidate) onlyExternal public {
@@ -126,26 +163,28 @@ contract Elections {
 }
 ```
 
-Contract 2 holds some verification logic:
+Contract 2 holds simple verification logic:
 
-```solidity
+```solidity showLineNumbers
 import "./nil.sol";
 
 contract Verifier {
 
     using nil for address; 
 
-    mapping(string => bool) 
+    mapping(string => bool) private candidateStatuses; 
 
     function verifyVote(address dst, string candidate) onlyExternal public {
-        if candidate 
-        dst.async_call(gasleft(), msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
-        emit CallCompleted(dst);
+        if candidateStatuses[candidate] != false {
+            dst.async_call(address(0), gas_left(), false, msg.value, abi.encodeWithSignature("addVote(string)", candidate));
+        } 
     }
 }
 ```
 
+Contract 1 makes an async call to Contract 2 requesting Contract 2 to verify whether a candidate is invalid. If the candidate's value in the `candidateStatuses` mapping is `true`, Contract 2 calls the `addVote()` function inside Contract 1. 
 
+The use of modifiers protects this system from being abused. Contract 1 cannot call the `addVote()` method by itself as it is marked with the `onlyExternal` modifier. Contract 1 is also the only one who can request a vote as the `requestVote()` function is specified as `onlyInternal`. Vote verification in Contract 2 can only be initiated by another contract via an async call.
 
 
 
