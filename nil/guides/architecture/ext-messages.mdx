@@ -1,0 +1,84 @@
+# Handling external messages
+
+External messages represent a significant departure of =nil; from Ethereum. This guide explains how they can be processed and outlines best practices for working with them.
+
+## The `verifyExternal()` function
+
+A smart contract must implement the following function to be able to process external messages:
+
+```solidity showLineNumbers
+function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool)
+```
+
+The body of the function can include any arbitrary logic for verifying a message. For example:
+
+```solidity showLineNumbers
+contract ExampleContract {
+    bytes private validAuthData = AUTH_DATA;
+
+    function verifyExternal(uint64 seqno, bytes memory authData, bytes memory callData) external view returns (bool) {
+        if (keccak256(authData) == keccak256(validAuthData) && callData.length > 0) {
+            return true;
+        }
+        return false;
+    }
+}
+```
+
+As the receiving contract is charged with paying for external messages, the `verifyExternal()` function is needed so that other smart contracts do not accidentally (or maliciously) drain the balance of the receiving contract.
+
+## The `onlyInternal` and `onlyExternal` Solidity modifiers
+
+=nil; adds two Solidity function modifiers:
+
+* `onlyInternal`. If this modifier is added, the function can only be called synchronously.
+* `onlyExternal`. If this modifier is added, the function can only be called asynchronously.
+
+If a function has the `onlyInternal` modifier, it can be called by the contract where this function is declared and other contracts existing on the same shard (if the function is public). A function with the `onlyExternal` modifier behaves the opposite way: it must be called either by a contract on a different shard or by a contract on the same shard but via the `async_call()` function.
+
+Consider the below examples. Contract 1 is a basic contract for voting:
+
+```solidity showLineNumbers
+import "./nil.sol";
+
+contract Elections {
+
+    using nil for address; 
+
+    mapping(string => uint256) public votes;
+
+    function requestVote(address dst, string candidate) onlyInternal public {
+        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
+    }
+
+    function addVote(string candidate) onlyExternal public {
+        votes[candidate]++;
+    }
+}
+```
+
+Contract 2 holds simple verification logic:
+
+```solidity showLineNumbers
+import "./nil.sol";
+
+contract Verifier {
+
+    using nil for address; 
+
+    mapping(string => bool) private candidateStatuses; 
+
+    function verifyVote(address dst, string candidate) onlyExternal public {
+        if candidateStatuses[candidate] != false {
+            dst.async_call(address(0), gas_left(), false, msg.value, abi.encodeWithSignature("addVote(string)", candidate));
+        } 
+    }
+}
+```
+
+Contract 1 makes an async call to Contract 2 requesting Contract 2 to verify whether a candidate is invalid. If the candidate's value in the `candidateStatuses` mapping is `true`, Contract 2 calls the `addVote()` function inside Contract 1. 
+
+The use of modifiers protects this system from being abused. Contract 1 cannot call the `addVote()` method by itself as it is marked with the `onlyExternal` modifier. Contract 1 is also the only one who can request a vote as the `requestVote()` function is specified as `onlyInternal`. Vote verification in Contract 2 can only be initiated by another contract via an async call.
+
+
+

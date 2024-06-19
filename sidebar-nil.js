@@ -86,8 +86,13 @@ export default {
                     items: [
                         {
                             type: 'doc',
-                            label: 'Handling differences between Ethereum and =nil;',
+                            label: 'Key differences between Ethereum and =nil;',
                             id: 'guides/architecture/ethereum-nil-diffs'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Handling external messages',
+                            id: 'guides/architecture/ext-messages'
                         }
                     ]
                 }

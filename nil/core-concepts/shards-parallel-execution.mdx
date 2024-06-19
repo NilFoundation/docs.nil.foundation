@@ -9,7 +9,7 @@ Shards are smaller chains that are usually responsible for managing a portion of
 
 ## Execution shards
 
-All work related to processing transactions, storing accounts, and managing the local state occurs at the execution shard level. Execution shards are also tasked with passing message passing checks.
+All work related to processing transactions, managing cross-shard communications, storing accounts, and managing the local state occurs at the execution shard level. Execution shards are also tasked with passing message passing checks.
 
 :::info[Mempools]
 
@@ -88,6 +88,31 @@ In this case, the flow would work as follows:
 5. Contract 1 performs whatever operation was requested by Contract 2
 
 As shown above, the async call inside Contract 2 effectively becomes a callback function for Contract 1. Note that the use of this pattern is only possible if Contract 1 or Contract 2 share the same owner (or their owners cooperate with each other).
+
+:::
+
+### Internal vs. external messages
+
+In =nil;, messages are divided into internal and external.
+
+Internal messages are those messages that are spawned by smart contracts within one shard and are then sent to addresses located within the same shard. When a Contract 1 (deployed on Shard 1) calls a function in Contract 2 (also deployed on Shard 2), an internal message is recorded.
+
+External messages can originate in two possible cases:
+
+1. When any entity that exists outside of the cluster (e.g., a dApp) sends a message to any smart contract on the network
+2. When a smart contract deployed on one shard calls a different smart contract deployed on another shard
+
+Imagine a case where Contract 1 is deployed on Shard 1 and Contract 2 is deployed on Shard 2. When Contract 1 calls a function insde Contract 2, an external message is recorded. From the perspective of Contract 2, the function call is made by an entity that exists outside of its network.
+
+[**Click here**](../guides/architecture/ext-messages) to read a more detailed explanation of how external messages function and how they can be handled. 
+
+:::info[Payment for messages]
+
+For internal messages, the message itself is the 'payer' entity. An internal message spends its `value` to cover processing costs.
+
+For external messages, the receiving contract is the 'payer' entity. To process external messages, the receiving contract must implement a special function that uses arbitrary logic to verify these messages. If this function is absent, the contract will only accept internal messages.
+
+Regardless of the message type, the 'payer' is tasked with purchasing gas equal to the message `gasLimit`. The transaction fails if the balance of the 'payer' is insufficient. If execution is successful, the remaining gas is refunded to the 'payer'.
 
 :::
 

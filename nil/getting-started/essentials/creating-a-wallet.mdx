@@ -1,12 +1,48 @@
 # Creating a wallet
 
-This tutorial outlines the different ways for creating a wallet on =nil;.
+This tutorial defines how wallets work in =nil; and outlines the different ways for creating a new wallet.
 
-## Via the RPC API
+## Definition
 
-There are three possible flows for creating a wallet using the =nil; RPC API, all of which rely on calling various methods inside the faucet contract.
+In =nil; a wallet is any smart contract that is able to pay for interactions with real-life users.
 
-The faucet contract is deployed at addresss `0x000100000000000000000000000000000FA00cE7`.
+The traditional definition of a wallet in Ethereum mostly refers to externally-owned accounts (EOAs) that are secured via private keys and natively hold information about user's balances.
 
-### Via `createWallet()`
+Wallets in =nil; greatly extend this definition. A =nil; wallet can be an EOA in the traditional sense of the term but it can also be any smart contract with a payment mechanism. As a result, it is possible to create wallets with arbitrary constructor bytecodes. This allows for adding complex logic to wallets such as multi-sig operations.
+
+## New wallet creation
+
+### Via the =nil; CLI
+
+The =nil; CLI offers a quick and convenient way to create a new wallet:
+
+```bash
+nil_cli new-wallet
+```
+
+This will produce the following response:
+
+```bash
+New wallet address: NEW_WALLET_ADDRESS
+```
+
+This wallet essentially acts as a typical EOA: it supports basic asset management and authentication operations. The wallet should also be initialized with an initial balance. Send the following request to check this:
+
+```bash
+curl -X POST NIL_ENDPOINT -H "Content-Type: application/json" -d '{
+    "jsonrpc": "2.0",
+    "method": "eth_getBalance",
+    "params": [
+        "{NEW_WALLET_ADDRESS}",
+        "latest"
+    ],
+    "id": 1
+}'
+```
+
+The `"result"` key in the response should not equal zero.
+
+### Via the client library
+
+
 
