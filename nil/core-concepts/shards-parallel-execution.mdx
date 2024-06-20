@@ -73,6 +73,12 @@ The key stages of this flow are:
 2. Shard 2 must pick up this transaction and place it inside its mempool
 3. When Shard 2 processes the transaction, Contract 2 executes the function that Contract 1 called
 
+:::info
+
+Transactions that originate as a result of cross-shard calls are known as [**cross-shard transactions**](../guides/architecture/ethereum-nil-diffs#transactions). They constitute a separate transaction type in addition to Ethereum-style transactions supported by =nil;.
+
+:::
+
 For an in-depth explanation of how to perform and manage async calls, [**click here**](../getting-started/essentials/handling-async-execution).
 
 :::info[Callback pattern]
@@ -95,16 +101,10 @@ As shown above, the async call inside Contract 2 effectively becomes a callback 
 
 In =nil;, messages are divided into internal and external.
 
-Internal messages are those messages that are spawned by smart contracts within one shard and are then sent to addresses located within the same shard. When a Contract 1 (deployed on Shard 1) calls a function in Contract 2 (also deployed on Shard 2), an internal message is recorded.
+Internal messages cover all types of communication between smart contracts on the network regardless of the shard where they are deployed. When Contract 1 (deployed on Shard 1) calls a function in Contract 2 (deployed on Shard 2), Shard 2 spawns an internal message.
 
-External messages can originate in two possible cases:
 
-1. When any entity that exists outside of the cluster (e.g., a dApp) sends a message to any smart contract on the network
-2. When a smart contract deployed on one shard calls a different smart contract deployed on another shard
-
-Imagine a case where Contract 1 is deployed on Shard 1 and Contract 2 is deployed on Shard 2. When Contract 1 calls a function insde Contract 2, an external message is recorded. From the perspective of Contract 2, the function call is made by an entity that exists outside of its network.
-
-[**Click here**](../guides/architecture/ext-messages) to read a more detailed explanation of how external messages function and how they can be handled. 
+External messages can originate only in one case: when any entity that exists outside of the cluster (e.g., a dApp) sends a message to any smart contract on the network.
 
 :::info[Payment for messages]
 

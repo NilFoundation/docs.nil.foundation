@@ -4,7 +4,7 @@ To support [**cross-shard communication**](../../principles#cross-shard-communic
 
 This tutorial provides a brief theoretical and practical primer on async execution, and gives suggestions on how this feature can be integrated into an application.
 
-## Explanation
+## Performing an async call
 
 Consider a smart contract with the following code:
 
@@ -38,6 +38,41 @@ The `address.async_call()` function is a shortcut for executing a precompiled co
 
 :::
 
+## Receiving an async call
+
+The contract receiving [**an external message**](../../core-concepts/shards-parallel-execution##internal-vs-external-messages) must implement an additional function so that this call is processed. Unless this function is present, a contract cannot accept external messages. The function signature:
+
+```solidity showLineNumbers
+function verifyExternal(
+        uint64 seqno, 
+        bytes authData, 
+        bytes callData
+    ) external view returns (bool)
+```
+
+The purpose of the function is to limit who can call the receiver contract via an external message. Its body can hold any logic for checking the message signature. For example:
+
+```solidity showLineNumbers
+contract Receiver {
+    bytes private validAuthData = AUTH_DATA;
+
+    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
+        if (keccak256(authData) == keccak256(validAuthData) && callData.length > 0) {
+            return true;
+        }
+        return false;
+    }
+}
+```
+
+As the receiving contract is charged with paying for external messages, the `verifyExternal()` function is needed so that other smart contracts do not accidentally (or maliciously) drain the balance of the receiving contract.
+
+:::info
+
+`verifyExternal()` is called every time a contract is called via an external message.
+
+:::
+
 ## Examples
 
 Consider two contracts deployed on two different shards in =nil;:
@@ -63,12 +98,18 @@ contract Caller {
     function call(address dst) public payable {
         dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("increment()"));
     }
+
+    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
+        return true;
+    }
 }
 ```
 
 Contract 2 has the following structure:
 
 ```solidity showLineNumbers
+import "./nil.sol";
+
 contract Receiver {
 
     uint256 private value;
@@ -80,10 +121,13 @@ contract Receiver {
     function getValue() public view returns (uint256) {
         return value;
     }
+
 }
 ```
 
 Whenever the `call()` function is called inside Contract 1, a new transaction is created. When Shard 2 picks up this transaction and executes it, Contract 2 calls its `increment()` function. After `getValue()` is called, the result should display the total number of times the `call()` function was executed by Contract 1.
+
+Note that the receiver contract lacks the `verifyExternal()` function as it is not meant to process external messages.
 
 ### Callback pattern
 
@@ -111,6 +155,10 @@ contract Escrow {
         deposits[participantOne] -= msg.value;
         deposits[participantTwo] += msg.value;
     }
+
+    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
+        return true;
+    }
 }
 ```
 
@@ -132,7 +180,3 @@ contract Validator {
 ```
 
 Contract 2 triggers the `resolve()` function within Contract ` as a callback but only if the escrow participants are two distinct addresses.
-
-
-
-

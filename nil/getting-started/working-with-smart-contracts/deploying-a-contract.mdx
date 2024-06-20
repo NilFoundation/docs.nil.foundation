@@ -1,0 +1,20 @@
+# Deploying a contract
+
+## External deployment
+
+An external deployment of a contract is made by a user or another entity outside of the cluster. 
+
+As is the case with all external messages, an external deployment must be paid by the contract at the address to which the call is maid. However, before deployment, this address is unoccupied. To proceed with external deployment, an entity must first send funds to the address where the contract will reside.
+
+:::info
+
+Once funds are sent to an empty address, the address is 'locked'. Only the owner of the funds can deploy a contract to this address.
+
+:::
+
+## Internal deployment
+
+An internal deployment of a contract can only be made by another smart contract.
+
+Internal messages pay for themselves by spending their `value`. As a result, there is no need to send funds to a particular address before a contract is deployed.
+

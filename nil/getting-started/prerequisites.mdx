@@ -31,6 +31,8 @@ import "path/to/nil.sol";
 
 With the library imported, use the `async_call()` function in the smart contract code to send a message to another contract deployed either on the same shard or on a different shard. The message will be processed asynchronously: it will spawn a special transaction, and whatever function was called via the message will be executed when this transaction is processed.
 
+To read more about what is included in the Solidity library, [**click here**](../tools/sol-library/func-modifiers).
+
 [**Click here**](../core-concepts/shards-parallel-execution#async-execution) to learn more about the theory behind async execution, or [**click here**](./essentials/handling-async-execution) to see practical examples of using `async_call()` for cross-shard communications.
 
 ## =nil; CLI
