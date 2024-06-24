@@ -21,15 +21,15 @@ This will run the cluster locally.
 
 ## Solidity library
 
-=nil; provides the `nil.sol` Solidity library that contains several 'helper' functions and function modifiers for working with the cluster.
+=nil; provides the `Nil.sol` Solidity library that contains several 'helper' functions and function modifiers for working with the cluster.
 
 To access the library, simply import it at the top of any smart contract:
 
 ```solidity
-import "path/to/nil.sol";
+import "path/to/Nil.sol";
 ```
 
-With the library imported, use the `async_call()` function in the smart contract code to send a message to another contract deployed either on the same shard or on a different shard. The message will be processed asynchronously: it will spawn a special transaction, and whatever function was called via the message will be executed when this transaction is processed.
+With the library imported, use the `asyncCall()` function in the smart contract code to send a message to another contract deployed either on the same shard or on a different shard. The message will be processed asynchronously: it will spawn a special transaction, and whatever function was called via the message will be executed when this transaction is processed.
 
 To read more about what is included in the Solidity library, [**click here**](../tools/sol-library/func-modifiers).
 
