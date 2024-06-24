@@ -1,0 +1,43 @@
+# Type Alias: IDeployData
+
+```ts
+type IDeployData: object;
+```
+
+IDeployData is a data structure that contains information to deploy a contract.
+
+## Type declaration
+
+### abi?
+
+```ts
+optional abi: Abi;
+```
+
+### args?
+
+```ts
+optional args: unknown[];
+```
+
+### bytecode
+
+```ts
+bytecode: Uint8Array;
+```
+
+### salt
+
+```ts
+salt: Uint8Array | bigint;
+```
+
+### shard
+
+```ts
+shard: number;
+```
+
+## Defined in
+
+nil/nil.js/src/types/IDeployData.ts:6

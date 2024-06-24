@@ -1,156 +1,89 @@
-<h1 align="center">Nil.js</h1>
+# @nilfoundation/niljs
 
-<br />
+## Classes
 
-<p align="center">
-  The TypeScript client library for interacting with the =nil; network.
-</p>
+| Class | Description |
+| ------ | ------ |
+| [BlockNotFoundError](classes/BlockNotFoundError.mdx) | The error class for 'block not found' errors. This error is thrown when the requested block is not found. |
+| [ExternalMessageEnvelope](classes/ExternalMessageEnvelope.mdx) | The envelope for an external message (a message sent by a user, a dApp, etc.) |
+| [Faucet](classes/Faucet.mdx) | Faucet is a special contract that is used to top up other contracts in the =nil; devnet. |
+| [HttpTransport](classes/HttpTransport.mdx) | HttpTransport represents the HTTP transport for connecting to the network. |
+| [ITransport](classes/ITransport.mdx) | The transport interface. |
+| [InternalMessageEnvelope](classes/InternalMessageEnvelope.mdx) | The envelope for an internal message (a message sent by a smart contract to another smart contract). |
+| [LocalECDSAKeySigner](classes/LocalECDSAKeySigner.mdx) | LocalKeySigner is a class that allows for signing data with the private key. It uses the secp256k1 curve implementation by the @noble/curves/secp256k1 library. |
+| [MetaMaskSigner](classes/MetaMaskSigner.mdx) | MetaMaskSigner is a class that allows for signing data using MetaMask. This signer can only be used inside a browser. |
+| [MetaMaskTransport](classes/MetaMaskTransport.mdx) | MetaMask transport represents the MetaMask transport for connecting to the network. MetaMask transport can be used in browser only. MetaMaskTransport |
+| [PublicClient](classes/PublicClient.mdx) | PublicClient is a class that allows for interacting with the network via the JSON-RPC API. It provides an abstraction of the connection to =nil;. PublicClient enables using API requests that do not require signing data (or otherwise using one's private key). |
+| [WalletV1](classes/WalletV1.mdx) | WalletV1 is a class used for performing operations on the cluster that require authentication. |
 
-<row style="display: flex; gap: 10px;"><p align="center">
-  <a href="https://github.com/NilFoundation/nil.js/actions/workflows/build.yaml">
-    <picture>
-      <img src="https://img.shields.io/github/actions/workflow/status/NilFoundation/nil.js/actions/workflows/build.yaml?color=%23212121"/>
-    </picture>
-  </a>
-  <a href="https://github.com/NilFoundation/nil.js/actions/workflows/build.yaml">
-    <picture>
-      <img src="https://img.shields.io/npm/dy/niljs"/>
-    </picture>
-  </a>
-  <a href="https://github.com/NilFoundation/nil.js/actions/workflows/build.yaml">
-    <picture>
-      <img src="https://img.shields.io/github/stars/NilFoundation/nil.js"/>
-    </picture>
-  </a>
-  <a href="https://github.com/NilFoundation/nil.js/actions/workflows/build.yaml">
-    <picture>
-      <img src="https://img.shields.io/npm/v/niljs"/>
-    </picture>
-  </a>
-  <a href="https://github.com/NilFoundation/nil.js/actions/workflows/build.yaml">
-    <picture>
-      <img src="https://img.shields.io/github/forks/NilFoundation/nil.js"/>
-    </picture>
-  </a>
-</p>
-</row>
+## Interfaces
 
-## Table of contents
+| Interface | Description |
+| ------ | ------ |
+| [IMessage](interfaces/IMessage.mdx) | The interface for the message object. This object is used to represent a message in the client code. It may differ from the actual message object used inside the network. |
+| [ISigner](interfaces/ISigner.mdx) | The interface for the Signer class |
 
-- [Installation](#installation)
-- [Getting started](#getting-started)
-- [Usage](#usage)
-- [License](#license)
+## Type Aliases
 
-### Installation
+| Type alias | Description |
+| ------ | ------ |
+| [Block](type-aliases/Block.mdx) | The block type. |
+| [BlockTag](type-aliases/BlockTag.mdx) | The block tag type. |
+| [CallParams](type-aliases/CallParams.mdx) | Represents the message call params. |
+| [DeployParams](type-aliases/DeployParams.mdx) | Represents the params for deploying a smart contract. |
+| [ExternalMessage](type-aliases/ExternalMessage.mdx) | The external message type. |
+| [Hex](type-aliases/Hex.mdx) | The hex type. |
+| [IClientBaseConfig](type-aliases/IClientBaseConfig.mdx) | The client configuration that is shared between public and private clients. |
+| [IDeployData](type-aliases/IDeployData.mdx) | IDeployData is a data structure that contains information to deploy a contract. |
+| [IHttpTransportConfig](type-aliases/IHttpTransportConfig.mdx) | The interface representing the configuration of the HTTP transport. |
+| [ILocalKeySignerConfig](type-aliases/ILocalKeySignerConfig.mdx) | The interface for the configuration object of LocalKeySigner. |
+| [ILog](type-aliases/ILog.mdx) | The log interface. |
+| [IPrivateKey](type-aliases/IPrivateKey.mdx) | IPrivateKey represents a private key in hexadecimal format. |
+| [IPublicClientConfig](type-aliases/IPublicClientConfig.mdx) | - |
+| [IReceipt](type-aliases/IReceipt.mdx) | The receipt interface. |
+| [ISendMessageOptions](type-aliases/ISendMessageOptions.mdx) | The options for sending a message. |
+| [ISignature](type-aliases/ISignature.mdx) | The interface for the signature. It contains the r, s, and yParity values. |
+| [ISignedMessage](type-aliases/ISignedMessage.mdx) | The signed message interface. |
+| [IWalletClientConfig](type-aliases/IWalletClientConfig.mdx) | - |
+| [RequestParams](type-aliases/RequestParams.mdx) | Represents the params for making a request to the wallet. |
+| [SendMessageParams](type-aliases/SendMessageParams.mdx) | Represents the params for sending a message. |
+| [SendSyncMessageParams](type-aliases/SendSyncMessageParams.mdx) | Represents the params for sending a message synchronously. |
+| [WalletV1Config](type-aliases/WalletV1Config.mdx) | Represents the wallet configuration. |
 
-```bash
-npm install @nilfoundation/niljs
-```
+## Variables
 
-### Getting started
+| Variable | Description |
+| ------ | ------ |
+| [SszMessageSchema](variables/SszMessageSchema.mdx) | The SSZ schema for a message object. |
+| [SszSignedMessageSchema](variables/SszSignedMessageSchema.mdx) | SSZ schema for a signed message object. Includes auth data in addition to all other message fields. |
 
-`PublicClient` is used for performing read-only requests to =nil; that do not require authentication (e.g., attaining information about a block).
+## Functions
 
-To initialize a `PublicClient`:
-
-```typescript
-const client = new PublicClient({
-  transport: new HttpTransport({
-    endpoint: "http://127.0.0.1:8529",
-  }),
-  shardId: 1,
-});
-```
-
-`shardId` is a concept unique to =nil; in that it designates the execution shard where the wallet should be deployed. Execution shards manage portions of the global state and are coordinated by the main shard.
-
-`WalletV1` is a class representing a wallet (in =nil; a wallet is just a smart contract) that allows for signing messages and performing requests that require authentication.
-
-To deploy a wallet:
-
-```typescript
-const pubkey = await signer.getPublicKey();
-
-const wallet = new WalletV1({
-  pubkey: pubkey,
-  salt: 100n,
-  shardId: 1,
-  client,
-  signer,
-  address: WalletV1.calculateWalletAddress({
-    pubKey: pubkey,
-    shardId: 1,
-    salt: 100n,
-  }),
-});
-const walletAddress = await wallet.getAddressHex();
-```
-
-The `Faucet` contract is for 'topping up' an address on the =nil; devnet. The faucet contract is always deployed at a pre-defined static address. To initialize a faucet instance:
-
-```typescript
-await faucet.withdrawTo(walletAddress, 100000n);
-const faucet = new Faucet(client);
-```
-
-In =nil;, the address for a wallet must be 'topped up' first before deploying the wallet. To 'top up' an existing address:
-
-```typescript
-const deploymentMessage = externalDeploymentMessage(
-  {
-    salt: 100n,
-    shard: 1,
-    bytecode: WalletV1.code,
-    abi: WalletV1.abi,
-    args: [bytesToHex(pubkey)],
-  },
-  chainId,
-);
-const addr = bytesToHex(deploymentMessage.to);
-console.log("walletAddress", addr);
-```
-
-## Usage
-
-In =nil;, it is possible to call functions asynchronously. When a contract makes an async call, a new transaction is spawned. When this transaction is processed, the function call itself is executed. 
-
-It is possible to make async calls within the confines of the same shard or between contracts deployed on different shards.
-
-To perform an async call:
-
-```typescript
-const anotherAddress = WalletV1.calculateWalletAddress({
-  pubKey: pubkey,
-  shardId: 1,
-  salt: 200n,
-});
-
-await wallet.sendMessage({
-  to: anotherAddress,
-  value: 10n,
-  gas: 100000n,
-});
-```
-
-To perform a sync call:
-
-```typescript
-const anotherAddress = WalletV1.calculateWalletAddress({
-  pubKey: pubkey,
-  shardId: 1,
-  salt: 200n,
-});
-
-await wallet.syncSendMessage({
-  to: anotherAddress,
-  value: 10n,
-  gas: 100000n,
-});
-```
-
-It is only possible to perform sync calls within the confines of one shard.
-
-## Licence
-
-[MIT](./LICENSE)
+| Function | Description |
+| ------ | ------ |
+| [addHexPrefix](functions/addHexPrefix.mdx) | - |
+| [assertIsAddress](functions/assertIsAddress.mdx) | - |
+| [assertIsBuffer](functions/assertIsBuffer.mdx) | - |
+| [assertIsHexString](functions/assertIsHexString.mdx) | - |
+| [assertIsValidBlock](functions/assertIsValidBlock.mdx) | - |
+| [assertIsValidDeployData](functions/assertIsValidDeployData.mdx) | - |
+| [assertIsValidPrivateKey](functions/assertIsValidPrivateKey.mdx) | - |
+| [assertIsValidSendMessageData](functions/assertIsValidSendMessageData.mdx) | - |
+| [assertIsValidShardId](functions/assertIsValidShardId.mdx) | - |
+| [bytesToString](functions/bytesToString.mdx) | - |
+| [calculateAddress](functions/calculateAddress.mdx) | - |
+| [externalDeploymentMessage](functions/externalDeploymentMessage.mdx) | - |
+| [externalMessageEncode](functions/externalMessageEncode.mdx) | - |
+| [generateRandomPrivateKey](functions/generateRandomPrivateKey.mdx) | - |
+| [getAddressFromPublicKey](functions/getAddressFromPublicKey.mdx) | - |
+| [getPublicKey](functions/getPublicKey.mdx) | - |
+| [getShardIdFromAddress](functions/getShardIdFromAddress.mdx) | - |
+| [hexToBigInt](functions/hexToBigInt.mdx) | - |
+| [hexToNumber](functions/hexToNumber.mdx) | - |
+| [isAddress](functions/isAddress.mdx) | - |
+| [isHexString](functions/isHexString.mdx) | - |
+| [isValidBlock](functions/isValidBlock.mdx) | - |
+| [poseidonHash](functions/poseidonHash.mdx) | - |
+| [refineAddress](functions/refineAddress.mdx) | - |
+| [removeHexPrefix](functions/removeHexPrefix.mdx) | - |
+| [toHex](functions/toHex.mdx) | - |

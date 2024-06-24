@@ -97,10 +97,10 @@ const config = {
       'docusaurus-plugin-typedoc',
       {
         out: "./nil/reference/client",
-        outputFileStrategy: "modules",
+        outputFileStrategy: "members",
         fileExtension: ".mdx",
         useCodeBlocks: true,
-        parametersFormat: "table",
+        parametersFormat: "htmlTable",
         entryPoints: [
           "./nil/nil.js/src"
         ],
@@ -108,7 +108,11 @@ const config = {
         sidebar: {
           "autoConfiguration": true,
           "pretty": false
-        }
+        },
+        readme: "none",
+        indexFormat: "table",
+        sanitizeComments: "true",
+
 
       }
 
