@@ -10,7 +10,7 @@ The =nil; Solidity library provides several function modifiers that simplify the
 * `onlyInternal`
 * `onlyExternal`
 
-If a function has the `onlyInternal` modifier, it can only be called by another smart contract regardless of where this contract is located. A function with the `onlyExternal` modifier behaves the opposite way: it must always be called via an external message (e.g., from a user).
+If a function has the `onlyInternal` modifier, it can only be called by another contract regardless of where this contract is located. A function with the `onlyExternal` modifier behaves the opposite way: it must always be called via an external message (e.g., from a user).
 
 :::info
 
@@ -32,7 +32,7 @@ contract Elections {
     mapping(bytes => bool) private voters;
 
     function requestVote(address dst, string candidate) onlyExternal public {
-        dst.asyncCall(address(0), 5000, false, msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
+        dst.asyncCall(address(0), 5000, false, msg.value, abi.encodeWithSignature("verifyVote(string)", candidate));
     }
 
     function addVote(string candidate) onlyInternal public {
