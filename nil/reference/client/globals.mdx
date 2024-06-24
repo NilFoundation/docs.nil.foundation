@@ -4,8 +4,8 @@
 
 ### BlockNotFoundError
 
-Error class for block not found errors.
-This error is thrown when a block is not found.
+The error class for 'block not found' errors.
+This error is thrown when the requested block is not found.
 
 #### Extends
 
@@ -16,14 +16,16 @@ This error is thrown when a block is not found.
 ##### new BlockNotFoundError()
 
 ```ts
-new BlockNotFoundError(__namedParameters): BlockNotFoundError
+new BlockNotFoundError(param0): BlockNotFoundError
 ```
+
+Creates an instance of BlockNotFoundError.
 
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `__namedParameters` | `BlockNotFoundErrorParameters` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `param0` | `BlockNotFoundErrorParameters` | The error params. |
 
 ###### Returns
 
@@ -35,7 +37,7 @@ new BlockNotFoundError(__namedParameters): BlockNotFoundError
 
 ###### Source
 
-[nil/nil.js/nil.js/src/errors/rpcErrors.ts:16](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/errors/rpcErrors.ts#L16)
+nil/nil.js/src/errors/rpcErrors.ts:24
 
 #### Properties
 
@@ -45,13 +47,15 @@ new BlockNotFoundError(__namedParameters): BlockNotFoundError
 optional cause: BaseError | Error;
 ```
 
+The error cause.
+
 ###### Inherited from
 
 `BaseError.cause`
 
 ###### Source
 
-[nil/nil.js/nil.js/src/errors/BaseError.ts:27](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/errors/BaseError.ts#L27)
+nil/nil.js/src/errors/BaseError.ts:40
 
 ##### docsPath?
 
@@ -59,13 +63,15 @@ optional cause: BaseError | Error;
 optional docsPath: string;
 ```
 
+The path to the documentation of this error.
+
 ###### Inherited from
 
 `BaseError.docsPath`
 
 ###### Source
 
-[nil/nil.js/nil.js/src/errors/BaseError.ts:28](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/errors/BaseError.ts#L28)
+nil/nil.js/src/errors/BaseError.ts:47
 
 ##### isOperational
 
@@ -73,13 +79,17 @@ optional docsPath: string;
 isOperational: boolean;
 ```
 
+The flag that indicates if this error is operational.
+This is useful to differentiate operational errors from programming errors.
+It is recommended to always set this property to true when creating a custom error class.
+
 ###### Inherited from
 
 `BaseError.isOperational`
 
 ###### Source
 
-[nil/nil.js/nil.js/src/errors/BaseError.ts:26](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/errors/BaseError.ts#L26)
+nil/nil.js/src/errors/BaseError.ts:33
 
 ##### message
 
@@ -201,19 +211,27 @@ node\_modules/@types/node/globals.d.ts:21
 
 ### ExternalMessageEnvelope
 
+The envelope for an external message (a message sent by a user, a dApp, etc.)
+
+#### Export
+
+ExternalMessageEnvelope
+
 #### Constructors
 
 ##### new ExternalMessageEnvelope()
 
 ```ts
-new ExternalMessageEnvelope(__namedParameters): ExternalMessageEnvelope
+new ExternalMessageEnvelope(param0): ExternalMessageEnvelope
 ```
+
+Creates an instance of ExternalMessageEnvelope.
 
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `__namedParameters` | [`ExternalMessage`](globals.mdx#externalmessage) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `param0` | [`ExternalMessage`](globals.mdx#externalmessage) | The object representing the external message. |
 
 ###### Returns
 
@@ -221,7 +239,7 @@ new ExternalMessageEnvelope(__namedParameters): ExternalMessageEnvelope
 
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:16](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L16)
+nil/nil.js/src/encoding/externalMessage.ts:65
 
 #### Properties
 
@@ -231,9 +249,11 @@ new ExternalMessageEnvelope(__namedParameters): ExternalMessageEnvelope
 authData: Uint8Array;
 ```
 
+The auth data attached to the message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:15](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L15)
+nil/nil.js/src/encoding/externalMessage.ts:52
 
 ##### chainId
 
@@ -241,9 +261,11 @@ authData: Uint8Array;
 chainId: number;
 ```
 
+The chain ID.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:12](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L12)
+nil/nil.js/src/encoding/externalMessage.ts:34
 
 ##### data
 
@@ -251,9 +273,11 @@ chainId: number;
 data: Uint8Array;
 ```
 
+The message data.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:14](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L14)
+nil/nil.js/src/encoding/externalMessage.ts:46
 
 ##### isDeploy
 
@@ -261,9 +285,11 @@ data: Uint8Array;
 isDeploy: boolean;
 ```
 
+The flag that determines whether the external message is a deployment message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:10](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L10)
+nil/nil.js/src/encoding/externalMessage.ts:22
 
 ##### seqno
 
@@ -271,9 +297,11 @@ isDeploy: boolean;
 seqno: number;
 ```
 
+The message sequence number.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:13](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L13)
+nil/nil.js/src/encoding/externalMessage.ts:40
 
 ##### to
 
@@ -281,9 +309,11 @@ seqno: number;
 to: Uint8Array;
 ```
 
+The destination address of the message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:11](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L11)
+nil/nil.js/src/encoding/externalMessage.ts:28
 
 #### Methods
 
@@ -293,13 +323,17 @@ to: Uint8Array;
 encode(): Uint8Array
 ```
 
+Encodes the external message into a Uint8Array.
+
 ###### Returns
 
 `Uint8Array`
 
+The encoded external message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:31](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L31)
+nil/nil.js/src/encoding/externalMessage.ts:86
 
 ##### encodeWithSignature()
 
@@ -307,15 +341,19 @@ encode(): Uint8Array
 encodeWithSignature(signer): Promise<object>
 ```
 
+Encodes the external message with its signature.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `signer` | [`ISigner`](globals.mdx#isigner) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `signer` | [`ISigner`](globals.mdx#isigner) | The message signer. |
 
 ###### Returns
 
 `Promise`\<`object`\>
+
+The object containing the encoded message and its hash.
 
 ###### hash
 
@@ -329,9 +367,11 @@ hash: Uint8Array;
 raw: Uint8Array;
 ```
 
+###### Async
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:61](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L61)
+nil/nil.js/src/encoding/externalMessage.ts:139
 
 ##### hash()
 
@@ -339,13 +379,17 @@ raw: Uint8Array;
 hash(): Uint8Array
 ```
 
+Provides the hash tree root of the external message.
+
 ###### Returns
 
 `Uint8Array`
 
+The hash tree root of the external message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:41](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L41)
+nil/nil.js/src/encoding/externalMessage.ts:102
 
 ##### hexAddress()
 
@@ -353,13 +397,17 @@ hash(): Uint8Array
 hexAddress(): `0x${string}`
 ```
 
+Returns the hex address of the given bytes.
+
 ###### Returns
 
 \`0x$\{string\}\`
 
+The hex address.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:92](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L92)
+nil/nil.js/src/encoding/externalMessage.ts:191
 
 ##### send()
 
@@ -367,19 +415,23 @@ hexAddress(): `0x${string}`
 send(client): Promise<Uint8Array>
 ```
 
+Sends the external message.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `client` | [`PublicClient`](globals.mdx#publicclient) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `client` | [`PublicClient`](globals.mdx#publicclient) | The client sending the message. |
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
+The hash of the external message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:95](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L95)
+nil/nil.js/src/encoding/externalMessage.ts:201
 
 ##### sign()
 
@@ -387,19 +439,25 @@ send(client): Promise<Uint8Array>
 sign(signer): Promise<Uint8Array>
 ```
 
+Signs the external message.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `signer` | [`ISigner`](globals.mdx#isigner) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `signer` | [`ISigner`](globals.mdx#isigner) | The message signer. |
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
+The message signature.
+
+###### Async
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:85](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L85)
+nil/nil.js/src/encoding/externalMessage.ts:170
 
 ##### signingHash()
 
@@ -407,13 +465,17 @@ sign(signer): Promise<Uint8Array>
 signingHash(): Uint8Array
 ```
 
+Provides the signing hash of the external message.
+
 ###### Returns
 
 `Uint8Array`
 
+The signing hash of the external message.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:51](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L51)
+nil/nil.js/src/encoding/externalMessage.ts:118
 
 ##### updateAuthdata()
 
@@ -421,19 +483,25 @@ signingHash(): Uint8Array
 updateAuthdata(signer): Promise<Uint8Array>
 ```
 
+Updates the authentication data in the external message and returns the result.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `signer` | [`ISigner`](globals.mdx#isigner) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `signer` | [`ISigner`](globals.mdx#isigner) | The auth data signer. |
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
+The signed auth data.
+
+###### Async
+
 ###### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:88](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L88)
+nil/nil.js/src/encoding/externalMessage.ts:181
 
 ***
 
@@ -467,7 +535,7 @@ Creates an instance of Faucet.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/Faucet/Faucet.ts:35](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/Faucet/Faucet.ts#L35)
+nil/nil.js/src/contracts/Faucet/Faucet.ts:35
 
 #### Properties
 
@@ -481,7 +549,7 @@ The client to be used with the faucet contract.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/Faucet/Faucet.ts:27](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/Faucet/Faucet.ts#L27)
+nil/nil.js/src/contracts/Faucet/Faucet.ts:27
 
 ##### address
 
@@ -495,7 +563,7 @@ The const address of the faucet contract.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/Faucet/Faucet.ts:20](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/Faucet/Faucet.ts#L20)
+nil/nil.js/src/contracts/Faucet/Faucet.ts:20
 
 #### Methods
 
@@ -514,7 +582,7 @@ Withdraws the specified value to the given address.
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `address` | `Hex` | The address to which the withdrawal must be made. |
+| `address` | `Hex` | The address to which the withdrawal should be made. |
 | `value`? | `bigint` | The value that should be withdrawn to the given address. |
 | `seqno`? | `number` | The sequence number of the withdrawal message. |
 
@@ -522,19 +590,23 @@ Withdraws the specified value to the given address.
 
 `Promise`\<`Uint8Array`\>
 
-- The hash of the withdrawal message.
+The hash of the withdrawal message.
 
 ###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/Faucet/Faucet.ts:48](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/Faucet/Faucet.ts#L48)
+nil/nil.js/src/contracts/Faucet/Faucet.ts:48
 
 ***
 
 ### HttpTransport
 
-The transport interface.
+HttpTransport represents the HTTP transport for connecting to the network.
+
+ HttpTransport
+
+#### Implements
 
 #### Implements
 
@@ -548,11 +620,13 @@ The transport interface.
 new HttpTransport(config): HttpTransport
 ```
 
+Creates an instance of HttpTransport.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `config` | [`IHttpTransportConfig`](globals.mdx#ihttptransportconfig) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`IHttpTransportConfig`](globals.mdx#ihttptransportconfig) | The transport config. See [IHttpTransportConfig](globals.mdx#ihttptransportconfig). |
 
 ###### Returns
 
@@ -560,7 +634,7 @@ new HttpTransport(config): HttpTransport
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/HttpTransport.ts:11](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/HttpTransport.ts#L11)
+nil/nil.js/src/transport/HttpTransport.ts:36
 
 #### Properties
 
@@ -570,9 +644,11 @@ new HttpTransport(config): HttpTransport
 private rpcClient: RPCClient;
 ```
 
+The RPC client for the transport.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/HttpTransport.ts:8](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/HttpTransport.ts#L8)
+nil/nil.js/src/transport/HttpTransport.ts:21
 
 ##### timeout
 
@@ -580,9 +656,11 @@ private rpcClient: RPCClient;
 private timeout: number;
 ```
 
+The request timeout.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/HttpTransport.ts:9](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/HttpTransport.ts#L9)
+nil/nil.js/src/transport/HttpTransport.ts:28
 
 #### Methods
 
@@ -604,7 +682,7 @@ Closes the connection to the network.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/HttpTransport.ts:24](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/HttpTransport.ts#L24)
+nil/nil.js/src/transport/HttpTransport.ts:68
 
 ##### connect()
 
@@ -624,7 +702,7 @@ Connects to the network.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/HttpTransport.ts:20](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/HttpTransport.ts#L20)
+nil/nil.js/src/transport/HttpTransport.ts:59
 
 ##### request()
 
@@ -632,19 +710,19 @@ Connects to the network.
 request<T>(requestObject): Promise<T>
 ```
 
-Sends a request.
+Sends a request to the network.
 
 ###### Type parameters
 
-| Type parameter |
-| :------ |
-| `T` |
+| Type parameter | Description |
+| :------ | :------ |
+| `T` |  |
 
 ###### Parameters
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `requestObject` | `RequestArguments` | The request object. It contains the method and parameters. |
+| `requestObject` | `RequestArguments` | The request object. |
 
 ###### Returns
 
@@ -656,9 +734,11 @@ The response.
 
 [`ITransport`](globals.mdx#itransport) . [`request`](globals.mdx#request-1)
 
+###### Async
+
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/HttpTransport.ts:16](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/HttpTransport.ts#L16)
+nil/nil.js/src/transport/HttpTransport.ts:50
 
 ***
 
@@ -694,7 +774,7 @@ Closes the connection to the network.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/types/ITransport.ts:22](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/types/ITransport.ts#L22)
+nil/nil.js/src/transport/types/ITransport.ts:22
 
 ##### connect()
 
@@ -710,7 +790,7 @@ Connects to the network.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/types/ITransport.ts:17](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/types/ITransport.ts#L17)
+nil/nil.js/src/transport/types/ITransport.ts:17
 
 ##### request()
 
@@ -740,11 +820,17 @@ The response.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/types/ITransport.ts:12](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/types/ITransport.ts#L12)
+nil/nil.js/src/transport/types/ITransport.ts:12
 
 ***
 
 ### InternalMessageEnvelope
+
+The envelope for an internal message (a message sent by a smart contract to another smart contract).
+
+#### Export
+
+InternalMessageEnvelope
 
 #### Constructors
 
@@ -762,17 +848,19 @@ new InternalMessageEnvelope(): InternalMessageEnvelope
 
 ### LocalECDSAKeySigner
 
-LocalKeySigner is a class that allows you to sign the data with the private key.
-It is an abstraction of signing the data with the private key.
-It uses the secp256k1 curve implementation by @noble/curves/secp256k1 library under the hood.
+LocalKeySigner is a class that allows for signing data with the private key.
+It uses the secp256k1 curve implementation by the @noble/curves/secp256k1 library.
 
 #### Example
 
 ```ts
-import { LocalKeySigner, generatePrivateKey } from '@nilfoundation/niljs';
-
-const privateKey = genratePrivateKey();
-const signer = new LocalKeySigner({ privateKey });
+import {
+  LocalECDSAKeySigner,
+  generateRandomPrivateKey,
+} from "../src";
+const signer = new LocalECDSAKeySigner({
+  privateKey: generateRandomPrivateKey(),
+});
 ```
 
 #### Implements
@@ -787,11 +875,13 @@ const signer = new LocalKeySigner({ privateKey });
 new LocalECDSAKeySigner(config): LocalECDSAKeySigner
 ```
 
+Creates an instance of LocalECDSAKeySigner.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `config` | [`ILocalKeySignerConfig`](globals.mdx#ilocalkeysignerconfig) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`ILocalKeySignerConfig`](globals.mdx#ilocalkeysignerconfig) | The config for the LocalECDSAKeySigner. See [ILocalKeySignerConfig](globals.mdx#ilocalkeysignerconfig). |
 
 ###### Returns
 
@@ -799,7 +889,7 @@ new LocalECDSAKeySigner(config): LocalECDSAKeySigner
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:28](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L28)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:54
 
 #### Properties
 
@@ -809,9 +899,11 @@ new LocalECDSAKeySigner(config): LocalECDSAKeySigner
 private optional address: `0x${string}` = undefined;
 ```
 
+The wallet address.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:26](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L26)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:46
 
 ##### privateKey
 
@@ -819,9 +911,11 @@ private optional address: `0x${string}` = undefined;
 private privateKey: Hex;
 ```
 
+The private key to be used for signing.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:24](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L24)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:32
 
 ##### publicKey?
 
@@ -829,9 +923,11 @@ private privateKey: Hex;
 private optional publicKey: Hex = undefined;
 ```
 
+The public key to be used for signing.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:25](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L25)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:39
 
 #### Methods
 
@@ -841,33 +937,29 @@ private optional publicKey: Hex = undefined;
 getAddress(shardId): Promise<any>
 ```
 
-Returns the address.
+Retrieves the wallet address.
 
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `shardId` | `number` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `shardId` | `number` | The ID of the shard where the wallet is deployed. |
 
 ###### Returns
 
 `Promise`\<`any`\>
 
-The address.
+The wallet address.
 
 ###### Implementation of
 
 [`ISigner`](globals.mdx#isigner) . [`getAddress`](globals.mdx#getaddress-2)
 
-###### Example
-
-```ts
-const address = signer.getAddress();
-```
+###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:67](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L67)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:116
 
 ##### getPublicKey()
 
@@ -875,27 +967,23 @@ const address = signer.getAddress();
 getPublicKey(): Promise<any>
 ```
 
-Returns the address.
+Retrieves the public key.
 
 ###### Returns
 
 `Promise`\<`any`\>
 
-The address.
+The publc key of the signer.
 
 ###### Implementation of
 
 [`ISigner`](globals.mdx#isigner) . [`getPublicKey`](globals.mdx#getpublickey-2)
 
-###### Example
-
-```ts
-const address = signer.getAddress();
-```
+###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:56](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L56)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:97
 
 ##### sign()
 
@@ -904,40 +992,35 @@ sign(data): Promise<Uint8Array>
 ```
 
 Signs the data.
-Accepts valid data as an argument and returns the signature.
 
 ###### Parameters
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `Uint8Array` | The data to sign. |
+| `data` | `Uint8Array` | The input data. |
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
+The signed data.
+
 ###### Implementation of
 
 [`ISigner`](globals.mdx#isigner) . [`sign`](globals.mdx#sign-3)
 
-###### Example
-
-```ts
-const data = Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-const recoveredSignature = signer.sign(data);
-```
+###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/LocalECDSAKeySigner.ts:45](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/LocalECDSAKeySigner.ts#L45)
+nil/nil.js/src/signers/LocalECDSAKeySigner.ts:79
 
 ***
 
 ### MetaMaskSigner
 
-MetaMaskSigner is a class that allows you to sign data using MetaMask.
-It is an abstraction of signing data using MetaMask.
-Can be used in the browser only.
+MetaMaskSigner is a class that allows for signing data using MetaMask.
+This signer can only be used inside a browser.
 
 #### Example
 
@@ -959,13 +1042,15 @@ const signer = new MetaMaskSigner();
 new MetaMaskSigner(): MetaMaskSigner
 ```
 
+Creates an instance of MetaMaskSigner.
+
 ###### Returns
 
 [`MetaMaskSigner`](globals.mdx#metamasksigner)
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/MetmaskSigner.ts:15](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/MetmaskSigner.ts#L15)
+nil/nil.js/src/signers/MetmaskSigner.ts:25
 
 #### Properties
 
@@ -975,9 +1060,11 @@ new MetaMaskSigner(): MetaMaskSigner
 private provider: any;
 ```
 
+The signer provider.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/MetmaskSigner.ts:14](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/MetmaskSigner.ts#L14)
+nil/nil.js/src/signers/MetmaskSigner.ts:19
 
 #### Methods
 
@@ -987,13 +1074,17 @@ private provider: any;
 connect(): Promise<void>
 ```
 
+Connects the signer to an existing MetaMask wallet.
+
 ###### Returns
 
 `Promise`\<`void`\>
 
+###### Async
+
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/MetmaskSigner.ts:44](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/MetmaskSigner.ts#L44)
+nil/nil.js/src/signers/MetmaskSigner.ts:83
 
 ##### getAddress()
 
@@ -1001,27 +1092,21 @@ connect(): Promise<void>
 getAddress(): Promise<Uint8Array>
 ```
 
-Returns the address.
+Retrieves the wallet address.
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
-The address.
-
 ###### Implementation of
 
 [`ISigner`](globals.mdx#isigner) . [`getAddress`](globals.mdx#getaddress-2)
 
-###### Example
-
-```ts
-const address = signer.getAddress();
-```
+###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/MetmaskSigner.ts:34](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/MetmaskSigner.ts#L34)
+nil/nil.js/src/signers/MetmaskSigner.ts:59
 
 ##### getPublicKey()
 
@@ -1029,27 +1114,21 @@ const address = signer.getAddress();
 getPublicKey(): Promise<Uint8Array>
 ```
 
-Returns the address.
+Retreieves the public key.
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
-The address.
-
 ###### Implementation of
 
 [`ISigner`](globals.mdx#isigner) . [`getPublicKey`](globals.mdx#getpublickey-2)
 
-###### Example
-
-```ts
-const address = signer.getAddress();
-```
+###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/MetmaskSigner.ts:39](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/MetmaskSigner.ts#L39)
+nil/nil.js/src/signers/MetmaskSigner.ts:71
 
 ##### sign()
 
@@ -1058,38 +1137,38 @@ sign(data): Promise<Uint8Array>
 ```
 
 Signs the data.
-Accepts valid data as an argument and returns the signature.
 
 ###### Parameters
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `data` | `Uint8Array` | The data to sign. |
+| `data` | `Uint8Array` | The input data. |
 
 ###### Returns
 
 `Promise`\<`Uint8Array`\>
 
+The signed data.
+
 ###### Implementation of
 
 [`ISigner`](globals.mdx#isigner) . [`sign`](globals.mdx#sign-3)
 
-###### Example
-
-```ts
-const data = Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-const recoveredSignature = signer.sign(data);
-```
+###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/MetmaskSigner.ts:29](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/MetmaskSigner.ts#L29)
+nil/nil.js/src/signers/MetmaskSigner.ts:47
 
 ***
 
 ### MetaMaskTransport
 
-The transport interface.
+MetaMask transport represents the MetaMask transport for connecting to the network.
+MetaMask transport can be used in browser only.
+ MetaMaskTransport
+
+#### Implements
 
 #### Implements
 
@@ -1103,11 +1182,13 @@ The transport interface.
 new MetaMaskTransport(config): MetaMaskTransport
 ```
 
+Creates an instance of MetaMaskTransport.
+
 ###### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `config` | [`IHttpTransportConfig`](globals.mdx#ihttptransportconfig) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `config` | [`IHttpTransportConfig`](globals.mdx#ihttptransportconfig) | The transport config. |
 
 ###### Returns
 
@@ -1115,7 +1196,7 @@ new MetaMaskTransport(config): MetaMaskTransport
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/MetaMaskTransport.ts:10](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/MetaMaskTransport.ts#L10)
+nil/nil.js/src/transport/MetaMaskTransport.ts:35
 
 #### Properties
 
@@ -1125,9 +1206,11 @@ new MetaMaskTransport(config): MetaMaskTransport
 private provider: any;
 ```
 
+The provider for the transport.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/MetaMaskTransport.ts:7](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/MetaMaskTransport.ts#L7)
+nil/nil.js/src/transport/MetaMaskTransport.ts:20
 
 ##### timeout
 
@@ -1135,9 +1218,11 @@ private provider: any;
 private timeout: number;
 ```
 
+The request timeout.
+
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/MetaMaskTransport.ts:8](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/MetaMaskTransport.ts#L8)
+nil/nil.js/src/transport/MetaMaskTransport.ts:27
 
 #### Methods
 
@@ -1159,7 +1244,7 @@ Closes the connection to the network.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/MetaMaskTransport.ts:34](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/MetaMaskTransport.ts#L34)
+nil/nil.js/src/transport/MetaMaskTransport.ts:78
 
 ##### connect()
 
@@ -1179,7 +1264,7 @@ Connects to the network.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/MetaMaskTransport.ts:30](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/MetaMaskTransport.ts#L30)
+nil/nil.js/src/transport/MetaMaskTransport.ts:69
 
 ##### request()
 
@@ -1187,19 +1272,19 @@ Connects to the network.
 request<T>(requestObject): Promise<T>
 ```
 
-Sends a request.
+Sends a request to the network.
 
 ###### Type parameters
 
-| Type parameter |
-| :------ |
-| `T` |
+| Type parameter | Description |
+| :------ | :------ |
+| `T` |  |
 
 ###### Parameters
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `requestObject` | `RequestArguments` | The request object. It contains the method and parameters. |
+| `requestObject` | `RequestArguments` | The request object. |
 
 ###### Returns
 
@@ -1211,9 +1296,11 @@ The response.
 
 [`ITransport`](globals.mdx#itransport) . [`request`](globals.mdx#request-1)
 
+###### Async
+
 ###### Source
 
-[nil/nil.js/nil.js/src/transport/MetaMaskTransport.ts:26](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/MetaMaskTransport.ts#L26)
+nil/nil.js/src/transport/MetaMaskTransport.ts:60
 
 ***
 
@@ -1229,8 +1316,11 @@ PublicClient enables using API requests that do not require signing data (or oth
 import { PublicClient } from '@nilfoundation/niljs';
 
 const client = new PublicClient({
- endpoint: 'http://127.0.0.1:8529'
-})
+  transport: new HttpTransport({
+    endpoint: "http://127.0.0.1:8529",
+  }),
+  shardId: 1,
+});
 ```
 
 #### Extends
@@ -1251,7 +1341,7 @@ Creates an instance of PublicClient.
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `config` | [`IClientBaseConfig`](globals.mdx#iclientbaseconfig) | The config to be used in the client. |
+| `config` | [`IClientBaseConfig`](globals.mdx#iclientbaseconfig) | The config to be used in the client. See [IPublicClientConfig](globals.mdx#ipublicclientconfig). |
 
 ###### Returns
 
@@ -1263,7 +1353,7 @@ Creates an instance of PublicClient.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:32](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L32)
+nil/nil.js/src/clients/PublicClient.ts:35
 
 #### Properties
 
@@ -1273,8 +1363,8 @@ Creates an instance of PublicClient.
 protected shardId: number;
 ```
 
-The id of the shard with which the client needs to interact.
-The shard with this id will be used in every call made by the client.
+The ID of the shard with which the client needs to interact.
+The shard with this ID will be used in every call made by the client.
 
 ###### Inherited from
 
@@ -1282,7 +1372,7 @@ The shard with this id will be used in every call made by the client.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/BaseClient.ts:27](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/BaseClient.ts#L27)
+nil/nil.js/src/clients/BaseClient.ts:27
 
 ##### transport
 
@@ -1290,7 +1380,7 @@ The shard with this id will be used in every call made by the client.
 protected transport: ITransport;
 ```
 
-The ITransport to be used in the client.
+The ITransport to be used in the client. See [ITransport](globals.mdx#itransport).
 
 ###### Inherited from
 
@@ -1298,7 +1388,7 @@ The ITransport to be used in the client.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/BaseClient.ts:20](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/BaseClient.ts#L20)
+nil/nil.js/src/clients/BaseClient.ts:20
 
 #### Methods
 
@@ -1308,17 +1398,17 @@ The ITransport to be used in the client.
 chainId(): Promise<number>
 ```
 
-chainId returns the chain id.
+Returns the chain ID.
 
 ###### Returns
 
 `Promise`\<`number`\>
 
-The chain id.
+The chain ID.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:330](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L330)
+nil/nil.js/src/clients/PublicClient.ts:336
 
 ##### estimateGasLimit()
 
@@ -1326,7 +1416,7 @@ The chain id.
 estimateGasLimit(): Promise<bigint>
 ```
 
-estimateGasLimit returns the gas limit.
+Returns the gas limit.
 
 ###### Returns
 
@@ -1336,7 +1426,7 @@ The gas limit.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:320](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L320)
+nil/nil.js/src/clients/PublicClient.ts:326
 
 ##### getBalance()
 
@@ -1344,7 +1434,7 @@ The gas limit.
 getBalance(address, blockNumberOrHash): Promise<bigint>
 ```
 
-getBalance Returns the balance of the given address and at the given block.
+Returns the balance of the given address and at the given block.
 
 ###### Parameters
 
@@ -1373,7 +1463,7 @@ const balance = await client.getBalance(Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7,
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:215](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L215)
+nil/nil.js/src/clients/PublicClient.ts:221
 
 ##### getBlockByHash()
 
@@ -1384,7 +1474,7 @@ getBlockByHash(
 shardId): Promise<Block>
 ```
 
-getBlockByHash returns the block by the given hash.
+Returns the block with the given hash.
 
 ###### Parameters
 
@@ -1406,15 +1496,18 @@ Information about the block with the given hash.
 import { PublicClient } from '@nilfoundation/niljs';
 
 const client = new PublicClient({
- endpoint: 'http://127.0.0.1:8529'
-})
+  transport: new HttpTransport({
+    endpoint: "http://127.0.0.1:8529",
+  }),
+  shardId: 1,
+});
 
 const block = await client.getBlockByHash(0x9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08);
 ```
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:51](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L51)
+nil/nil.js/src/clients/PublicClient.ts:57
 
 ##### getBlockByNumber()
 
@@ -1425,7 +1518,7 @@ getBlockByNumber(
 shardId): Promise<Block>
 ```
 
-getBlockByNumber returns the block by the given number.
+Returns the block with the given number.
 
 ###### Parameters
 
@@ -1455,7 +1548,7 @@ const block = await client.getBlockByNumber(1);
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:84](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L84)
+nil/nil.js/src/clients/PublicClient.ts:90
 
 ##### getBlockMessageCountByHash()
 
@@ -1463,7 +1556,7 @@ const block = await client.getBlockByNumber(1);
 getBlockMessageCountByHash(hash, shardId): Promise<number>
 ```
 
-getBlockMessageCountByHash returns the total number of messages recorded in the block with the given hash.
+Returns the total number of messages recorded in the block with the given hash.
 
 ###### Parameters
 
@@ -1492,7 +1585,7 @@ const count = await client.getBlockMessageCountByHash(Uint8Array.from([0, 1, 2, 
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:142](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L142)
+nil/nil.js/src/clients/PublicClient.ts:148
 
 ##### getBlockMessageCountByNumber()
 
@@ -1500,7 +1593,7 @@ const count = await client.getBlockMessageCountByHash(Uint8Array.from([0, 1, 2, 
 getBlockMessageCountByNumber(blockNumber, shardId): Promise<number>
 ```
 
-getBlockMessageCountByNumber returns the total number of messages recorded in the block with the given number.
+Returns the total number of messages recorded in the block with the given number.
 
 ###### Parameters
 
@@ -1529,7 +1622,7 @@ const count = await client.getBlockMessageCountByNumber(1);
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:116](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L116)
+nil/nil.js/src/clients/PublicClient.ts:122
 
 ##### getCode()
 
@@ -1537,7 +1630,7 @@ const count = await client.getBlockMessageCountByNumber(1);
 getCode(address, blockNumberOrHash): Promise<any>
 ```
 
-getCode returns the bytecode of the contract with the given address and at the given block.
+Returns the bytecode of the contract with the given address and at the given block.
 
 ###### Parameters
 
@@ -1566,7 +1659,7 @@ const code = await client.getCode(Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:166](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L166)
+nil/nil.js/src/clients/PublicClient.ts:172
 
 ##### getGasPrice()
 
@@ -1574,7 +1667,7 @@ const code = await client.getCode(Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 getGasPrice(): Promise<bigint>
 ```
 
-getGasPrice returns the gas price in wei.
+Returns the gas price in wei.
 
 ###### Returns
 
@@ -1584,7 +1677,7 @@ The gas price.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:310](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L310)
+nil/nil.js/src/clients/PublicClient.ts:316
 
 ##### getMessageByHash()
 
@@ -1592,7 +1685,7 @@ The gas price.
 getMessageByHash(hash, shardId): Promise<Uint8Array>
 ```
 
-getMessageByHash returns the structure of the internal message with the given hash.
+Returns the structure of the internal message with the given hash.
 
 ###### Parameters
 
@@ -1621,7 +1714,7 @@ const message = await client.getMessageByHash(Uint8Array.from([0, 1, 2, 3, 4, 5,
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:241](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L241)
+nil/nil.js/src/clients/PublicClient.ts:247
 
 ##### getMessageCount()
 
@@ -1629,7 +1722,7 @@ const message = await client.getMessageByHash(Uint8Array.from([0, 1, 2, 3, 4, 5,
 getMessageCount(address, blockNumberOrHash): Promise<number>
 ```
 
-getMessageCount returns the transaction count of the account with the given address and at the given block.
+Returns the transaction count of the account with the given address and at the given block.
 
 ###### Parameters
 
@@ -1658,7 +1751,7 @@ const count = await client.getMessageCount(Uint8Array.from([0, 1, 2, 3, 4, 5, 6,
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:189](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L189)
+nil/nil.js/src/clients/PublicClient.ts:195
 
 ##### getMessageReceiptByHash()
 
@@ -1666,7 +1759,7 @@ const count = await client.getMessageCount(Uint8Array.from([0, 1, 2, 3, 4, 5, 6,
 getMessageReceiptByHash(hash, shardId): Promise<IReceipt>
 ```
 
-getMessageReceiptByHash returns the receipt for the message with the given hash.
+Returns the receipt for the message with the given hash.
 
 ###### Parameters
 
@@ -1695,7 +1788,7 @@ const receipt = await client.getMessageReceiptByHash(1, Uint8Array.from([0, 1, 2
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:264](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L264)
+nil/nil.js/src/clients/PublicClient.ts:270
 
 ##### getShardId()
 
@@ -1703,13 +1796,13 @@ const receipt = await client.getMessageReceiptByHash(1, Uint8Array.from([0, 1, 2
 getShardId(): number
 ```
 
-Returns the shard id.
+Returns the shard ID.
 
 ###### Returns
 
 `number`
 
-The shard id.
+The shard ID.
 
 ###### Inherited from
 
@@ -1717,7 +1810,7 @@ The shard id.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/BaseClient.ts:52](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/BaseClient.ts#L52)
+nil/nil.js/src/clients/BaseClient.ts:52
 
 ##### request()
 
@@ -1751,7 +1844,7 @@ The response.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/BaseClient.ts:44](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/BaseClient.ts#L44)
+nil/nil.js/src/clients/BaseClient.ts:44
 
 ##### sendRawMessage()
 
@@ -1759,7 +1852,7 @@ The response.
 sendRawMessage(message): Promise<Uint8Array>
 ```
 
-sendRawMessage creates a new message or creates a contract for a previously signed message.
+Creates a new message or creates a contract for a previously signed message.
 
 ###### Parameters
 
@@ -1787,7 +1880,7 @@ const message = Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/PublicClient.ts:291](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/PublicClient.ts#L291)
+nil/nil.js/src/clients/PublicClient.ts:297
 
 ##### setShardId()
 
@@ -1795,13 +1888,13 @@ const message = Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 setShardId(shardId): void
 ```
 
-Sets the shard id.
+Sets the shard ID.
 
 ###### Parameters
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `shardId` | `number` | The shard id. |
+| `shardId` | `number` | The shard ID. |
 
 ###### Returns
 
@@ -1813,7 +1906,7 @@ Sets the shard id.
 
 ###### Throws
 
-Will throw an error if provided the shard id is invalid.
+Will throw an error if provided the shard ID is invalid.
 
 ###### Example
 
@@ -1823,7 +1916,7 @@ client.setShardId(1);
 
 ###### Source
 
-[nil/nil.js/nil.js/src/clients/BaseClient.ts:63](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/BaseClient.ts#L63)
+nil/nil.js/src/clients/BaseClient.ts:63
 
 ***
 
@@ -1849,7 +1942,7 @@ Creates an instance of WalletV1.
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `param0` | [`WalletV1Config`](globals.mdx#walletv1config) | The object representing the initial wallet config. |
+| `param0` | [`WalletV1Config`](globals.mdx#walletv1config) | The object representing the initial wallet config. See [WalletV1Config](globals.mdx#walletv1config). |
 
 ###### Returns
 
@@ -1857,7 +1950,7 @@ Creates an instance of WalletV1.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:125](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L125)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:143
 
 #### Properties
 
@@ -1871,7 +1964,7 @@ The wallet address.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:111](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L111)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:129
 
 ##### client
 
@@ -1883,7 +1976,7 @@ The client for interacting with the wallet.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:93](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L93)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:111
 
 ##### pubkey
 
@@ -1895,7 +1988,7 @@ The wallet public key.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:81](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L81)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:99
 
 ##### salt
 
@@ -1907,7 +2000,7 @@ Arbitrary data for changing the wallet address.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:99](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L99)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:117
 
 ##### shardId
 
@@ -1915,11 +2008,11 @@ Arbitrary data for changing the wallet address.
 shardId: number;
 ```
 
-The id of the shard where the wallet is deployed.
+The ID of the shard where the wallet is deployed.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:87](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L87)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:105
 
 ##### signer
 
@@ -1931,7 +2024,7 @@ The wallet signer.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:105](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L105)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:123
 
 ##### abi
 
@@ -1945,7 +2038,7 @@ The wallet ABI.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:41](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L41)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:41
 
 ##### code
 
@@ -1959,7 +2052,7 @@ The wallet bytecode.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:34](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L34)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:34
 
 #### Methods
 
@@ -1975,13 +2068,13 @@ Checks the deployment status.
 
 `Promise`\<`boolean`\>
 
-- The current deployment status.
+The current deployment status.
 
 ###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:200](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L200)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:252
 
 ##### deployContract()
 
@@ -2001,7 +2094,7 @@ Deploys a new smart contract via the wallet.
 
 `Promise`\<`object`\>
 
-- The object containing the deployment message hash and the contract address.
+The object containing the deployment message hash and the contract address.
 
 ###### address
 
@@ -2019,7 +2112,7 @@ hash: any;
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:314](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L314)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:377
 
 ##### getAddressHex()
 
@@ -2035,7 +2128,7 @@ Converts the wallet address into a hexadecimal.
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:146](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L146)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:164
 
 ##### getBalance()
 
@@ -2049,13 +2142,13 @@ Returns the wallet balance.
 
 `Promise`\<`bigint`\>
 
-- The wallet balance.
+The wallet balance.
 
 ###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:388](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L388)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:462
 
 ##### requestToWallet()
 
@@ -2076,7 +2169,7 @@ Performs a request to the wallet.
 
 `Promise`\<`object`\>
 
-- The message bytecode and hash.
+The message bytecode and hash.
 
 ###### hash
 
@@ -2094,7 +2187,7 @@ raw: Uint8Array;
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:213](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L213)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:265
 
 ##### selfDeploy()
 
@@ -2114,13 +2207,51 @@ Deploys the wallet.
 
 `Promise`\<`Uint8Array`\>
 
-- The hash of the deployment transaction.
+The hash of the deployment transaction.
 
 ###### Async
 
+###### Example
+
+```ts
+import {
+    Faucet,
+    HttpTransport,
+    LocalECDSAKeySigner,
+    PublicClient,
+    WalletV1,
+    generateRandomPrivateKey,
+  } from "../src";
+const client = new PublicClient({
+    transport: new HttpTransport({
+      endpoint: "http://127.0.0.1:8529",
+    }),
+    shardId: 1,
+  });
+const signer = new LocalECDSAKeySigner({
+    privateKey: generateRandomPrivateKey(),
+  });
+const faucet = new Faucet(client);
+await faucet.withdrawTo(walletAddress, 100000n);
+const pubkey = await signer.getPublicKey();
+const wallet = new WalletV1({
+    pubkey: pubkey,
+    salt: 100n,
+    shardId: 1,
+    client,
+    signer,
+    address: WalletV1.calculateWalletAddress({
+      pubKey: pubkey,
+      shardId: 1,
+      salt: 100n,
+    }),
+  });
+await wallet.selfDeploy(true);
+```
+
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:157](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L157)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:209
 
 ##### sendMessage()
 
@@ -2140,11 +2271,28 @@ Send a message via the wallet.
 
 `Promise`\<`any`\>
 
+The message hash.
+
 ###### Async
+
+###### Example
+
+```ts
+const anotherAddress = WalletV1.calculateWalletAddress({
+    pubKey: pubkey,
+    shardId: 1,
+    salt: 200n,
+  });
+await wallet.sendMessage({
+    to: anotherAddress,
+    value: 10n,
+    gas: 100000n,
+  });
+```
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:250](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L250)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:313
 
 ##### sendRawInternalMessage()
 
@@ -2164,13 +2312,13 @@ Send a raw signed message via the wallet.
 
 `Promise`\<`any`\>
 
-- The message hash.
+The message hash.
 
 ###### Async
 
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:291](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L291)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:354
 
 ##### syncSendMessage()
 
@@ -2190,13 +2338,28 @@ Send a message synchronously via the wallet.
 
 `Promise`\<`any`\>
 
-- The message hash.
+The message hash.
 
 ###### Async
 
+###### Example
+
+```ts
+const anotherAddress = WalletV1.calculateWalletAddress({
+    pubKey: pubkey,
+    shardId: 1,
+    salt: 200n,
+  });
+await wallet.sendMessage({
+    to: anotherAddress,
+    value: 10n,
+    gas: 100000n,
+  });
+```
+
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:358](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L358)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:432
 
 ##### calculateWalletAddress()
 
@@ -2213,26 +2376,48 @@ Calculates the address of the new wallet.
 | `param0` | `object` | The object representing the config for address calculation. |
 | `param0.pubKey` | `Uint8Array` | The wallet public key. |
 | `param0.salt` | `bigint` \| `Uint8Array` | Arbitrary data change the address. |
-| `param0.shardId` | `number` | The id of the shard where the wallet should be deployed. |
+| `param0.shardId` | `number` | The ID of the shard where the wallet should be deployed. |
 
 ###### Returns
 
 `Uint8Array`
 
-- The address of the new wallet.
+The address of the new wallet.
 
 ###### Static
 
+###### Example
+
+```ts
+import {
+    LocalECDSAKeySigner,
+    WalletV1,
+    generateRandomPrivateKey,
+  } from "../src";
+
+const signer = new LocalECDSAKeySigner({
+    privateKey: generateRandomPrivateKey(),
+  });
+
+  const pubkey = await signer.getPublicKey();
+
+const anotherAddress = WalletV1.calculateWalletAddress({
+    pubKey: pubkey,
+    shardId: 1,
+    salt: 200n,
+  });
+```
+
 ###### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/WalletV1.ts:57](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/WalletV1.ts#L57)
+nil/nil.js/src/contracts/WalletV1/WalletV1.ts:75
 
 ## Interfaces
 
 ### IMessage
 
 The interface for the message object. This object is used to represent a message in the client code.
-It may differ from the actual message object used in the network.
+It may differ from the actual message object used inside the network.
 
 #### Extends
 
@@ -2242,7 +2427,7 @@ It may differ from the actual message object used in the network.
 
 ### ISigner
 
-Interface for the Signer class
+The interface for the Signer class
 
 #### Methods
 
@@ -2252,7 +2437,7 @@ Interface for the Signer class
 getAddress(params): Promise<Uint8Array>
 ```
 
-Returns the address.
+Retrieves the address.
 
 ###### Parameters
 
@@ -2274,7 +2459,7 @@ const address = signer.getAddress();
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/types/ISigner.ts:29](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/types/ISigner.ts#L29)
+nil/nil.js/src/signers/types/ISigner.ts:29
 
 ##### getPublicKey()
 
@@ -2282,7 +2467,7 @@ const address = signer.getAddress();
 getPublicKey(params): Promise<Uint8Array>
 ```
 
-Returns the address.
+Retrieves the public key.
 
 ###### Parameters
 
@@ -2294,17 +2479,17 @@ Returns the address.
 
 `Promise`\<`Uint8Array`\>
 
-The address.
+The public key.
 
 ###### Example
 
 ```ts
-const address = signer.getAddress();
+const address = signer.getPublicKey();
 ```
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/types/ISigner.ts:21](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/types/ISigner.ts#L21)
+nil/nil.js/src/signers/types/ISigner.ts:21
 
 ##### sign()
 
@@ -2334,7 +2519,7 @@ const recoveredSignature = signer.sign(data);
 
 ###### Source
 
-[nil/nil.js/nil.js/src/signers/types/ISigner.ts:13](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/types/ISigner.ts#L13)
+nil/nil.js/src/signers/types/ISigner.ts:13
 
 ## Type Aliases
 
@@ -2416,7 +2601,7 @@ timestamp: number;
 
 #### Source
 
-[nil/nil.js/nil.js/src/types/Block.ts:6](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/Block.ts#L6)
+nil/nil.js/src/types/Block.ts:6
 
 ***
 
@@ -2430,7 +2615,7 @@ The block tag type.
 
 #### Source
 
-[nil/nil.js/nil.js/src/types/Block.ts:24](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/Block.ts#L24)
+nil/nil.js/src/types/Block.ts:24
 
 ***
 
@@ -2466,7 +2651,7 @@ value: bigint;
 
 #### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/types/index.ts:27](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/types/index.ts#L27)
+nil/nil.js/src/contracts/WalletV1/types/index.ts:27
 
 ***
 
@@ -2526,7 +2711,7 @@ optional value: bigint;
 
 #### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/types/index.ts:81](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/types/index.ts#L81)
+nil/nil.js/src/contracts/WalletV1/types/index.ts:81
 
 ***
 
@@ -2535,6 +2720,8 @@ optional value: bigint;
 ```ts
 type ExternalMessage: object;
 ```
+
+The external message type.
 
 #### Type declaration
 
@@ -2576,7 +2763,7 @@ to: Uint8Array;
 
 #### Source
 
-[nil/nil.js/nil.js/src/types/ExternalMessage.ts:1](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/ExternalMessage.ts#L1)
+nil/nil.js/src/types/ExternalMessage.ts:6
 
 ***
 
@@ -2586,9 +2773,11 @@ to: Uint8Array;
 type Hex: `0x${string}`;
 ```
 
+The hex type.
+
 #### Source
 
-[nil/nil.js/nil.js/src/types/Hex.ts:1](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/Hex.ts#L1)
+nil/nil.js/src/types/Hex.ts:6
 
 ***
 
@@ -2598,7 +2787,7 @@ type Hex: `0x${string}`;
 type IClientBaseConfig: object;
 ```
 
-Client configuration that is shared between public and private clients.
+The client configuration that is shared between public and private clients.
 
 #### Type declaration
 
@@ -2608,7 +2797,7 @@ Client configuration that is shared between public and private clients.
 shardId: number;
 ```
 
-The id of the shard with which the client interacts.
+The ID of the shard with which the client interacts.
 
 ###### Example
 
@@ -2642,7 +2831,7 @@ const client = new PublicClient({ transport, shardId: 1 });
 
 #### Source
 
-[nil/nil.js/nil.js/src/clients/types/ClientConfigs.ts:7](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/types/ClientConfigs.ts#L7)
+nil/nil.js/src/clients/types/ClientConfigs.ts:7
 
 ***
 
@@ -2652,7 +2841,7 @@ const client = new PublicClient({ transport, shardId: 1 });
 type IDeployData: object;
 ```
 
-Deploy data is a data structure that contains information to deploy a contract.
+IDeployData is a data structure that contains information to deploy a contract.
 
 #### Type declaration
 
@@ -2688,7 +2877,7 @@ shard: number;
 
 #### Source
 
-[nil/nil.js/nil.js/src/types/IDeployData.ts:6](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/IDeployData.ts#L6)
+nil/nil.js/src/types/IDeployData.ts:6
 
 ***
 
@@ -2698,7 +2887,7 @@ shard: number;
 type IHttpTransportConfig: object;
 ```
 
-The configuration of the HTTP transport.
+The interface representing the configuration of the HTTP transport.
 
 #### Type declaration
 
@@ -2708,7 +2897,7 @@ The configuration of the HTTP transport.
 endpoint: string;
 ```
 
-The endpoint of the network. It is a URL of the network node.
+The network endpoint. It is set to the URL of the network node.
 
 ###### Example
 
@@ -2722,7 +2911,7 @@ The endpoint of the network. It is a URL of the network node.
 optional timeout: number;
 ```
 
-The timeout is used to set the timeout for the request.
+The request timeout.
 If the request is not completed within the timeout, it will be rejected.
 
 ###### Example
@@ -2739,7 +2928,7 @@ If the request is not completed within the timeout, it will be rejected.
 
 #### Source
 
-[nil/nil.js/nil.js/src/transport/types/IHttpTransportConfig.ts:4](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/transport/types/IHttpTransportConfig.ts#L4)
+nil/nil.js/src/transport/types/IHttpTransportConfig.ts:4
 
 ***
 
@@ -2749,7 +2938,7 @@ If the request is not completed within the timeout, it will be rejected.
 type ILocalKeySignerConfig: object;
 ```
 
-Interface for the configuration object of the LocalKeySigner.
+The interface for the configuration object of LocalKeySigner.
 
 #### Type declaration
 
@@ -2759,8 +2948,8 @@ Interface for the configuration object of the LocalKeySigner.
 optional mnemonic: string;
 ```
 
-Mnemonic to derive the private key.
-If mnemonic is provided, privateKey will be ignored.
+The mnemonic to derive the private key.
+If the mnemonic is provided, privateKey will be ignored.
 
 ##### privateKey
 
@@ -2768,7 +2957,7 @@ If mnemonic is provided, privateKey will be ignored.
 privateKey: IPrivateKey;
 ```
 
-Private key to sign the data.
+The private key to sign the data.
 
 ###### Example
 
@@ -2778,7 +2967,7 @@ Private key to sign the data.
 
 #### Source
 
-[nil/nil.js/nil.js/src/signers/types/ILocalKeySignerConfig.ts:6](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/types/ILocalKeySignerConfig.ts#L6)
+nil/nil.js/src/signers/types/ILocalKeySignerConfig.ts:6
 
 ***
 
@@ -2788,7 +2977,7 @@ Private key to sign the data.
 type ILog: object;
 ```
 
-Log interface.
+The log interface.
 
 #### Type declaration
 
@@ -2818,7 +3007,7 @@ topics: string[];
 
 #### Source
 
-[nil/nil.js/nil.js/src/types/ILog.ts:4](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/ILog.ts#L4)
+nil/nil.js/src/types/ILog.ts:4
 
 ***
 
@@ -2832,7 +3021,7 @@ IPrivateKey represents a private key in hexadecimal format.
 
 #### Source
 
-[nil/nil.js/nil.js/src/signers/types/IPrivateKey.ts:4](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/types/IPrivateKey.ts#L4)
+nil/nil.js/src/signers/types/IPrivateKey.ts:4
 
 ***
 
@@ -2844,7 +3033,7 @@ type IPublicClientConfig: IClientBaseConfig;
 
 #### Source
 
-[nil/nil.js/nil.js/src/clients/types/ClientConfigs.ts:26](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/types/ClientConfigs.ts#L26)
+nil/nil.js/src/clients/types/ClientConfigs.ts:26
 
 ***
 
@@ -2854,7 +3043,7 @@ type IPublicClientConfig: IClientBaseConfig;
 type IReceipt: object;
 ```
 
-Receipt interface.
+The receipt interface.
 
 #### Type declaration
 
@@ -2920,7 +3109,7 @@ success: boolean;
 
 #### Source
 
-[nil/nil.js/nil.js/src/types/IReceipt.ts:6](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/IReceipt.ts#L6)
+nil/nil.js/src/types/IReceipt.ts:6
 
 ***
 
@@ -2952,7 +3141,7 @@ true
 
 #### Source
 
-[nil/nil.js/nil.js/src/clients/types/ISendMessageOptions.ts:4](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/types/ISendMessageOptions.ts#L4)
+nil/nil.js/src/clients/types/ISendMessageOptions.ts:4
 
 ***
 
@@ -2962,7 +3151,7 @@ true
 type ISignature: object;
 ```
 
-Interface for the Signature. It contains the r, s, and yParity values.
+The interface for the signature. It contains the r, s, and yParity values.
 
 #### Type declaration
 
@@ -2974,7 +3163,7 @@ signature: Uint8Array;
 
 #### Source
 
-[nil/nil.js/nil.js/src/signers/types/ISignature.ts:4](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/types/ISignature.ts#L4)
+nil/nil.js/src/signers/types/ISignature.ts:4
 
 ***
 
@@ -2984,9 +3173,11 @@ signature: Uint8Array;
 type ISignedMessage: IMessage & ISignature;
 ```
 
+The signed message interface.
+
 #### Source
 
-[nil/nil.js/nil.js/src/types/ISignedMessage.ts:4](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/types/ISignedMessage.ts#L4)
+nil/nil.js/src/types/ISignedMessage.ts:9
 
 ***
 
@@ -3022,7 +3213,7 @@ const client = new WalletClient({
 
 #### Source
 
-[nil/nil.js/nil.js/src/clients/types/ClientConfigs.ts:28](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/clients/types/ClientConfigs.ts#L28)
+nil/nil.js/src/clients/types/ClientConfigs.ts:28
 
 ***
 
@@ -3058,7 +3249,7 @@ optional seqno: number;
 
 #### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/types/index.ts:69](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/types/index.ts#L69)
+nil/nil.js/src/contracts/WalletV1/types/index.ts:69
 
 ***
 
@@ -3118,7 +3309,7 @@ value: bigint;
 
 #### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/types/index.ts:39](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/types/index.ts#L39)
+nil/nil.js/src/contracts/WalletV1/types/index.ts:39
 
 ***
 
@@ -3166,7 +3357,7 @@ value: bigint;
 
 #### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/types/index.ts:55](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/types/index.ts#L55)
+nil/nil.js/src/contracts/WalletV1/types/index.ts:55
 
 ***
 
@@ -3226,7 +3417,7 @@ signer: ISigner;
 
 #### Source
 
-[nil/nil.js/nil.js/src/contracts/WalletV1/types/index.ts:11](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/contracts/WalletV1/types/index.ts#L11)
+nil/nil.js/src/contracts/WalletV1/types/index.ts:11
 
 ## Variables
 
@@ -3236,11 +3427,11 @@ signer: ISigner;
 const SszMessageSchema: any;
 ```
 
-SSZ schema for a message object. It includes all the fields of a message object.
+The SSZ schema for a message object.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/ssz.ts:53](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/ssz.ts#L53)
+nil/nil.js/src/encoding/ssz.ts:63
 
 ***
 
@@ -3250,11 +3441,11 @@ SSZ schema for a message object. It includes all the fields of a message object.
 const SszSignedMessageSchema: any;
 ```
 
-SSZ schema for a message object. It includes all the fields of a message object.
+SSZ schema for a signed message object. Includes auth data in addition to all other message fields.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/ssz.ts:64](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/ssz.ts#L64)
+nil/nil.js/src/encoding/ssz.ts:74
 
 ## Functions
 
@@ -3264,7 +3455,7 @@ SSZ schema for a message object. It includes all the fields of a message object.
 function addHexPrefix(str): `0x${string}`
 ```
 
-Add a hex prefix to a hex string.
+Add the hex prefix to the hex string.
 
 #### Parameters
 
@@ -3276,11 +3467,11 @@ Add a hex prefix to a hex string.
 
 \`0x$\{string\}\`
 
-format: hex-string
+The string with the prefix.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/hex.ts:32](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/hex.ts#L32)
+nil/nil.js/src/utils/hex.ts:32
 
 ***
 
@@ -3305,7 +3496,7 @@ Checks if the address is valid. If the address is valid, it returns nothing.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:140](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L140)
+nil/nil.js/src/utils/assert.ts:140
 
 ***
 
@@ -3334,7 +3525,7 @@ Will throw an error if value is not a buffer.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:31](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L31)
+nil/nil.js/src/utils/assert.ts:31
 
 ***
 
@@ -3363,7 +3554,7 @@ Will throw an error if the value is not a hex string.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:18](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L18)
+nil/nil.js/src/utils/assert.ts:18
 
 ***
 
@@ -3388,7 +3579,7 @@ Checks if the block is valid. If the block is valid, it returns nothing.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:152](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L152)
+nil/nil.js/src/utils/assert.ts:152
 
 ***
 
@@ -3417,7 +3608,7 @@ Will throw an error if the value is not a valid data to deploy contract.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:112](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L112)
+nil/nil.js/src/utils/assert.ts:112
 
 ***
 
@@ -3446,7 +3637,7 @@ Will throw an error if provided private key is invalid.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:44](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L44)
+nil/nil.js/src/utils/assert.ts:44
 
 ***
 
@@ -3475,7 +3666,7 @@ Will throw an error if the value is not a valid data to send message.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:60](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L60)
+nil/nil.js/src/utils/assert.ts:60
 
 ***
 
@@ -3500,7 +3691,7 @@ Checks if the shard id is valid. If the shard id is valid, it returns nothing.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/assert.ts:164](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/assert.ts#L164)
+nil/nil.js/src/utils/assert.ts:164
 
 ***
 
@@ -3516,7 +3707,7 @@ Converts bytes to a string.
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `bytes` | `Uint8Array` | The bytes to convert to a string. |
+| `bytes` | `Uint8Array` | The bytes to convert. |
 
 #### Returns
 
@@ -3526,7 +3717,7 @@ The string representation of the input.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/fromBytes.ts:6](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/fromBytes.ts#L6)
+nil/nil.js/src/encoding/fromBytes.ts:6
 
 ***
 
@@ -3539,21 +3730,25 @@ function calculateAddress(
    salt): Uint8Array
 ```
 
+Calculates an address.
+
 #### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `shardId` | `number` |
-| `code` | `Uint8Array` |
-| `salt` | `Uint8Array` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `shardId` | `number` | The ID of the shard containing the address. |
+| `code` | `Uint8Array` | The bytecode to be deployed at the address. |
+| `salt` | `Uint8Array` | Arbitrary data for address generation. |
 
 #### Returns
 
 `Uint8Array`
 
+The address.
+
 #### Source
 
-[nil/nil.js/nil.js/src/utils/address.ts:29](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/address.ts#L29)
+nil/nil.js/src/utils/address.ts:42
 
 ***
 
@@ -3563,20 +3758,54 @@ function calculateAddress(
 function externalDeploymentMessage(data, chainId): ExternalMessageEnvelope
 ```
 
+Creates a new external deployment message.
+
 #### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `data` | [`IDeployData`](globals.mdx#ideploydata) |
-| `chainId` | `number` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `data` | [`IDeployData`](globals.mdx#ideploydata) | The message data. |
+| `chainId` | `number` | The chain ID. |
 
 #### Returns
 
 [`ExternalMessageEnvelope`](globals.mdx#externalmessageenvelope)
 
+The envelope of the external deployment message.
+
+#### Example
+
+```ts
+import {
+    Faucet,
+    LocalECDSAKeySigner,
+    HttpTransport,
+    PublicClient
+    WalletV1,
+    externalDeploymentMessage,
+    generateRandomPrivateKey,
+  } from "../src";
+const signer = new LocalECDSAKeySigner({
+    privateKey: generateRandomPrivateKey(),
+  });
+
+  const pubkey = await signer.getPublicKey();
+const chainId = await client.chainId();
+const deploymentMessage = externalDeploymentMessage(
+    {
+      salt: 100n,
+      shard: 1,
+      bytecode: WalletV1.code,
+      abi: WalletV1.abi,
+      args: [bytesToHex(pubkey)],
+    },
+    chainId,
+  );
+```
+
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:102](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L102)
+nil/nil.js/src/encoding/externalMessage.ts:248
 
 ***
 
@@ -3586,16 +3815,20 @@ function externalDeploymentMessage(data, chainId): ExternalMessageEnvelope
 function externalMessageEncode(params, signer): Promise<object>
 ```
 
+Encodes the given external message.
+
 #### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `params` | `Omit` \<[`ExternalMessage`](globals.mdx#externalmessage), `"authData"`\> |
-| `signer` | [`ISigner`](globals.mdx#isigner) |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `params` | `Omit` \<[`ExternalMessage`](globals.mdx#externalmessage), `"authData"`\> | The external message to be encoded without its auth data. |
+| `signer` | [`ISigner`](globals.mdx#isigner) | The message signer. |
 
 #### Returns
 
 `Promise`\<`object`\>
+
+The message bytecode and the message hash.
 
 ##### hash
 
@@ -3609,9 +3842,11 @@ hash: Uint8Array;
 raw: Uint8Array;
 ```
 
+#### Async
+
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/externalMessage.ts:117](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/externalMessage.ts#L117)
+nil/nil.js/src/encoding/externalMessage.ts:271
 
 ***
 
@@ -3627,7 +3862,7 @@ Generate a new private key.
 
 \`0x$\{string\}\`
 
-Hex - Private key
+The new private key
 
 #### Example
 
@@ -3637,7 +3872,7 @@ const privateKey = generatePrivateKey();
 
 #### Source
 
-[nil/nil.js/nil.js/src/signers/privateKey.ts:11](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/privateKey.ts#L11)
+nil/nil.js/src/signers/privateKey.ts:11
 
 ***
 
@@ -3664,7 +3899,7 @@ Address in hex format
 
 #### Source
 
-[nil/nil.js/nil.js/src/signers/publicKey.ts:33](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/publicKey.ts#L33)
+nil/nil.js/src/signers/publicKey.ts:33
 
 ***
 
@@ -3689,7 +3924,7 @@ Returns the public key from the private key using the secp256k1 curve.
 
 #### Source
 
-[nil/nil.js/nil.js/src/signers/publicKey.ts:18](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/signers/publicKey.ts#L18)
+nil/nil.js/src/signers/publicKey.ts:18
 
 ***
 
@@ -3699,7 +3934,7 @@ Returns the public key from the private key using the secp256k1 curve.
 function getShardIdFromAddress(address): number
 ```
 
-Returns the shard ID from the provided address.
+Returns the ID of the shard containing the provided address.
 
 #### Parameters
 
@@ -3713,7 +3948,7 @@ Returns the shard ID from the provided address.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/address.ts:21](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/address.ts#L21)
+nil/nil.js/src/utils/address.ts:26
 
 ***
 
@@ -3729,7 +3964,7 @@ Convert a hex string to a bigint.
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `hex` | \`0x$\{string\}\` | The hex string to convert to a bigint. |
+| `hex` | \`0x$\{string\}\` | The hex string to convert. |
 
 #### Returns
 
@@ -3739,7 +3974,7 @@ The bigint representation of the input.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/fromHex.ts:18](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/fromHex.ts#L18)
+nil/nil.js/src/encoding/fromHex.ts:18
 
 ***
 
@@ -3755,7 +3990,7 @@ Convert a hex string to a number.
 
 | Parameter | Type | Description |
 | :------ | :------ | :------ |
-| `hex` | \`0x$\{string\}\` | The hex string to convert to a number. |
+| `hex` | \`0x$\{string\}\` | The hex string to convert. |
 
 #### Returns
 
@@ -3765,7 +4000,7 @@ The number representation of the input.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/fromHex.ts:9](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/fromHex.ts#L9)
+nil/nil.js/src/encoding/fromHex.ts:9
 
 ***
 
@@ -3775,11 +4010,14 @@ The number representation of the input.
 function isAddress(value): value is `0x${string}`
 ```
 
+Checks if the value is an address. If the value is an address, returns true.
+Otherwise, returns false.
+
 #### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `value` | `Hex` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `value` | `Hex` | The value to check. |
 
 #### Returns
 
@@ -3787,7 +4025,7 @@ value is \`0x$\{string\}\`
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/address.ts:13](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/address.ts#L13)
+nil/nil.js/src/utils/address.ts:18
 
 ***
 
@@ -3797,8 +4035,8 @@ value is \`0x$\{string\}\`
 function isHexString(value): value is `0x${string}`
 ```
 
-Checks if the value is a hex string. If the value is a hex string, it returns true.
-Otherwise, it returns false.
+Checks if the value is a hex string. If the value is a hex string, returns true.
+Otherwise, returns false.
 
 #### Parameters
 
@@ -3812,7 +4050,7 @@ value is \`0x$\{string\}\`
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/hex.ts:10](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/hex.ts#L10)
+nil/nil.js/src/utils/hex.ts:10
 
 ***
 
@@ -3822,7 +4060,7 @@ value is \`0x$\{string\}\`
 function isValidBlock(block): block is Block
 ```
 
-isValidBlock checks if the block is valid.
+Checks if the provided block is valid.
 
 #### Parameters
 
@@ -3838,7 +4076,7 @@ True if the block is valid, false otherwise.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/block.ts:8](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/block.ts#L8)
+nil/nil.js/src/utils/block.ts:8
 
 ***
 
@@ -3848,7 +4086,7 @@ True if the block is valid, false otherwise.
 function poseidonHash(bytes): any
 ```
 
-Poseidon hash function.
+Creates the Poseidon hash of the given bytes.
 
 #### Parameters
 
@@ -3860,11 +4098,11 @@ Poseidon hash function.
 
 `any`
 
-The hash.
+The Poseidon hash.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/poseidon.ts:9](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/poseidon.ts#L9)
+nil/nil.js/src/encoding/poseidon.ts:8
 
 ***
 
@@ -3874,19 +4112,23 @@ The hash.
 function refineAddress(address): Uint8Array
 ```
 
+Refines the address.
+
 #### Parameters
 
-| Parameter | Type |
-| :------ | :------ |
-| `address` | \`0x$\{string\}\` \| `Uint8Array` |
+| Parameter | Type | Description |
+| :------ | :------ | :------ |
+| `address` | \`0x$\{string\}\` \| `Uint8Array` | The address to refine. |
 
 #### Returns
 
 `Uint8Array`
 
+The refined address.
+
 #### Source
 
-[nil/nil.js/nil.js/src/utils/address.ts:56](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/address.ts#L56)
+nil/nil.js/src/utils/address.ts:75
 
 ***
 
@@ -3896,7 +4138,7 @@ function refineAddress(address): Uint8Array
 function removeHexPrefix(str): string
 ```
 
-Remove a hex prefix from a hex string.
+Remove the hex prefix from the hex string.
 
 #### Parameters
 
@@ -3908,11 +4150,11 @@ Remove a hex prefix from a hex string.
 
 `string`
 
-format: base16-string
+The base-16 string.
 
 #### Source
 
-[nil/nil.js/nil.js/src/utils/hex.ts:23](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/utils/hex.ts#L23)
+nil/nil.js/src/utils/hex.ts:23
 
 ***
 
@@ -3949,4 +4191,4 @@ The hex string representation of the input.
 
 #### Source
 
-[nil/nil.js/nil.js/src/encoding/toHex.ts:23](https://github.com/NilFoundation/nil.js/blob/d9df5c33910d2e2e5c9076cc2a3a9969354c9bd2/src/encoding/toHex.ts#L23)
+nil/nil.js/src/encoding/toHex.ts:23

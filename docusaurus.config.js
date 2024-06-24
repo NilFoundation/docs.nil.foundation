@@ -102,7 +102,7 @@ const config = {
         useCodeBlocks: true,
         parametersFormat: "table",
         entryPoints: [
-          "./nil/nil.js/nil.js/src"
+          "./nil/nil.js/src"
         ],
         skipErrorChecking: true,
 
