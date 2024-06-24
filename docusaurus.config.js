@@ -105,6 +105,10 @@ const config = {
           "./nil/nil.js/src"
         ],
         skipErrorChecking: true,
+        sidebar: {
+          "autoConfiguration": true,
+          "pretty": false
+        }
 
       }
 

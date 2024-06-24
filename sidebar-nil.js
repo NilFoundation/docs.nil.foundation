@@ -1,4 +1,15 @@
 export default {
+    typedocSidebar: [
+        {
+            type: 'category',
+            label: 'Typedoc API',
+            link: {
+                type: 'doc',
+                id: 'reference/client/index',
+            },
+            items: require('./reference/client/typedoc-sidebar.cjs'),
+        },
+    ],
     nil: [
         {
             type: 'category',
