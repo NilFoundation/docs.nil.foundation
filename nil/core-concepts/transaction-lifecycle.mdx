@@ -20,13 +20,13 @@ Additional remarks about each of the above stages are given below.
 
 A user submits a transaction autonomously. This transaction reaches its destination, and the message it carries is added to the mempool of the target execution shard.
 
-In some cases, the external message may also cause the receiving contract to send additional internal messages to other smart contracts some of which may be located on other shards. As part of the =nil; protocol, execution shards poll other execution shards about outgoing messages. After a new message is submitted, its destination shard retrieves it from its shard of origin and places it in its mempool for subsequent execution.
+In some cases, the external message may also cause the receiving contract to send additional internal messages to other smart contracts some of which may be located on other shards. As part of the =nil; protocol, execution shards poll other execution shards about outgoing messages. After a new message is submitted, its destination shard retrieves it and processes it.
 
 To learn more about cross-shard communication, [**click here**](./shards-parallel-execution#message-passing-checks).
 
 ### Passing the collator
 
-The collator then retrieves the transaction from the mempool and bundles it together with other transaction. The resulting bundle is executed, and the transaction is included in the new block produced by the execution shard.
+The collator then retrieves the transaction from the mempool and bundles it together with other transactions. The resulting bundle is executed, and the transaction is included in the new block produced by the execution shard.
 
 At the end of this stage, the block with the transaction is sent for verification via local consensus. [**Click here**](./shards-parallel-execution#consensus-shard) to learn more about local consensus.
 
