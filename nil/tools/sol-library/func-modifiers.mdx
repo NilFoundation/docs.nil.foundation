@@ -18,62 +18,58 @@ It is technically possible to call a function marked with `onlyExternal`/`onlyIn
 
 :::
 
-Consider the below examples. Contract 1 is a basic contract for voting:
+## Example
+
+Consider the below examples that simulate voting on-chain voting.
+
+Contract 1 is a 'ballot' contract that is deployed for every voter:
 
 ```solidity showLineNumbers
 import "./Nil.sol";
 
-contract Elections {
+contract Ballot {
+    bytes pubkey;
+    constructor(bytes memory _pubkey) payable {
+        pubkey = _pubkey;
+    }
+    function vote(address election, string candidate) external onlyExternal {
+        address refundTo = address(0);
+        int gas = 5000;
+        bool deploy = false;
+        uint value = 0;
+        election.asyncCall(
+            refundTo, gas, deploy, value,
+            abi.encodeWithSignature("requestVote(string)", candidate));
+    }
+    function verifyExternal(uint256 hash, bytes calldata authData) external view returns (bool) {
+        return Nil.validateSignature(pubkey, hash, authData);
+    }
+}
+```
 
+Contract 1 contains the voter's public key. The `vote()` function can only be called externally by the voter for whom the ballot contract was deployed. This is made possible by the `verifyExternal()` function that validates the caller's signature.
+
+Contract 2 records votes:
+
+```solidity showLineNumbers
+import "./Nil.sol";
+
+contract Election {
     using Nil for address; 
+    mapping(address => string) public votes;
+    mapping(address => bool) private voters; // Filled by the contract owner
 
-    mapping(string => uint256) public votes;
-
-    mapping(bytes => bool) private voters;
-
-    function requestVote(address dst, string candidate) onlyExternal public {
-        dst.asyncCall(address(0), 5000, false, msg.value, abi.encodeWithSignature("verifyVote(string)", candidate));
-    }
-
-    function addVote(string candidate) onlyInternal public {
-        votes[candidate]++;
-    }
-
-    function verifyExternal(uint256 seqno, bytes calldata authData) external view returns (bool) {
-        if voters[authData] == true {
-            return true;
-        } else {
-            return false;
+    function requestVote(string candidate) public {
+        address voter = msg.sender;
+        if (voters[voter] != true) {
+            return;
         }
+        votes[voter] = candidate;
     }
 }
 ```
 
-Contract 2 holds simple verification logic:
+Note that Contract 2 lacks the `verifyExternal()` function and, therefore, cannot accept external messages. This means that `requestVote()` does not need to have the `onlyInternal` modifier. Vote verification in Contract 2 can only be initiated by another contract.
 
-```solidity showLineNumbers
-import "./Nil.sol";
-
-contract Verifier {
-
-    using Nil for address; 
-
-    mapping(string => bool) private candidateStatuses; 
-
-    function verifyVote(address dst, string candidate) public {
-        if candidateStatuses[candidate] != false {
-            dst.async_call(address(0), gas_left(), false, msg.value, abi.encodeWithSignature("addVote(string)", candidate));
-        } 
-    }
-}
-```
-
-Contract 1 makes an async call to Contract 2 requesting Contract 2 to verify whether a candidate is invalid. If the candidate's value in the `candidateStatuses` mapping is `true`, Contract 2 calls the `addVote()` function inside Contract 1. 
-
-The use of modifiers protects this system from being abused. Outside parties cannot directly add votes as the `addVote` function has the `onlyInternal` modifier. In contrast, the `requestVote()` function is `onlyExternal`, and it is the only way a user or a dApp can register their vote.
-
-Note that Contract 2 lacks the `verifyExternal()` function and, therefore, cannot accept external messages. This means that `verifyVote()` does not need to have the `onlyInternal` modifier. Vote verification in Contract 2 can only be initiated by another contract.
-
-
-
+Contract 1 makes an async call to Contract 2 requesting vote registration. If the caller is a valid voter, the `votes` map is updated to include the new vote for the specified `candidate`. Careful use of modifiers and the `verifyExternal()` function means that the voting system cannot be abused: votes cannot be requested directly, and additional verification occurs at the level of the election contract.
 
