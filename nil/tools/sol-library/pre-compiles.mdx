@@ -19,7 +19,7 @@ function asyncCall(
 
 The contract takes a function call and spawns a new transaction. Whenever this transaction is included in a block of its destination shard, the function call is executed.
 
-[**Click here**](../../core-concepts/shards-parallel-execution##async-execution) for a primer on async execution and [**here**](../../getting-started/essentials/handling-async-execution) for a tutorial on using `asynccall()`.
+[**The 'Core concepts' section contains**](../../core-concepts/shards-parallel-execution##async-execution) a primer on async execution and [**there is also a tutorial**](../../getting-started/essentials/handling-async-execution) on using `asynccall()`.
 
 ## `VERIFY_SIGNATURE`
 
@@ -28,7 +28,7 @@ The contract takes a function call and spawns a new transaction. Whenever this t
 ```solidity showLineNumbers
 function validateSignature(
         bytes memory pubkey,
-        uint256 hash,
+        uint256 messageHash,
         bytes memory signature
     ) internal view returns (bool)
 ```

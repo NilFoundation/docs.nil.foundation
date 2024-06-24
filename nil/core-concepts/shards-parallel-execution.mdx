@@ -80,7 +80,7 @@ The key stages of this flow are:
 2. Shard 2 must copy this message and place it inside a block
 3. When Shard 2 starts processing messages from the block, Contract 2 executes the function that Contract 1 called
 
-For an in-depth explanation of how to perform and manage async calls, [**click here**](../getting-started/essentials/handling-async-execution).
+For an in-depth explanation of how to perform and manage async calls, [**read this tutorial**](../getting-started/essentials/handling-async-execution).
 
 :::info
 
@@ -108,7 +108,7 @@ As shown above, the async call inside Contract 2 effectively becomes a callback 
 
 In =nil;, messages are divided into internal and external.
 
-Internal messages cover all types of async communication between smart contracts on the network regardless of the shard where they are deployed. When Contract 1 (deployed on Shard 1) calls a function in Contract 2 (deployed on Shard 2), Shard 2 spawns an internal message. Note that sync calls between contracts do not produce any messages.
+Internal messages cover all types of async communication between smart contracts on the network regardless of the shard where they are deployed. When Contract 1 (deployed on Shard 1) calls a function in Contract 2 (deployed on Shard 2), Shard 1 spawns an internal message and Shard 2 processes this message. Note that sync calls between contracts do not produce any messages.
 
 External messages can originate only in one case: when any entity that exists outside of the cluster (e.g., a dApp) sends a message to any smart contract on the network.
 
@@ -116,7 +116,7 @@ External messages can originate only in one case: when any entity that exists ou
 
 For internal messages, the message itself is the 'payer' entity. An internal message spends its `value` to cover processing costs. Note that the message only pays for the initial call to a 'top-level' smart contract. If the message produces a chain of sync calls, the message will only pay for the first call in the chain.
 
-For external messages, the receiving contract is the 'payer' entity. To process external messages, the receiving contract must implement a special function that uses arbitrary logic to verify these messages. If this function is absent, the contract will only accept internal messages. A more detailed explanation of how a contract may receive external messages is [**given here**](../getting-started/essentials/receiving-ext-messages).
+For external messages, the receiving contract is the 'payer' entity. To process external messages, the receiving contract must implement a special function that uses arbitrary logic to verify these messages. If this function is absent, the contract will only accept internal messages. A more detailed explanation of how a contract may receive external messages is [**given in a practical tutorial**](../getting-started/essentials/receiving-ext-messages).
 
 Regardless of the message type, the 'payer' is tasked with purchasing gas equal to the message `gasLimit`. The message fails if the balance of the 'payer' is insufficient. If execution is successful, the remaining gas is refunded to the 'payer'.
 

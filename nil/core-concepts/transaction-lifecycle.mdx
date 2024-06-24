@@ -22,13 +22,13 @@ A user submits a transaction autonomously. This transaction reaches its destinat
 
 In some cases, the external message may also cause the receiving contract to send additional internal messages to other smart contracts some of which may be located on other shards. As part of the =nil; protocol, execution shards poll other execution shards about outgoing messages. After a new message is submitted, its destination shard retrieves it and processes it.
 
-To learn more about cross-shard communication, [**click here**](./shards-parallel-execution#message-passing-checks).
+[**Learn more about cross-shard communication**](./shards-parallel-execution#message-passing-checks).
 
 ### Passing the collator
 
 The collator then retrieves the transaction from the mempool and bundles it together with other transactions. The resulting bundle is executed, and the transaction is included in the new block produced by the execution shard.
 
-At the end of this stage, the block with the transaction is sent for verification via local consensus. [**Click here**](./shards-parallel-execution#consensus-shard) to learn more about local consensus.
+At the end of this stage, the block with the transaction is sent for verification via local consensus. [**Learn more about local consensus**](./shards-parallel-execution#consensus-shard).
 
 ### Achieving soft finality
 
@@ -44,7 +44,7 @@ In this case, transactions will reach soft finality when the corresponding data 
 
 :::note[ZKPs]
 
-ZKPs allow for trustless verification of state transitions inside execution shards and the consensus shard. ZKP generation is handled by dedicated participants (proof producers). To learn more about this process, [**click here**](../specification/finality).
+ZKPs allow for trustless verification of state transitions inside execution shards and the consensus shard. ZKP generation is handled by dedicated participants (proof producers). To learn more about this process, [****](../specification/finality).
 
 :::
 

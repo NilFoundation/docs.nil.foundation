@@ -8,7 +8,7 @@ The contract receiving [**an external message**](../../core-concepts/shards-para
 
 ```solidity showLineNumbers
 function verifyExternal(
-        uint256 seqno, 
+        uint256 messageHash, 
         bytes calldata authData 
     ) external view returns (bool)
 ```
@@ -29,10 +29,10 @@ This example contains a simple mechanism for verifying `authData`:
 
 ```solidity showLineNumbers
 contract Receiver {
-    bytes private validAuthData = AUTH_DATA;
+    bytes32 private validAuthDataKeccak = AUTH_DATA_KECCAK;
 
-    function verifyExternal(uint256 seqno, bytes authData) external view returns (bool) {
-        if (keccak256(authData) == keccak256(validAuthData) && callData.length > 0) {
+    function verifyExternal(uint256 messageHash, bytes authData) external view returns (bool) {
+        if (keccak256(authData) == AUTH_DATA_KECCAK) {
             return true;
         }
         return false;

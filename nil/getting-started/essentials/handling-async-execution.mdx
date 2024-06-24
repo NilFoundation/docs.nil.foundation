@@ -117,7 +117,7 @@ contract Escrow {
         deposits[participantTwo] += msg.value;
     }
 
-    function verifyExternal(uint256 seqno, bytes calldata authData) external view returns (bool) {
+    function verifyExternal(uint256 messageHash, bytes calldata authData) external view returns (bool) {
         return true;
     }
 }

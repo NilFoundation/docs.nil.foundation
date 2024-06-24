@@ -20,7 +20,7 @@ It is technically possible to call a function marked with `onlyExternal`/`onlyIn
 
 ## Example
 
-Consider the below examples that simulate voting on-chain voting.
+Consider the below examples that simulate on-chain voting.
 
 Contract 1 is a 'ballot' contract that is deployed for every voter:
 
@@ -41,7 +41,7 @@ contract Ballot {
             refundTo, gas, deploy, value,
             abi.encodeWithSignature("requestVote(string)", candidate));
     }
-    function verifyExternal(uint256 hash, bytes calldata authData) external view returns (bool) {
+    function verifyExternal(uint256 messageHash, bytes calldata authData) external view returns (bool) {
         return Nil.validateSignature(pubkey, hash, authData);
     }
 }

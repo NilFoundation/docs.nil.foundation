@@ -8,7 +8,7 @@ As is the case with all external messages, an external deployment must be paid b
 
 :::info
 
-A new address is always calculated in a way that only permits the owner of a specific keypair to deploy a contract. Once funds are sent to an address, it is considered 'occupied', and only the owner of the funds can deploy a contract to this address.
+A new address is always calculated based on the bytecode of the contract constructor to deploy a contract. As a result, only the contract with a specific constructor can occupy its allocated address. This makes it so that funds sent to an address can only be used by the contract intended for this address.
 
 :::
 
@@ -20,3 +20,55 @@ Internal messages pay for themselves by spending their `value`. As a result, the
 
 However, internal deployment can also be done via the flow where funds are first sent to an address, and the contract is later initialized at that address.
 
+## Opcode deployment
+
+It is also possible to deploy contracts without having to send an external or an internal message: this is done by directly using the `CREATE` and `CREATE2` opcodes.
+
+To use `CREATE` in Solidity:
+
+```solidity showLineNumbers
+import "./Nil.sol";
+
+using Nil for address;
+
+contract NewContract {
+    ...
+}
+
+contract Creator {
+    
+    function deployContract() private returns (address deployedAddress) {
+        bytes memory code = abi.encodePacked(type(NewContract).creationCode, abi.encode(msg.sender));
+
+        assembly {
+            deployedAddress := create(callvalue(), add(code), mload(code))
+        }
+
+        return deployedAddress;
+    }
+}
+```
+
+To use CREATE2 in Solidity:
+
+```solidity showLineNumbers
+import "./Nil.sol";
+
+using Nil for address;
+
+contract NewContract {
+    ...
+}
+
+contract Creator {
+    function deployContract(uint salt) private returns (address deployedAddress) {
+        bytes memory code = type(NewContract).creationCode;
+
+        assembly {
+            deployedAddress := create2(callvalue(), add(code, 0x20), mload(code), salt);
+        }
+
+        return deployedAddress;
+    }
+}
+```
