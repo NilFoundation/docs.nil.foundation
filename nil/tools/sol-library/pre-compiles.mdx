@@ -37,10 +37,10 @@ The function verifies if the given message signature is valid for the provided `
 
 ## `SEND_MESSAGE`
 
-`SEND_MESSAGE` is a pre-compile for the `sendmsg()` function:
+`SEND_MESSAGE` is a pre-compile for the `sendMsg()` function:
 
 ```solidity showLineNumbers
-function sendmsg(uint g, bytes memory message) internal
+function sendMsg(uint g, bytes memory message) internal
 ```
 
 The function sends a 'raw' message to the pre-compile without performing any encoding or other modification on the message.

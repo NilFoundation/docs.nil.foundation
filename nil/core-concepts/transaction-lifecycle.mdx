@@ -5,13 +5,12 @@
 In =nil;, a transaction carrying an external message passes the following stages before reaching finality.
 
 1. A transaction is submitted by a user
-2. Execution shards survey other execution shards to determine the shard where the message should be included in a block
-3. The message goes to the mempool of an execution shard
-4. The message is picked up by a collator that bundles it with other message and sends the resulting batch for execution
-5. The message is executed and is sent into a block
-6. The block passes local consensus while the shard generates a ZKP
-7. The block with the message is sent into storage and the message reaches soft finality
-8. The ZKP and the block are sent to the consensus shard that produces a 'master' ZKP
+2. The message goes to the mempool of an execution shard
+3. The message is picked up by a collator that bundles it with other message and sends the resulting batch for execution
+4. The message is executed and is sent into a block
+5. The block passes local consensus while the shard generates a ZKP
+6. The block with the message is sent into storage and the message reaches soft finality
+7. The ZKP and the block are sent to the consensus shard that produces a 'master' ZKP
 
 Additional remarks about each of the above stages are given below.
 

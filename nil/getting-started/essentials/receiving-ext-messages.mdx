@@ -1,6 +1,6 @@
 # Receiving external messages
 
-This tutorial explains how exactly a contract can be made to accept external messages.
+This tutorial explains how exactly a contract can accept external messages.
 
 ## `verifyExternal()`
 
@@ -9,17 +9,17 @@ The contract receiving [**an external message**](../../core-concepts/shards-para
 ```solidity showLineNumbers
 function verifyExternal(
         uint256 seqno, 
-        bytes authData 
+        bytes calldata authData 
     ) external view returns (bool)
 ```
 
 The purpose of the function is to limit who can call the receiver contract via an external message. Its body can hold any logic for checking the message signature.
 
-As the receiving contract is charged with paying for external messages, the `verifyExternal()` function is needed so that other smart contracts do not accidentally (or maliciously) drain the balance of the receiving contract.
+As the receiving contract is charged with paying for external messages, the `verifyExternal()` function is needed so that external parties do not accidentally (or maliciously) drain the balance of the receiving contract.
 
 :::info
 
-`verifyExternal()` is called every time a contract is called via an external message.
+`verifyExternal()` is executed every time a contract is called via an external message.
 
 :::
 

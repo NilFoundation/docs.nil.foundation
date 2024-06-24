@@ -70,9 +70,10 @@ contract Verifier {
 
 Contract 1 makes an async call to Contract 2 requesting Contract 2 to verify whether a candidate is invalid. If the candidate's value in the `candidateStatuses` mapping is `true`, Contract 2 calls the `addVote()` function inside Contract 1. 
 
-The use of modifiers protects this system from being abused. Contract 1 cannot call the `addVote()` method by itself as it is marked with the `onlyExternal` modifier. Contract 1 is also the only one who can request a vote as the `requestVote()` function is specified as `onlyInternal`. Vote verification in Contract 2 can only be initiated by another contract via an async call.
+The use of modifiers protects this system from being abused. Outside parties cannot directly add votes as the `addVote` function has the `onlyInternal` modifier. In contrast, the `requestVote()` function is `onlyExternal`, and it is the only way a user or a dApp can register their vote.
 
-Note that Contract 2 lacks the `verifyExternal()` function. This means that `verifyVote()` does not need to have the `onlyInternal` modifier.
+Note that Contract 2 lacks the `verifyExternal()` function and, therefore, cannot accept external messages. This means that `verifyVote()` does not need to have the `onlyInternal` modifier. Vote verification in Contract 2 can only be initiated by another contract.
+
 
 
 

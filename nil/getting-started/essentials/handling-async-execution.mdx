@@ -13,7 +13,7 @@ import "./nil.sol";
 
 contract Caller {
 
-    using nil for address; 
+    using Nil for address; 
 
     event CallCompleted(address indexed dst)
 
@@ -117,7 +117,7 @@ contract Escrow {
         deposits[participantTwo] += msg.value;
     }
 
-    function verifyExternal(uint256 seqno, bytes authData) external view returns (bool) {
+    function verifyExternal(uint256 seqno, bytes calldata authData) external view returns (bool) {
         return true;
     }
 }
@@ -140,4 +140,4 @@ contract Validator {
 }
 ```
 
-Contract 2 triggers the `resolve()` function within Contract ` as a callback but only if the escrow participants are two distinct addresses.
+Contract 2 triggers the `resolve()` function within Contract 1 as a callback but only if the escrow participants are two distinct addresses.
