@@ -116,7 +116,7 @@ External messages can originate only in one case: when any entity that exists ou
 
 For internal messages, the message itself is the 'payer' entity. An internal message spends its `value` to cover processing costs. Note that the message only pays for the initial call to a 'top-level' smart contract. If the message produces a chain of sync calls, the message will only pay for the first call in the chain.
 
-For external messages, the receiving contract is the 'payer' entity. To process external messages, the receiving contract must implement a special function that uses arbitrary logic to verify these messages. If this function is absent, the contract will only accept internal messages.
+For external messages, the receiving contract is the 'payer' entity. To process external messages, the receiving contract must implement a special function that uses arbitrary logic to verify these messages. If this function is absent, the contract will only accept internal messages. A more detailed explanation of how a contract may receive external messages is [**given here**](../getting-started/essentials/receiving-ext-messages).
 
 Regardless of the message type, the 'payer' is tasked with purchasing gas equal to the message `gasLimit`. The message fails if the balance of the 'payer' is insufficient. If execution is successful, the remaining gas is refunded to the 'payer'.
 

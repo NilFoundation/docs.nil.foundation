@@ -10,6 +10,8 @@ The traditional definition of a wallet in Ethereum mostly refers to externally-o
 
 Wallets in =nil; differ from this definition. A =nil; wallet is always a smart contract, and it must be deployed as such. The wallet handles all the usual functionalities (e.g., authenticating requests) but it can also include complex logic such as multi-sig operations.
 
+This means that in almost all cases an external message has to go through a wallet that signs the message and assigns a value to it. The message is only forwarded to its target smart contract for execution only after this process is complete.
+
 :::info[Counterfactual wallets]
 
 It is possible to send funds to an address where a contract is supposed to be deployed. These funds will be stored at that address until the contract is finally deployed, at which point the contract will be able to access them.
@@ -49,6 +51,12 @@ curl -X POST NIL_ENDPOINT -H "Content-Type: application/json" -d '{
 ```
 
 The `"result"` key in the response should not equal zero.
+
+:::info
+
+The `new-wallet` command only works in the =nil; devnet. The process for attaining tokens and 'topping up' an address will be different in the production network.
+
+:::
 
 ### Via the client library
 

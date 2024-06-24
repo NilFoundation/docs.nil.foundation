@@ -36,7 +36,7 @@ export default {
                 },
                 {
                     type: 'doc',
-                    label: 'Message lifecycle',
+                    label: 'Transaction lifecycle',
                     id: 'core-concepts/transaction-lifecycle',
                 },
                 {
@@ -72,6 +72,11 @@ export default {
                             type: 'doc',
                             label: 'Creating a wallet',
                             id: 'getting-started/essentials/creating-a-wallet'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Receiving external messages',
+                            id: 'getting-started/essentials/receiving-ext-messages'
                         },
                         {
                             type: 'doc',

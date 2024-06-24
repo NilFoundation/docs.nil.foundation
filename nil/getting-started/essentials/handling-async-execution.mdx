@@ -4,7 +4,7 @@ To support [**cross-shard communication**](../../principles#cross-shard-communic
 
 This tutorial provides a brief theoretical and practical primer on async execution, and gives suggestions on how this feature can be integrated into an application.
 
-## Performing an async call
+## Performing an async cal
 
 Consider a smart contract with the following code:
 
@@ -18,60 +18,26 @@ contract Caller {
     event CallCompleted(address indexed dst)
 
     function call(address dst) public payable {
-        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("funcName"));
+        dst.asyncCall(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("funcName"));
         emit CallCompleted(dst);
     }
 }
 ```
 
-The `address.async_call()` function makes it possible for the contract to call a function in another smart contract regardless of the shard where this contract is located. There are no additional actions required for making async calls: simply adding `address.async_call()` and specifying its arguments is sufficient.
+The `address.asyncCall()` function makes it possible for the contract to call a function in another smart contract regardless of the shard where this contract is located. There are no additional actions required for making async calls: simply adding `address.asyncCall()` and specifying its arguments is sufficient.
 
 :::info
 
-The `address.async_call()` function is a shortcut for executing a precompiled contract responsible for managing async calls across the cluster.
+The `address.asyncCall()` function is a shortcut for executing a precompiled contract responsible for managing async calls across the cluster.
 
 :::
 
 :::info[Async calls on the same shard]
 
-`address.async_call()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new transaction, and the requested function in another contract will be executed whenever said transaction is processed by the shard. 
+`address.asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new transaction, and the requested function in another contract will be executed whenever said transaction is processed by the shard. 
 
 :::
 
-## Receiving an async call
-
-The contract receiving [**an external message**](../../core-concepts/shards-parallel-execution##internal-vs-external-messages) must implement an additional function so that this call is processed. Unless this function is present, a contract cannot accept external messages. The function signature:
-
-```solidity showLineNumbers
-function verifyExternal(
-        uint64 seqno, 
-        bytes authData, 
-        bytes callData
-    ) external view returns (bool)
-```
-
-The purpose of the function is to limit who can call the receiver contract via an external message. Its body can hold any logic for checking the message signature. For example:
-
-```solidity showLineNumbers
-contract Receiver {
-    bytes private validAuthData = AUTH_DATA;
-
-    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
-        if (keccak256(authData) == keccak256(validAuthData) && callData.length > 0) {
-            return true;
-        }
-        return false;
-    }
-}
-```
-
-As the receiving contract is charged with paying for external messages, the `verifyExternal()` function is needed so that other smart contracts do not accidentally (or maliciously) drain the balance of the receiving contract.
-
-:::info
-
-`verifyExternal()` is called every time a contract is called via an external message.
-
-:::
 
 ## Examples
 
@@ -89,26 +55,23 @@ In this pattern, Contract 1 simply calls a function in Contract 2 without receiv
 Contract 1 has the following structure:
 
 ```solidity showLineNumbers
-import "./nil.sol";
+import "./Nil.sol";
 
 contract Caller {
 
-    using nil for address; 
+    using Nil for address; 
 
     function call(address dst) public payable {
-        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("increment()"));
+        dst.asyncCall(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("increment()"));
     }
 
-    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
-        return true;
-    }
 }
 ```
 
 Contract 2 has the following structure:
 
 ```solidity showLineNumbers
-import "./nil.sol";
+import "./Nil.sol";
 
 contract Receiver {
 
@@ -125,9 +88,7 @@ contract Receiver {
 }
 ```
 
-Whenever the `call()` function is called inside Contract 1, a new transaction is created. When Shard 2 picks up this transaction and executes it, Contract 2 calls its `increment()` function. After `getValue()` is called, the result should display the total number of times the `call()` function was executed by Contract 1.
-
-Note that the receiver contract lacks the `verifyExternal()` function as it is not meant to process external messages.
+Whenever the `call()` function is called inside Contract 1, a new outgoing message is spawned. When Shard 2 picks up this message and processes it, Contract 2 calls its `increment()` function. After `getValue()` is called, the result should display the total number of times the `call()` function was executed by Contract 1.
 
 ### Callback pattern
 
@@ -140,7 +101,7 @@ import "./nil.sol";
 
 contract Escrow {
 
-    using nil for address; 
+    using Nil for address; 
     mapping (address => uint256) private deposits;
 
     function deposit() public payable {
@@ -148,7 +109,7 @@ contract Escrow {
     }
 
     function submitForVerification(address dst, address participantOne, address participantTwo) public {
-        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify(address, address)", participantOne, participantTwo));
+        dst.asyncCall(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify(address, address)", participantOne, participantTwo));
     }
 
     function resolve(address participantOne, address participantTwo) public {
@@ -156,7 +117,7 @@ contract Escrow {
         deposits[participantTwo] += msg.value;
     }
 
-    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
+    function verifyExternal(uint256 seqno, bytes authData) external view returns (bool) {
         return true;
     }
 }
@@ -165,7 +126,7 @@ contract Escrow {
 Contract 2 acts as a validator for escrow resolution:
 
 ```solidity showLineNumbers
-import "./nil.sol";
+import "./Nil.sol";
 
 contract Validator {
     
@@ -173,7 +134,7 @@ contract Validator {
 
     function verify(address dst, address participantOne, address participantTwo) public {
         if (participantOne != participantTwo) {
-            dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("resolve(address, address)", participantOne, participantTwo));
+            dst.asyncCall(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("resolve(address, address)", participantOne, participantTwo));
         }
     }
 }
