@@ -8,7 +8,7 @@ As is the case with all external messages, an external deployment must be paid b
 
 :::info
 
-Once funds are sent to an empty address, the address is 'locked'. Only the owner of the funds can deploy a contract to this address.
+A new address is always calculated in a way that only permits the owner of a specific keypair to deploy a contract. Once funds are sent to an address, it is considered 'occupied', and only the owner of the funds can deploy a contract to this address.
 
 :::
 
@@ -16,5 +16,7 @@ Once funds are sent to an empty address, the address is 'locked'. Only the owner
 
 An internal deployment of a contract can only be made by another smart contract.
 
-Internal messages pay for themselves by spending their `value`. As a result, there is no need to send funds to a particular address before a contract is deployed.
+Internal messages pay for themselves by spending their `value`. As a result, there is no need to send funds to a particular address before a contract is deployed. This allows for handling deployment in just one message.
+
+However, internal deployment can also be done via the flow where funds are first sent to an address, and the contract is later initialized at that address.
 
