@@ -4,22 +4,22 @@
 
 ## `ASYNC_CALL`
 
-`ASYNC_CALL` is a pre-compile for the `async_call()` function that allows for async execution of contract functions:
+`ASYNC_CALL` is a pre-compile for the `asyncCall()` function that allows for async execution of contract functions:
 
 ```solidity showLineNumbers
-function async_call(
+function asyncCall(
         address dst,
         address refundTo,
         uint gas,
         bool deploy,
         uint value,
-        bytes memory call_data
+        bytes memory calldata
     ) internal
 ```
 
 The contract takes a function call and spawns a new transaction. Whenever this transaction is included in a block of its destination shard, the function call is executed.
 
-[**Click here**](../../core-concepts/shards-parallel-execution##async-execution) for a primer on async execution and [**here**](../../getting-started/essentials/handling-async-execution) for a tutorial on using `async_call()`.
+[**Click here**](../../core-concepts/shards-parallel-execution##async-execution) for a primer on async execution and [**here**](../../getting-started/essentials/handling-async-execution) for a tutorial on using `asynccall()`.
 
 ## `VERIFY_SIGNATURE`
 
@@ -37,10 +37,10 @@ The function verifies if the given message signature is valid for the provided `
 
 ## `SEND_MESSAGE`
 
-`SEND_MESSAGE` is a pre-compile for the `send_msg()` function:
+`SEND_MESSAGE` is a pre-compile for the `sendmsg()` function:
 
 ```solidity showLineNumbers
-function send_msg(uint g, bytes memory message) internal
+function sendmsg(uint g, bytes memory message) internal
 ```
 
 The function sends a 'raw' message to the pre-compile without performing any encoding or other modification on the message.

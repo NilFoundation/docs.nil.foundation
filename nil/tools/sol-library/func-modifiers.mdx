@@ -21,24 +21,30 @@ It is technically possible to call a function marked with `onlyExternal`/`onlyIn
 Consider the below examples. Contract 1 is a basic contract for voting:
 
 ```solidity showLineNumbers
-import "./nil.sol";
+import "./Nil.sol";
 
 contract Elections {
 
-    using nil for address; 
+    using Nil for address; 
 
     mapping(string => uint256) public votes;
 
+    mapping(bytes => bool) private voters;
+
     function requestVote(address dst, string candidate) onlyExternal public {
-        dst.async_call(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
+        dst.asyncCall(address(0), 5000, false, msg.value, abi.encodeWithSignature("verify_vote(string)", candidate));
     }
 
-    function addVote(string candidate) onlyExternal public {
+    function addVote(string candidate) onlyInternal public {
         votes[candidate]++;
     }
 
-    function verifyExternal(uint64 seqno, bytes authData, bytes callData) external view returns (bool) {
-        return true;
+    function verifyExternal(uint256 seqno, bytes calldata authData) external view returns (bool) {
+        if voters[authData] == true {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 ```
@@ -46,15 +52,15 @@ contract Elections {
 Contract 2 holds simple verification logic:
 
 ```solidity showLineNumbers
-import "./nil.sol";
+import "./Nil.sol";
 
 contract Verifier {
 
-    using nil for address; 
+    using Nil for address; 
 
     mapping(string => bool) private candidateStatuses; 
 
-    function verifyVote(address dst, string candidate) onlyInternal public {
+    function verifyVote(address dst, string candidate) public {
         if candidateStatuses[candidate] != false {
             dst.async_call(address(0), gas_left(), false, msg.value, abi.encodeWithSignature("addVote(string)", candidate));
         } 
@@ -65,6 +71,8 @@ contract Verifier {
 Contract 1 makes an async call to Contract 2 requesting Contract 2 to verify whether a candidate is invalid. If the candidate's value in the `candidateStatuses` mapping is `true`, Contract 2 calls the `addVote()` function inside Contract 1. 
 
 The use of modifiers protects this system from being abused. Contract 1 cannot call the `addVote()` method by itself as it is marked with the `onlyExternal` modifier. Contract 1 is also the only one who can request a vote as the `requestVote()` function is specified as `onlyInternal`. Vote verification in Contract 2 can only be initiated by another contract via an async call.
+
+Note that Contract 2 lacks the `verifyExternal()` function. This means that `verifyVote()` does not need to have the `onlyInternal` modifier.
 
 
 
