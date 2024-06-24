@@ -10,11 +10,9 @@ In plain terms, co-location is a request made to change the value stored under t
 
 :::note[Explanation]
 
-When two accounts (Account 1 and Account 2) are co-located, communications between them can occur synchronously similarly to regular Ethereum transactions. 
+When two contracts (Contract 1 and Contract 2) are co-located, communications between them can occur synchronously without spawning messages. However, if Contract 1 and Contract 2 are located on different shards, communications between them will always be asynchronous. Async calls between contracts spawn additional messages, and their execution times may vary.
 
-However, this is not the case if Account 1 and Account 2 are placed in different shards and Account 1 calls a function in Account 2. In this situation, the transaction from Account 1 must create another transaction that subsequently performs an async call to the function in Account 2. This async transaction could then be executed in a future block in the shard where Account 2 is located.
-
-This ensures that sharding does not result in fragmentation.
+To learn more about async calls, [**click here**](./shards-parallel-execution#async-execution).
 
 :::
 

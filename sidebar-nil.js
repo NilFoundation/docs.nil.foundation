@@ -36,7 +36,7 @@ export default {
                 },
                 {
                     type: 'doc',
-                    label: 'Transaction lifecycle',
+                    label: 'Message lifecycle',
                     id: 'core-concepts/transaction-lifecycle',
                 },
                 {

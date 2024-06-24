@@ -4,16 +4,22 @@
 
 Shards are smaller chains that are usually responsible for managing a portion of the global state of the main chain. In =nil;, there exist two types of shards.
 
-* Execution shards process transactions of the accounts allocated to these shards
+* Execution shards process messages related to the accounts located on these shards
 * The consensus shard coordinates execution shards and submits ZKPs of the global state to Ethereum
 
 ## Execution shards
 
-All work related to processing transactions, managing cross-shard communications, storing accounts, and managing the local state occurs at the execution shard level. Execution shards are also tasked with passing message passing checks.
+All work related to processing messages, managing cross-shard communications, storing accounts, and overseeing the local state occurs at the execution shard level. Execution shards are also tasked with managing message passing checks.
 
 :::info[Mempools]
 
-Although each shard has its own mempool of transactions, there are no restrictions for the participants on what shard they can cooperate with.
+In =nil;, only messages that are sent by external actors (e.g., users or dApps) go to the mempool before being executed. Messages that are exchanged between smart contracts are not added to the mempool.  
+
+:::
+
+:::info
+
+Although each shard has its own mempool, there are no restrictions for the participants on what shard they can cooperate with.
 
 :::
 
@@ -33,7 +39,7 @@ As the number of execution shards grows, this process may be changed so that sha
 
 Generally, the term 'async execution' describes delegating the completion of a task to a dedicated CPU thread or a similar isolated component. While this task is processed, the main program can freely execute other instructions, and then react to receiving the results of the async task.
 
-In =nil;, async execution refers to calling a contract that is deployed on another shard. The time taken to execute this call may vary, and the 'caller' contract is also free to execute other instructions without having to wait for the results of the call.
+In =nil; async execution functions differently: any contract (the caller) may perform an async call to any other contract (the receiver). An async call spawns a message, and the execution of the call is delayed until this message is included in the next block of the shard where the receiver is located. The time taken to execute an async call may vary, and the caller contract is free to execute other instructions without having to wait for the results of the call.
 
 Consider two contracts deployed on two different shards in =nil;:
 
@@ -60,26 +66,27 @@ sequenceDiagram
     participant S1 as Shard 1 with Contract 1
     participant S2 as Shard 2 with Contract 2
     S1 ->> S1: Contract 1 calls a function<br>inside Contract 2
-    S1 ->> S1: Shard 1 creates a new transaction<br>whose destination is Shard 2
+    S1 ->> S1: Shard 1 creates a new outgoing<br>message and persists it<br>in a block
     Note right of S1: Contract 1 is freed and can execute other operations
-    S1 --> S2: Shard 2 picks up the transaction<br>and adds it to the mempool
-    S2 ->> S2: Shard 2 executes the transaction<br>and includes it in a block
+    S1 --> S2: Shard 2 picks up external messages from its mempool
+    S2 ->> S2: Shard 2 picks up internal messages from other shards
+    S2 ->> S2: Shard 2 creates a new block and processes messages
     S2 ->> S2: Contract 2 executes the function<br>that Contract 1 called   
 ```
 
 The key stages of this flow are:
 
-1. Contract 1 calls a function inside Contract 2, which creates a new transaction
-2. Shard 2 must pick up this transaction and place it inside its mempool
-3. When Shard 2 processes the transaction, Contract 2 executes the function that Contract 1 called
+1. Contract 1 calls a function inside Contract 2, which creates a new outgoing message
+2. Shard 2 must copy this message and place it inside a block
+3. When Shard 2 starts processing messages from the block, Contract 2 executes the function that Contract 1 called
+
+For an in-depth explanation of how to perform and manage async calls, [**click here**](../getting-started/essentials/handling-async-execution).
 
 :::info
 
-Transactions that originate as a result of cross-shard calls are known as [**cross-shard transactions**](../guides/architecture/ethereum-nil-diffs#transactions). They constitute a separate transaction type in addition to Ethereum-style transactions supported by =nil;.
+All shards 'listen' to the latest blocks created by other shards. When creating a block, a shard must copy messages from other shards that have this shard as its destination. These messages do not go through the mempool and, therefore, cannot be lost.
 
 :::
-
-For an in-depth explanation of how to perform and manage async calls, [**click here**](../getting-started/essentials/handling-async-execution).
 
 :::info[Callback pattern]
 
@@ -87,10 +94,10 @@ There is also a variation of the above flow in which the function inside Contrac
 
 In this case, the flow would work as follows:
 
-1. Contract 1 calls a function inside Contract 2, creating a new transaction
-2. Shard 2 executes the transaction, and Contract 2 calls the requested function
+1. Contract 1 calls a function inside Contract 2, creating a new outgoing message copied by Shard 2
+2. Shard 2 processes the message, and Contract 2 calls the requested function
 3. As part of executing the function, Contract 2 makes an async call back to Contract 1
-4. Shard 1 picks up the new transaction from Shard 2 and executes it
+4. Shard 1 picks up the new message from Shard 2 and executes it
 5. Contract 1 performs whatever operation was requested by Contract 2
 
 As shown above, the async call inside Contract 2 effectively becomes a callback function for Contract 1. Note that the use of this pattern is only possible if Contract 1 or Contract 2 share the same owner (or their owners cooperate with each other).
@@ -101,18 +108,17 @@ As shown above, the async call inside Contract 2 effectively becomes a callback 
 
 In =nil;, messages are divided into internal and external.
 
-Internal messages cover all types of communication between smart contracts on the network regardless of the shard where they are deployed. When Contract 1 (deployed on Shard 1) calls a function in Contract 2 (deployed on Shard 2), Shard 2 spawns an internal message.
-
+Internal messages cover all types of async communication between smart contracts on the network regardless of the shard where they are deployed. When Contract 1 (deployed on Shard 1) calls a function in Contract 2 (deployed on Shard 2), Shard 2 spawns an internal message. Note that sync calls between contracts do not produce any messages.
 
 External messages can originate only in one case: when any entity that exists outside of the cluster (e.g., a dApp) sends a message to any smart contract on the network.
 
 :::info[Payment for messages]
 
-For internal messages, the message itself is the 'payer' entity. An internal message spends its `value` to cover processing costs.
+For internal messages, the message itself is the 'payer' entity. An internal message spends its `value` to cover processing costs. Note that the message only pays for the initial call to a 'top-level' smart contract. If the message produces a chain of sync calls, the message will only pay for the first call in the chain.
 
 For external messages, the receiving contract is the 'payer' entity. To process external messages, the receiving contract must implement a special function that uses arbitrary logic to verify these messages. If this function is absent, the contract will only accept internal messages.
 
-Regardless of the message type, the 'payer' is tasked with purchasing gas equal to the message `gasLimit`. The transaction fails if the balance of the 'payer' is insufficient. If execution is successful, the remaining gas is refunded to the 'payer'.
+Regardless of the message type, the 'payer' is tasked with purchasing gas equal to the message `gasLimit`. The message fails if the balance of the 'payer' is insufficient. If execution is successful, the remaining gas is refunded to the 'payer'.
 
 :::
 
