@@ -27,16 +27,17 @@ Funds sent to an address without a deployed contract are safe, and another party
 The =nil; CLI offers a quick and convenient way to create a new wallet:
 
 ```bash
-nil_cli new-wallet
+nil_cli wallet new
 ```
 
 This will produce the following response:
 
 ```bash
+Contract NEW_WALLET_ADDRESS balance is topped up by 10000000
 New wallet address: NEW_WALLET_ADDRESS
 ```
 
-This wallet essentially acts as a typical EOA: it supports basic asset management and authentication operations. The wallet should also be initialized with an initial balance. Send the following request to check this:
+This wallet essentially acts as a typical EOA: it supports basic asset management and authentication operations. The wallet should also be initialized with an initial balance (which is also seen in the initial command response). Send the following request to check this:
 
 ```bash
 curl -X POST NIL_ENDPOINT -H "Content-Type: application/json" -d '{
@@ -52,13 +53,63 @@ curl -X POST NIL_ENDPOINT -H "Content-Type: application/json" -d '{
 
 The `"result"` key in the response should not equal zero.
 
+:::tip
+
+The wallet can be 'topped up' at any time by using the `wallet top-up AMOUNT` command.
+
+:::
+
 :::info
 
-The `new-wallet` command only works in the =nil; devnet. The process for attaining tokens and 'topping up' an address will be different in the production network.
+The `wallet new` and the `wallet top-up` commands only work in the =nil; devnet. The process for attaining tokens and 'topping up' an address will be different in the production network.
 
 :::
 
 ### Via the client library
 
+The `Nil.js` client library exposes the `WalletV1` class that allows for quickly creating and deploying a new wallet:
 
+```typescript
+import {
+  Faucet,
+  HttpTransport,
+  LocalECDSAKeySigner,
+  PublicClient,
+  WalletV1,
+  generateRandomPrivateKey,
+} from "@nilfoundation/niljs";
+
+const client = new PublicClient({
+  transport: new HttpTransport({
+    endpoint: "{NIL_ENDPOINT}",
+  }),
+  shardId: 1,
+});
+
+const faucet = new Faucet(client);
+
+const signer = new LocalECDSAKeySigner({
+  privateKey: generateRandomPrivateKey(),
+});
+
+const pubkey = await signer.getPublicKey();
+
+const wallet = new WalletV1({
+  pubkey: pubkey,
+  salt: 100n,
+  shardId: 1,
+  client,
+  signer,
+  address: WalletV1.calculateWalletAddress({
+    pubKey: pubkey,
+    shardId: 1,
+    salt: 100n,
+  }),
+});
+const walletAddress = await wallet.getAddressHex();
+
+await faucet.withdrawTo(walletAddress, 100000n);
+```
+
+This example initializes a new wallet, provides it with a `Signer` and requests a `top up`.
 
