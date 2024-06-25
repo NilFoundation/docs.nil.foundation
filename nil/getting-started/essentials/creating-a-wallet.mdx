@@ -109,7 +109,9 @@ const wallet = new WalletV1({
 const walletAddress = await wallet.getAddressHex();
 
 await faucet.withdrawTo(walletAddress, 100000n);
+
+await wallet.selfDeploy(true);
 ```
 
-This example initializes a new wallet, provides it with a `Signer` and requests a `top up`.
+This example initializes a new wallet, provides it with a `Signer` and requests a `top up` to the wallet address. The wallet is then deployed.
 
