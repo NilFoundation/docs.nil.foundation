@@ -34,7 +34,7 @@ The `address.asyncCall()` function is a shortcut for executing a precompiled con
 
 :::info[Async calls on the same shard]
 
-`address.asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new transaction, and the requested function in another contract will be executed whenever said transaction is processed by the shard. 
+`address.asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new message, and the requested function in another contract will be executed whenever said message is processed by the shard. 
 
 :::
 
@@ -50,7 +50,7 @@ There are two possible patterns for cross-shard communication between Contract 1
 
 ### Calling a contract on another shard
 
-In this pattern, Contract 1 simply calls a function in Contract 2 without receiving a result.
+In this pattern, Contract 1 simply calls a function in Contract 2 without receiving a result. 
 
 Contract 1 has the following structure:
 
@@ -97,7 +97,7 @@ In this pattern, Contract 1 calls a function inside Contract 2 that makes an asy
 Contract 1 acts as a simple escrow mechanism:
 
 ```solidity showLineNumbers
-import "./nil.sol";
+import "./Nil.sol";
 
 contract Escrow {
 
