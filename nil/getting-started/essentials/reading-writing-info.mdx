@@ -64,21 +64,22 @@ const {
     hexToBytes,
 } = require("viem");
 
-const abi = JSON.parse(fs.readFileSync('SimpleStorage.abi', 'utf-8'));
+const abi = JSON.parse(fs.readFileSync('{PATH_TO_ABI}', 'utf-8'));
 
 const iface = new ethers.Interface(abi);
 
-const methodName = 'increment';
+const methodName = '{METHOD_NAME}';
 const params = [];
 
 const data = iface.encodeFunctionData(methodName, params);
 
 const messageHash = await wallet.syncSendMessage({
-        to: '0x0001aaf9e5f22a1b9a6dcac8edcf27622e7dc721',
+        to: '{CONTRACT_ADDRESS}',
         data: hexToBytes(data),
         value: 10n,
         gas: 10000n
     });
+    
 ```
 
 To read information about the resulting message:
