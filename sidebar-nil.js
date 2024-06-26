@@ -44,11 +44,6 @@ export default {
                     label: 'Shards and parallelized execution',
                     id: 'core-concepts/shards-parallel-execution',
                 },
-                {
-                    type: 'doc',
-                    label: 'Contract co-location',
-                    id: 'core-concepts/contract-co-location',
-                },
             ]
         },
         {
@@ -166,6 +161,11 @@ export default {
                     type: 'doc',
                     label: 'Sequencing',
                     id: 'specification/sequencing',
+                },
+                {
+                    type: 'doc',
+                    label: 'Contract placement',
+                    id: 'specification/contract-co-location',
                 },
             ]
         }

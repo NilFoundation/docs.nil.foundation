@@ -36,21 +36,11 @@ This will produce the following response:
 New wallet address: NEW_WALLET_ADDRESS
 ```
 
-This wallet essentially acts as a typical EOA: it supports basic asset management and authentication operations. The wallet should also be initialized with an initial balance. Send the following request to check this:
+This wallet essentially acts as a typical EOA: it supports basic asset management and authentication operations. The wallet should also be initialized with an initial balance. Execute the following command to check this:
 
 ```bash
-curl -X POST NIL_ENDPOINT -H "Content-Type: application/json" -d '{
-    "jsonrpc": "2.0",
-    "method": "eth_getBalance",
-    "params": [
-        "{NEW_WALLET_ADDRESS}",
-        "latest"
-    ],
-    "id": 1
-}'
+nil_cli wallet balance
 ```
-
-The `"result"` key in the response should not equal zero.
 
 :::info
 

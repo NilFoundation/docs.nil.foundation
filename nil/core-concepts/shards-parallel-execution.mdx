@@ -39,7 +39,7 @@ As the number of execution shards grows, this process may be changed so that sha
 
 Generally, the term 'async execution' describes delegating the completion of a task to a dedicated CPU thread or a similar isolated component. While this task is processed, the main program can freely execute other instructions, and then react to receiving the results of the async task.
 
-In =nil; async execution functions differently: any contract (the caller) may perform an async call to any other contract (the receiver). An async call spawns a message, and the execution of the call is delayed until this message is included in the next block of the shard where the receiver is located. The time taken to execute an async call may vary, and the caller contract is free to execute other instructions without having to wait for the results of the call.
+In =nil; async execution functions differently: any contract (the caller) may perform an async call to any other contract (the receiver). An async call spawns a message, and the execution of the call is delayed until this message is processed by the shard where the receiver is located. The time taken to execute an async call may vary, and the caller contract is free to execute other instructions without having to wait for the results of the call.
 
 Consider two contracts deployed on two different shards in =nil;:
 
@@ -77,8 +77,8 @@ sequenceDiagram
 The key stages of this flow are:
 
 1. Contract 1 calls a function inside Contract 2, which creates a new outgoing message
-2. Shard 2 must copy this message and place it inside a block
-3. When Shard 2 starts processing messages from the block, Contract 2 executes the function that Contract 1 called
+2. Shard 2 must copy this message and execute it
+3. When Shard 2 processes the message, Contract 2 executes the function that Contract 1 called
 
 For an in-depth explanation of how to perform and manage async calls, [**read this tutorial**](../getting-started/essentials/handling-async-execution).
 
