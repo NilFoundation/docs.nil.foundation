@@ -93,6 +93,11 @@ export default {
                     items: [
                         {
                             type: 'doc',
+                            label: 'Writing a smart contract',
+                            id: 'getting-started/working-with-smart-contracts/writing-a-contract'
+                        },
+                        {
+                            type: 'doc',
                             label: 'Deploying a smart contract',
                             id: 'getting-started/working-with-smart-contracts/deploying-a-contract'
                         }

@@ -12,6 +12,60 @@ A new address is always calculated based on the bytecode of the contract constru
 
 :::
 
+### Via the CLI
+
+### Via the client library
+
+Before deploying the tutorial contracts via the client library, convert their `.abi` files into `.abi.json` files. Then:
+
+```typescript showLineNumbers
+
+import { PublicClient } from "@nilfoundation/niljs";
+
+import { bytesToHex } from "viem";
+
+import type { Abi } from "abitype";
+
+const MAbi = require('./Manufacturer.abi.json');
+const RAbi = require('./Retailer.abi.json');
+
+const client = new PublicClient({
+        transport: new HttpTransport({
+            endpoint: "{NIL_ENDPOINT}",
+        }),
+        shardId: 1,
+    });
+
+const chainId = await client.chainId();
+
+const deploymentMessageManufacturer = externalDeploymentMessage({
+        salt: 105n,
+        shard: 1,
+        bytecode: hexToBytes("{MANUFACTURER_CONTRACT_BYTECODE}"),
+        abi: MAbi as Abi,
+    },
+    chainId,
+);
+
+const deploymentMessageRetailer = externalDeploymentMessage({
+        salt: 105n,
+        shard: 1,
+        bytecode: hexToBytes("{RETAILER_CONTRACT_BYTECODE}"),
+        abi: RAbi as Abi,
+    },
+    chainId,
+);
+
+const addrM = bytesToHex(deploymentMessageManufacturer.to);
+const addrR = bytesToHex(deploymentMessageRetailer.to)
+
+await faucet.withdrawTo(addrM, 5000000);
+await faucet.withdrawTo(addrR, 5000000);
+
+await deploymentMessageManufacturer.send(client);
+await deploymentMessageRetailer.send(client);
+```
+
 ## Internal deployment
 
 An internal deployment of a contract can only be made by another smart contract.
@@ -19,6 +73,51 @@ An internal deployment of a contract can only be made by another smart contract.
 Internal messages pay for themselves by spending their `value`. As a result, there is no need to send funds to a particular address before a contract is deployed. This allows for handling deployment in just one message.
 
 However, internal deployment can also be done via the flow where funds are first sent to an address, and the contract is later initialized at that address.
+
+### Via the =nil; CLI
+
+To deploy the tutorial smart contracts via the =nil; CLI:
+
+```bash
+nil_cli wallet deploy ./Manufacturer/Manufacturer.bin --abi ./Manufacturer/Manufacturer.abi --amount 5000000 --shard-id 1
+```
+
+```bash
+nil_cli wallet deploy ./Manufacturer/Retailer.bin --abi ./Manufacturer/Retailer.abi --amount 5000000 --shard-id 2
+```
+
+This will make sure that `Manufacturer` and `Retailer` are on different shards.
+
+### Via the client library
+
+Before deploying the tutorial contracts via the client library, convert their `.abi` files into `.abi.json` files. Create a new wallet and execute this:
+
+```typescript showLineNumbers
+import { bytesToHex } from "viem";
+
+import type { Abi } from "abitype";
+
+const MAbi = require('./Manufacturer.abi.json');
+const RAbi = require('./Retailer.abi.json');
+
+const addrM = await wallet.deployContract({
+        bytecode: hexToBytes("{MANUFACTURER_CONTRACT_BYTECODE}"),
+        abi: MAbi as Abi,
+        value: 10n,
+        gas: 10000n,
+        salt: 202n,
+        shardId: 1,
+    });
+
+const addrR = await wallet.deployContract({
+        bytecode: hexToBytes("{RETAILER_CONTRACT_BYTECODE}"),
+        abi: RAbi as Abi,
+        value: 10n,
+        gas: 10000n,
+        salt: 202n,
+        shardId: 2,
+    });
+```
 
 ## Opcode deployment
 
