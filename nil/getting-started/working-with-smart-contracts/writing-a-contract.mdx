@@ -1,0 +1,61 @@
+# Writing a contract
+
+This tutorial explains how to create smart contracts that take full advantage of the unique features of =nil;.
+
+## Specification
+
+The tutorial defines two contracts.
+
+Contract 1 acts as a registration contract for candidates in an election. It has the following features:
+
+* It will [**accept external messages and verify them**](../essentials/receiving-ext-messages)
+* It will be able to [**make async calls**](../essentials/handling-async-execution) to another contract
+* It will [**limit who can can make calls**](../../tools/sol-library/func-modifiers) to some of its functions
+
+Contract 2 verifies election candidates. It acts as the recepient of calls made by Contract 1. It also implements a basic multi-signature mechanism.
+
+## Creating the first contract
+
+To accept external messages, Contract 1 will use a simple verification mechanism.
+
+```solidity
+pragma solidity ^0.8.0;
+
+import "./Nil.sol";
+
+contract Registrator {
+    using Nil for address;
+
+    mapping(address => bool) private communityMembers;
+
+    function verifyExternal(uint256 messageHash, bytes calldata authData) external view returns (bool) {
+        if (communityMembers[msg.sender] != true) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+```
+
+Only commynity members can register as candidates. Anyone else would not be able to send an external message to the contract.
+
+```solidity
+contract Registrator {
+
+    address[] private candidates;
+    address private verifierAddress;
+
+    function registerAsCandidate(address dst) public onlyExternal {
+        dst.asyncCall(address(0), 50000, false, msg.value, abi.encodeWithSignature("validateCandidate", dst));
+    }
+
+    function addCandidate(address dst) public onlyInternal {
+        candidates.push(dst); 
+    }
+}
+```
+
+## Creating the second contract
+
+To create  

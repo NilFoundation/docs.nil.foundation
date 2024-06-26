@@ -70,6 +70,11 @@ export default {
                         },
                         {
                             type: 'doc',
+                            label: 'Reading and writing information',
+                            id: 'getting-started/essentials/reading-writing-info'
+                        },
+                        {
+                            type: 'doc',
                             label: 'Receiving external messages',
                             id: 'getting-started/essentials/receiving-ext-messages'
                         },

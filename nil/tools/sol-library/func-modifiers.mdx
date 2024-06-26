@@ -42,7 +42,7 @@ contract Ballot {
             abi.encodeWithSignature("requestVote(string)", candidate));
     }
     function verifyExternal(uint256 messageHash, bytes calldata authData) external view returns (bool) {
-        return Nil.validateSignature(pubkey, hash, authData);
+        return Nil.validateSignature(pubkey, messageHash, authData);
     }
 }
 ```
