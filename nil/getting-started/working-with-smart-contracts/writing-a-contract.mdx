@@ -11,7 +11,7 @@ Contract 1 acts as a product manufacturer for a retailer. It has the following f
 * It can [**accept external messages and verify them**](../essentials/receiving-ext-messages)
 * It will [**limit what messages can call**](../../tools/sol-library/func-modifiers) some of its functions
 
-Contract 2 is the retailer. The contract can order Contract 1 to order new products by making an async call.
+Contract 2 is a retailer. The contract can order Contract 1 to order new products by making an async call.
 
 ## Creating the first contract
 
@@ -60,7 +60,7 @@ contract Manufacturer {
         return false;
     }
 
-    function setRetailerContractAddress(address _retailerContractAddress) public onlyExternal {
+    function setRetailerContractAddress(address _retailerContractAddress) public {
         if (isRetailerAddressSet == false) {
             retailerContractAddress = _retailerContractAddress;
             isRetailerAddressSet = true;
@@ -109,7 +109,7 @@ contract Manufacturer {
         owner = msg.sender;
     }
 
-    function setRetailerContractAddress(address _retailerContractAddress) public onlyExternal {
+    function setRetailerContractAddress(address _retailerContractAddress) public {
         if (isRetailerAddressSet == false) {
             retailerContractAddress = _retailerContractAddress;
             isRetailerAddressSet = true;
