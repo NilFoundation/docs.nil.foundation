@@ -27,7 +27,7 @@ Contract 1 is a 'ballot' contract that is deployed for every voter:
 ```solidity showLineNumbers
 import "./Nil.sol";
 
-contract Ballot {
+contract Ballot is NilBase {
     bytes pubkey;
     constructor(bytes memory _pubkey) payable {
         pubkey = _pubkey;
