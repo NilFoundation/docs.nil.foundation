@@ -1,0 +1,56 @@
+# Pre-compiles and Solidity functions
+
+=nil; provides several pre-compiled contracts that abstract over complex operations and provide a quick way to execute computationally-heavy actions.
+
+## `ASYNC_CALL`
+
+`ASYNC_CALL` is a pre-compile for the `asyncCall()` function that allows for async execution of contract functions:
+
+```solidity showLineNumbers
+function asyncCall(
+        address dst,
+        address refundTo,
+        uint gas,
+        bool deploy,
+        uint value,
+        bytes memory calldata
+    ) internal
+```
+
+The contract takes a function call and spawns a new transaction. Whenever this transaction is included in a block of its destination shard, the function call is executed.
+
+[**The 'Core concepts' section contains**](../../core-concepts/shards-parallel-execution##async-execution) a primer on async execution and [**there is also a tutorial**](../../getting-started/essentials/handling-async-execution) on using `asynccall()`.
+
+## `VERIFY_SIGNATURE`
+
+`VERIFY_SIGNATURE` is a pre-compile for the `validateSignature()` function. The function has the following signature:
+
+```solidity showLineNumbers
+function validateSignature(
+        bytes memory pubkey,
+        uint256 messageHash,
+        bytes memory signature
+    ) internal view returns (bool)
+```
+
+The function verifies if the given message signature is valid for the provided `pubKey` and `hash`.
+
+## `SEND_MESSAGE`
+
+`SEND_MESSAGE` is a pre-compile for the `sendMsg()` function:
+
+```solidity showLineNumbers
+function sendMsg(uint g, bytes memory message) internal
+```
+
+The function sends a 'raw' message to the pre-compile without performing any encoding or other modification on the message.
+
+## `IS_INTERNAL_MESSAGE`
+
+`IS_INTERNAL_MESSAGE` is a pre-compile for the `isInternalMessage()` function:
+
+```solidity showLineNumbers
+function isInternalMessage() internal view returns (bool)
+```
+
+The function is called as part of [**the `onlyInternal` and `onlyExternal` function modifiers**](./func-modifiers) to check if a given message is internal.

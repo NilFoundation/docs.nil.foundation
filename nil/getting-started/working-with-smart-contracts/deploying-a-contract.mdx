@@ -1,0 +1,74 @@
+# Deploying a contract
+
+## External deployment
+
+An external deployment of a contract is made by a user or another entity outside of the cluster. 
+
+As is the case with all external messages, an external deployment must be paid by the contract at the address to which the call is maid. However, before deployment, this address is unoccupied. To proceed with external deployment, an entity must first send funds to the address where the contract will reside.
+
+:::info
+
+A new address is always calculated based on the bytecode of the contract constructor to deploy a contract. As a result, only the contract with a specific constructor can occupy its allocated address. This makes it so that funds sent to an address can only be used by the contract intended for this address.
+
+:::
+
+## Internal deployment
+
+An internal deployment of a contract can only be made by another smart contract.
+
+Internal messages pay for themselves by spending their `value`. As a result, there is no need to send funds to a particular address before a contract is deployed. This allows for handling deployment in just one message.
+
+However, internal deployment can also be done via the flow where funds are first sent to an address, and the contract is later initialized at that address.
+
+## Opcode deployment
+
+It is also possible to deploy contracts without having to send an external or an internal message: this is done by directly using the `CREATE` and `CREATE2` opcodes.
+
+To use `CREATE` in Solidity:
+
+```solidity showLineNumbers
+import "./Nil.sol";
+
+using Nil for address;
+
+contract NewContract {
+    ...
+}
+
+contract Creator {
+    
+    function deployContract() private returns (address deployedAddress) {
+        bytes memory code = abi.encodePacked(type(NewContract).creationCode, abi.encode(msg.sender));
+
+        assembly {
+            deployedAddress := create(callvalue(), add(code), mload(code))
+        }
+
+        return deployedAddress;
+    }
+}
+```
+
+To use CREATE2 in Solidity:
+
+```solidity showLineNumbers
+import "./Nil.sol";
+
+using Nil for address;
+
+contract NewContract {
+    ...
+}
+
+contract Creator {
+    function deployContract(uint salt) private returns (address deployedAddress) {
+        bytes memory code = type(NewContract).creationCode;
+
+        assembly {
+            deployedAddress := create2(callvalue(), add(code, 0x20), mload(code), salt);
+        }
+
+        return deployedAddress;
+    }
+}
+```

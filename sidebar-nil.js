@@ -44,11 +44,101 @@ export default {
                     label: 'Shards and parallelized execution',
                     id: 'core-concepts/shards-parallel-execution',
                 },
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Getting started',
+            collapsed: false,
+            collapsible: true,
+            items: [
                 {
                     type: 'doc',
-                    label: 'Contract co-location',
-                    id: 'core-concepts/contract-co-location',
+                    label: 'Prerequisites',
+                    id: 'getting-started/prerequisites'
                 },
+                {
+                    type: 'category',
+                    label: 'Essentials',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Creating a wallet',
+                            id: 'getting-started/essentials/creating-a-wallet'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Receiving external messages',
+                            id: 'getting-started/essentials/receiving-ext-messages'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Handling async execution',
+                            id: 'getting-started/essentials/handling-async-execution'
+                        }
+                    ]
+                },
+                {
+                    type: 'category',
+                    label: 'Working with smart contracts',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Deploying a smart contract',
+                            id: 'getting-started/working-with-smart-contracts/deploying-a-contract'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Tools',
+            collapsed: true,
+            collapsible: true,
+            items: [
+                {
+                    type: 'category',
+                    label: 'Solidity library',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Function modifiers',
+                            id: 'tools/sol-library/func-modifiers'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Pre-compiles',
+                            id: 'tools/sol-library/pre-compiles'
+                        }]
+                }
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Guides',
+            collapsed: true,
+            collapsible: true,
+            items: [
+                {
+                    type: 'category',
+                    label: 'Architecture',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Key differences between Ethereum and =nil;',
+                            id: 'guides/architecture/ethereum-nil-diffs'
+                        },
+                    ]
+                }
             ]
         },
         {
@@ -71,6 +161,11 @@ export default {
                     type: 'doc',
                     label: 'Sequencing',
                     id: 'specification/sequencing',
+                },
+                {
+                    type: 'doc',
+                    label: 'Contract placement',
+                    id: 'specification/contract-co-location',
                 },
             ]
         }
