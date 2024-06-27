@@ -130,7 +130,7 @@ import "./Nil.sol";
 
 contract Validator {
     
-    using nil for address;
+    using Nil for address;
 
     function verify(address dst, address participantOne, address participantTwo) public {
         if (participantOne != participantTwo) {

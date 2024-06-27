@@ -28,15 +28,18 @@ As the receiving contract is charged with paying for external messages, the `ver
 This example contains a simple mechanism for verifying `authData`:
 
 ```solidity showLineNumbers
+import "./Nil.sol";
 contract Receiver {
-    bytes32 private validAuthDataKeccak = AUTH_DATA_KECCAK;
+    bytes pubkey;
 
-    function verifyExternal(uint256 messageHash, bytes authData) external view returns (bool) {
-        if (keccak256(authData) == AUTH_DATA_KECCAK) {
-            return true;
-        }
-        return false;
+    constructor(bytes memory _pubkey, ) payable {
+        pubkey = _pubkey;
     }
+
+    function verifyExternal(uint256 messageHash, bytes memory authData) external view returns (bool) {
+        return Nil.validateSignature(pubkey, messageHash, authData);
+    }
+
 }
 ```
 
