@@ -113,6 +113,19 @@ export default {
             items: [
                 {
                     type: 'category',
+                    label: 'Hardhat plugin',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Usage',
+                            id: 'tools/hardhat-plugin/usage'
+                        }
+                    ]
+                },
+                {
+                    type: 'category',
                     label: 'Solidity library',
                     collapsed: true,
                     collapsible: true,

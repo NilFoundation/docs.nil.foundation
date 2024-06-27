@@ -74,16 +74,22 @@ Internal messages pay for themselves by spending their `value`. As a result, the
 
 However, internal deployment can also be done via the flow where funds are first sent to an address, and the contract is later initialized at that address.
 
+:::info
+
+In order to be fully compatible with internal deployments via some developer tools (such as the =nil; CLI, the contract constructor has to be set as `payable`).
+
+:::
+
 ### Via the =nil; CLI
 
 To deploy the tutorial smart contracts via the =nil; CLI:
 
 ```bash
-nil_cli wallet deploy ./Manufacturer/Manufacturer.bin --abi ./Manufacturer/Manufacturer.abi --amount 5000000 --shard-id 1
+nil_cli wallet deploy ./Manufacturer/Manufacturer.bin PUBKEY ADDRESS --abi ./Manufacturer/Manufacturer.abi --amount 5000000 --shard-id 1
 ```
 
 ```bash
-nil_cli wallet deploy ./Manufacturer/Retailer.bin --abi ./Manufacturer/Retailer.abi --amount 5000000 --shard-id 2
+nil_cli wallet deploy ./Retailer/Retailer.bin --abi ./Retailer/Retailer.abi --amount 5000000 --shard-id 2
 ```
 
 This will make sure that `Manufacturer` and `Retailer` are on different shards.
@@ -105,8 +111,12 @@ const addrM = await wallet.deployContract({
         abi: MAbi as Abi,
         value: 10n,
         gas: 10000n,
-        salt: 202n,
+        salt: SALT,
         shardId: 1,
+        args: [
+            PUBKEY,
+            ADDRESS
+        ]
     });
 
 const addrR = await wallet.deployContract({
@@ -114,9 +124,47 @@ const addrR = await wallet.deployContract({
         abi: RAbi as Abi,
         value: 10n,
         gas: 10000n,
-        salt: 202n,
+        salt: SALT,
         shardId: 2,
     });
+```
+
+## Hardhat deployment
+
+After [**learning how to use the =nil; Hardhat plugin**](../../tools/hardhat-plugin/usage), create two module files for the tutorial contracts: 
+
+```typescript showLineNumbers
+import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+
+module.exports = buildModule("Manufacturer17", (m: any) => {
+
+  const pubkey = PUBKEY;
+  const owner = ADDRESS;
+
+  const manufacturer = m.contract("Manufacturer", [pubkey, owner]);
+
+  return { manufacturer };
+});
+```
+
+```typescript showLineNumbers
+import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
+
+module.exports = buildModule("RetailerSeven", (m: any) => {
+    const retailer = m.contract("Retailer");
+  
+    return { retailer };
+  });
+```
+
+Then, run the following commands to deploy the contracts:
+
+```bash
+npx hardhat ignition deploy ./ignition/modules/Manufacturer.ts --network nil_cluster
+```
+
+```bash
+npx hardhat ignition deploy ./ignition/modules/Retailer.ts --network nil_cluster
 ```
 
 ## Opcode deployment
@@ -130,7 +178,7 @@ import "./Nil.sol";
 
 using Nil for address;
 
-contract NewContract {
+contract Manufacturer {
     ...
 }
 
@@ -155,7 +203,7 @@ import "./Nil.sol";
 
 using Nil for address;
 
-contract NewContract {
+contract Manufacturer {
     ...
 }
 
