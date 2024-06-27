@@ -20,6 +20,26 @@ Funds sent to an address without a deployed contract are safe, and another party
 
 :::
 
+## Pre-built and custom wallets
+
+Because any smart contract can be a wallet, there is a distinction between pre-built and custom wallets. 
+
+A pre-built wallet is provided as part of =nil;. Such a wallet includes essential wallet functionalities as well as pre-defined constructor bytecode. The =nil; developer tools provide several ways of deploying pre-built wallets such as the `nil_cli wallet new` =nil; CLI command.
+
+:::info[Pre-built wallets]
+
+Presently, only one type of pre-built wallets is available. Additional types of pre-built wallets are WIP.
+
+:::
+
+:::info[Guarantees]
+
+As pre-built wallets are provided as part of =nil; they are guaranteed to be valid and tested. An audit process for pre-built wallets is currently under consideration.
+
+:::
+
+A custom wallet is any smart contract written by a user. This contract can support any flow permitted by Solidity code such as multi-sig authorization or token vesting. Custom wallets [**can be deployed**](../working-with-smart-contracts/deploying-a-contract) just like any other smart contract.
+
 ## New wallet creation
 
 ### Via the =nil; CLI
@@ -45,7 +65,7 @@ nil_cli wallet balance
 
 :::tip
 
-The wallet can be 'topped up' at any time by using the `wallet top-up AMOUNT` command.
+The wallet can be 'topped up' by using the `wallet top-up AMOUNT` command. Note that using this command disruptively (e.g., by requesting a 'top up' for an infinite amount of tokens) may destabilize the network.
 
 :::
 
@@ -103,5 +123,5 @@ await faucet.withdrawTo(walletAddress, 100000n);
 await wallet.selfDeploy(true);
 ```
 
-This example initializes a new wallet, provides it with a `Signer` and requests a `top up` to the wallet address. The wallet is then deployed.
+This example initializes a new wallet, provides it with a `Signer` and requests a 'top up' to the wallet address. The wallet is then deployed.
 
