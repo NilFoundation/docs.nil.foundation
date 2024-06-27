@@ -1,0 +1,81 @@
+# Calling methods inside smart contracts
+
+This tutorial outlines how 
+
+## Via the Hardhat plugin
+
+Calling smart contract methods via the Hardhat plugin requires creating Hardhat tasks.
+
+Setting the retailer contract address:
+
+```typescript showLineNumbers
+import { task } from "hardhat/config";
+
+task("setRetailerContractAddress", "Sets the Retailer contract address")
+  .addParam("retailer", "The address of the Retailer contract")
+  .addParam("manufacturer", "The address of the Manufacturer contract")
+  .setAction(async (taskArgs, hre) => {
+    const Manufacturer = await hre.ethers.getContractFactory("Manufacturer");
+    const manufacturer = Manufacturer.attach(taskArgs.manufacturer);
+
+    console.log("Setting the retailer address...");
+    const setterTx = await manufacturer.setRetailerContractAddress(taskArgs.retailer);
+    await setterTx.wait(0);
+
+    const currentAddress = await manufacturer.getRetailerContractAddress();
+    console.log(`Retailer address: ${currentAddress}`);
+  });
+```
+
+Ordering a product from the manufacturer:
+
+```typescript showLineNumbers
+import { task } from "hardhat/config";
+
+task("orderProduct", "Orders a product")
+  .addParam("retailer", "The address of the Retailer contract")
+  .addParam("manufacturer", "The address of the Manufacturer contract")
+  .addParam("product", "The name of the product")
+  .setAction(async (taskArgs, hre) => {
+    const Retailer = await hre.ethers.getContractFactory("Retailer");
+    const retailer = Retailer.attach(taskArgs.retailer);
+
+    console.log("Ordering the product...");
+    const setterTx = await retailer.orderProduct(taskArgs.manufacturer, taskArgs.product);
+    await setterTx.wait(0);
+  });
+```
+
+Retrieving the currently ordered products:
+
+```typescript showLineNumbers
+import { task } from "hardhat/config";
+
+task("getProducts", "Gets the current products")
+  .addParam("manufacturer", "The address of the Manufacturer contract")
+  .setAction(async (taskArgs, hre) => {
+    const Manufacturer = await hre.ethers.getContractFactory("Manufacturer");
+    const manufacturer = Manufacturer.attach(taskArgs.manufacturer);
+
+    console.log("Getting products..");
+    const products = await manufacturer.getProducts();
+
+    console.log(products);
+
+  });
+```
+
+Execute the following commands to run the newly created tasks:
+
+```bash
+npx hardhat setRetailerContractAddress --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER_ADDRESS
+```
+
+```bash
+npx hardhat orderProduct --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER_ADDRESS --product PRODUCT_NAME
+```
+
+```bash
+npx hardhat getProduct --manufacturer MANUFACTURER_ADDRESS --network nil_cluster
+```
+
