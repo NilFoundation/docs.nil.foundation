@@ -1,5 +1,7 @@
 # Deploying a contract
 
+This guide lists all possible methods for deploying the [**tutorial contracts**](./writing-a-contract). 
+
 ## External deployment
 
 An external deployment of a contract is made by a user or another entity outside of the cluster. 
@@ -130,6 +132,12 @@ const addrR = await wallet.deployContract({
 ```
 
 ## Hardhat deployment
+
+:::info[Deployment type]
+
+The =nil; Hardhat plugin only supports internal deployment.
+
+:::
 
 After [**learning how to use the =nil; Hardhat plugin**](../../tools/hardhat-plugin/usage), create two module files for the tutorial contracts: 
 

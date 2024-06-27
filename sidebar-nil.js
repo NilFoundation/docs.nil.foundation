@@ -100,6 +100,11 @@ export default {
                             type: 'doc',
                             label: 'Deploying a smart contract',
                             id: 'getting-started/working-with-smart-contracts/deploying-a-contract'
+                        },
+                        {
+                            type: 'doc',
+                            label: 'Calling methods inside a contract',
+                            id: 'getting-started/working-with-smart-contracts/calling-contract-methods'
                         }
                     ]
                 }
