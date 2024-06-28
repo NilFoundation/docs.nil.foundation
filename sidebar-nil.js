@@ -118,6 +118,19 @@ export default {
             items: [
                 {
                     type: 'category',
+                    label: '=nil; CLI',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Usage',
+                            id: 'tools/nil-cli/usage'
+                        }
+                    ]
+                },
+                {
+                    type: 'category',
                     label: 'Hardhat plugin',
                     collapsed: true,
                     collapsible: true,

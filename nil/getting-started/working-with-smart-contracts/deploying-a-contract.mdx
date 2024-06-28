@@ -19,13 +19,15 @@ A new address is always calculated based on the bytecode of the contract constru
 
 ### Via the CLI
 
+
+
 ### Via the client library
 
 Before deploying the tutorial contracts via the client library, convert their `.abi` files into `.abi.json` files. Then:
 
 ```typescript showLineNumbers
 
-import { PublicClient } from "@nilfoundation/niljs";
+import { PublicClient, HttpTransport } from "@nilfoundation/niljs";
 
 import { bytesToHex } from "viem";
 
