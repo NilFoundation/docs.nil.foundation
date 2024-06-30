@@ -70,6 +70,11 @@ export default {
                         },
                         {
                             type: 'doc',
+                            label: 'Tokens and multi-currency support',
+                            id: 'getting-started/essentials/tokens-multi-currency'
+                        },
+                        {
+                            type: 'doc',
                             label: 'Reading and writing information',
                             id: 'getting-started/essentials/reading-writing-info'
                         },
