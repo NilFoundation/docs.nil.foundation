@@ -69,7 +69,7 @@ This command generates autocompletion scripts for various shells.
 
 ### Subcommands 
 
-| Subcommands | Definition |
+| Subcommand | Definition |
 |:--:|:--|
 | `bash` | Generate the autocompletion script for `bash`. |
 | `fish` | Generate the autocompletion script for `fish`.  |
@@ -104,7 +104,7 @@ This command is for [**setting up the =nil; CLI**](../tools/nil-cli/usage.mdx).
 
 ### Subcommands
 
-| Subcommands | Definition |
+| Subcommand | Definition |
 |:--:|:--|
 | `get` | Gets the value of the provided config key. |
 | `set` | Sets the given value to the provided config key.  |
@@ -179,7 +179,7 @@ This command is for reading contract information and for interacting with smart 
 
 ### Subcommands
 
-| Subcommands | Definition |
+| Subcommand | Definition |
 |:--:|:--|
 | `address` | Calculate the smart contract address given its bytecode. |
 | `balance` | Retrieve the balance of the smart contract.  |
@@ -350,7 +350,7 @@ This command is for generating private keys.
 
 ### Subcommands
 
-| Subcommands | Definition |
+| Subcommand | Definition |
 |:--:|:--|
 | `fromHex string` | Generate a new key from the provided hex of a private key. |
 | `new` | Generate a new key. |
@@ -425,7 +425,176 @@ Fetched message:
 }
 ```
 
-## `new-wallet`
+## `minter`
+
+This command is for interacting with the =nil; currency minter.
+
+### Subcommands
+
+| Subcommand | Definition |
+|:--:|:--|
+| `create-currency` | Create a new currency and, optionally, withdraw it. |
+| `mint-currency` | Mint an existing currency and, optionally, withdraw it.  |
+| `withdraw-currency` | Withdraw an existing currency that has been minted.  |
+
+### Flags
+
+For `create-currency`, `mint-currency`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--withdraw` | Immediately withdraw the created/minted currency to its owner. |
+| `--help \| -h` | Receive help for the command. |
+
+For `withdraw-currency`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--help \| -h` | Receive help for the command. |
+
+### Examples
+
+#### Create a new token
+
+```bash
+nil_cli minter create-currency OWNER_ADDRESS AMOUNT NAME [--withdraw]
+```
+
+#### Mint an existign token
+
+```bash
+nil_cli minter mint-currency OWNER_ADDRESS AMOUNT [--withdraw]
+```
+
+#### Withdraw tokens
+
+```bash
+nil_cli minter withdraw-currency OWNER_ADDRESS AMOUNT TO_ADDRESS
+```
+
+### Outputs
+
+#### Creating a new token
+
+```bash
+Created NAME:AMOUNT CurrencyId=[CURRENCY_ID]
+```
+
+#### Minting a new token
+
+```bash
+Minted AMOUNT CurrencyId=[CURRENCY_ID]
+```
+
+#### Withdrawing tokens
+
+```bash
+Transferred AMOUNT to TO_ADDRESS CurrencyId=[CURRENCY_ID]
+```
+
+## `receipt`
+
+This command is for retriving the receipt with the given hash.
+
+### Subcommands
+
+No subcommands.
+
+### Flags
+
+| Flag | Definition |
+|:--:|:--|
+| `--shard-id uint32` | Specify the id of the shard from which the receipt must be retrieved. |
+| `--help \| -h` | Receive help for the command. |
+
+### Example
+
+```bash
+nil_cli receipt MESSAGE_HASH [--shard-id SHARD_ID; default 1]
+```
+
+### Output
+
+```bash
+Fetched receipt:
+{
+  "blockHash": "{BLOCK_HASH}",
+  "blockNumber": BLOCK_NUMBER,
+  "bloom": "{BLOOM}",
+  "contractAddress": "{CONTRACT_ADDRESS}",
+  "gasUsed": GAS_USED,
+  "logs": [],
+  "messageHash": "{MESSAGE_HASH}",
+  "messageIndex": INDEX,
+  "outMsgIndex": OUT_MESSAGE_INDEX,
+  "success": SUCCESS
+}
+```
+
+## `system`
+
+This command is for retrieving system information.
+
+### Subcommands
+
+| Subcommand | Definition |
+|:--:|:--|
+| `chain-id` | Retreives the ID of the current chain. |
+| `gas-price` | Retrieves the gas price in the specified shard.  |
+| `shards` | Retrives a list of all execution shards.  |
+
+### Flags
+
+| Flag | Definition |
+|:--:|:--|
+| `--help \| -h` | Receive help for the command. |
+
+### Examples
+
+#### Retrieve the ID of the current chain
+
+```bash
+nil_cli system chain-id
+```
+
+#### Retrieve the gas price at the specified shard
+
+```bash
+nil_cli system gas-price shard-id SHARD_ID
+```
+
+#### Retrieve the list of all execution shards
+
+```bash
+nil_cli system shards
+```
+
+### Output
+
+#### Retrieving the ID of the current chain
+
+```bash
+ChainId: CHAIN_ID
+```
+
+#### Retrieving the gas price at the specified shard
+
+```bash
+Gas price of shard SHARD_ID: GAS_PRICE
+```
+
+#### Retrieving the list of all execution shards
+
+```bash
+List of shard id:
+* SHARD_ID
+* SHARD_ID
+...
+```
+
+## `wallet`
+
+This command is for interacting with wallets.
 
 ### Flags
 
@@ -447,36 +616,3 @@ nil_cli new-wallet [--code CODE; default DEFAULT_CODE] [--salt SALT; default 0]
 New wallet address: NEW_WALLET_ADDRESS
 ```
 
-## `receipt`
-
-### Flags
-
-| Flag | Definition |
-|:--:|:--|
-| `--hash string` | Retrieve the receipt with the given hash. |
-| `--shard-id uint32` | Specify the id of the shard from which the receipt must be retrieved. |
-| `--help \| -h` | Receive help for the command. |
-
-### Example
-
-```bash
-nil_cli receipt --hash MESSAGE_HASH [--shard-id SHARD_ID; default 1]
-```
-
-### Output
-
-```bash
-Fetched receipt:
-{
-  "blockHash": "{BLOCK_HASH}",
-  "blockNumber": BLOCK_NUMBER,
-  "bloom": "{BLOOM}",
-  "contractAddress": "{CONTRACT_ADDRESS}",
-  "gasUsed": GAS_USED,
-  "logs": [],
-  "messageHash": "{MESSAGE_HASH}",
-  "messageIndex": INDEX,
-  "outMsgIndex": OUT_MESSAGE_INDEX,
-  "success": SUCCESS
-}
-```
