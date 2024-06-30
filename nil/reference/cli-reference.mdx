@@ -12,6 +12,10 @@ This page lists all commands exposed by the =nil; CLI as well as their flags and
 
 This command allows for reading block information.
 
+### Subcommands
+
+No subcommands.
+
 ### Flags
 
 | Flag | Definition |
@@ -295,28 +299,80 @@ Contract balance: CONTRACT_BALANCE
 Contract currencies: CONTRACT_CURRENCIES
 ```
 
+## `help`
+
+This command is for receiving help for the =nil; CLI.
+
+### Subcommands
+
+No subcommands.
+
+### Flags
+
+No flags. 
+
+### Example
+
+```bash
+nil_cli help
+```
+
+### Output
+
+```bash
+CLI tool for interacting with the =nil; cluster
+
+Usage:
+  nil_cli [command]
+
+Available Commands:
+  block       Retrieve a block from the cluster
+  completion  Generate the autocompletion script for the specified shell
+  config      Configuration management
+  contract    Interact with contract on the cluster
+  help        Help about any command
+  keygen      Generate a new key or generate a key from a provided hex private key
+  message     Retrieve a message from the cluster
+  minter      Interact with minter on the cluster
+  receipt     Retrieve a receipt from the cluster
+  system      Request system-wide information
+  wallet      Interact with wallet on the cluster
+
+Flags:
+  -c, --config string      Path to config file (default "config.yaml")
+  -h, --help               help for nil_cli
+  -l, --log-level string   Log level: trace|debug|info|warn|error|fatal|panic (default "trace")
+```
+
 ## `keygen`
+
+This command is for generating private keys.
+
+### Subcommands
+
+| Subcommands | Definition |
+|:--:|:--|
+| `fromHex string` | Generate a new key from the provided hex of a private key. |
+| `new` | Generate a new key. |
 
 ### Flags
 
 | Flag | Definition |
 |:--:|:--|
-| `--fromHex string` | Generate a new key from the provided hex of a private key. |
-| `--new` | Generate a new key. |
 | `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
-#### Generating a new key from hex
+#### Generate a new key from hex
 
 ```bash
-nil_cli keygen --fromHex HEX
+nil_cli keygen fromHex HEX
 ```
 
 #### Generating a new key
 
 ```bash
-nil_cli keygen --new
+nil_cli keygen new
 ```
 
 ### Output
@@ -327,18 +383,23 @@ Private key: PRIVATE_KEY
 
 ## `message`
 
+This command is for retrieving a message from the cluster.
+
+### Subcommands
+
+No subcommands.
+
 ### Flags
 
 | Flag | Definition |
 |:--:|:--|
-| `--hash string` | Retrieve the message with the given hash. |
 | `--shard-id uint32` | Specify the id of the shard from which the message should be retrieved. |
 | `--help \| -h` | Receive help for the command. |
 
 ### Example
 
 ```bash
-nil_cli message --hash MESSAGE_HASH [--shard-id SHARD_ID; default 1]
+nil_cli message MESSAGE_HASH [--shard-id SHARD_ID; default 1]
 ```
 
 ### Output
