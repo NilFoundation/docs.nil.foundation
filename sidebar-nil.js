@@ -184,6 +184,19 @@ export default {
         },
         {
             type: 'category',
+            label: 'Reference',
+            collapsed: true,
+            collapsible: true,
+            items: [
+                {
+                    type: 'doc',
+                    label: '=nil; CLI reference',
+                    id: 'reference/cli-reference'
+                }
+            ]
+        },
+        {
+            type: 'category',
             label: 'Specification',
             collapsed: true,
             collapsible: true,

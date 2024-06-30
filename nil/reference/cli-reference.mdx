@@ -90,6 +90,83 @@ nil_cli completion bash | fish | powershell | zsh
 COMPLETION_SCRIPT
 ```
 
+## `config`
+
+### Description
+
+This command is for [**setting up the =nil; CLI**](../tools/nil-cli/usage.mdx).
+
+### Subcommands
+
+### Subcommands
+
+| Subcommands | Definition |
+|:--:|:--|
+| `get` | Gets the value of the provided config key. |
+| `set` | Sets the given value to the provided config key.  |
+| `init` | Initializes the =nil; CLI config file.|
+| `show` | Shows the current contents of the =nil; CLI config file.  |
+
+### Flags
+
+| Flag | Definition |
+|:--:|:--|
+| `--help \| -h` | Receive help for the command. |
+
+### Examples
+
+#### Initialize the config file
+
+```bash
+nil_cli config init
+```
+
+#### Set a config value
+
+```bash
+nil_cli config set KEY VALUE
+```
+
+#### Read a config value
+
+```bash
+nil_cli config get KEY
+```
+
+#### Show the contents of the config file
+
+```bash
+nil_cli config show
+```
+
+### Outputs 
+
+#### Initializing the config file
+
+```bash
+Config initialized successfully: config.yaml
+```
+
+#### Setting a config value
+
+```bash
+Set "KEY" to "VALUE"
+```
+
+#### Getting a config value
+
+```bash
+KEY: Value
+```
+
+#### Showing the contents of the file
+
+```bash
+Config file: config.yaml
+KEY: VALUE
+...
+```
+
 ## `contract`
 
 ### Description
@@ -132,7 +209,7 @@ For `deploy`:
 |:--:|:--|
 | `--abi string` | The path to the `.abi` file containing the contract ABI. |
 | `--no-wait` | Prevents waiting for the deployment message receipt when the command is executing. |
-| `--salt Uint256 | Arbitrary salt. |
+| `--salt Uint256` | Arbitrary salt. |
 | `--shard-id ShardId` | The ID of the shard where the contract is located/could be located.|
 | `--help \| -h` | Receive help for the command. |
 
