@@ -539,9 +539,9 @@ This command is for retrieving system information.
 
 | Subcommand | Definition |
 |:--:|:--|
-| `chain-id` | Retreives the ID of the current chain. |
-| `gas-price` | Retrieves the gas price in the specified shard.  |
-| `shards` | Retrives a list of all execution shards.  |
+| `chain-id` | Retreive the ID of the current chain. |
+| `gas-price` | Retrieve the gas price in the specified shard.  |
+| `shards` | Retrieve a list of all execution shards.  |
 
 ### Flags
 
@@ -595,6 +595,18 @@ List of shard id:
 ## `wallet`
 
 This command is for interacting with wallets.
+
+### Subcommands
+
+| Subcommand | Definition |
+|:--:|:--|
+| `balance` | Retrieves the balance of the wallet specified in the =nil; CLI config. |
+| `deploy` | Deploys a smart contract via the wallet.  |
+| `info` | Retrives the wallet's address and the public key.  |
+| `new` | Create a new wallet. |
+| `send-message` | Send a message to a deployed smart contract via the wallet. |
+| `send-tokens` | Send tokens to the wallet. |
+| `top-up` | Request a 'top up' from the faucet. |
 
 ### Flags
 
