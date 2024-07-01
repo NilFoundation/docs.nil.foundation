@@ -122,27 +122,6 @@ await waitTillCompleted(client, 1, orderMessageHash);
 
 Calling smart contract methods via the Hardhat plugin requires creating Hardhat tasks.
 
-Setting the retailer contract address:
-
-```typescript showLineNumbers
-import { task } from "hardhat/config";
-
-task("setRetailerContractAddress", "Sets the Retailer contract address")
-  .addParam("retailer", "The address of the Retailer contract")
-  .addParam("manufacturer", "The address of the Manufacturer contract")
-  .setAction(async (taskArgs, hre) => {
-    const Manufacturer = await hre.ethers.getContractFactory("Manufacturer");
-    const manufacturer = Manufacturer.attach(taskArgs.manufacturer);
-
-    console.log("Setting the retailer address...");
-    const setterTx = await manufacturer.setRetailerContractAddress(taskArgs.retailer);
-    await setterTx.wait(0);
-
-    const currentAddress = await manufacturer.getRetailerContractAddress();
-    console.log(`Retailer address: ${currentAddress}`);
-  });
-```
-
 Ordering a product from the manufacturer:
 
 ```typescript showLineNumbers
@@ -182,10 +161,6 @@ task("getProducts", "Gets the current products")
 ```
 
 Execute the following commands to run the newly created tasks:
-
-```bash
-npx hardhat setRetailerContractAddress --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER_ADDRESS
-```
 
 ```bash
 npx hardhat orderProduct --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER_ADDRESS --product PRODUCT_NAME

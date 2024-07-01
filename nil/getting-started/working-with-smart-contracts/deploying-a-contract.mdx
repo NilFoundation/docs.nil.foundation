@@ -279,31 +279,41 @@ The =nil; Hardhat plugin only supports internal deployment.
 
 :::
 
-After [**learning how to use the =nil; Hardhat plugin**](../../tools/hardhat-plugin/usage), create two module files for the tutorial contracts: 
+After [**learning how to use the =nil; Hardhat plugin**](../../tools/hardhat-plugin/usage), create two module files for the tutorial contracts. 
+
+Retailer:
 
 ```typescript showLineNumbers
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-module.exports = buildModule("Manufacturer17", (m: any) => {
+module.exports = buildModule("Retailer", (m: any) => {
+    const retailer = m.contract("Retailer");
 
-  const pubkey = PUBKEY;
-  const owner = ADDRESS;
-
-  const manufacturer = m.contract("Manufacturer", [pubkey, owner]);
-
-  return { manufacturer };
+    return { retailer };
 });
 ```
 
+Manufacturer:
+
 ```typescript showLineNumbers
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-module.exports = buildModule("RetailerSeven", (m: any) => {
-    const retailer = m.contract("Retailer");
-  
-    return { retailer };
-  });
+module.exports = buildModule("Manufacturer", (m: any) => {
+
+    const pubkey = "{PUBKEY}";
+    const retailerContractAddress = "{RETAILER_ADDRESS}";
+
+    const manufacturer = m.contract("Manufacturer", [pubkey, retailerContractAddress]);
+
+    return { manufacturer };
+});
 ```
+
+:::tip
+
+`PUBKEY` can be accessed by running the `nil_cli wallet info` command.
+
+:::
 
 Then, run the following commands to deploy the contracts:
 
