@@ -29,13 +29,13 @@ To call the `getProduct()` function inside the manufacturer contract:
 nil_cli wallet send-message MANUFACTURER_ADDRESS getProducts --abi path/to/Manufacturer.abi
 ```
 
-Retrieve the message hash from the output and access the message:
+Make a readonly call to access the value:
 
 ```bash
-nil_cli message MESSAGE_HASH
+nil_cli contract call-readonly MANUFACTURER_ADDRESS getProducts --abi path/to/Manufacturer.abi
 ```
 
-When decoded, the `"data"` field in the output should show the newly created product.
+When decoded, the value should show the newly created product.
 
 ### Via the client library
 
@@ -83,8 +83,40 @@ console.log(`Final hash: ${hashGetProduct}`);
 
 ## Using external messages
 
+### Via the =nil; CLI
 
+The CLI currently does not support sending external messages that modify the internal state of smart contracts or spawn internal messages. As a result, sending an external message to a function that performs an async call to another function will fail. 
 
+In the retailer contract, the `orderProduct()` function cannot be called externally as it makes an async call to the manufacturer.
+
+### Via the client library
+
+To order a new product using the retailer:
+
+```ts showLineNumbers
+const orderMessage = new ExternalMessageEnvelope({
+  isDeploy: false,
+  to: hexToBytes(RETAILER_ADDRESS),
+  chainId,
+  seqno: await client.getMessageCount(RETAILER_ADDRESS, "latest"),
+  data: hexToBytes(
+    encodeFunctionData({
+      abi: RETAILER_ABI as Abi,
+      functionName: "orderProduct",
+      args: [addrM, "new-product"],
+    }),
+  ),
+  authData: new Uint8Array(0),
+});
+
+const encodedOrderMessage = orderMessage.encode();
+
+const orderMessageHash = await client.sendRawMessage(
+  bytesToHex(encodedOrderMessage),
+);
+
+await waitTillCompleted(client, 1, orderMessageHash);
+```
 
 ## Via the Hardhat plugin
 

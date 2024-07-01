@@ -170,14 +170,10 @@ contract Manufacturer is NilBase {
     }
 
     function verifyExternal(
-        uint256 messageHash,
-        bytes memory authData
+        uint256 hash,
+        bytes calldata signature
     ) external view returns (bool) {
-        if (Nil.validateSignature(pubkey, messageHash, authData)) {
-            return true;
-        }
-
-        return false;
+        return Nil.validateSignature(pubkey, hash, signature);
     }
 
     function getProducts()

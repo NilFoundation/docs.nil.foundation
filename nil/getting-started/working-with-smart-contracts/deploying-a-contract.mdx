@@ -232,7 +232,7 @@ const deploymentMessageRetailer = externalDeploymentMessage(
 const addrR = bytesToHex(deploymentMessageRetailer.to);
 console.log("Retailer address: ", addrR);
 
-const faucetHash = await faucet.withdrawToWithRetry(addrR, 5_000_000n);
+const faucetHash = await faucet.withdrawToWithRetry(addrR, convertEthToWei(1));
 const receipts = await waitTillCompleted(client, 1, faucetHash);
 
 const hash = await deploymentMessageRetailer.send(client);
@@ -251,7 +251,7 @@ const deploymentMessageManufacturer = externalDeploymentMessage(
     shard: 2,
     bytecode: MANUFACTURER_BYTECODE,
     abi: MANUFACTURER_ABI as Abi,
-    args: [bytesToHex(pubkey), addrR],
+    args: [bytesToHex(PUBKEY), RETAILER_ADDRESS],
   },
   chainId,
 );
@@ -259,7 +259,7 @@ const deploymentMessageManufacturer = externalDeploymentMessage(
 const addrM = bytesToHex(deploymentMessageManufacturer.to);
 console.log("Manufacturer address: ", addrM);
 
-const faucetHashM = await faucet.withdrawToWithRetry(addrM, 5_000_000n);
+const faucetHashM = await faucet.withdrawToWithRetry(addrM, convertEthToWei(1));
 const receiptsM = await waitTillCompleted(client, 1, faucetHashM);
 
 console.log(receiptsM);
@@ -270,7 +270,6 @@ await waitTillCompleted(client, 2, hashM);
 
 console.log("Manufacturer deployed successfully");
 ```
-
 
 ## Hardhat deployment
 
