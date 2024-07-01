@@ -2,6 +2,14 @@
 
 This tutorial explains how to create smart contracts that take full advantage of the unique features of =nil;.
 
+## Prerequisites
+
+Complete the following tutorials before proceeding.
+
+* [**Creating a wallet**](../essentials/creating-a-wallet)
+* [**Handling async execution**](../essentials/handling-async-execution)
+* [**Receiving external messages**](../essentials/receiving-ext-messages)
+
 ## Specification
 
 The tutorial defines two contracts.
@@ -25,6 +33,8 @@ import "./Nil.sol";
 
 contract Retailer {
     using Nil for address;
+
+    receive() external payable {}
 
     function orderProduct(address dst, string calldata productName) public {
         dst.asyncCall(msg.sender, msg.sender, 100000, false, 100000 * 10, abi.encodeWithSignature("createProduct(string)", productName));
@@ -67,6 +77,8 @@ Contract 1 stores its owner's `pubkey`, which is useful for verifying external m
         pubkey = _pubkey;
         retailerContractAddress = _retailerContractAddress;
     }
+
+    receive() external payable {}
 ```
 
 The contract also conntains a simple mechanism for verifying external messages:
@@ -135,6 +147,8 @@ contract Manufacturer is NilBase {
         pubkey = _pubkey;
         retailerContractAddress = _retailerContractAddress;
     }
+
+    receive() external payable {}
 
     struct Product {
         uint id;

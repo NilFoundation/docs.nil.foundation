@@ -5,6 +5,12 @@ import TabItem from '@theme/TabItem'
 
 This guide lists all possible methods for deploying the [**tutorial contracts**](./writing-a-contract).
 
+## Prerequisites
+
+Complete the following tutorials before proceeding.
+
+* [**Writing a contract**](./writing-a-contract)
+
 ## Internal deployment
 
 An internal deployment of a contract is made by another smart contract (as all wallets are smart contracts, this also applies to wallets).
@@ -121,7 +127,7 @@ const { address: addressM, hash: hashM } = await wallet.deployContract({
   args: [],
 });
 
-await waitTillCompleted(client, 2, hashM);
+await waitTillCompleted(client, 1, hashM);
 
 console.log(`Manufcaturer address: ${addressM}`);
 ```
@@ -138,7 +144,7 @@ A new address is always calculated based on the bytecode of the contract constru
 
 :::
 
-### Via the CLI
+### Via the =nil; CLI
 
 First, calulate the address of the retailer contract and send funds to this address:
 
