@@ -2,20 +2,49 @@
 
 This tutorial explains how to create smart contracts that take full advantage of the unique features of =nil;.
 
+## Prerequisites
+
+Complete the following tutorials before proceeding.
+
+* [**Creating a wallet**](../essentials/creating-a-wallet)
+* [**Handling async execution**](../essentials/handling-async-execution)
+* [**Receiving external messages**](../essentials/receiving-ext-messages)
+
 ## Specification
 
 The tutorial defines two contracts.
 
-Contract 1 acts as a product manufacturer for a retailer. It has the following features:
+Contract 1 is a retailer. The contract can call a special 'manufacturer' contract and order new products by performing an async call.
+
+Contract 2 is the manufacturer. It has the following features:
 
 * It can [**accept external messages and verify them**](../essentials/receiving-ext-messages)
 * It will [**limit what messages can call**](../../tools/sol-library/func-modifiers) some of its functions
 
-Contract 2 is a retailer. The contract can order Contract 1 to order new products by making an async call.
-
 ## Creating the first contract
 
-Contract 1 has some basic architecture in place representing products:
+The `Retailer` contract (Contract 1) orders products by performing an async call to the specified address of the manufacturer contract:
+
+```solidity showLineNumbers
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./Nil.sol";
+
+contract Retailer {
+    using Nil for address;
+
+    receive() external payable {}
+
+    function orderProduct(address dst, string calldata productName) public {
+        dst.asyncCall(msg.sender, msg.sender, 100000, false, 100000 * 10, abi.encodeWithSignature("createProduct(string)", productName));
+    }
+}
+```
+
+## Creating the second contract
+
+Contract 2 has some basic architecture in place representing products:
 
 ```solidity showLineNumbers
 pragma solidity ^0.8.0;
@@ -35,24 +64,27 @@ contract Manufacturer {
 }
 ```
 
-Contract 1 also stores its owner's `pubkey` and `address`, which is useful to limit access to some of its functions:
+Contract 1 stores its owner's `pubkey`, which is useful for verifying external messages. The contract also contains the address of the retailer contract. This is done so that only the retailer contract can order new products.
 
 ```solidity showLineNumbers
     bytes pubkey;
-    address owner;
+    address retailerContractAddress;
 
-    constructor(bytes memory _pubkey, address _owner) payable {
+    constructor(
+        bytes memory _pubkey,
+        address _retailerContractAddress
+    ) payable {
         pubkey = _pubkey;
-        owner = _owner;
+        retailerContractAddress = _retailerContractAddress;
     }
+
+    receive() external payable {}
 ```
 
-The contract also stores the address of the retailer contract, which is set via a separate message. As soon as this message arrives, the contract stops accepting external messages and prevents anyone from changing the address of the retailer. Note that only the contract owner can send external messages to the contract:
+The contract also conntains a simple mechanism for verifying external messages:
 
 ```solidity showLineNumbers
 contract Manufacturer {
-    address private retailerContractAddress;
-    bool private isRetailerAddressSet = false;
 
     function verifyExternal(uint256 messageHash, bytes memory authData) external view returns (bool) {
         if (isRetailerAddressSet == false) {
@@ -63,16 +95,10 @@ contract Manufacturer {
         return false;
     }
 
-    function setRetailerContractAddress(address _retailerContractAddress) public {
-        if (isRetailerAddressSet == false && msg.sender == owner) {
-            retailerContractAddress = _retailerContractAddress;
-            isRetailerAddressSet = true;
-        }
-    }
 }
 ```
 
-Last but not least, Contract 1 can produce new products (but only via an internal message):
+Last but not least, Contract 2 can produce new products (but only via an internal message sent from the retailer):
 
 ```solidity showLineNumbers
 function createProduct(string calldata name) public onlyInternal {
@@ -83,7 +109,7 @@ function createProduct(string calldata name) public onlyInternal {
     }
 ```
 
-Contract 1 can also output the products that have been ordered by the retailer:
+Contract 2 can also output the products that have been ordered by the retailer:
 
 ```solidity showLineNumbers
 function getProducts() public view returns (uint[] memory, string[] memory) {
@@ -100,7 +126,7 @@ function getProducts() public view returns (uint[] memory, string[] memory) {
     }
 ```
 
-Here is the full code of Contract 1:
+Here is the full code of Contract 2:
 
 ```solidity showLineNumbers
 // SPDX-License-Identifier: MIT
@@ -112,12 +138,17 @@ contract Manufacturer is NilBase {
     using Nil for address;
 
     bytes pubkey;
-    address owner;
+    address retailerContractAddress;
 
-    constructor(bytes memory _pubkey, address _owner) payable {
+    constructor(
+        bytes memory _pubkey,
+        address _retailerContractAddress
+    ) payable {
         pubkey = _pubkey;
-        owner = _owner;
+        retailerContractAddress = _retailerContractAddress;
     }
+
+    receive() external payable {}
 
     struct Product {
         uint id;
@@ -127,38 +158,29 @@ contract Manufacturer is NilBase {
     mapping(uint => Product) public products;
     uint public nextProductId;
 
-    address private retailerContractAddress;
-
-    bool private isRetailerAddressSet = false;
-
-    function setRetailerContractAddress(address _retailerContractAddress) public {
-        if (isRetailerAddressSet == false && msg.sender == owner) {
-            retailerContractAddress = _retailerContractAddress;
-            isRetailerAddressSet = true;
-        }
-    }
-
-    function getOwner() public view returns (address) {
-        return owner;
-    }
-
-    function createProduct(string calldata name) public onlyInternal {
+    function createProduct(
+        string calldata name
+    ) public onlyInternal returns (bool) {
         if (msg.sender == retailerContractAddress) {
             products[nextProductId] = Product(nextProductId, name);
             nextProductId++;
-        }  
-    }
-
-    function verifyExternal(uint256 messageHash, bytes memory authData) external view returns (bool) {
-        if (isRetailerAddressSet == false) {
-            if (Nil.validateSignature(pubkey, messageHash, authData)) {
-                return true;
-            }
+            return true;
         }
         return false;
     }
 
-    function getProducts() public view returns (uint[] memory, string[] memory) {
+    function verifyExternal(
+        uint256 hash,
+        bytes calldata signature
+    ) external view returns (bool) {
+        return Nil.validateSignature(pubkey, hash, signature);
+    }
+
+    function getProducts()
+        public
+        view
+        returns (uint[] memory, string[] memory)
+    {
         uint[] memory ids = new uint[](nextProductId);
         string[] memory names = new string[](nextProductId);
 
@@ -172,38 +194,18 @@ contract Manufacturer is NilBase {
     }
 }
 ```
-
-## Creating the second contract
-
-The second contract is much simpler than the first. The `Retailer` contract orders products from the `Manufacturer` by calling it asynchronously:
-
-```solidity showLineNumbers
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "./Nil.sol";
-
-contract Retailer {
-    using Nil for address;
-
-    function orderProduct(address dst, string calldata productName) public {
-        dst.asyncCall(msg.sender, msg.sender, 100000, false, 100000 * 10, abi.encodeWithSignature("createProduct(string)", productName));
-    }
-}
-```
-
 ## Compiling the contracts
 
 Compile Contract 1 with:
 
 ```bash
-solc ./Manufacturer.sol --bin --abi -o ./Manufacturer
+solc ./Retailer.sol --bin --abi -o ./Retailer
 ```
 
 Compile Contract 2 with:
 
 ```bash
-solc ./Retailer.sol --bin --abi -o ./Retailer
+solc ./Manufacturer.sol --bin --abi -o ./Manufacturer
 ```
 
 After compiling both contracts, they should be [**ready for deployment**](./deploying-a-contract)!

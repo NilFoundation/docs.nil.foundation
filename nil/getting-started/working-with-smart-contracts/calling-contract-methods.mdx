@@ -3,26 +3,120 @@ import TabItem from '@theme/TabItem'
 
 # Calling methods inside smart contracts
 
-This tutorial outlines how to interact with smart contracts given the developer tools provided by =nil;.
+This tutorial outlines how to interact with [**the tutorial smart contracts**](./writing-a-contract) given the developer tools provided by =nil;.
 
-## Via the CLI
+## Prerequisites
 
-The =nil CLI; allows for sending internal or external messages to contracts.
+Complete the following tutorials before proceeding.
 
-To set the address of the retailer contract:
+* [**Writing a contract**](./writing-a-contract)
+* [**Deploying a contract**](./deploying-a-contract)
 
-<Tabs groupId='packageSystem'>
-  <TabItem value='external' label='External'>
-    ```bash
-    nil_cli contract call-readonly MANUFACTURER_ADDRESS setRetailerContractAddress RETAILER_ADDRESS --abi path/to/Retailer.abi --gas-limit 1000
-    ```
-  </TabItem>
-  <TabItem value='internal' label='Internal'>
-    ```bash
-    yarn add hardhat
-    ```
-  </TabItem>
-</Tabs>
+## Using internal messages
+
+### Via the =nil; CLI
+
+To call the `orderProduct()` function inside the retailer contract and trigger an async call:
+
+```bash
+nil_cli wallet send-tokens RETAILER_ADDRESS 5000000
+nil_cli wallet send-message RETAILER_ADDRESS orderProduct MANUFACTURER_ADDRESS new-product --abi path/to/Retailer.abi
+```
+
+To call the `getProduct()` function inside the manufacturer contract:
+
+```bash
+nil_cli wallet send-message MANUFACTURER_ADDRESS getProducts --abi path/to/Manufacturer.abi
+```
+
+Make a readonly call to access the value:
+
+```bash
+nil_cli contract call-readonly MANUFACTURER_ADDRESS getProducts --abi path/to/Manufacturer.abi
+```
+
+When decoded, the value should show the newly created product.
+
+### Via the client library
+
+To send funds to the retailer product and call the `orderProduct` method:
+
+```ts showLineNumbers
+const hashFunds = await faucet.withdrawToWithRetry(addressR, 5_000_000n);
+
+await waitTillCompleted(client, 1, hashFunds);
+
+const hashProduct = await wallet.sendMessage({
+  to: addressR,
+  data: encodeFunctionData({
+    abi: RETAILER_ABI as Abi,
+    functionName: "orderProduct",
+    args: [addressM, "another-product"],
+  }),
+  gas: 100000n,
+  value: 1000000n,
+});
+
+await waitTillCompleted(client, 1, hashProduct);
+
+console.log("Product created!");
+```
+
+To receive the currently created products:
+
+```ts showLineNumbers
+const hashGetProduct = await wallet.sendMessage({
+  to: addressM,
+  data: encodeFunctionData({
+    abi: MANUFACTURER_ABI as Abi,
+    functionName: "getProducts",
+    args: [],
+  }),
+  gas: 100000n,
+  value: 1000000n,
+});
+
+await waitTillCompleted(client, 1, hashGetProduct);
+console.log(`Final hash: ${hashGetProduct}`);
+
+```
+
+## Using external messages
+
+### Via the =nil; CLI
+
+The CLI currently does not support sending external messages that modify the internal state of smart contracts or spawn internal messages. As a result, sending an external message to a function that performs an async call to another function will fail. 
+
+In the retailer contract, the `orderProduct()` function cannot be called externally as it makes an async call to the manufacturer.
+
+### Via the client library
+
+To order a new product using the retailer:
+
+```ts showLineNumbers
+const orderMessage = new ExternalMessageEnvelope({
+  isDeploy: false,
+  to: hexToBytes(RETAILER_ADDRESS),
+  chainId,
+  seqno: await client.getMessageCount(RETAILER_ADDRESS, "latest"),
+  data: hexToBytes(
+    encodeFunctionData({
+      abi: RETAILER_ABI as Abi,
+      functionName: "orderProduct",
+      args: [addrM, "new-product"],
+    }),
+  ),
+  authData: new Uint8Array(0),
+});
+
+const encodedOrderMessage = orderMessage.encode();
+
+const orderMessageHash = await client.sendRawMessage(
+  bytesToHex(encodedOrderMessage),
+);
+
+await waitTillCompleted(client, 1, orderMessageHash);
+```
 
 ## Via the Hardhat plugin
 
