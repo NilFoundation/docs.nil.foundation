@@ -195,7 +195,7 @@ For `address`:
 | Flag | Definition |
 |:--:|:--|
 | `--abi string` | The path to the `.abi` file containing the contract ABI. |
-| `--salt Uint256 | Arbitrary salt. |
+| `--salt Uint256` | Arbitrary salt. |
 | `--shard-id ShardId` | The ID of the shard where the contract is located/could be located.|
 | `--help \| -h` | Receive help for the command. |
 
@@ -393,7 +393,7 @@ No subcommands.
 
 | Flag | Definition |
 |:--:|:--|
-| `--shard-id uint32` | Specify the id of the shard from which the message should be retrieved. |
+| `--shard-id ShardId` | Specify the id of the shard from which the message should be retrieved. |
 | `--help \| -h` | Receive help for the command. |
 
 ### Example
@@ -504,7 +504,7 @@ No subcommands.
 
 | Flag | Definition |
 |:--:|:--|
-| `--shard-id uint32` | Specify the id of the shard from which the receipt must be retrieved. |
+| `--shard-id ShardId` | Specify the id of the shard from which the receipt must be retrieved. |
 | `--help \| -h` | Receive help for the command. |
 
 ### Example
@@ -610,21 +610,143 @@ This command is for interacting with wallets.
 
 ### Flags
 
+For `deploy`:
+
 | Flag | Definition |
 |:--:|:--|
-| `--code string` | Specify the bytecode of the wallet constructor. |
-| `--salt uint32` | Specify the random data that should be used when creating a new wallet. |
+| `--abi string` | Specify the path to the `.abi` file for the contract. |
+| `--amount Uint256` | Set the amount of tokens to send to the contract. |
+| `--currency Uint256` | Set the amount of contract currency to generate (cannot be used with the `--no-wait` flag). |
+| `--no-wait` | Define whether the command should wait for the message receipt. |
+| `--salt Uint256` | Set the salt for the deployment message. |
+| `--shard-id ShardId` | Specify the shard where the contract should be deployed. |
 | `--help \| -h` | Receive help for the command. |
 
-### Example
+For `new`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--amount Uint256` | Set the initial balance of the wallet (capped at 10 000 000) |
+| `--salt Uint256` | Set the salt for the deployment message. |
+| `--shard-id ShardId` | Specify the shard where the wallet should be deployed. |
+| `--help \| -h` | Receive help for the command. |
+
+For `send-message`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--abi string` | Specify the path to the `.abi` file for the contract. |
+| `--amount Uint256` | Set the amount of tokens to send to the contract. |
+| `--gas-limit Uint256` | Set the message gas limit. |
+| `--no-wait` | Define whether the command should wait for the message receipt. |
+| `--token stringArray` | Define the tokens to transfer to the contract. Tokens are set using the `CURRENCY_ID=AMOUNT` format. The flag accepts can accept multiple tokens.  |
+| `--help \| -h` | Receive help for the command. |
+
+For `send-tokens`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--gas-limit Uint256` | Set the message gas limit. |
+| `--no-wait` | Define whether the command should wait for the message receipt. |
+| `--token stringArray` | Define the tokens to transfer to the contract. Tokens are set using the `CURRENCY_ID=AMOUNT` format. The flag accepts can accept multiple tokens.  |
+| `--help \| -h` | Receive help for the command. |
+
+For `balance`, `info`, `top-up`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--help \| -h` | Receive help for the command. |
+
+### Examples
+
+#### View the wallet balance
 
 ```bash
-nil_cli new-wallet [--code CODE; default DEFAULT_CODE] [--salt SALT; default 0]
+nil_cli wallet balance
 ```
 
-### Output
+#### Deploy a smart contract
 
 ```bash
-New wallet address: NEW_WALLET_ADDRESS
+nil_cli wallet deploy path/to/contract.bin [ARGS] [--abi path/to/contract.abi] [--amount AMOUNT] [--currency TOKENS_AMOUNT] [--no-wait] [--salt SALT] [shard-id SHARD_ID] 
 ```
 
+#### Send tokens to a smart contract
+
+```bash
+nil_cli send-tokens ADDRESS [--gas-limit GAS_LIMIT] [--no-wait] [--token stringArray]
+```
+
+#### Request a 'top up'
+
+```bash
+nil_cli wallet top-up AMOUNT
+```
+
+#### Retrieve wallet information
+
+```bash
+nil_cli wallet info
+```
+
+#### Create a new wallet
+
+```bash
+nil_cli wallet new [--amount AMOUNT] [--salt SALT] [--shard-id SHARD_ID]
+```
+
+#### Send a message to a smart contract
+
+```bash
+nil_cli wallet send-message ADDRESS BYTECODE | METHOD [ARGS] [--abi path/to/contract.abi] [--amount AMOUNT] [--gas-limit GAS_LIMIT] [--no-wait] [--token TOKENS] 
+```
+
+### Outputs
+
+#### Viewing the wallet balance
+
+```bash
+Contract balance: BALANCE
+```
+
+#### Deploying a smart contract 
+
+```bash
+Contract address: ADDRESS
+Transaction hash: TRANSACTION_HASH
+```
+
+#### Creating a new wallet
+
+```bash
+Contract ADDRESS balance is topped up by AMOUNT
+Contract address: ADDRESS
+Transaction hash: TRANSACTION_HASH
+New wallet address: ADDRESS
+```
+
+#### Sending a message to a smart contract
+
+```bash
+Transaction hash: TRANSACTION_HASH
+```
+
+#### Retrieving wallet information
+
+```bash
+Address: ADDRESS
+Public key: PUBKEY
+```
+
+#### Requesting a 'top up'
+
+```bash
+Contract ADDRESS balance is topped up by AMOUNT
+Contract balance: BALANCE
+```
+
+#### Sending tokens to a smart contract
+
+```bash
+Transaction hash: TRANSACTION_HASH
+```
