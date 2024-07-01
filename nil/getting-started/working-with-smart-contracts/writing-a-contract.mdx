@@ -37,9 +37,24 @@ contract Retailer {
     receive() external payable {}
 
     function orderProduct(address dst, string calldata productName) public {
-        dst.asyncCall(msg.sender, msg.sender, 100000, false, 100000 * 10, abi.encodeWithSignature("createProduct(string)", productName));
+        dst.asyncCall(
+            msg.sender,
+            msg.sender,
+            100000,
+            false,
+            100000 * 10,
+            abi.encodeWithSignature("createProduct(string)", productName)
+        );
+    }
+
+    function verifyExternal(
+        uint256 messageHash,
+        bytes memory authData
+    ) external view returns (bool) {
+        return true;
     }
 }
+
 ```
 
 ## Creating the second contract
@@ -79,6 +94,7 @@ Contract 1 stores its owner's `pubkey`, which is useful for verifying external m
     }
 
     receive() external payable {}
+
 ```
 
 The contract also conntains a simple mechanism for verifying external messages:
