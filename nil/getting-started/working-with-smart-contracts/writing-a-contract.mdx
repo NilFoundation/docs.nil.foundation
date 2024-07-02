@@ -36,7 +36,7 @@ contract Retailer {
 
     receive() external payable {}
 
-    function orderProduct(address dst, string calldata productName) public {
+    function orderProduct(address dst, string calldata productName) public payable {
         dst.asyncCall(
             msg.sender,
             msg.sender,
@@ -56,6 +56,8 @@ contract Retailer {
 }
 
 ```
+
+As the gas price in =nil; 
 
 ## Creating the second contract
 
@@ -117,7 +119,7 @@ contract Manufacturer {
 Last but not least, Contract 2 can produce new products (but only via an internal message sent from the retailer):
 
 ```solidity showLineNumbers
-function createProduct(string calldata name) public onlyInternal {
+function createProduct(string calldata name) public onlyInternal payable {
         if (msg.sender == retailerContractAddress) {
             products[nextProductId] = Product(nextProductId, name);
             nextProductId++;
