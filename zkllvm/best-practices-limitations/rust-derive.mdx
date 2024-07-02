@@ -1,0 +1,60 @@
+# Structs and enums in Rust
+
+Whenever a Rust circuit is compiled, `rustc` applies various optimizations to reduce its memory usage.
+
+Among these memory optimizations is [**reordering fields in structs and enums to avoid unnecessary 'paddings' in circuit IRs**](https://doc.rust-lang.org/nomicon/repr-rust.html). Consider the following example:
+
+```rust
+use ark_pallas::Fq;
+
+type BlockType = [Fq; 2];
+
+pub struct BlockDataType {
+    prev_block_hash: BlockType,
+    data: BlockType,
+    validators_signature: i32,
+    validators_key: u64,
+}
+```
+
+The public input representation of the `BlockDataType` struct would look as follows:
+
+```json
+"struct": [
+    {
+        "array": [{"field": 1}, {"field": 1}]
+    },
+    {
+        "array": [{"field": 3}, {"field": 1}]
+    },
+    {
+        "int": 1
+    },
+    {
+        "int": 1
+    }
+]
+```
+
+When compiling the `BlockDataType` struct, `rustc` may reorder its fields.
+
+When `assigner` is called on a circuit with this struct, the circuit IR would conflict with the public input as the field order in the IR and the public input file would no longer match.
+
+To avoid this problem, use the `#[repr(C)]` directive:
+
+```rust
+
+use ark_pallas::Fq;
+
+type BlockType = [Fq; 2];
+
+#[repr(C)]
+pub struct BlockDataType {
+    prev_block_hash: BlockType,
+    data: BlockType,
+    validators_signature: i32,
+    validators_key: u64,
+}
+```
+
+If this directive is included, Rust will treat structs and enums as C-like types, meaning that `rustc` will never reorder fields in them.

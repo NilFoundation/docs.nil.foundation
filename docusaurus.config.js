@@ -134,6 +134,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
+
         algolia: {
           appId: 'KDQGY81FVN',
           apiKey: '8ad8d801f2775ff3cf8c4433dfe290e4',
@@ -145,7 +146,7 @@ const config = {
         },
         colorMode: {
           defaultMode: 'dark',
-          disableSwitch: true,
+          disableSwitch: false,
 
         },
         navbar: {
@@ -204,6 +205,7 @@ const config = {
           defaultLanguage: 'clike',
           theme: prismThemes.vsDark,
           darkTheme: prismThemes.vsDark,
+          additionalLanguages: ['bash', 'solidity']
         },
       }),
 };

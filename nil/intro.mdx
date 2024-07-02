@@ -8,6 +8,10 @@ import Finality from '@site/static/img/nil/nil-icons/finality.png'
 import Data from '@site/static/img/nil/nil-icons/data.png'
 import Contract from '@site/static/img/nil/nil-icons/contract.png'
 import Sequencing from '@site/static/img/nil/nil-icons/sequencing.png'
+import Essentials from '@site/static/img/nil/nil-icons/essentials.png'
+import Architecture from '@site/static/img/nil/nil-icons/architecture.png'
+import Prerequisites from '@site/static/img/nil/nil-icons/prerequisites.png'
+import SolLibrary from '@site/static/img/nil/nil-icons/tools.png'
 
 # Overview
 
@@ -22,16 +26,6 @@ import Sequencing from '@site/static/img/nil/nil-icons/sequencing.png'
 The design of =nil; transcends the typical monolithic vs. modular discourse as it emphasizes horizontal scalability above all else. =nil; scales out beyond the constraints of a single machine's processing power, by leveraging zkSharding, a new type of sharding architecture. In zkSharding, execution shards produce zero-knowledge proofs (ZKPs) verifying intra-shard state transitions while the state of the cluster is managed by a designated consensus shard. The consensus shard is responsible for synchronizing execution shards and producing a 'master' ZKP that is sent to Ethereum for global state verification.
 
 =nil; offers an effective strategy for scaling Ethereum while avoiding the limitations typically associated with the modular approach such as state and liquidity fragmentation.
-
-:::tip[Why =nil;?]
-
-As =nil; is highly scalable, it is ideal for applications that are demanding in terms of algorithm complexity, or time and memory usage:
-
-* Crowdsourcing platforms
-* Autonomous virtual worlds
-* Decentralized exchanges
-
-:::
 
 ## Structure of the documentation
 
@@ -52,7 +46,31 @@ Familiarize yourself with the key components of the architecture of =nil;.
     <Card icon={<img src={Accounts}/>} id='accounts' title='Accounts' description='Learn about how =nil; handles accounts' to='./core-concepts/accounts'/>
     <Card icon={<img src={Transaction}/>} id='lifecycle' title='Transaction lifecycle' description='Follow a transaction to finality' to='./core-concepts/transaction-lifecycle'/>
     <Card icon={<img src={Shards}/>} id='shards' title='Shards and parallelized execution' description='See how =nil; achieves scalability' to='./core-concepts/shards-parallel-execution'/>
-    <Card icon={<img src={Contract}/>} id='contract' title='Contract co-location' description='Ensure account placement on the same shard' to='./core-concepts/contract-co-location'/>
+</CardSection>
+
+### Getting started
+
+Start working with =nil; and learn the essentials of its implementation.
+
+<CardSection>
+    <Card icon={<img src={Prerequisites}/>} id='prerequisites' title='Prerequisites' description='Complete the initial steps for working with =nil;' to='./getting-started/prerequisites'/>
+    <Card icon={<img src={Essentials}/>} id='essentials' title='Essentials' description='Perform essential operations on the cluster' to='./getting-started/essentials/creating-a-wallet'/>
+</CardSection>
+
+### Tools
+
+Access the developer tools supplied with =nil;.
+
+<CardSection>
+    <Card icon={<img src={SolLibrary}/>} id='sol-library' title='Solidity library' description='Learn more about function modifiers and pre-compiled contracts' to='./tools/sol-library/func-modifiers'/>
+</CardSection>
+
+### Guides
+
+Read about the inner workings of the =nil; implementation and access advanced tutorials.
+
+<CardSection>
+    <Card icon={<img src={Architecture}/>} id='architecture' title='Architecture' description='Learn more about what makes =nil; stand out' to='./guides/architecture/ethereum-nil-diffs'/>
 </CardSection>
 
 ### Specification
@@ -69,4 +87,5 @@ The materials in this section may describe features and components that are not 
     <Card icon={<img src={Sequencing}/>} id='sequencing' title='Sequencing' description='Read about how =nil; adopts the PBS model' to='./specification/sequencing'/>
     <Card icon={<img src={Finality}/>} id='finality' title='Finality' description='Learn about the strong security guarantees of =nil;' to='./specification/finality'/>
     <Card icon={<img src={Data}/>} id='data' title='Data availability' description='See how =nil; achieves DA at all levels' to='./specification/data-availability'/>
+    <Card icon={<img src={Contract}/>} id='contract' title='Contract placement' description='Ensure account placement on the same shard' to='./specification/contract-co-location'/>
 </CardSection>

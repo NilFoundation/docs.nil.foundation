@@ -1,0 +1,190 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Verify EdDSA signatures
+
+Handling EdDSA signatures is the next logical step in creating a simple zkBridge.
+
+## Prerequisites
+
+Read the following tutorials before proceeding further.
+
+* [**Primer**](../primer)
+* [**Write a circuit with hashes**](./hashes)
+
+## Circuit code
+
+The circuit consists of the following components:
+
+### Headers and namespaces / crates and modules
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/algebra/fields/curve25519/base_field.hpp>
+    #include <nil/crypto3/algebra/fields/curve25519/scalar_field.hpp>
+    #include <nil/crypto3/algebra/curves/ed25519.hpp>
+    #include <nil/crypto3/algebra/curves/pallas.hpp>
+
+    using namespace nil::crypto3::algebra::curves;
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use ark_curve25519::{EdwardsAffine, Fr};
+    use ark_pallas::Fq;
+
+    use std::intrinsics::assigner_sha2_512;
+    ```
+  </TabItem>
+</Tabs>
+
+### Structs and types
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    typedef __attribute__((ext_vector_type(4)))
+                typename pallas::base_field_type::value_type eddsa_message_block_type;
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    type EdDSAMessageBlockType = [Fq; 4];
+    ```
+  </TabItem>
+</Tabs>
+
+### Additional functions (Rust only)
+
+```rust
+fn hash(r: EdwardsAffine, pk: EdwardsAffine, m: EdDSAMessageBlockType) -> Fr {
+    assigner_sha2_512(r.0, pk.0, [m[0].0, m[1].0, m[2].0, m[3].0]).into()
+}
+```
+
+### Circuit function
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    [[circuit]] bool verify_eddsa_signature (
+
+    typename ed25519::template g1_type<>::value_type input_R,
+    typename ed25519::scalar_field_type::value_type input_s,
+    typename ed25519::template g1_type<>::value_type pk,
+    eddsa_message_block_type M) {
+
+        typename ed25519::template g1_type<>::value_type B = ed25519::template g1_type<>::one();
+        typename ed25519::scalar_field_type::value_type k = __builtin_assigner_sha2_512_curve25519(input_R, pk, M);
+
+        return B*input_s == (input_R + (pk*k));
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #[circuit]
+    pub fn verify_eddsa_signature(
+        input_r: EdwardsAffine,
+        input_s: Fr,
+        pk: EdwardsAffine,
+        m: EdDSAMessageBlockType,
+    ) -> bool {
+        let b = EdwardsAffine::generator();
+        let k = hash(input_r, pk, m);
+        b * input_s == input_r + (pk * k)
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Full code
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/algebra/fields/curve25519/base_field.hpp>
+    #include <nil/crypto3/algebra/fields/curve25519/scalar_field.hpp>
+    #include <nil/crypto3/algebra/curves/ed25519.hpp>
+    #include <nil/crypto3/algebra/curves/pallas.hpp>
+
+    using namespace nil::crypto3::algebra::curves;
+
+    typedef __attribute__((ext_vector_type(4)))
+                    typename pallas::base_field_type::value_type eddsa_message_block_type;
+
+    [[circuit]] bool verify_eddsa_signature (
+
+        typename ed25519::template g1_type<>::value_type input_R,
+        typename ed25519::scalar_field_type::value_type input_s,
+        typename ed25519::template g1_type<>::value_type pk,
+        eddsa_message_block_type M) {
+
+            typename ed25519::template g1_type<>::value_type B = ed25519::template g1_type<>::one();
+            typename ed25519::scalar_field_type::value_type k = __builtin_assigner_sha2_512_curve25519(input_R, pk, M);
+
+            return B*input_s == (input_R + (pk*k));
+        }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use ark_curve25519::{EdwardsAffine, Fr};
+    use ark_pallas::Fq;
+
+    use std::intrinsics::assigner_sha2_512;
+
+    type EdDSAMessageBlockType = [Fq; 4];
+
+    #[circuit]
+    pub fn verify_eddsa_signature(
+        input_r: EdwardsAffine,
+        input_s: Fr,
+        pk: EdwardsAffine,
+        m: EdDSAMessageBlockType,
+    ) -> bool {
+        let b = EdwardsAffine::generator(); 
+        let k = hash(input_r, pk, m);
+        b * input_s == input_r + (pk * k)
+    }
+
+    fn hash(r: EdwardsAffine, pk: EdwardsAffine, m: EdDSAMessageBlockType) -> Fr {
+        assigner_sha2_512(r.0, pk.0, [m[0].0, m[1].0, m[2].0, m[3].0]).into()
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## Public input
+
+The public input for the circuit could look as follows:
+
+```json
+[ 
+    {"curve": [
+        "0x4f043d481c8f09de646b1aa05de7ebfab126fc8bbb74f42532378c4dec6e76ec",
+        "0x58719b60b26bd8b8b76de1a886ed82aa11692b4dc5494fe96d5b31f1c63f36a8"
+    ]
+    },
+    {"field": "0x823978718be1d3a785af015d1472346213f76d2ffc57ac716effa76184d67d1"
+    },
+    {"curve": [
+        "0x44c7f6527c825acd6acdc008763cc37f866dd7afb3d9dd6d1f4deb397d75b61e",
+        "0x2e710a39d3a2cb049c86f6b8592286911b5d76de778e66d35f4aceedd2ad50f0"
+        ]
+    },
+    {"vector": [
+        {"field": "0x3992d30ed00000001"},
+        {"field": "0x891a63f02533e46"},
+        {"field": "0"},
+        {"field": "0x100000000000000"}
+        ]
+    }
+]
+```
+

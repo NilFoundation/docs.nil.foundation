@@ -1,0 +1,338 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Write a circuit with hashes
+
+This 'how-to' series constructs a 'mock' zero-knowledge bridge from scratch. The series starts with writing a simple circuit that uses hashes and ends with creating an algorithm for state-proof verification.
+
+## Prerequisites
+
+Read the following tutorials before proceeding further.
+
+* [**Writing a simple circuit**](../../getting-started/writing-a-simple-circuit)
+* [**Compiling a circuit**](../../getting-started/compiling-a-circuit)
+* [**Built-ins**](../../getting-started/built-ins)
+* [**Primer**](../primer)
+
+## Circuit code
+
+The circuit consists of the following components:
+
+### Headers and namespaces / crates and modules
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/algebra/fields/curve25519/base_field.hpp>
+    #include <nil/crypto3/algebra/fields/curve25519/scalar_field.hpp>
+    #include <nil/crypto3/algebra/curves/ed25519.hpp>
+
+    using namespace nil::crypto3::algebra::curves;
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use std::intrinsics::assigner_sha2_256;
+    use ark_pallas::Fq;
+
+    use unroll::unroll_for_loops;
+    ```
+  </TabItem>
+</Tabs>
+
+### Structs and types
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    struct block_data_type {
+        typename sha2<256>::block_type prev_block_hash;
+        typename sha2<256>::block_type data;
+    };
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    type BlockType = [Fq; 2];
+
+    struct BlockDataType {
+        prev_block_hash: BlockType,
+        data: BlockType,
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Additional functions
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    bool is_same(
+        typename sha2<256>::block_type block0,
+        typename sha2<256>::block_type block1) {
+
+        return block0[0] == block1[0] && block0[1] == block1[1];
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    fn is_same(x: BlockType, y: BlockType) -> bool {
+        x[0] == y[0] && x[1] == y[1]
+    }
+
+    fn hash(block1: BlockType, block2: BlockType) -> BlockType {
+        let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
+        [sha[0].into(), sha[1].into()]
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Circuit function
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    [[circuit]] bool verify_protocol_state_proof (
+        typename sha2<256>::block_type last_confirmed_block_hash,
+        std::array<block_data_type, 2> unconfirmed_blocks) {
+        bool res = true;
+        if (!is_same(unconfirmed_blocks[0].prev_block_hash, last_confirmed_block_hash)) {
+            return false;
+        }
+        for (int i = 1; i < 2; i++) {
+            typename sha2<256>::block_type evaluated_block_hash =
+                        hash<sha2<256>>(
+                            unconfirmed_blocks[i-1].prev_block_hash,
+                            unconfirmed_blocks[i-1].data);
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }  
+        return res;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #[circuit]
+    #[unroll_for_loops]
+    fn verify_protocol_state_proof(
+        last_confirmed_block_hash: BlockType,
+        unconfirmed_blocks: [BlockDataType; 2],
+    ) -> bool {
+        let mut res: bool = true;
+        if !is_same(
+            unconfirmed_blocks[0].prev_block_hash,
+            last_confirmed_block_hash,
+        ) {
+            return false;
+        }
+        for i in 1..2 {
+            let evaluated_block_hash = hash(
+                unconfirmed_blocks[i - 1].prev_block_hash,
+                unconfirmed_blocks[i - 1].data,
+            );
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }
+        res
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Full code
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```cpp
+    #include <nil/crypto3/hash/algorithm/hash.hpp>
+    #include <nil/crypto3/hash/sha2.hpp>
+
+    using namespace nil::crypto3;
+    using namespace nil::crypto3::hashes;
+
+    struct block_data_type {
+        typename sha2<256>::block_type prev_block_hash;
+        typename sha2<256>::block_type data;
+    };
+
+    bool is_same(
+        typename sha2<256>::block_type block0,
+        typename sha2<256>::block_type block1) {
+
+        return block0[0] == block1[0] && block0[1] == block1[1];
+    }
+
+    [[circuit]] bool verify_protocol_state_proof (
+        typename sha2<256>::block_type last_confirmed_block_hash,
+        std::array<block_data_type, 2> unconfirmed_blocks) {
+        bool res = true;
+        if (!is_same(unconfirmed_blocks[0].prev_block_hash, last_confirmed_block_hash)) {
+            return false;
+        }
+        for (int i = 1; i < 2; i++) {
+            typename sha2<256>::block_type evaluated_block_hash =
+                        hash<sha2<256>>(
+                            unconfirmed_blocks[i-1].prev_block_hash,
+                            unconfirmed_blocks[i-1].data);
+            res = res & is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }  
+        return res;
+    }
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```rust
+    #![no_main]
+
+    use ark_pallas::Fq;
+    use std::intrinsics::assigner_sha2_256;
+    use unroll::unroll_for_loops;
+
+    type BlockType = [Fq; 2];
+
+    struct BlockDataType {
+        prev_block_hash: BlockType,
+        data: BlockType,
+    }
+
+    fn is_same(x: BlockType, y: BlockType) -> bool {
+        x[0] == y[0] && x[1] == y[1]
+    }
+
+    fn hash(block1: BlockType, block2: BlockType) -> BlockType {
+        let sha = assigner_sha2_256([block1[0].0, block1[1].0], [block2[0].0, block2[1].0]);
+        [sha[0].into(), sha[1].into()]
+    }
+
+    #[circuit]
+    #[unroll_for_loops]
+    fn verify_protocol_state_proof(
+        last_confirmed_block_hash: BlockType,
+        unconfirmed_blocks: [BlockDataType; 2],
+    ) -> bool {
+        let mut res: bool = true;
+        if !is_same(
+            unconfirmed_blocks[0].prev_block_hash,
+            last_confirmed_block_hash,
+        ) {
+            return false;
+        }
+        for i in 1..2 {
+            let evaluated_block_hash = hash(
+                unconfirmed_blocks[i - 1].prev_block_hash,
+                unconfirmed_blocks[i - 1].data,
+            );
+            res = res && is_same(unconfirmed_blocks[i].prev_block_hash, evaluated_block_hash);
+        }
+        res
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## Public input
+
+The public input for the circuit could look as follows:
+
+<Tabs groupId='language'>
+  <TabItem value='cpp' label='C++'>
+    ```json
+    [
+        {
+            "vector": [
+                {"field": "4209827349872394872394872394872398472398472398472398472398472398"},
+                {"field": "9823472983472938472938472938472983472983472983472983472983472983"}
+            ]
+        },
+        {
+            "array": [
+                {
+                    "struct": [
+                        {
+                            "vector": [
+                                {"field": "129837498237498237498237498237498237498237498237498237498237"},
+                                {"field": "23984723984723984723984723984723984723984723984723984723984"}
+                            ]
+                        },
+                        {
+                            "vector": [
+                                {"field": "3872498273498237498237498237498237498237498237498237498237498"},
+                                {"field": "1823048723048723048723048723048723048723048723048723048723048"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "struct": [
+                        {
+                            "vector": [
+                                {"field": "978293748293748293748239874823984723984723984723984723984723"},
+                                {"field": "5092384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        },
+                        {
+                            "vector": [
+                                {"field": "3948572039847502938475029384750293847502938475029384750293847"},
+                                {"field": "5029384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    ```
+  </TabItem>
+  <TabItem value='rust' label='Rust'>
+    ```json
+    [
+        {
+            "array": [
+                {"field": "4209827349872394872394872394872398472398472398472398472398472398"},
+                {"field": "9823472983472938472938472938472983472983472983472983472983472983"}
+            ]
+        },
+        {
+            "array": [
+                {
+                    "struct": [
+                        {
+                            "array": [
+                                {"field": "129837498237498237498237498237498237498237498237498237498237"},
+                                {"field": "23984723984723984723984723984723984723984723984723984723984"}
+                            ]
+                        },
+                        {
+                            "array": [
+                                {"field": "3872498273498237498237498237498237498237498237498237498237498"},
+                                {"field": "1823048723048723048723048723048723048723048723048723048723048"}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "struct": [
+                        {
+                            "array": [
+                                {"field": "978293748293748293748239874823984723984723984723984723984723"},
+                                {"field": "5092384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        },
+                        {
+                            "array": [
+                                {"field": "3948572039847502938475029384750293847502938475029384750293847"},
+                                {"field": "5029384750293847502938475029384750293847502938475029384750293"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    ```
+  </TabItem>
+</Tabs>
