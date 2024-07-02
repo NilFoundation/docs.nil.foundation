@@ -24,17 +24,19 @@ contract Caller {
 }
 ```
 
-The `address.asyncCall()` function makes it possible for the contract to call a function in another smart contract regardless of the shard where this contract is located. There are no additional actions required for making async calls: simply adding `address.asyncCall()` and specifying its arguments is sufficient.
+The `asyncCall()` function makes it possible for the contract to call a function in another smart contract regardless of the shard where this contract is located. There are no additional actions required for making async calls: simply adding `asyncCall()` and specifying its arguments is sufficient.
+
+It is recommended to use the `payable` modifier for the function that calls `asyncCall()` and the function that is called by an async call. If there is a discrepancy between the message value and how much gas needs to be purchased for executing the message and the function being called is not `payable`, the message will fail. If the function is `payable`, the contract will simply purchase gas and if there is any remainder, credit it to its balance.
 
 :::info
 
-The `address.asyncCall()` function is a shortcut for executing a precompiled contract responsible for managing async calls across the cluster.
+The `asyncCall()` function is a shortcut for executing a precompiled contract responsible for managing async calls across the cluster.
 
 :::
 
 :::info[Async calls on the same shard]
 
-`address.asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new message, and the requested function in another contract will be executed whenever said message is processed by the shard. 
+`asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new message, and the requested function in another contract will be executed whenever said message is processed by the shard. 
 
 :::
 
@@ -77,7 +79,7 @@ contract Receiver {
 
     uint256 private value;
 
-    function increment() public {
+    function increment() payable public {
         value += 1;
     }
 
@@ -108,11 +110,11 @@ contract Escrow {
         deposits[msg.sender] += msg.value;
     }
 
-    function submitForVerification(address dst, address participantOne, address participantTwo) public {
+    function submitForVerification(address dst, address participantOne, address participantTwo) public payable {
         dst.asyncCall(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("verify(address, address)", participantOne, participantTwo));
     }
 
-    function resolve(address participantOne, address participantTwo) public {
+    function resolve(address participantOne, address participantTwo) public payable {
         deposits[participantOne] -= msg.value;
         deposits[participantTwo] += msg.value;
     }
@@ -132,7 +134,7 @@ contract Validator {
     
     using Nil for address;
 
-    function verify(address dst, address participantOne, address participantTwo) public {
+    function verify(address dst, address participantOne, address participantTwo) public payable {
         if (participantOne != participantTwo) {
             dst.asyncCall(address(0), gasleft(), false, msg.value, abi.encodeWithSignature("resolve(address, address)", participantOne, participantTwo));
         }
