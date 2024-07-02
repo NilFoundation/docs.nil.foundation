@@ -1,0 +1,59 @@
+# Function: getPublicKey()
+
+```ts
+function getPublicKey(privateKey, isCompressed): `0x${string}`
+```
+
+Returns the public key from the private key using the secp256k1 curve.
+
+## Parameters
+
+<table>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default value</th>
+</tr>
+<tr>
+<td>
+
+`privateKey`
+
+</td>
+<td>
+
+\`0x$\{string\}\`
+
+</td>
+<td>
+
+`undefined`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`isCompressed`
+
+</td>
+<td>
+
+`boolean`
+
+</td>
+<td>
+
+`false`
+
+</td>
+</tr>
+</table>
+
+## Returns
+
+\`0x$\{string\}\`
+
+## Defined in
+
+[nil/nil.js/src/signers/publicKey.ts:18](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/signers/publicKey.ts#L18)
