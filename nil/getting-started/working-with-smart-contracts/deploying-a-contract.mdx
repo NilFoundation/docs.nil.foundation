@@ -315,15 +315,31 @@ module.exports = buildModule("Manufacturer", (m: any) => {
 
 :::
 
-Then, run the following commands to deploy the contracts:
+Before deploying the retailer contract, open `hardhat.config.ts` and add this parameter to `NilHardhatUserConfig`:
+
+```json
+shardId: 1
+```
+
+Deploy the retailer:
 
 ```bash
 npx hardhat ignition deploy ./ignition/modules/Retailer.ts --network nil
 ```
 
+To deploy the manufacturer on a different shard, go back to `hardhat.config.ts` and change `NilHardhatUserConfig`:
+
+```json
+shardId: 2
+```
+
+Deploy the manufacturer:
+
 ```bash
 npx hardhat ignition deploy ./ignition/modules/Manufacturer.ts --network nil
 ```
+
+After the manufacturer is deployed, set `shardId` to `1` in `hardhat.config.ts`.
 
 ## Opcode deployment
 
