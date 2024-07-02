@@ -102,7 +102,7 @@ const config = {
         useCodeBlocks: true,
         parametersFormat: "htmlTable",
         entryPoints: [
-          "./nil/nil.js/src"
+          "https://github.com/NilFoundation/nil.js/tree/master/src"
         ],
         skipErrorChecking: true,
         sidebar: {
