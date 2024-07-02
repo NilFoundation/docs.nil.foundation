@@ -1,0 +1,33 @@
+# Type Alias: IWalletClientConfig
+
+```ts
+type IWalletClientConfig: IClientBaseConfig & object;
+```
+
+## Type declaration
+
+### signer
+
+```ts
+signer: ISigner;
+```
+
+An instance of Signer is used to sign messages.
+If a Signer is absent from the config, messages should be signed explicitly before being passed to the client.
+
+#### Example
+
+```ts
+import { Signer } from '@nilfoundation/niljs';
+
+const signer = new Signer();
+
+const client = new WalletClient({
+ endpoint: 'http://127.0.0.1:8529',
+ signer: signer
+})
+```
+
+## Defined in
+
+[nil/nil.js/src/clients/types/ClientConfigs.ts:27](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/types/ClientConfigs.ts#L27)
