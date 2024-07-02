@@ -162,11 +162,11 @@ task("getProducts", "Gets the current products")
 Execute the following commands to run the newly created tasks:
 
 ```bash
-npx hardhat orderProduct --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER_ADDRESS --product PRODUCT_NAME
+npx hardhat orderProduct --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER_ADDRESS --product PRODUCT_NAME --network nil
 ```
 
 ```bash
-npx hardhat getProduct --manufacturer MANUFACTURER_ADDRESS --network nil
+npx hardhat getProducts --manufacturer MANUFACTURER_ADDRESS --network nil
 ```
 
 The Hardhat plugin should decode the results of the call and show the new product directly in the terminal.
