@@ -10,6 +10,7 @@
 | [HttpTransport](classes/HttpTransport.mdx) | HttpTransport represents the HTTP transport for connecting to the network. |
 | [ITransport](classes/ITransport.mdx) | The transport interface. |
 | [InternalMessageEnvelope](classes/InternalMessageEnvelope.mdx) | The envelope for an internal message (a message sent by a smart contract to another smart contract). |
+| [InvalidShardIdError](classes/InvalidShardIdError.mdx) | The error class for invalid shard ID. This error is thrown when the provided shard ID is invalid. |
 | [LocalECDSAKeySigner](classes/LocalECDSAKeySigner.mdx) | LocalKeySigner is a class that allows for signing data with the private key. It uses the secp256k1 curve implementation by the @noble/curves/secp256k1 library. |
 | [MetaMaskSigner](classes/MetaMaskSigner.mdx) | MetaMaskSigner is a class that allows for signing data using MetaMask. This signer can only be used inside a browser. |
 | [MetaMaskTransport](classes/MetaMaskTransport.mdx) | MetaMask transport represents the MetaMask transport for connecting to the network. MetaMask transport can be used in browser only. MetaMaskTransport |
@@ -34,7 +35,7 @@
 | [ExternalMessage](type-aliases/ExternalMessage.mdx) | The external message type. |
 | [Hex](type-aliases/Hex.mdx) | The hex type. |
 | [IClientBaseConfig](type-aliases/IClientBaseConfig.mdx) | The client configuration that is shared between public and private clients. |
-| [IDeployData](type-aliases/IDeployData.mdx) | IDeployData is a data structure that contains information to deploy a contract. |
+| [IDeployData](type-aliases/IDeployData.mdx) | - |
 | [IHttpTransportConfig](type-aliases/IHttpTransportConfig.mdx) | The interface representing the configuration of the HTTP transport. |
 | [ILocalKeySignerConfig](type-aliases/ILocalKeySignerConfig.mdx) | The interface for the configuration object of LocalKeySigner. |
 | [ILog](type-aliases/ILog.mdx) | The log interface. |
@@ -54,6 +55,8 @@
 
 | Variable | Description |
 | ------ | ------ |
+| [MINTER\_ABI](variables/MINTER_ABI.mdx) | - |
+| [MINTER\_ADDRESS](variables/MINTER_ADDRESS.mdx) | - |
 | [SszMessageSchema](variables/SszMessageSchema.mdx) | The SSZ schema for a message object. |
 | [SszSignedMessageSchema](variables/SszSignedMessageSchema.mdx) | SSZ schema for a signed message object. Includes auth data in addition to all other message fields. |
 
@@ -62,16 +65,9 @@
 | Function | Description |
 | ------ | ------ |
 | [addHexPrefix](functions/addHexPrefix.mdx) | - |
-| [assertIsAddress](functions/assertIsAddress.mdx) | - |
-| [assertIsBuffer](functions/assertIsBuffer.mdx) | - |
-| [assertIsHexString](functions/assertIsHexString.mdx) | - |
-| [assertIsValidBlock](functions/assertIsValidBlock.mdx) | - |
-| [assertIsValidDeployData](functions/assertIsValidDeployData.mdx) | - |
-| [assertIsValidPrivateKey](functions/assertIsValidPrivateKey.mdx) | - |
-| [assertIsValidSendMessageData](functions/assertIsValidSendMessageData.mdx) | - |
-| [assertIsValidShardId](functions/assertIsValidShardId.mdx) | - |
 | [bytesToString](functions/bytesToString.mdx) | - |
 | [calculateAddress](functions/calculateAddress.mdx) | - |
+| [convertEthToWei](functions/convertEthToWei.mdx) | - |
 | [externalDeploymentMessage](functions/externalDeploymentMessage.mdx) | - |
 | [externalMessageEncode](functions/externalMessageEncode.mdx) | - |
 | [generateRandomPrivateKey](functions/generateRandomPrivateKey.mdx) | - |
@@ -87,3 +83,4 @@
 | [refineAddress](functions/refineAddress.mdx) | - |
 | [removeHexPrefix](functions/removeHexPrefix.mdx) | - |
 | [toHex](functions/toHex.mdx) | - |
+| [waitTillCompleted](functions/waitTillCompleted.mdx) | - |

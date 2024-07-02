@@ -2,9 +2,7 @@
 
 The envelope for an external message (a message sent by a user, a dApp, etc.)
 
-## Export
-
-ExternalMessageEnvelope
+ ExternalMessageEnvelope
 
 ## Constructors
 
@@ -49,7 +47,7 @@ The object representing the external message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:65
+[nil/nil.js/src/encoding/externalMessage.ts:65](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L65)
 
 ## Properties
 
@@ -63,7 +61,7 @@ The auth data attached to the message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:52
+[nil/nil.js/src/encoding/externalMessage.ts:52](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L52)
 
 ***
 
@@ -77,7 +75,7 @@ The chain ID.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:34
+[nil/nil.js/src/encoding/externalMessage.ts:34](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L34)
 
 ***
 
@@ -91,7 +89,7 @@ The message data.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:46
+[nil/nil.js/src/encoding/externalMessage.ts:46](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L46)
 
 ***
 
@@ -105,7 +103,7 @@ The flag that determines whether the external message is a deployment message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:22
+[nil/nil.js/src/encoding/externalMessage.ts:22](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L22)
 
 ***
 
@@ -119,7 +117,7 @@ The message sequence number.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:40
+[nil/nil.js/src/encoding/externalMessage.ts:40](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L40)
 
 ***
 
@@ -133,7 +131,7 @@ The destination address of the message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:28
+[nil/nil.js/src/encoding/externalMessage.ts:28](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L28)
 
 ## Methods
 
@@ -153,7 +151,7 @@ The encoded external message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:86
+[nil/nil.js/src/encoding/externalMessage.ts:86](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L86)
 
 ***
 
@@ -214,7 +212,7 @@ raw: Uint8Array;
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:139
+[nil/nil.js/src/encoding/externalMessage.ts:139](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L139)
 
 ***
 
@@ -234,7 +232,7 @@ The hash tree root of the external message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:102
+[nil/nil.js/src/encoding/externalMessage.ts:102](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L102)
 
 ***
 
@@ -254,14 +252,14 @@ The hex address.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:191
+[nil/nil.js/src/encoding/externalMessage.ts:191](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L191)
 
 ***
 
 ### send()
 
 ```ts
-send(client): Promise<Uint8Array>
+send(client): Promise<`0x${string}`>
 ```
 
 Sends the external message.
@@ -295,13 +293,13 @@ The client sending the message.
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
+`Promise`\<\`0x$\{string\}\`\>
 
 The hash of the external message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:201
+[nil/nil.js/src/encoding/externalMessage.ts:201](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L201)
 
 ***
 
@@ -350,7 +348,7 @@ The message signature.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:170
+[nil/nil.js/src/encoding/externalMessage.ts:170](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L170)
 
 ***
 
@@ -370,7 +368,7 @@ The signing hash of the external message.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:118
+[nil/nil.js/src/encoding/externalMessage.ts:118](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L118)
 
 ***
 
@@ -419,4 +417,4 @@ The signed auth data.
 
 #### Defined in
 
-nil/nil.js/src/encoding/externalMessage.ts:181
+[nil/nil.js/src/encoding/externalMessage.ts:181](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/encoding/externalMessage.ts#L181)

@@ -68,14 +68,14 @@ The config to be used in the client. See [IPublicClientConfig](../type-aliases/I
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:35
+[nil/nil.js/src/clients/PublicClient.ts:38](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L38)
 
 ## Properties
 
-### shardId
+### shardId?
 
 ```ts
-protected shardId: number;
+protected optional shardId: number;
 ```
 
 The ID of the shard which the client needs to interact with.
@@ -87,7 +87,7 @@ The shard with this ID will be used in every call made by the client.
 
 #### Defined in
 
-nil/nil.js/src/clients/BaseClient.ts:27
+[nil/nil.js/src/clients/BaseClient.ts:25](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/BaseClient.ts#L25)
 
 ***
 
@@ -105,9 +105,71 @@ The ITransport to be used in the client. See [ITransport](ITransport.mdx).
 
 #### Defined in
 
-nil/nil.js/src/clients/BaseClient.ts:20
+[nil/nil.js/src/clients/BaseClient.ts:18](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/BaseClient.ts#L18)
 
 ## Methods
+
+### call()
+
+```ts
+call(callArgs, blockNumberOrHash): Promise<`0x${string}`>
+```
+
+Returns the result of the call.
+
+#### Parameters
+
+<table>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>
+
+`callArgs`
+
+</td>
+<td>
+
+`CallArgs`
+
+</td>
+<td>
+
+The arguments for the call.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`blockNumberOrHash`
+
+</td>
+<td>
+
+\`0x$\{string\}\` \| [`BlockTag`](../type-aliases/BlockTag.mdx)
+
+</td>
+<td>
+
+The number/hash of the block.
+
+</td>
+</tr>
+</table>
+
+#### Returns
+
+`Promise`\<\`0x$\{string\}\`\>
+
+#### Defined in
+
+[nil/nil.js/src/clients/PublicClient.ts:405](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L405)
+
+***
 
 ### chainId()
 
@@ -125,7 +187,7 @@ The chain ID.
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:336
+[nil/nil.js/src/clients/PublicClient.ts:361](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L361)
 
 ***
 
@@ -145,7 +207,7 @@ The gas limit.
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:326
+[nil/nil.js/src/clients/PublicClient.ts:351](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L351)
 
 ***
 
@@ -221,7 +283,7 @@ const balance = await client.getBalance(Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7,
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:221
+[nil/nil.js/src/clients/PublicClient.ts:233](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L233)
 
 ***
 
@@ -336,7 +398,7 @@ const block = await client.getBlockByHash(0x9f86d081884c7d659a2feaa0c55ad015a3bf
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:57
+[nil/nil.js/src/clients/PublicClient.ts:60](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L60)
 
 ***
 
@@ -448,7 +510,7 @@ const block = await client.getBlockByNumber(1);
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:90
+[nil/nil.js/src/clients/PublicClient.ts:95](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L95)
 
 ***
 
@@ -524,7 +586,7 @@ const count = await client.getBlockMessageCountByHash(Uint8Array.from([0, 1, 2, 
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:148
+[nil/nil.js/src/clients/PublicClient.ts:157](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L157)
 
 ***
 
@@ -589,14 +651,14 @@ const count = await client.getBlockMessageCountByNumber(1);
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:122
+[nil/nil.js/src/clients/PublicClient.ts:129](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L129)
 
 ***
 
 ### getCode()
 
 ```ts
-getCode(address, blockNumberOrHash): Promise<any>
+getCode(address, blockNumberOrHash): Promise<Uint8Array>
 ```
 
 Returns the bytecode of the contract with the given address and at the given block.
@@ -647,7 +709,7 @@ The number/hash of the block.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`Uint8Array`\>
 
 The bytecode of the contract.
 
@@ -665,7 +727,71 @@ const code = await client.getCode(Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:172
+[nil/nil.js/src/clients/PublicClient.ts:183](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L183)
+
+***
+
+### getCurrencies()
+
+```ts
+getCurrencies(address, blockNumberOrHash): Promise<Record<string, bigint>>
+```
+
+Returns all tokens by the given address.
+
+#### Parameters
+
+<table>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>
+
+`address`
+
+</td>
+<td>
+
+\`0x$\{string\}\`
+
+</td>
+<td>
+
+The address of the account.
+
+</td>
+</tr>
+<tr>
+<td>
+
+`blockNumberOrHash`
+
+</td>
+<td>
+
+\`0x$\{string\}\` \| [`BlockTag`](../type-aliases/BlockTag.mdx)
+
+</td>
+<td>
+
+The number/hash of the block.
+
+</td>
+</tr>
+</table>
+
+#### Returns
+
+`Promise`\<`Record`\<`string`, `bigint`\>\>
+
+The list of tokens.
+
+#### Defined in
+
+[nil/nil.js/src/clients/PublicClient.ts:376](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L376)
 
 ***
 
@@ -685,14 +811,14 @@ The gas price.
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:316
+[nil/nil.js/src/clients/PublicClient.ts:341](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L341)
 
 ***
 
 ### getMessageByHash()
 
 ```ts
-getMessageByHash(hash, shardId): Promise<Uint8Array>
+getMessageByHash(hash, shardId): Promise<ProcessedMessage>
 ```
 
 Returns the structure of the internal message with the given hash.
@@ -743,7 +869,7 @@ The ID of the shard where the message was recorded.
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
+`Promise`\<`ProcessedMessage`\>
 
 The message whose information is requested.
 
@@ -761,7 +887,7 @@ const message = await client.getMessageByHash(Uint8Array.from([0, 1, 2, 3, 4, 5,
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:247
+[nil/nil.js/src/clients/PublicClient.ts:259](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L259)
 
 ***
 
@@ -837,7 +963,7 @@ const count = await client.getMessageCount(Uint8Array.from([0, 1, 2, 3, 4, 5, 6,
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:195
+[nil/nil.js/src/clients/PublicClient.ts:207](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L207)
 
 ***
 
@@ -913,7 +1039,7 @@ const receipt = await client.getMessageReceiptByHash(1, Uint8Array.from([0, 1, 2
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:270
+[nil/nil.js/src/clients/PublicClient.ts:295](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L295)
 
 ***
 
@@ -937,7 +1063,7 @@ The shard ID.
 
 #### Defined in
 
-nil/nil.js/src/clients/BaseClient.ts:52
+[nil/nil.js/src/clients/BaseClient.ts:50](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/BaseClient.ts#L50)
 
 ***
 
@@ -980,7 +1106,7 @@ Sends a request.
 </td>
 <td>
 
-`RequestArguments`
+`Arguments`
 
 </td>
 <td>
@@ -1003,14 +1129,14 @@ The response.
 
 #### Defined in
 
-nil/nil.js/src/clients/BaseClient.ts:44
+[nil/nil.js/src/clients/BaseClient.ts:42](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/BaseClient.ts#L42)
 
 ***
 
 ### sendRawMessage()
 
 ```ts
-sendRawMessage(message): Promise<Uint8Array>
+sendRawMessage(message): Promise<`0x${string}`>
 ```
 
 Creates a new message or creates a contract for a previously signed message.
@@ -1044,7 +1170,7 @@ The encoded bytecode of the message.
 
 #### Returns
 
-`Promise`\<`Uint8Array`\>
+`Promise`\<\`0x$\{string\}\`\>
 
 The hash of the message.
 
@@ -1062,7 +1188,7 @@ const message = Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
 #### Defined in
 
-nil/nil.js/src/clients/PublicClient.ts:297
+[nil/nil.js/src/clients/PublicClient.ts:324](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/PublicClient.ts#L324)
 
 ***
 
@@ -1121,4 +1247,4 @@ client.setShardId(1);
 
 #### Defined in
 
-nil/nil.js/src/clients/BaseClient.ts:63
+[nil/nil.js/src/clients/BaseClient.ts:61](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/clients/BaseClient.ts#L61)

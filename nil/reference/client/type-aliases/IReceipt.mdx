@@ -44,10 +44,10 @@ gasUsed: number;
 logs: ILog[];
 ```
 
-### msgHash
+### messageHash
 
 ```ts
-msgHash: string;
+messageHash: Hex;
 ```
 
 ### msgIndex
@@ -59,7 +59,19 @@ msgIndex: bigint;
 ### outMessages
 
 ```ts
-outMessages: string[];
+outMessages: Hex[] | null;
+```
+
+### outputReceipts
+
+```ts
+outputReceipts: IReceipt[] | null;
+```
+
+### shardId
+
+```ts
+shardId: number;
 ```
 
 ### success
@@ -70,4 +82,4 @@ success: boolean;
 
 ## Defined in
 
-nil/nil.js/src/types/IReceipt.ts:6
+[nil/nil.js/src/types/IReceipt.ts:7](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/types/IReceipt.ts#L7)

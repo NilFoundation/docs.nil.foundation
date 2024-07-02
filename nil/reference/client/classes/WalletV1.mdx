@@ -1,10 +1,8 @@
 # Class: WalletV1
 
-WalletV1 is a class used for performing operations on the cluster that require authentication.
+WalletV1 is a class used for performing operations on the cluster that require authentication. 
 
-## Export
-
-WalletV1
+ WalletV1
 
 ## Constructors
 
@@ -49,7 +47,7 @@ The object representing the initial wallet config. See [WalletV1Config](../type-
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:143
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:144](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L144)
 
 ## Properties
 
@@ -63,7 +61,7 @@ The wallet address.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:129
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:130](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L130)
 
 ***
 
@@ -77,7 +75,7 @@ The client for interacting with the wallet.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:111
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:112](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L112)
 
 ***
 
@@ -91,21 +89,21 @@ The wallet public key.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:99
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:100](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L100)
 
 ***
 
-### salt
+### salt?
 
 ```ts
-salt: Uint8Array;
+optional salt: Uint8Array;
 ```
 
 Arbitrary data for changing the wallet address.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:117
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:118](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L118)
 
 ***
 
@@ -119,7 +117,7 @@ The ID of the shard where the wallet is deployed.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:105
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:106](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L106)
 
 ***
 
@@ -133,7 +131,7 @@ The wallet signer.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:123
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:124](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L124)
 
 ***
 
@@ -149,14 +147,14 @@ The wallet ABI.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:41
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:42](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L42)
 
 ***
 
 ### code
 
 ```ts
-static code: any;
+static code: Uint8Array;
 ```
 
 The wallet bytecode.
@@ -165,7 +163,7 @@ The wallet bytecode.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:34
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:35](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L35)
 
 ## Methods
 
@@ -187,7 +185,7 @@ The current deployment status.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:252
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:270](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L270)
 
 ***
 
@@ -235,38 +233,38 @@ The object containing the deployment message hash and the contract address.
 ##### address
 
 ```ts
-address: any;
+address: `0x${string}`;
 ```
 
 ##### hash
 
 ```ts
-hash: any;
+hash: `0x${string}`;
 ```
 
 #### Async
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:377
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:412](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L412)
 
 ***
 
 ### getAddressHex()
 
 ```ts
-getAddressHex(): any
+getAddressHex(): `0x${string}`
 ```
 
 Converts the wallet address into a hexadecimal.
 
 #### Returns
 
-`any`
+\`0x$\{string\}\`
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:164
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:177](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L177)
 
 ***
 
@@ -288,7 +286,7 @@ The wallet balance.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:462
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:521](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L521)
 
 ***
 
@@ -377,7 +375,7 @@ raw: Uint8Array;
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:265
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:283](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L283)
 
 ***
 
@@ -440,7 +438,7 @@ import {
     PublicClient,
     WalletV1,
     generateRandomPrivateKey,
-  } from "../src";
+  } from '@nilfoundation/niljs';
 const client = new PublicClient({
     transport: new HttpTransport({
       endpoint: "http://127.0.0.1:8529",
@@ -470,14 +468,14 @@ await wallet.selfDeploy(true);
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:209
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:222](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L222)
 
 ***
 
 ### sendMessage()
 
 ```ts
-sendMessage(param0): Promise<any>
+sendMessage(param0): Promise<`0x${string}`>
 ```
 
 Send a message via the wallet.
@@ -511,7 +509,7 @@ The object representing the message params.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<\`0x$\{string\}\`\>
 
 The message hash.
 
@@ -534,14 +532,14 @@ await wallet.sendMessage({
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:313
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:334](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L334)
 
 ***
 
 ### sendRawInternalMessage()
 
 ```ts
-sendRawInternalMessage(rawMessage): Promise<any>
+sendRawInternalMessage(rawMessage): Promise<`0x${string}`>
 ```
 
 Send a raw signed message via the wallet.
@@ -575,7 +573,7 @@ The message bytecode.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<\`0x$\{string\}\`\>
 
 The message hash.
 
@@ -583,14 +581,14 @@ The message hash.
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:354
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:387](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L387)
 
 ***
 
 ### syncSendMessage()
 
 ```ts
-syncSendMessage(param0): Promise<any>
+syncSendMessage(param0): Promise<`0x${string}`>
 ```
 
 Send a message synchronously via the wallet.
@@ -624,7 +622,7 @@ The object representing the message params.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<\`0x$\{string\}\`\>
 
 The message hash.
 
@@ -647,7 +645,7 @@ await wallet.sendMessage({
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:432
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:486](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L486)
 
 ***
 
@@ -752,7 +750,7 @@ import {
     LocalECDSAKeySigner,
     WalletV1,
     generateRandomPrivateKey,
-  } from "../src";
+  } from '@nilfoundation/niljs';
 
 const signer = new LocalECDSAKeySigner({
     privateKey: generateRandomPrivateKey(),
@@ -769,4 +767,4 @@ const anotherAddress = WalletV1.calculateWalletAddress({
 
 #### Defined in
 
-nil/nil.js/src/contracts/WalletV1/WalletV1.ts:75
+[nil/nil.js/src/contracts/WalletV1/WalletV1.ts:76](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/WalletV1.ts#L76)

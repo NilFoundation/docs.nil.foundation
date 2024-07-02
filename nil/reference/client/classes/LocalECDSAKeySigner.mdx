@@ -9,7 +9,7 @@ It uses the secp256k1 curve implementation by the @noble/curves/secp256k1 librar
 import {
   LocalECDSAKeySigner,
   generateRandomPrivateKey,
-} from "../src";
+} from '@nilfoundation/niljs';
 const signer = new LocalECDSAKeySigner({
   privateKey: generateRandomPrivateKey(),
 });
@@ -62,14 +62,14 @@ The config for the LocalECDSAKeySigner. See [ILocalKeySignerConfig](../type-alia
 
 #### Defined in
 
-nil/nil.js/src/signers/LocalECDSAKeySigner.ts:54
+[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:54](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/signers/LocalECDSAKeySigner.ts#L54)
 
 ## Methods
 
 ### getAddress()
 
 ```ts
-getAddress(shardId): Promise<any>
+getAddress(shardId): Promise<Uint8Array>
 ```
 
 Retrieves the wallet address.
@@ -103,7 +103,7 @@ The ID of the shard where the wallet is deployed.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`Uint8Array`\>
 
 The wallet address.
 
@@ -115,21 +115,21 @@ The wallet address.
 
 #### Defined in
 
-nil/nil.js/src/signers/LocalECDSAKeySigner.ts:116
+[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:116](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/signers/LocalECDSAKeySigner.ts#L116)
 
 ***
 
 ### getPublicKey()
 
 ```ts
-getPublicKey(): Promise<any>
+getPublicKey(): Promise<Uint8Array>
 ```
 
 Retrieves the public key.
 
 #### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`Uint8Array`\>
 
 The publc key of the signer.
 
@@ -141,7 +141,7 @@ The publc key of the signer.
 
 #### Defined in
 
-nil/nil.js/src/signers/LocalECDSAKeySigner.ts:97
+[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:97](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/signers/LocalECDSAKeySigner.ts#L97)
 
 ***
 
@@ -194,4 +194,4 @@ The signed data.
 
 #### Defined in
 
-nil/nil.js/src/signers/LocalECDSAKeySigner.ts:79
+[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:79](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/signers/LocalECDSAKeySigner.ts#L79)

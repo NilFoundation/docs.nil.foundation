@@ -1,57 +1,11 @@
 # Type Alias: WalletV1Config
 
 ```ts
-type WalletV1Config: object;
+type WalletV1Config: WalletV1ConfigCalculated | WalletV1ConfigAddress;
 ```
 
 Represents the wallet configuration.
 
-## Export
-
-## Type declaration
-
-### address
-
-```ts
-address: Hex | Uint8Array;
-```
-
-### calculatedAddress?
-
-```ts
-optional calculatedAddress: boolean;
-```
-
-### client
-
-```ts
-client: PublicClient;
-```
-
-### pubkey
-
-```ts
-pubkey: Uint8Array | Hex;
-```
-
-### salt
-
-```ts
-salt: Uint8Array | bigint;
-```
-
-### shardId
-
-```ts
-shardId: number;
-```
-
-### signer
-
-```ts
-signer: ISigner;
-```
-
 ## Defined in
 
-nil/nil.js/src/contracts/WalletV1/types/index.ts:11
+[nil/nil.js/src/contracts/WalletV1/types/index.ts:29](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/types/index.ts#L29)

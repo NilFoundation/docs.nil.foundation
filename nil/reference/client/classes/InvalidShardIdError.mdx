@@ -1,7 +1,7 @@
-# Class: BlockNotFoundError
+# Class: InvalidShardIdError
 
-The error class for 'block not found' errors.
-This error is thrown when the requested block is not found.
+The error class for invalid shard ID.
+This error is thrown when the provided shard ID is invalid.
 
 ## Extends
 
@@ -9,13 +9,13 @@ This error is thrown when the requested block is not found.
 
 ## Constructors
 
-### new BlockNotFoundError()
+### new InvalidShardIdError()
 
 ```ts
-new BlockNotFoundError(param0): BlockNotFoundError
+new InvalidShardIdError(param0): InvalidShardIdError
 ```
 
-Creates an instance of BlockNotFoundError.
+Creates an instance of InvalidShardIdError.
 
 #### Parameters
 
@@ -33,7 +33,7 @@ Creates an instance of BlockNotFoundError.
 </td>
 <td>
 
-`BlockNotFoundErrorParameters`
+`InvalidShardIdErrorParameters`
 
 </td>
 <td>
@@ -46,7 +46,7 @@ The error params.
 
 #### Returns
 
-[`BlockNotFoundError`](BlockNotFoundError.mdx)
+[`InvalidShardIdError`](InvalidShardIdError.mdx)
 
 #### Overrides
 
@@ -54,7 +54,7 @@ The error params.
 
 #### Defined in
 
-[nil/nil.js/src/errors/block.ts:24](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/errors/block.ts#L24)
+[nil/nil.js/src/errors/shardId.ts:23](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/errors/shardId.ts#L23)
 
 ## Properties
 

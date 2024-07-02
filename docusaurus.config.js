@@ -102,7 +102,7 @@ const config = {
         useCodeBlocks: true,
         parametersFormat: "htmlTable",
         entryPoints: [
-          "https://github.com/NilFoundation/nil.js/tree/master/src"
+          "./nil/nil.js/src"
         ],
         skipErrorChecking: true,
         sidebar: {
@@ -110,10 +110,13 @@ const config = {
           "pretty": false
         },
         readme: "none",
-        indexFormat: "table",
+        indexFormat: "Table",
         sanitizeComments: "true",
-
-
+        excludePrivate: "true",
+        exclude: [
+          "**/*refiners.ts*",
+          "**/*assert.ts*",
+        ],
       }
 
     ]

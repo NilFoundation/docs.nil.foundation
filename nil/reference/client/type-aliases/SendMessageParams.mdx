@@ -6,14 +6,24 @@ type SendMessageParams: object;
 
 Represents the params for sending a message.
 
-## Export
-
 ## Type declaration
+
+### bounceTo?
+
+```ts
+optional bounceTo: Address | Uint8Array;
+```
+
+### chainId?
+
+```ts
+optional chainId: number;
+```
 
 ### data?
 
 ```ts
-optional data: Uint8Array;
+optional data: Uint8Array | Hex;
 ```
 
 ### deploy?
@@ -46,12 +56,18 @@ optional seqno: number;
 to: Address | Uint8Array;
 ```
 
-### value
+### tokens?
 
 ```ts
-value: bigint;
+optional tokens: Token[];
+```
+
+### value?
+
+```ts
+optional value: bigint;
 ```
 
 ## Defined in
 
-nil/nil.js/src/contracts/WalletV1/types/index.ts:39
+[nil/nil.js/src/contracts/WalletV1/types/index.ts:47](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/types/index.ts#L47)

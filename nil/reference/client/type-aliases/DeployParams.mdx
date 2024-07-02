@@ -6,8 +6,6 @@ type DeployParams: object;
 
 Represents the params for deploying a smart contract.
 
-## Export
-
 ## Type declaration
 
 ### abi?
@@ -25,7 +23,13 @@ optional args: unknown[];
 ### bytecode
 
 ```ts
-bytecode: Uint8Array;
+bytecode: Uint8Array | Hex;
+```
+
+### chainId?
+
+```ts
+optional chainId: number;
 ```
 
 ### gas
@@ -38,6 +42,12 @@ gas: bigint;
 
 ```ts
 salt: Uint8Array | bigint;
+```
+
+### seqno?
+
+```ts
+optional seqno: number;
 ```
 
 ### shardId
@@ -54,4 +64,4 @@ optional value: bigint;
 
 ## Defined in
 
-nil/nil.js/src/contracts/WalletV1/types/index.ts:81
+[nil/nil.js/src/contracts/WalletV1/types/index.ts:90](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/types/index.ts#L90)

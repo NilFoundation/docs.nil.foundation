@@ -6,14 +6,12 @@ type SendSyncMessageParams: object;
 
 Represents the params for sending a message synchronously.
 
-## Export
-
 ## Type declaration
 
 ### data?
 
 ```ts
-optional data: Uint8Array;
+optional data: Uint8Array | Hex;
 ```
 
 ### gas
@@ -42,4 +40,4 @@ value: bigint;
 
 ## Defined in
 
-nil/nil.js/src/contracts/WalletV1/types/index.ts:55
+[nil/nil.js/src/contracts/WalletV1/types/index.ts:65](https://github.com/NilFoundation/nil.js/blob/d8bba16997233f201c54e5c49ccea4dad0518b53/src/contracts/WalletV1/types/index.ts#L65)
