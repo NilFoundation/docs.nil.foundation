@@ -78,8 +78,9 @@ const hashGetProduct = await wallet.sendMessage({
 
 await waitTillCompleted(client, 1, hashGetProduct);
 console.log(`Final hash: ${hashGetProduct}`);
-
 ```
+
+
 
 ## Using external messages
 
@@ -167,6 +168,8 @@ npx hardhat orderProduct --manufacturer MANUFACTURER_ADDRESS --retailer RETAILER
 ```
 
 ```bash
-npx hardhat getProduct --manufacturer MANUFACTURER_ADDRESS --network nil_cluster
+npx hardhat getProduct --manufacturer MANUFACTURER_ADDRESS --network nil
 ```
+
+The Hardhat plugin should decode the results of the call and show the new product directly in the terminal.
 
