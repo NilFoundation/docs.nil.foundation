@@ -58,6 +58,11 @@ export default {
                     id: 'getting-started/prerequisites'
                 },
                 {
+                    type: 'doc',
+                    label: '=nil; 101',
+                    id: 'getting-started/nil-101'
+                },
+                {
                     type: 'category',
                     label: 'Essentials',
                     collapsed: true,
@@ -75,7 +80,7 @@ export default {
                         },
                         {
                             type: 'doc',
-                            label: 'Reading and writing information',
+                            label: 'Reading information from =nil;',
                             id: 'getting-started/essentials/reading-writing-info'
                         },
                         {

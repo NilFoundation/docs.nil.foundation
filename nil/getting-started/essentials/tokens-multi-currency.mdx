@@ -27,19 +27,19 @@ When a currency is created, it is assigned an ID derived from the address of the
 To create a new currency and immediately withdraw it to the address of the owner:
 
 ```bash
-./build/bin/nil_cli minter create-currency OWNER_ADDRESS AMOUNT NAME --withdraw
+nil_cli minter create-currency OWNER_ADDRESS AMOUNT NAME --withdraw
 ```
 
 To mint a currency:
 
 ```bash
-./build/bin/nil_cli minter create-currency OWNER_ADDRESS AMOUNT
+nil_cli minter create-currency OWNER_ADDRESS AMOUNT
 ```
 
 To send an existing currency (with some amount already minted) from a minter to another contract:
 
 ```bash
-./build/bin/nil_cli minter withdraw-currency OWNER_ADDRESS AMOUNT RECEIVER_ADDRESS
+nil_cli minter withdraw-currency OWNER_ADDRESS AMOUNT RECEIVER_ADDRESS
 ```
 
 ### Via the client library
