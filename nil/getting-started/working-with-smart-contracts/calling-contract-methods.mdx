@@ -23,19 +23,13 @@ nil_cli wallet send-tokens RETAILER_ADDRESS 5000000
 nil_cli wallet send-message RETAILER_ADDRESS orderProduct MANUFACTURER_ADDRESS new-product --abi path/to/Retailer.abi
 ```
 
-To call the `getProduct()` function inside the manufacturer contract:
-
-```bash
-nil_cli wallet send-message MANUFACTURER_ADDRESS getProducts --abi path/to/Manufacturer.abi
-```
-
 Make a readonly call to access the value:
 
 ```bash
 nil_cli contract call-readonly MANUFACTURER_ADDRESS getProducts --abi path/to/Manufacturer.abi
 ```
 
-[**Learn more about how to decode the retrieved value**](./decoding-call-results).
+To decode the value, use `viem`, `ethers` or any other suitable decoding solution that accepts a custom ABI. An example of decoding is given below in the client library flows.
 
 ### Via the client library
 
@@ -62,22 +56,35 @@ await waitTillCompleted(client, 1, hashProduct);
 console.log("Product created!");
 ```
 
-To receive the currently created products:
+To receive and decode the currently created products:
 
 ```ts showLineNumbers
-const hashGetProduct = await wallet.sendMessage({
-  to: addressM,
-  data: encodeFunctionData({
+import {
+  decodeFunctionResult,
+  encodeFunctionData,
+} from "viem";
+
+const resultsCall = await client.call(
+  {
+    from: addrM,
+    to: addrM,
+    data: encodeFunctionData({
+      abi: MANUFACTURER_ABI as Abi,
+      functionName: "getProducts",
+      args: [],
+    }),
+  },
+  "latest",
+);
+
+console.log(
+  "getProducts",
+  decodeFunctionResult({
     abi: MANUFACTURER_ABI as Abi,
     functionName: "getProducts",
-    args: [],
+    data: resultsCall,
   }),
-  gas: 100000n,
-  value: 1000000n,
-});
-
-await waitTillCompleted(client, 1, hashGetProduct);
-console.log(`Final hash: ${hashGetProduct}`);
+);
 ```
 
 ## Using external messages
@@ -115,6 +122,37 @@ const orderMessageHash = await client.sendRawMessage(
 );
 
 await waitTillCompleted(client, 1, orderMessageHash);
+```
+
+To receive and decode the currently created products:
+
+```ts showLineNumbers
+import {
+  decodeFunctionResult,
+  encodeFunctionData,
+} from "viem";
+
+const resultsCall = await client.call(
+  {
+    from: addrM,
+    to: addrM,
+    data: encodeFunctionData({
+      abi: MANUFACTURER_ABI as Abi,
+      functionName: "getProducts",
+      args: [],
+    }),
+  },
+  "latest",
+);
+
+console.log(
+  "getProducts",
+  decodeFunctionResult({
+    abi: MANUFACTURER_ABI as Abi,
+    functionName: "getProducts",
+    data: resultsCall,
+  }),
+);
 ```
 
 ## Via the Hardhat plugin

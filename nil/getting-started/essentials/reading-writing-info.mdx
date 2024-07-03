@@ -81,8 +81,8 @@ const data = iface.encodeFunctionData(methodName, params);
 const messageHash = await wallet.syncSendMessage({
         to: '{CONTRACT_ADDRESS}',
         data: hexToBytes(data),
-        value: 10n,
-        gas: 10000n
+        value: 1000000n,
+        gas: 100000n
     });
     
 ```

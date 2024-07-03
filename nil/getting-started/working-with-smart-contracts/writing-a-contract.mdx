@@ -36,25 +36,24 @@ contract Retailer {
 
     receive() external payable {}
 
-    function orderProduct(address dst, string calldata productName) public payable {
+    function orderProduct(address dst, string calldata name) public payable {
         dst.asyncCall(
             msg.sender,
             msg.sender,
             100000,
             false,
             100000 * 10,
-            abi.encodeWithSignature("createProduct(string)", productName)
+            abi.encodeWithSignature("createProduct(string)", name)
         );
     }
 
     function verifyExternal(
-        uint256 messageHash,
-        bytes memory authData
+        uint256 hash,
+        bytes memory _authData
     ) external view returns (bool) {
         return true;
     }
 }
-
 ```
 
 As the gas price in =nil; 
@@ -119,18 +118,26 @@ contract Manufacturer {
 Last but not least, Contract 2 can produce new products (but only via an internal message sent from the retailer):
 
 ```solidity showLineNumbers
-function createProduct(string calldata name) public onlyInternal payable {
+function createProduct(
+        string calldata productName
+    ) public payable onlyInternal returns (bool) {
         if (msg.sender == retailerContractAddress) {
-            products[nextProductId] = Product(nextProductId, name);
+            products[nextProductId] = Product(nextProductId, productName);
             nextProductId++;
-        }  
+            return true;
+        }
+        return false;
     }
 ```
 
 Contract 2 can also output the products that have been ordered by the retailer:
 
 ```solidity showLineNumbers
-function getProducts() public view returns (uint[] memory, string[] memory) {
+function getProducts()
+        public
+        view
+        returns (uint[] memory, string[] memory)
+    {
         uint[] memory ids = new uint[](nextProductId);
         string[] memory names = new string[](nextProductId);
 
@@ -158,15 +165,15 @@ contract Manufacturer is NilBase {
     bytes pubkey;
     address retailerContractAddress;
 
+    receive() external payable {}
+
     constructor(
-        bytes memory _pubkey,
+        bytes memory pubkeyOne,
         address _retailerContractAddress
     ) payable {
-        pubkey = _pubkey;
+        pubkey = pubkeyOne;
         retailerContractAddress = _retailerContractAddress;
     }
-
-    receive() external payable {}
 
     struct Product {
         uint id;
@@ -177,10 +184,10 @@ contract Manufacturer is NilBase {
     uint public nextProductId;
 
     function createProduct(
-        string calldata name
-    ) public onlyInternal returns (bool) {
+        string calldata productName
+    ) public payable onlyInternal returns (bool) {
         if (msg.sender == retailerContractAddress) {
-            products[nextProductId] = Product(nextProductId, name);
+            products[nextProductId] = Product(nextProductId, productName);
             nextProductId++;
             return true;
         }

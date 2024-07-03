@@ -111,11 +111,6 @@ export default {
                             label: 'Calling methods inside a contract',
                             id: 'getting-started/working-with-smart-contracts/calling-contract-methods'
                         },
-                        {
-                            type: 'doc',
-                            label: 'Decoding call results',
-                            id: 'getting-started/working-with-smart-contracts/decoding-call-results'
-                        }
                     ]
                 }
             ]
@@ -247,7 +242,7 @@ export default {
                 },
             ]
         },
-    
+
 
 
     ]
