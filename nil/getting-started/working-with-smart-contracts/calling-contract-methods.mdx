@@ -124,6 +124,37 @@ const orderMessageHash = await client.sendRawMessage(
 await waitTillCompleted(client, 1, orderMessageHash);
 ```
 
+To receive and decode the currently created products:
+
+```ts showLineNumbers
+import {
+  decodeFunctionResult,
+  encodeFunctionData,
+} from "viem";
+
+const resultsCall = await client.call(
+  {
+    from: addrM,
+    to: addrM,
+    data: encodeFunctionData({
+      abi: MANUFACTURER_ABI as Abi,
+      functionName: "getProducts",
+      args: [],
+    }),
+  },
+  "latest",
+);
+
+console.log(
+  "getProducts",
+  decodeFunctionResult({
+    abi: MANUFACTURER_ABI as Abi,
+    functionName: "getProducts",
+    data: resultsCall,
+  }),
+);
+```
+
 ## Via the Hardhat plugin
 
 Calling smart contract methods via the Hardhat plugin requires creating Hardhat tasks.
