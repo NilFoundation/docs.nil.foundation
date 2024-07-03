@@ -80,7 +80,7 @@ export default {
                         },
                         {
                             type: 'doc',
-                            label: 'Reading information from =nil;',
+                            label: 'Reading iand writing to =nil;',
                             id: 'getting-started/essentials/reading-writing-info'
                         },
                         {

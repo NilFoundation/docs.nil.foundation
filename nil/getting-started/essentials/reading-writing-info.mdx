@@ -1,4 +1,4 @@
-# Reading from =nil;
+# Reading and writing to =nil;
 
 This tutorial details the different ways that allow for reading and writing information to =nil;. It covers these actions:
 
@@ -23,10 +23,10 @@ To view the latest block recorded by shard with `shardId = 1`:
 nil_cli block --latest --shard-id 1
 ```
 
-To call an existing smart contract:
+To call an existing smart contract via the wallet:
 
 ```bash
-nil_cli contract send CONTRACT_ADDRESS METHOD_NAME --abi METHOD_NAME
+nil_cli wallet send-message CONTRACT_ADDRESS METHOD_NAME [ARGS] --abi METHOD_NAME
 ```
 
 To read information about the resulting message:
@@ -43,7 +43,7 @@ nil_cli receipt --hash MESSAGE_HASH
 
 ## Via the client library
 
-The `Nil.js` client library 
+The `Nil.js` client library provides several 'helper' methods for reading and writing to =nil;
 
 To retrieve the block with the given hash:
 
