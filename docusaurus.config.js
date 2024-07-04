@@ -39,16 +39,26 @@ const config = {
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      (
-        {
-          theme: {
-            customCss: './src/css/custom.css',
+      "@metamask/docusaurus-openrpc/dist/preset",
+      /** @type {import('@metamask/docusaurus-openrpc/dist/preset').Options} */
+      ({
+        docs: {
+          path: "nil",
+          routeBasePath: "nil",
+          sidebarPath: require.resolve("./sidebar-nil.js"),
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
+          openrpc: {
+            openrpcDocument: "./nil/openrpc.json",
+            path: "references",
+            sidebarLabel: "JSON-RPC API",
           },
-        }
-      ),
-    ],
+        },
+        theme: {
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      }),
+    ]
   ],
   markdown: {
     mermaid: true,
@@ -80,17 +90,6 @@ const config = {
         path: 'crypto3',
         routeBasePath: 'crypto3',
         sidebarPath: './sidebar-crypto-3.js'
-      }
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'nil',
-        path: 'nil',
-        routeBasePath: 'nil',
-        sidebarPath: './sidebar-nil.js',
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
       }
     ],
     [
