@@ -33,6 +33,11 @@
   --ifm-font-family-base: 'HelveticaNeue';
 }
 
+[data-theme='light'] {
+  --ifm-background-color: #f1f1f1;
+  --ifm-color-primary: #101111;
+}
+
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #f1f1f1;
@@ -274,3 +279,4 @@ nav ul li {
 .has-sub-sections > .section-content .section-description {
   font-size: 14px;
 }
+

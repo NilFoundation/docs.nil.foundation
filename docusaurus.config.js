@@ -39,16 +39,26 @@ const config = {
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      (
-        {
-          theme: {
-            customCss: './src/css/custom.css',
+      "@metamask/docusaurus-openrpc/dist/preset",
+      /** @type {import('@metamask/docusaurus-openrpc/dist/preset').Options} */
+      ({
+        docs: {
+          path: "nil",
+          routeBasePath: "nil",
+          sidebarPath: require.resolve("./sidebar-nil.js"),
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
+          openrpc: {
+            openrpcDocument: "https://api.devnet.nil.foundation/api/docs/openrpc.json",
+            path: "references",
+            sidebarLabel: "JSON-RPC API",
           },
-        }
-      ),
-    ],
+        },
+        theme: {
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      }),
+    ]
   ],
   markdown: {
     mermaid: true,
@@ -83,16 +93,32 @@ const config = {
       }
     ],
     [
-      '@docusaurus/plugin-content-docs',
+      'docusaurus-plugin-typedoc',
       {
-        id: 'nil',
-        path: 'nil',
-        routeBasePath: 'nil',
-        sidebarPath: './sidebar-nil.js',
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
+        out: "./nil/reference/client",
+        outputFileStrategy: "members",
+        fileExtension: ".mdx",
+        useCodeBlocks: true,
+        parametersFormat: "htmlTable",
+        entryPoints: [
+          "./nil/nil.js/src"
+        ],
+        skipErrorChecking: true,
+        sidebar: {
+          "autoConfiguration": true,
+          "pretty": false
+        },
+        readme: "none",
+        indexFormat: "Table",
+        sanitizeComments: "true",
+        excludePrivate: "true",
+        exclude: [
+          "**/*refiners.ts*",
+          "**/*assert.ts*",
+        ],
       }
-    ],
+
+    ]
   ],
   stylesheets: [
     {
@@ -107,6 +133,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (
       {
+
         algolia: {
           appId: 'KDQGY81FVN',
           apiKey: '8ad8d801f2775ff3cf8c4433dfe290e4',
