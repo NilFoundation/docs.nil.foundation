@@ -49,7 +49,7 @@ const config = {
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           openrpc: {
-            openrpcDocument: "./nil/openrpc.json",
+            openrpcDocument: "https://api.devnet.nil.foundation/api/docs/openrpc.json",
             path: "references",
             sidebarLabel: "JSON-RPC API",
           },

@@ -34,6 +34,12 @@ The `asyncCall()` function is a shortcut for executing a precompiled contract re
 
 :::
 
+:::tip[Payable functions]
+
+It is recommended to make both the 'caller' and 'receiver' functions `payable` so that contracts can deposit the remainder left after the messages purchase the gas for their execution.
+
+:::
+
 :::info[Async calls on the same shard]
 
 `asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new message, and the requested function in another contract will be executed whenever said message is processed by the shard. 

@@ -8,7 +8,7 @@ The contract receiving [**an external message**](../../core-concepts/shards-para
 
 ```solidity showLineNumbers
 function verifyExternal(
-        uint256 messageHash, 
+        uint256 hash, 
         bytes calldata authData 
     ) external view returns (bool)
 ```
@@ -36,7 +36,7 @@ contract Receiver {
         pubkey = _pubkey;
     }
 
-    function verifyExternal(uint256 messageHash, bytes memory authData) external view returns (bool) {
+    function verifyExternal(uint256 hash, bytes memory authData) external view returns (bool) {
         return Nil.validateSignature(pubkey, messageHash, authData);
     }
 

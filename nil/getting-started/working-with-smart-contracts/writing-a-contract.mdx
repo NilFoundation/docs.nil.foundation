@@ -103,9 +103,9 @@ The contract also conntains a simple mechanism for verifying external messages:
 ```solidity showLineNumbers
 contract Manufacturer {
 
-    function verifyExternal(uint256 messageHash, bytes memory authData) external view returns (bool) {
+    function verifyExternal(uint256 hash, bytes memory authData) external view returns (bool) {
         if (isRetailerAddressSet == false) {
-            if (Nil.validateSignature(pubkey, messageHash, authData)) {
+            if (Nil.validateSignature(pubkey, hash, authData)) {
                 return true;
             }
         }

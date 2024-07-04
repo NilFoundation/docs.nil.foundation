@@ -12,6 +12,12 @@ import Essentials from '@site/static/img/nil/nil-icons/essentials.png'
 import Architecture from '@site/static/img/nil/nil-icons/architecture.png'
 import Prerequisites from '@site/static/img/nil/nil-icons/prerequisites.png'
 import SolLibrary from '@site/static/img/nil/nil-icons/tools.png'
+import Nil101 from '@site/static/img/nil/nil-icons/nil101.png'
+import SmartContracts from '@site/static/img/nil/nil-icons/smart_contracts.png'
+import CLI from '@site/static/img/nil/nil-icons/cli.png'
+import Hardhat from '@site/static/img/nil/nil-icons/hardhat.png'
+import JS from '@site/static/img/nil/nil-icons/js.png'
+import API from '@site/static/img/nil/nil-icons/api.png'
 
 # Overview
 
@@ -35,7 +41,7 @@ Learn the basics of what =nil; is and how it works.
 
 <CardSection>
     <Card icon={<img src={Thesis}/>} id='thesis' title='Thesis' description='Read about the "how" and "why" of =nil;' to='./thesis'/>
-    <Card icon={<img src={Principles}/>} id='principles' title='Principles' description='Grasp the fundamentals of the architecture of =nil;' to='./principles'/>
+    <Card icon={<img src={Principles}/>} id='principles' title='Principles' description='Grasp the architecture of =nil;' to='./principles'/>
 </CardSection>
 
 ### Core concepts
@@ -54,7 +60,9 @@ Start working with =nil; and learn the essentials of its implementation.
 
 <CardSection>
     <Card icon={<img src={Prerequisites}/>} id='prerequisites' title='Prerequisites' description='Complete the initial steps for working with =nil;' to='./getting-started/prerequisites'/>
+    <Card icon={<img src={Nil101}/>} id='nil101' title='=nil; 101' description='Read a 5-minute primer on interacting with the network' to='./getting-started/nil-101'/>
     <Card icon={<img src={Essentials}/>} id='essentials' title='Essentials' description='Perform essential operations on the cluster' to='./getting-started/essentials/creating-a-wallet'/>
+    <Card icon={<img src={SmartContracts}/>} id='smart_contracts' title='Working with smart contracts' description='Write, deploy, and call smart contracts' to='./getting-started/working-with-smart-contracts/writing-a-contract'/>
 </CardSection>
 
 ### Tools
@@ -62,7 +70,9 @@ Start working with =nil; and learn the essentials of its implementation.
 Access the developer tools supplied with =nil;.
 
 <CardSection>
-    <Card icon={<img src={SolLibrary}/>} id='sol-library' title='Solidity library' description='Learn more about function modifiers and pre-compiled contracts' to='./tools/sol-library/func-modifiers'/>
+    <Card icon={<img src={CLI}/>} id='cli' title='=nil; CLI' description='Configure the =nil; CLI' to='./tools/sol-library/nil-cli/usage'/>
+    <Card icon={<img src={Hardhat}/>} id='hardhat' title='Hardhat' description='Set up the =nil; Hardhat plugin' to='./tools/sol-library/nil-cli/usage'/>
+    <Card icon={<img src={SolLibrary}/>} id='sol-library' title='Solidity library' description='Learn more about Nil.sol' to='./tools/sol-library/func-modifiers'/>
 </CardSection>
 
 ### Guides
@@ -70,8 +80,17 @@ Access the developer tools supplied with =nil;.
 Read about the inner workings of the =nil; implementation and access advanced tutorials.
 
 <CardSection>
-    <Card icon={<img src={Architecture}/>} id='architecture' title='Architecture' description='Learn more about what makes =nil; stand out' to='./guides/architecture/ethereum-nil-diffs'/>
+    <Card icon={<img src={Architecture}/>} id='architecture' title='Architecture' description='Learn more about ETH compatibility' to='./guides/architecture/ethereum-nil-diffs'/>
 </CardSection>
+
+### References
+
+<CardSection>
+    <Card icon={<img src={CLI}/>} id='cli-ref' title='=nil; CLI reference' description='See all commands, flags, and outputs' to='./reference/cli-reference'/>
+    <Card icon={<img src={JS}/>} id='client' title='Nil.js reference' description='Read about key classes and functions' to='./reference/client/index'/>
+    <Card icon={<img src={API}/>} id='api' title='JSON-RPC API' description='Access RPC requests, params, and responses' to='./references/json-rpc-api'/>
+</CardSection>
+
 
 ### Specification
 
