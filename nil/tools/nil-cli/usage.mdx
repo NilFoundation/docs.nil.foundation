@@ -17,7 +17,7 @@ nil_cli config set rpc_endpoint NIL_ENDPOINT
 Creating a new private key is the next logical step before creating a new wallet.
 
 ```bash
-nil_cli keygen --new
+nil_cli keygen new
 ```
 
 ## Create a new wallet
@@ -25,7 +25,7 @@ nil_cli keygen --new
 At this point, the only remaining action is to create a new wallet:
 
 ```bash
-nil_cli wallet new --amount 10000000
+nil_cli wallet new
 ```
 
 After running this command, the =nil; CLI should be fully ready to interact with the cluster.
