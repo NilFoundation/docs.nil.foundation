@@ -82,6 +82,8 @@ import {
   waitTillCompleted,
 } from "@nilfoundation/niljs";
 
+import { encodeFunctionData } from "viem";
+
 const hashMessage = await wallet.sendMessage({
   to: MINTER_ADDRESS,
   gas: 1_000_000n,
@@ -104,6 +106,8 @@ import {
   MINTER_ADDRESS,
   waitTillCompleted,
 } from "@nilfoundation/niljs";
+
+import { encodeFunctionData } from "viem";
 
 const hashMessage = await wallet.sendMessage({
   to: MINTER_ADDRESS,
@@ -201,7 +205,7 @@ const wallet = new WalletV1({
 });
 const walletAddress = await wallet.getAddressHex();
 
-await faucet.withdrawToWithRetry(walletAddress, 10_000_000n);
+await faucet.withdrawToWithRetry(walletAddress, convertEthToWei(1));
 await wallet.selfDeploy(true);
 
 const walletTwo = new WalletV1({
@@ -213,7 +217,7 @@ const walletTwo = new WalletV1({
 });
 const walletTwoAddress = await walletTwo.getAddressHex();
 
-await faucet.withdrawToWithRetry(walletTwoAddress, 10_000_000n);
+await faucet.withdrawToWithRetry(walletTwoAddress, convertEthToWei(1));
 await walletTwo.selfDeploy(true);
 ```
 
@@ -222,54 +226,38 @@ Create a new currency for Wallet 1 and withdraw it:
 ```ts showLineNumbers
 const currencyCreationMessage = await wallet.sendMessage({
   to: MINTER_ADDRESS,
-  gas: 10_000n,
-  value: 100_000n,
+  gas: 500_000n,
+  value: 100_000_000n,
   data: encodeFunctionData({
     abi: MINTER_ABI,
     functionName: "create",
-    args: [50_000n, walletAddress, "token", walletAddress],
+    args: [10_000n, walletAddress, "token", walletAddress],
   }),
 });
 
 await waitTillCompleted(client, 1, currencyCreationMessage);
 ```
 
-Create a new currency for Wallet 2 and keep it in the minter:
+Create a new currency for Wallet 2 and send it to Wallet 1:
 
 ```ts showLineNumbers
 const currencyCreationMessageTwo = await walletTwo.sendMessage({
   to: MINTER_ADDRESS,
-  gas: 10_000n,
-  value: 100_000n,
+  gas: 500_000n,
+  value: 100_000_000n,
   data: encodeFunctionData({
     abi: MINTER_ABI,
     functionName: "create",
-    args: [30_000n, walletTwoAddress, "new-token"],
+    args: [20_000n, walletTwoAddress, "new-token", walletAddress],
   }),
 });
 
 await waitTillCompleted(client, 1, currencyCreationMessageTwo);
 ```
 
-Withdraw the second currency to Wallet 1:
-
-```ts showLineNumbers
-const transferMessage = await wallet.sendMessage({
-  to: MINTER_ADDRESS,
-  gas: 1_000_000n,
-  value: 100_000_000n,
-  data: encodeFunctionData({
-    abi: MINTER_ABI,
-    functionName: "withdraw",
-    args: [hexToBigInt(walletTwoAddress), 15_000n, walletAddress],
-  }),
-});
-```
-
 Check the currencies for Wallet 1:
 
 ```ts showLineNumbers
-
-const tokensTwo = await client.getCurrencies(walletAddress, "latest");
-console.log("tokens of Wallet 1: ", tokensTwo);
+const tokens = await client.getCurrencies(walletAddress, "latest");
+console.log("Tokens of Wallet 1: ", tokensTwo);
 ```
