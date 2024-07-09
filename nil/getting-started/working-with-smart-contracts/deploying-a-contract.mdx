@@ -124,7 +124,7 @@ const { address: addressM, hash: hashM } = await wallet.deployContract({
   salt: BigInt(Math.floor(Math.random() * 10000)),
   shardId: 2,
   abi: MANUFACTURER_ABI as Abi,
-  args: [],
+  args: [bytesToHex(PUBKEY), RETAILER_ADDRESS],
 });
 
 await waitTillCompleted(client, 1, hashM);

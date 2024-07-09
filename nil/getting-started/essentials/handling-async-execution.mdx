@@ -34,9 +34,9 @@ The `asyncCall()` function is a shortcut for executing a precompiled contract re
 
 :::
 
-:::tip[Payable functions]
+:::tip
 
-It is recommended to make both the 'caller' and 'receiver' functions `payable` so that contracts can deposit the remainder left after the messages purchase the gas for their execution.
+To initiate an async call, the 'caller' contract must have sufficient funds to pay for initiating a new message.
 
 :::
 

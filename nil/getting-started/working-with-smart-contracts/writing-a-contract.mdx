@@ -56,7 +56,7 @@ contract Retailer {
 }
 ```
 
-As the gas price in =nil; 
+As the gas price in =nil; is static and always equals 10, the async call message must have a `value` that is at least ten times larger than the gas fee. 
 
 ## Creating the second contract
 
@@ -103,13 +103,11 @@ The contract also conntains a simple mechanism for verifying external messages:
 ```solidity showLineNumbers
 contract Manufacturer {
 
-    function verifyExternal(uint256 hash, bytes memory authData) external view returns (bool) {
-        if (isRetailerAddressSet == false) {
-            if (Nil.validateSignature(pubkey, hash, authData)) {
-                return true;
-            }
-        }
-        return false;
+    function verifyExternal(
+        uint256 hash,
+        bytes calldata signature
+    ) external view returns (bool) {
+        return Nil.validateSignature(pubkey, hash, signature);
     }
 
 }
