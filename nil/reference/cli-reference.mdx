@@ -20,9 +20,6 @@ No subcommands.
 
 | Flag | Definition |
 |:--:|:--|
-| `--hash BlockReference` | Retrieve a block by its hash. |
-| `--number BlockReference` | Retrieve a block by its number. |
-| `--latest` | Retrieve the latest block. |
 | `--shard-id ShardId` | Specify the id of the shard from which the block should be retrieved. |
 | `--help \| -h` | Receive help for the command. |
 
@@ -31,19 +28,19 @@ No subcommands.
 #### Retrieve a block by hash 
 
 ```bash
-nil_cli block --hash BLOCK_HASH [--shard-id SHARD_ID; default 1]
+nil_cli block BLOCK_HASH [--shard-id SHARD_ID; default 1]
 ```
 
 #### Retrieve a block by number
 
 ```bash
-nil_cli block --number BLOCK_NUMBER [--shard-id SHARD_ID; default 1]
+nil_cli block BLOCK_NUMBER [--shard-id SHARD_ID; default 1]
 ```
 
 #### Retrieve the latest block
 
 ```bash
-nil_cli block --latest [--shard-id SHARD_ID; default 1]
+nil_cli block latest [--shard-id SHARD_ID; default 1]
 ```
 
 ### Output
