@@ -22,7 +22,11 @@ p {
   margin-right: 10px;
 }
 
-.rowFlex [class*='col-'] {
+.roundedImage {
+  border-radius: 5px;
+}
+
+[data-theme='dark'] .rowFlex [class*='col-'] {
   margin: 10px;
   padding: 10px;
   border: 2px solid;
@@ -32,9 +36,25 @@ p {
   border-color: #2f2f2f;
 }
 
-[class*='col-']:hover {
+[data-theme='dark'] [class*='col-']:hover {
   border-color: #f1f1f1;
   color: #f1f1f1;
+  cursor: pointer;
+}
+
+[data-theme='light'] .rowFlex [class*='col-'] {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  color: #494949;
+  border-color: #cfcfcf;
+}
+
+[data-theme='light'] [class*='col-']:hover {
+  border-color: #181A1B;
+  color: #1e1e1e;
   cursor: pointer;
 }
 
@@ -45,7 +65,10 @@ p {
   height: 100%;
   object-fit: fill;
   margin-bottom: 20px;
+  border-radius: 5px;
 }
+
+
 
 @media (max-width: 1024px) {
   .rowFlex [class*='col-'] {

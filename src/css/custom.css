@@ -18,8 +18,6 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-footer-background-color: #181A1B;
-
   --ifm-background-color: #181A1B;
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -28,18 +26,24 @@
   --ifm-color-primary-light: #33925d;
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
+  --ifm-code-font-size: 100%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-font-family-base: 'HelveticaNeue';
 }
 
 [data-theme='light'] {
   --ifm-background-color: #f1f1f1;
-  --ifm-color-primary: #101111;
+  --ifm-color-primary: #1e1e1e;
+  --ifm-navbar-link-color: #5e5e5e;
+  --ifm-navbar-link-hover-color: #0f0f0f;
+  --ifm-link-color: #466eab;
+  --ifm-link-hover-color: #697991;
+  --ifm-list-item-margin: 0px;
+  --ifm-footer-background-color: #a1a1a1;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
+  --ifm-footer-background-color: #181A1B;
   --ifm-color-primary: #f1f1f1;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -74,17 +78,18 @@
   --ifm-toc-border-color: rgba(14, 14, 14, 0);
 }
 
-html[data-theme='dark'] {
-  --ifm-background-color: #181A1B;
-  --ifm-background-surface-color: #121212;
-  --ifm-footer-background-color: #181A1B;
-  --ifm-navbar-primary-color: #212121;
-}
 
-.footer {
+[data-theme='dark'] .footer {
   background-color: #181A1B;
 }
 
+[data-theme='light'] .footer {
+  background-color: #f1f1f1;
+}
+
+[data-theme='light'] .footer__copyright {
+  color: #1e1e1e;
+}
 
 .navbar {
   background-color: #f2f2f2;
@@ -133,16 +138,12 @@ nav ul li {
   --docsearch-text-color: #f1f1f1;
   --docsearch-muted-color: #bdbdbd;
   --docsearch-container-background: #212121;
-  /* Modal */
   --docsearch-modal-background: #212121;
-  /* Search box */
   --docsearch-searchbox-background: #212121;
   --docsearch-searchbox-focus-background: #0f0f0f;
-  /* Hit */
   --docsearch-hit-color: var(--ifm-font-color-base);
   --docsearch-hit-active-color: #212121;
   --docsearch-hit-background: var(--ifm-color-emphasis-100);
-  /* Footer */
   --docsearch-footer-background: #212121;
   --docsearch-key-gradient: linear-gradient(
     -26.5deg,
@@ -156,7 +157,15 @@ nav ul li {
   margin-top: 2px;
 }
 
-.homepage-card {
+
+
+.icon svg {
+  width: auto;
+  height: 100%;
+}
+
+
+[data-theme='dark'] .homepage-card {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -175,11 +184,37 @@ nav ul li {
   --ifm-link-hover-color: inherit;
 }
 
-.homepage-card:hover {
+[data-theme='light'] .homepage-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #474747;
+  padding: 0.75rem;
+  gap: 10px;
+  text-decoration: none;
+  color: #c8c8c8;
+  cursor: pointer;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #000000;
+  transition-property: background-color, color;
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: inherit;
+}
+
+[data-theme='dark'] .homepage-card:hover {
   background-color: #2f2f2f;
   color: #f1f1f1;
-  border: 1px solid #bdbdbd; /* Adjust to match your color configuration */
+  border: 1px solid #bdbdbd; 
 }
+
+[data-theme='light'] .homepage-card:hover {
+  background-color: #222222;
+  color: #f1f1f1;
+  border: 1px solid #f1f1f1; 
+}
+
 
 .homepage-card.row {
   flex-direction: row;
@@ -278,5 +313,22 @@ nav ul li {
 
 .has-sub-sections > .section-content .section-description {
   font-size: 14px;
+}
+
+[data-theme='light'] .toggleButton_node_modules-\@docusaurus-theme-classic-lib-theme-ColorModeToggle-styles-module:hover {
+  background-color: #8a8a8a;
+}
+
+[data-theme='dark'] .toggleButton_node_modules-\@docusaurus-theme-classic-lib-theme-ColorModeToggle-styles-module:hover {
+  background-color: #8a8a8a;
+}
+
+[data-theme='dark'] .socialButton_src-theme-Footer-IconLinkItem-styles-module {
+  background-color: #f2f2f2;
+}
+
+[data-theme='light'] .socialButton_src-theme-Footer-IconLinkItem-styles-module {
+  background-color: #d7d7d7;
+  color: #f1f1f1
 }
 
