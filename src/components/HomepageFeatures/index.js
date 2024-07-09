@@ -57,7 +57,7 @@ const ProductsList =
 const NilProductDescription = ({ text, image, onDocsClick }) => {
   return (
     <div onClick={onDocsClick}>
-      <img src={image} />
+      <img src={image} className={styles.roundedImage} />
       <div className={styles.productDescription}>
         <p>{text}</p>
       </div>
