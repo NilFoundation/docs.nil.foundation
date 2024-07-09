@@ -168,6 +168,19 @@ export default {
                             label: 'Pre-compiles',
                             id: 'tools/sol-library/pre-compiles'
                         }]
+                },
+                {
+                    type: 'category',
+                    label: 'Block explorer',
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                        {
+                            type: 'doc',
+                            label: 'Usage',
+                            id: 'tools/block-explorer/usage'
+                        },
+                    ]
                 }
             ]
         },

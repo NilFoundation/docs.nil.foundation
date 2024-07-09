@@ -34,7 +34,7 @@
 [data-theme='light'] {
   --ifm-background-color: #f1f1f1;
   --ifm-color-primary: #1e1e1e;
-  --ifm-navbar-link-color: #5e5e5e;
+  --ifm-navbar-link-color: #8a8a8a;
   --ifm-navbar-link-hover-color: #0f0f0f;
   --ifm-link-color: #466eab;
   --ifm-link-hover-color: #697991;
@@ -330,5 +330,9 @@ nav ul li {
 [data-theme='light'] .socialButton_src-theme-Footer-IconLinkItem-styles-module {
   background-color: #d7d7d7;
   color: #f1f1f1
+}
+
+.roundedImage {
+  border-radius: 5px;
 }
 
