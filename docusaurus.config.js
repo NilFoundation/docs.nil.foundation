@@ -39,8 +39,8 @@ const config = {
 
   presets: [
     [
-      "@metamask/docusaurus-openrpc/dist/preset",
-      /** @type {import('@metamask/docusaurus-openrpc/dist/preset').Options} */
+      "@khannanov-nil/openrpc-docusaurus/dist/preset",
+      /** @type {import('@khannanov-nil/openrpc-docusaurus/dist/preset').Options} */
       ({
         docs: {
           path: "nil",
