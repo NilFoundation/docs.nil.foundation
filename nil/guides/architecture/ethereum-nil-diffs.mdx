@@ -11,4 +11,4 @@ The following table contains these opcodes and how they behave in =nil;
 | Opcode | Behavior unique to =nil; |
 |:--:|:--|
 | `CALL`, `STATICCALL`, `DELEGATECALL`, `BALANCE`, `EXTCODECOPY`, `EXTCODEHASH`, `CALLCODE`, `SELFDESTRUCT` | If the input address is not located in the address space of the current execution shard, execution will be reverted. |
-| `CALLER`, `ORIGIN` | If a shard transaction has executed these opcodes, and this is the original (first) external call, they return the address of the caller contract. |
+| `CALLER`, `ORIGIN` | If processing a messare requires executing these opcodes, and this is the original (first) external call, they return the address of the caller contract. |
