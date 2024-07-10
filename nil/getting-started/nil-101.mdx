@@ -120,6 +120,8 @@ nil_cli contract call-readonly INCREMENTER_ADDRESS getValue --abi ./Incrementer/
 
 When a smart contract makes a call to another smart contract deployed on a separate shard, the destination shard retrieves the resulting message and processes it. To make thing simpler, the `Nil.sol` library provides the `async_call()` function: it calls a special precompiled contract that allows for easily passing messages between shards.
 
+## Flow
+
 Create a new contract with the following code:
 
 ```solidity showLineNumbers
