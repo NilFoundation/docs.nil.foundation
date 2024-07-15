@@ -56,4 +56,4 @@ Alternatively:
 
 * Create a new branch
 * Make the necessary changes
-* Open a PR into `main` request a review
+* Open a PR into `main` and request a review
