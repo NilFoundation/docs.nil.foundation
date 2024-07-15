@@ -25,29 +25,6 @@ export default {
         },
         {
             type: 'category',
-            label: 'Core concepts',
-            collapsed: false,
-            collapsible: true,
-            items: [
-                {
-                    type: 'doc',
-                    label: 'Accounts',
-                    id: 'core-concepts/accounts',
-                },
-                {
-                    type: 'doc',
-                    label: 'Transaction lifecycle',
-                    id: 'core-concepts/transaction-lifecycle',
-                },
-                {
-                    type: 'doc',
-                    label: 'Shards and parallelized execution',
-                    id: 'core-concepts/shards-parallel-execution',
-                },
-            ]
-        },
-        {
-            type: 'category',
             label: 'Getting started',
             collapsed: false,
             collapsible: true,
@@ -123,7 +100,7 @@ export default {
         {
             type: 'category',
             label: 'Tools',
-            collapsed: true,
+            collapsed: false,
             collapsible: true,
             items: [
                 {
@@ -182,6 +159,29 @@ export default {
                         },
                     ]
                 }
+            ]
+        },
+        {
+            type: 'category',
+            label: 'Core concepts',
+            collapsed: true,
+            collapsible: true,
+            items: [
+                {
+                    type: 'doc',
+                    label: 'Accounts',
+                    id: 'core-concepts/accounts',
+                },
+                {
+                    type: 'doc',
+                    label: 'Transaction lifecycle',
+                    id: 'core-concepts/transaction-lifecycle',
+                },
+                {
+                    type: 'doc',
+                    label: 'Shards and parallelized execution',
+                    id: 'core-concepts/shards-parallel-execution',
+                },
             ]
         },
         {
