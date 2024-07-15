@@ -6,6 +6,23 @@ The CLI can also be integrated into a CI/CD pipeline. For example, a pipeline ma
 
 This page lists all commands exposed by the =nil; CLI as well as their flags and arguments.
 
+## Global flags
+
+The following flags can be used with any command.
+
+| Flag | Definition |
+|:--:|:--|
+| `--quiet \| -q` | Enable quiet mode (the CLI will only output values with no additional text). |
+| `--verbose \| -v` | Enable verbose mode (the CLI will attach additional explanatory text to every output). |
+| `--help \| -h` | Receive help for the command. |
+
+The following flags can be used without a command.
+
+| Flag | Definition |
+|:--:|:--|
+| `--config \| -c` | Specify the path to the =nil; CLI config file. |
+| `--log-level \| -l` | Set the =nil; CLI logging level. Possible values: `trace`, `debug`, `info`, `warn`, `error`, `fatal`, `panic`. |
+
 ## `block`
 
 ### Description
@@ -21,7 +38,6 @@ No subcommands.
 | Flag | Definition |
 |:--:|:--|
 | `--shard-id ShardId` | Specify the id of the shard from which the block should be retrieved. |
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
@@ -73,12 +89,6 @@ This command generates autocompletion scripts for various shells.
 | `powershell` | Generate the autocompletion script for `powershell`.  |
 | `zsh` | Generate the autocompletion script for `zsh`.  |
 
-### Flags
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
-
 ### Example
 
 ```bash
@@ -107,12 +117,6 @@ This command is for [**setting up the =nil; CLI**](../tools/nil-cli/usage.mdx).
 | `set` | Sets the given value to the provided config key.  |
 | `init` | Initializes the =nil; CLI config file.|
 | `show` | Shows the current contents of the =nil; CLI config file.  |
-
-### Flags
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
@@ -194,7 +198,6 @@ For `address`:
 | `--abi string` | The path to the `.abi` file containing the contract ABI. |
 | `--salt Uint256` | Arbitrary salt. |
 | `--shard-id ShardId` | The ID of the shard where the contract is located/could be located.|
-| `--help \| -h` | Receive help for the command. |
 
 For `call-readonly`:
 
@@ -202,7 +205,6 @@ For `call-readonly`:
 |:--:|:--|
 | `--abi string` | The path to the `.abi` file containing the contract ABI. |
 | `--gas-limit Uint256` | The gas limit for the call. |
-| `--help \| -h` | Receive help for the command. |
 
 For `deploy`:
 
@@ -212,13 +214,6 @@ For `deploy`:
 | `--no-wait` | Prevents waiting for the deployment message receipt when the command is executing. |
 | `--salt Uint256` | Arbitrary salt. |
 | `--shard-id ShardId` | The ID of the shard where the contract is located/could be located.|
-| `--help \| -h` | Receive help for the command. |
-
-For `balance`, `code`, `currencies`:
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
@@ -339,6 +334,8 @@ Flags:
   -c, --config string      Path to config file (default "config.yaml")
   -h, --help               help for nil_cli
   -l, --log-level string   Log level: trace|debug|info|warn|error|fatal|panic (default "trace")
+  -q, --quiet              Quiet mode (print only the result and exit)
+  -v, --verbose            Verbose mode (print logs)
 ```
 
 ## `keygen`
@@ -351,12 +348,6 @@ This command is for generating private keys.
 |:--:|:--|
 | `fromHex string` | Generate a new key from the provided hex of a private key. |
 | `new` | Generate a new key. |
-
-### Flags
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
@@ -391,7 +382,6 @@ No subcommands.
 | Flag | Definition |
 |:--:|:--|
 | `--shard-id ShardId` | Specify the id of the shard from which the message should be retrieved. |
-| `--help \| -h` | Receive help for the command. |
 
 ### Example
 
@@ -441,13 +431,6 @@ For `create-currency`, `mint-currency`:
 | Flag | Definition |
 |:--:|:--|
 | `--withdraw` | Immediately withdraw the created/minted currency to its owner. |
-| `--help \| -h` | Receive help for the command. |
-
-For `withdraw-currency`:
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
@@ -502,7 +485,6 @@ No subcommands.
 | Flag | Definition |
 |:--:|:--|
 | `--shard-id ShardId` | Specify the id of the shard from which the receipt must be retrieved. |
-| `--help \| -h` | Receive help for the command. |
 
 ### Example
 
@@ -539,12 +521,6 @@ This command is for retrieving system information.
 | `chain-id` | Retreive the ID of the current chain. |
 | `gas-price` | Retrieve the gas price in the specified shard.  |
 | `shards` | Retrieve a list of all execution shards.  |
-
-### Flags
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
@@ -617,7 +593,6 @@ For `deploy`:
 | `--no-wait` | Define whether the command should wait for the message receipt. |
 | `--salt Uint256` | Set the salt for the deployment message. |
 | `--shard-id ShardId` | Specify the shard where the contract should be deployed. |
-| `--help \| -h` | Receive help for the command. |
 
 For `new`:
 
@@ -626,7 +601,6 @@ For `new`:
 | `--amount Uint256` | Set the initial balance of the wallet (capped at 10 000 000) |
 | `--salt Uint256` | Set the salt for the deployment message. |
 | `--shard-id ShardId` | Specify the shard where the wallet should be deployed. |
-| `--help \| -h` | Receive help for the command. |
 
 For `send-message`:
 
@@ -637,7 +611,6 @@ For `send-message`:
 | `--gas-limit Uint256` | Set the message gas limit. |
 | `--no-wait` | Define whether the command should wait for the message receipt. |
 | `--token stringArray` | Define the tokens to transfer to the contract. Tokens are set using the `CURRENCY_ID=AMOUNT` format. The flag accepts can accept multiple tokens.  |
-| `--help \| -h` | Receive help for the command. |
 
 For `send-tokens`:
 
@@ -646,13 +619,6 @@ For `send-tokens`:
 | `--gas-limit Uint256` | Set the message gas limit. |
 | `--no-wait` | Define whether the command should wait for the message receipt. |
 | `--token stringArray` | Define the tokens to transfer to the contract. Tokens are set using the `CURRENCY_ID=AMOUNT` format. The flag accepts can accept multiple tokens.  |
-| `--help \| -h` | Receive help for the command. |
-
-For `balance`, `info`, `top-up`:
-
-| Flag | Definition |
-|:--:|:--|
-| `--help \| -h` | Receive help for the command. |
 
 ### Examples
 
