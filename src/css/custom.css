@@ -315,12 +315,13 @@ nav ul li {
   font-size: 14px;
 }
 
+
 [data-theme='light'] .toggleButton_node_modules-\@docusaurus-theme-classic-lib-theme-ColorModeToggle-styles-module:hover {
-  background-color: #8a8a8a;
+  background-color: #b9b9b9;
 }
 
 [data-theme='dark'] .toggleButton_node_modules-\@docusaurus-theme-classic-lib-theme-ColorModeToggle-styles-module:hover {
-  background-color: #8a8a8a;
+  background-color: #b9b9b9;
 }
 
 [data-theme='dark'] .socialButton_src-theme-Footer-IconLinkItem-styles-module {
