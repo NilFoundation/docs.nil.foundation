@@ -1,14 +1,21 @@
 {
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "./index.js",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
-    }
-  ],
+  "rewrites": [
+        { "source": "/(.*)", "destination": "src/app.js" }
+    ],
+    "headers": [
+        {
+          "source": "/(.*)",
+          "headers": [
+            { "key": "Access-Control-Allow-Origin", "value": "*" }
+          ]
+        },
+        {
+          "source": "/vercel_app_domain_name/(.*)",
+          "headers": [
+            { "key": "Access-Control-Allow-Origin", "value": "*" }
+          ]
+        }  
+    ],
   "redirects": [
     {
       "source": "/crypto3",
