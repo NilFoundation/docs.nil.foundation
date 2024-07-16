@@ -21,7 +21,7 @@
     "@docusaurus/core": "^3.4.0",
     "@docusaurus/preset-classic": "^3.4.0",
     "@docusaurus/theme-mermaid": "^3.4.0",
-    "@khannanov-nil/openrpc-docusaurus": "0.5.2",
+    "@khannanov-nil/openrpc-docusaurus": "0.4.4",
     "@mdx-js/react": "^3.0.0",
     "@nilfoundation/ui-kit": "^2.5.1",
     "@uiw/codemirror-themes": "4.21.0",
