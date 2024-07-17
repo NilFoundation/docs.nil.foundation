@@ -19,7 +19,6 @@ export default function Root({ children }) {
 
     const style = {
         backgroundColor: '#181A1B',
-        height: '3.8em'
     }
     return <>
         <CookieConsent
