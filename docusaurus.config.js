@@ -68,9 +68,6 @@ const config = {
     'docusaurus-plugin-goatcounter'
     ,
     [
-      'docusaurus-plugin-goatcounter'
-    ],
-    [
       '@docusaurus/plugin-content-docs',
       {
         id: 'zkllvm',
