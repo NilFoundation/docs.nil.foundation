@@ -65,6 +65,11 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
   plugins: [
+    'docusaurus-plugin-goatcounter'
+    ,
+    [
+      'docusaurus-plugin-goatcounter'
+    ],
     [
       '@docusaurus/plugin-content-docs',
       {
@@ -142,6 +147,9 @@ const config = {
           searchParameters: {},
           searchPagePath: 'search',
           insights: false,
+        },
+        goatcounter: {
+          code: 'docs-nil-foundation',
         },
         colorMode: {
           defaultMode: 'dark',
