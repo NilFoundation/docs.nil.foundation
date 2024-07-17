@@ -65,9 +65,8 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
   plugins: [
-    [
-      'docusaurus-plugin-goatcounter'
-    ],
+    'docusaurus-plugin-goatcounter'
+    ,
     [
       '@docusaurus/plugin-content-docs',
       {
