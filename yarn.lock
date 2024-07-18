@@ -2114,7 +2114,7 @@
     "@docusaurus/theme-common" "^3.0.0"
     "@docusaurus/theme-search-algolia" "^3.0.0"
     "@docusaurus/types" "^3.0.0"
-    "@khannanov-nil/nil-open-rpc-docs-react" "0.4.8"
+    "@khannanov-nil/nil-open-rpc-docs-react" "0.4.8
     "@open-rpc/schema-utils-js" "^1.16.1"
     node-polyfill-webpack-plugin "^2.0.1"
     process "^0.11.10"
