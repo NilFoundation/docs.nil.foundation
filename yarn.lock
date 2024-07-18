@@ -2072,10 +2072,10 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@khannanov-nil/nil-open-rpc-docs-react@0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@khannanov-nil/nil-open-rpc-docs-react/-/nil-open-rpc-docs-react-0.3.0.tgz#2335cb3eea6d476d0807fdac9700487f69cc60ed"
-  integrity sha512-1I9/HHMGstoVuQWL6nMxo9mYL2QLVtVokijMJn7q97FdC9WcvTGNQF8T+og0Qxud8U2C4rwMyuWVAoRX5NYVlA==
+"@khannanov-nil/nil-open-rpc-docs-react@0.3.6":
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/@khannanov-nil/nil-open-rpc-docs-react/-/nil-open-rpc-docs-react-0.3.6.tgz#d8298fa8d08eda0942a299019840c374a74ae851"
+  integrity sha512-JrZomoNLbd2AJjiUN111wv94umc5qmwM+BEJBbg1pQY+/XXYtSUfZnS3BmStf1HxoUn5ZlIvj2xMu/N2ef6/Zw==
   dependencies:
     "@json-schema-tools/traverse" "^1.10.1"
     "@open-rpc/client-js" "^1.8.1"
@@ -2096,10 +2096,10 @@
     react-markdown "^8.0.7"
     react-syntax-highlighter "^15.4.3"
 
-"@khannanov-nil/openrpc-docusaurus@0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@khannanov-nil/openrpc-docusaurus/-/openrpc-docusaurus-0.5.2.tgz#33b08f3aedc3191afdd3ccc6764368ce0a9301a4"
-  integrity sha512-QbC6ez7qcbNy3ljo1UK4MI2zq/rIfXlyHwpR0NY3NYvs3gj6tpQqEnm3+73CaOgBjKMqWQuyQwz3ThqVjMBBJQ==
+"@khannanov-nil/openrpc-docusaurus@0.5.8":
+  version "0.5.8"
+  resolved "https://registry.yarnpkg.com/@khannanov-nil/openrpc-docusaurus/-/openrpc-docusaurus-0.5.8.tgz#41c7f7b9e418ef82ea6dc27e37da1519ed9a6d14"
+  integrity sha512-yGzFHcEK7nueaiOPaRsjcCJHhbN5waYb6LuV6AcVhEvoiYpYqvYLSPhHtzDHoftHkZDl0AYCR5NGUwePdPTdBQ==
   dependencies:
     "@docusaurus/core" "^3.0.0"
     "@docusaurus/plugin-content-blog" "^3.0.0"
@@ -2114,7 +2114,7 @@
     "@docusaurus/theme-common" "^3.0.0"
     "@docusaurus/theme-search-algolia" "^3.0.0"
     "@docusaurus/types" "^3.0.0"
-    "@khannanov-nil/nil-open-rpc-docs-react" "0.3.0"
+    "@khannanov-nil/nil-open-rpc-docs-react" "0.3.6"
     "@open-rpc/schema-utils-js" "^1.16.1"
     node-polyfill-webpack-plugin "^2.0.1"
     process "^0.11.10"
