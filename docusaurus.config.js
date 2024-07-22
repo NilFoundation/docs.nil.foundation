@@ -67,60 +67,33 @@ const config = {
   plugins: [
     'docusaurus-plugin-goatcounter'
     ,
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'zkllvm',
-        path: 'zkllvm',
-        routeBasePath: 'zkllvm',
-        sidebarPath: './sidebar-zkllvm.js'
-      }
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'proof-market',
-        path: 'proof-market',
-        routeBasePath: 'proof-market',
-        sidebarPath: './sidebar-proof-market.js'
-      }
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'crypto3',
-        path: 'crypto3',
-        routeBasePath: 'crypto3',
-        sidebarPath: './sidebar-crypto-3.js'
-      }
-    ],
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        out: "./nil/reference/client",
-        outputFileStrategy: "members",
-        fileExtension: ".mdx",
-        useCodeBlocks: true,
-        parametersFormat: "htmlTable",
-        entryPoints: [
-          "./nil/nil.js/src"
-        ],
-        skipErrorChecking: true,
-        sidebar: {
-          "autoConfiguration": true,
-          "pretty": false
-        },
-        readme: "none",
-        indexFormat: "Table",
-        sanitizeComments: "true",
-        excludePrivate: "true",
-        exclude: [
-          "**/*refiners.ts*",
-          "**/*assert.ts*",
-        ],
-      }
+    // [
+    //   'docusaurus-plugin-typedoc',
+    //   {
+    //     out: "./nil/reference/client",
+    //     outputFileStrategy: "members",
+    //     fileExtension: ".mdx",
+    //     useCodeBlocks: true,
+    //     parametersFormat: "htmlTable",
+    //     entryPoints: [
+    //       "./nil/nil.js/src"
+    //     ],
+    //     skipErrorChecking: true,
+    //     sidebar: {
+    //       "autoConfiguration": true,
+    //       "pretty": false
+    //     },
+    //     readme: "none",
+    //     indexFormat: "Table",
+    //     sanitizeComments: "true",
+    //     excludePrivate: "true",
+    //     exclude: [
+    //       "**/*refiners.ts*",
+    //       "**/*assert.ts*",
+    //     ],
+    //   }
 
-    ]
+    // ]
   ],
   stylesheets: [
     {
@@ -159,27 +132,6 @@ const config = {
             src: 'img/nil-logo.png',
           },
           items: [
-            {
-              position: 'left',
-              label: '=nil;',
-              to: '/nil/intro'
-            },
-            {
-              position: 'left',
-              label: 'zkLLVM',
-              to: '/zkllvm/overview/what-is-zkllvm'
-
-            },
-            {
-              position: 'left',
-              label: 'Proof Market',
-              to: '/proof-market/intro'
-            },
-            {
-              position: 'left',
-              label: 'Crypto3',
-              to: '/crypto3/intro'
-            },
           ],
         },
         footer: {

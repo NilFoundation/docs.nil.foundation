@@ -91,6 +91,9 @@
   
   .indexHomepageSection {
     margin-bottom: 3rem;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
   }
   
   .indexHomepageSection h3 {
