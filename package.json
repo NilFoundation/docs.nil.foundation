@@ -18,6 +18,7 @@
     "@aldridged/docusaurus-plugin-lunr": "^1.0.0-alpha.10",
     "@cmfcmf/docusaurus-search-local": "^1.1.0",
     "@codemirror/state": "6.4.0",
+    "@cookbookdev/docsbot": "^4.21.23",
     "@docusaurus/core": "^3.4.0",
     "@docusaurus/preset-classic": "^3.4.0",
     "@docusaurus/theme-mermaid": "^3.4.0",
