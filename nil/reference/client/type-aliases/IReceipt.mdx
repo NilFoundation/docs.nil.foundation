@@ -17,7 +17,7 @@ blockHash: string;
 ### blockNumber
 
 ```ts
-blockNumber: bigint;
+blockNumber: number;
 ```
 
 ### bloom
@@ -32,10 +32,22 @@ bloom: string;
 contractAddress: string;
 ```
 
+### gasPrice?
+
+```ts
+optional gasPrice: string;
+```
+
 ### gasUsed
 
 ```ts
-gasUsed: number;
+gasUsed: string;
+```
+
+### includedInMain
+
+```ts
+includedInMain: boolean;
 ```
 
 ### logs
@@ -53,7 +65,7 @@ messageHash: Hex;
 ### msgIndex
 
 ```ts
-msgIndex: bigint;
+msgIndex: number;
 ```
 
 ### outMessages
@@ -65,7 +77,7 @@ outMessages: Hex[] | null;
 ### outputReceipts
 
 ```ts
-outputReceipts: IReceipt[] | null;
+outputReceipts: (IReceipt | null)[] | null;
 ```
 
 ### shardId
@@ -80,6 +92,5 @@ shardId: number;
 success: boolean;
 ```
 
-## Defined in
-
-[nil/nil.js/src/types/IReceipt.ts:7](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/types/IReceipt.ts#L7)
+## Defined  
+@nilfoundation/niljs/src/types/IReceipt.ts:7

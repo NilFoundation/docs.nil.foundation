@@ -1,0 +1,28 @@
+# Type Alias: ProcessedReceipt
+
+```ts
+type ProcessedReceipt: Omit<IReceipt, "gasUsed" | "gasPrice" | "outputReceipts"> & object;
+```
+
+## Type declaration
+
+### gasPrice?
+
+```ts
+optional gasPrice: bigint;
+```
+
+### gasUsed
+
+```ts
+gasUsed: bigint;
+```
+
+### outputReceipts
+
+```ts
+outputReceipts: (ProcessedReceipt | null)[] | null;
+```
+
+## Defined  
+@nilfoundation/niljs/src/types/IReceipt.ts:24

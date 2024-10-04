@@ -1,0 +1,1 @@
+[{"inputs":[{"internalType":"string","name":"err","type":"string"}],"name":"bounce","outputs":[],"stateMutability":"payable","type":"function"}]

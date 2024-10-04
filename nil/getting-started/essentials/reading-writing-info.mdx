@@ -7,38 +7,29 @@ This tutorial details the different ways that allow for reading and writing info
 3. Retrieving data about the resulting message
 4. Reading the message receipt
 
-:::info
-
-At the moment, =nil; has a flat gas price of 10. When sending a message, make sure that its value is equal to at least `10 * gasLimit`.
-
-:::
-
 ## Via the =nil; CLI
 
 The =nil; CLI provides several commands that produce data about key cluster entities including blocks, messages, and logs. 
 
 To view the latest block recorded by shard with `shardId = 1`:
 
-```bash
-nil_cli block latest --shard-id 1
+```bash file=../../../tests/reading-and-writing.test.mjs start=startLatestBlock end=endLatestBlock
 ```
 
 To call an existing smart contract via the wallet:
 
 ```bash
-nil_cli wallet send-message CONTRACT_ADDRESS METHOD_NAME [ARGS] --abi path/to/contract.abi
+nil wallet send-message CONTRACT_ADDRESS METHOD_NAME [ARGS] --abi path/to/contract.abi
 ```
 
 To read information about the resulting message:
 
-```bash
-nil_cli message MESSAGE_HASH
+```bash file=../../../tests/reading-and-writing.test.mjs start=startMessageRead end=endMessageRead
 ```
 
 To read the message receipt:
 
-```bash
-nil_cli receipt MESSAGE_HASH
+```bash file=../../../tests/reading-and-writing.test.mjs start=startReceiptRead end=endReceiptRead
 ```
 
 ## Via the client library
@@ -77,8 +68,8 @@ const data = encodeFunctionData({
 const messageHash = await wallet.sendMessage({
     to: '{CONTRACT_ADDRESS}',
     data: data,
-    value: 1000000n,
-    gas: 100000n
+    value: 100_000n,
+    feeCredit: 1_000_000n
 });
 
 await waitTillCompleted(client, 1, messageHash);

@@ -1,15 +1,20 @@
 # Function: toHex()
 
 ```ts
-function toHex<T>(value): `0x${string}`
+function toHex<T>(value): 0x${string}
 ```
+
+Converts a string, number, bigint, boolean, or ByteArrayType to a hex string.
 
 ## Type Parameters
 
 <table>
+<thead>
 <tr>
 <th>Type Parameter</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -22,15 +27,20 @@ function toHex<T>(value): `0x${string}`
 
 </td>
 </tr>
+</tbody>
 </table>
 
 ## Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
+<th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -42,15 +52,20 @@ function toHex<T>(value): `0x${string}`
 `T`
 
 </td>
+<td>
+
+The input to convert.
+
+</td>
 </tr>
+</tbody>
 </table>
 
 ## Returns
 
-\`0x$\{string\}\`
+`0x${string}`
 
 The hex string representation of the input.
 
-## Defined in
-
-[nil/nil.js/src/encoding/toHex.ts:23](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/toHex.ts#L23)
+## Defined  
+@nilfoundation/niljs/src/encoding/toHex.ts:67

@@ -20,11 +20,14 @@ Creates an instance of BlockNotFoundError.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -42,6 +45,7 @@ The error params.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -52,9 +56,8 @@ The error params.
 
 `BaseError.constructor`
 
-#### Defined in
-
-[nil/nil.js/src/errors/block.ts:24](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/errors/block.ts#L24)
+#### Defined  
+@nilfoundation/niljs/src/errors/block.ts:24
 
 ## Properties
 
@@ -70,9 +73,8 @@ The error cause.
 
 `BaseError.cause`
 
-#### Defined in
-
-[nil/nil.js/src/errors/BaseError.ts:40](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/errors/BaseError.ts#L40)
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:42
 
 ***
 
@@ -88,9 +90,8 @@ The path to the documentation of this error.
 
 `BaseError.docsPath`
 
-#### Defined in
-
-[nil/nil.js/src/errors/BaseError.ts:47](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/errors/BaseError.ts#L47)
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:49
 
 ***
 
@@ -108,9 +109,8 @@ It is recommended to always set this property to true when creating a custom err
 
 `BaseError.isOperational`
 
-#### Defined in
-
-[nil/nil.js/src/errors/BaseError.ts:33](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/errors/BaseError.ts#L33)
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:35
 
 ***
 
@@ -126,7 +126,7 @@ message: string;
 
 #### Defined in
 
-node\_modules/typescript/lib/lib.es5.d.ts:1077
+../node\_modules/typescript/lib/lib.es5.d.ts:1077
 
 ***
 
@@ -142,7 +142,7 @@ name: string;
 
 #### Defined in
 
-node\_modules/typescript/lib/lib.es5.d.ts:1076
+../node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 ***
 
@@ -158,134 +158,21 @@ optional stack: string;
 
 #### Defined in
 
-node\_modules/typescript/lib/lib.es5.d.ts:1078
+../node\_modules/typescript/lib/lib.es5.d.ts:1078
 
 ***
 
-### prepareStackTrace()?
+### version?
 
 ```ts
-static optional prepareStackTrace: (err, stackTraces) => any;
+optional version: string;
 ```
 
-Optional override for formatting stack traces
-
-#### See
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
-#### Parameters
-
-<table>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-</tr>
-<tr>
-<td>
-
-`err`
-
-</td>
-<td>
-
-`Error`
-
-</td>
-</tr>
-<tr>
-<td>
-
-`stackTraces`
-
-</td>
-<td>
-
-`CallSite`[]
-
-</td>
-</tr>
-</table>
-
-#### Returns
-
-`any`
+The version of the client.
 
 #### Inherited from
 
-`BaseError.prepareStackTrace`
+`BaseError.version`
 
-#### Defined in
-
-node\_modules/@types/node/globals.d.ts:28
-
-***
-
-### stackTraceLimit
-
-```ts
-static stackTraceLimit: number;
-```
-
-#### Inherited from
-
-`BaseError.stackTraceLimit`
-
-#### Defined in
-
-node\_modules/@types/node/globals.d.ts:30
-
-## Methods
-
-### captureStackTrace()
-
-```ts
-static captureStackTrace(targetObject, constructorOpt?): void
-```
-
-Create .stack property on a target object
-
-#### Parameters
-
-<table>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-</tr>
-<tr>
-<td>
-
-`targetObject`
-
-</td>
-<td>
-
-`object`
-
-</td>
-</tr>
-<tr>
-<td>
-
-`constructorOpt`?
-
-</td>
-<td>
-
-`Function`
-
-</td>
-</tr>
-</table>
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`BaseError.captureStackTrace`
-
-#### Defined in
-
-node\_modules/@types/node/globals.d.ts:21
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:53

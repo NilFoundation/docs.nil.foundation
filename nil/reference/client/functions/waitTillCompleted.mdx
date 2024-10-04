@@ -4,17 +4,23 @@
 function waitTillCompleted(
    client, 
    shardId, 
-hash): Promise<IReceipt[]>
+   hash, 
+options?): Promise<ProcessedReceipt[]>
 ```
+
+Makes it so that the client waits until the processing of the message whose hash is passed.
 
 ## Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -57,7 +63,7 @@ The ID of the shard where the message is processed.
 </td>
 <td>
 
-\`0x$\{string\}\`
+`0x${string}`
 
 </td>
 <td>
@@ -66,12 +72,71 @@ The message hash.
 
 </td>
 </tr>
+<tr>
+<td>
+
+`options`?
+
+</td>
+<td>
+
+`object`
+
+</td>
+<td>
+
+&hyphen;
+
+</td>
+</tr>
+<tr>
+<td>
+
+`options.interval`?
+
+</td>
+<td>
+
+`number`
+
+</td>
+<td>
+
+&hyphen;
+
+</td>
+</tr>
+<tr>
+<td>
+
+`options.waitTillMainShard`?
+
+</td>
+<td>
+
+`boolean`
+
+</td>
+<td>
+
+&hyphen;
+
+</td>
+</tr>
+</tbody>
 </table>
 
 ## Returns
 
-`Promise` \<[`IReceipt`](../type-aliases/IReceipt.mdx)[]\>
+`Promise`\<[`ProcessedReceipt`](../type-aliases/ProcessedReceipt.mdx)[]\>
 
-## Defined in
+## Async
 
-[nil/nil.js/src/utils/receipt.ts:16](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/utils/receipt.ts#L16)
+## Example
+
+```ts
+await waitTillCompleted(client, 1, hash);
+```
+
+## Defined  
+@nilfoundation/niljs/src/utils/receipt.ts:16

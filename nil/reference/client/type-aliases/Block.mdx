@@ -1,23 +1,43 @@
-# Type Alias: Block
+# Type Alias: Block\<T\>
 
 ```ts
-type Block: object;
+type Block<T>: object;
 ```
 
 The block type.
+Type `T` determines whether the block contains processed messages or just message hashes.
+
+## Type Parameters
+
+<table>
+<thead>
+<tr>
+<th>Type Parameter</th>
+<th>Default type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+`T`
+
+</td>
+<td>
+
+`false`
+
+</td>
+</tr>
+</tbody>
+</table>
 
 ## Type declaration
 
-### childBlocksRootHash
+### hash
 
 ```ts
-childBlocksRootHash: string;
-```
-
-### id
-
-```ts
-id: string;
+hash: Hex;
 ```
 
 ### inMessagesRoot
@@ -26,34 +46,22 @@ id: string;
 inMessagesRoot: Hex;
 ```
 
-### logsBloom
+### messages
 
 ```ts
-logsBloom: any;
+messages: T extends true ? ProcessedMessage[] : Hex[];
 ```
 
-### masterChainHash
+### number
 
 ```ts
-masterChainHash: Hex;
+number: number;
 ```
 
-### outMessagesNum
+### parentHash
 
 ```ts
-outMessagesNum: number;
-```
-
-### outMessagesRoot
-
-```ts
-outMessagesRoot: Hex;
-```
-
-### prevBlock
-
-```ts
-prevBlock: Hex;
+parentHash: Hex;
 ```
 
 ### receiptsRoot
@@ -62,18 +70,11 @@ prevBlock: Hex;
 receiptsRoot: Hex;
 ```
 
-### smartContractsRoot
+### shardId
 
 ```ts
-smartContractsRoot: Hex;
+shardId: number;
 ```
 
-### timestamp
-
-```ts
-timestamp: number;
-```
-
-## Defined in
-
-[nil/nil.js/src/types/Block.ts:6](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/types/Block.ts#L6)
+## Defined  
+@nilfoundation/niljs/src/types/Block.ts:8

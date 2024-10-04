@@ -24,7 +24,7 @@ Funds sent to an address without a deployed contract are safe, and another party
 
 Because any smart contract can be a wallet, there is a distinction between pre-built and custom wallets. 
 
-A pre-built wallet is provided as part of =nil;. Such a wallet includes essential wallet functionalities as well as pre-defined constructor bytecode. The =nil; developer tools provide several ways of deploying pre-built wallets such as the `nil_cli wallet new` =nil; CLI command.
+A pre-built wallet is provided as part of =nil;. Such a wallet includes essential wallet functionalities as well as pre-defined constructor bytecode. The =nil; developer tools provide several ways of deploying pre-built wallets such as the `nil wallet new` =nil; CLI command.
 
 :::info[Pre-built wallets]
 
@@ -38,7 +38,7 @@ As pre-built wallets are provided as part of =nil; they are guaranteed to be val
 
 :::
 
-A custom wallet is any smart contract written by a user. This contract can support any flow permitted by Solidity code such as multi-sig authorization or token vesting. Custom wallets [**can be deployed**](../working-with-smart-contracts/deploying-a-contract) just like any other smart contract.
+A custom wallet is any smart contract written by a user. This contract can support any flow permitted by Solidity code such as multi-sig authorization or token vesting. Custom wallets [**can be deployed**](getting-started/working-with-smart-contracts/deploying-a-contract.mdx) just like any other smart contract.
 
 ## New wallet creation
 
@@ -46,8 +46,7 @@ A custom wallet is any smart contract written by a user. This contract can suppo
 
 The =nil; CLI offers a quick and convenient way to create a new wallet:
 
-```bash
-nil_cli wallet new
+```bash file=../../../tests/creating-a-wallet.test.mjs start=startWallet end=endWallet
 ```
 
 This will produce the following response:
@@ -59,8 +58,7 @@ New wallet address: NEW_WALLET_ADDRESS
 
 This wallet essentially acts as a typical EOA: it supports basic asset management and authentication operations. The wallet should also be initialized with an initial balance (which is also seen in the initial command response). Send the following request to check this:
 
-```bash
-nil_cli wallet balance
+```bash file=../../../tests/creating-a-wallet.test.mjs start=startBalance end=endBalance
 ```
 
 :::tip
@@ -79,44 +77,21 @@ The `wallet new` and the `wallet top-up` commands only work in the =nil; devnet.
 
 The `Nil.js` client library exposes the `WalletV1` class that allows for quickly creating and deploying a new wallet:
 
-```typescript
-import {
-  Faucet,
-  HttpTransport,
-  LocalECDSAKeySigner,
-  PublicClient,
-  WalletV1,
-  generateRandomPrivateKey,
-} from "@nilfoundation/niljs";
-
-const client = new PublicClient({
-  transport: new HttpTransport({
-    endpoint: "{NIL_ENDPOINT}",
-  }),
-  shardId: 1,
-});
-
-const faucet = new Faucet(client);
-
-const signer = new LocalECDSAKeySigner({
-  privateKey: generateRandomPrivateKey(),
-});
-
-const pubkey = await signer.getPublicKey();
-
-const wallet = new WalletV1({
-  pubkey: pubkey,
-  salt: 100n,
-  shardId: 1,
-  client,
-  signer,
-});
-const walletAddress = await wallet.getAddressHex();
-
-await faucet.withdrawToWithRetry(walletAddress, 100000n);
-
-await wallet.selfDeploy(true);
+```typescript file=../../../tests/creating-a-wallet.test.mjs start=startNilJSWalletCreation end=endNilJSWalletCreation
 ```
 
 This example initializes a new wallet, provides it with a `Signer` and requests a 'top up' to the wallet address. The wallet is then deployed.
 
+:::tip[Seqno]
+
+When using the client library, `seqno` defaults to `0` for every message sent via the wallet. If too many messages are sent at the same time with this `seqno`, they will fail. To avoid this issue, set the `seqno` manually whenever using the wallet:
+
+```ts showLineNumbers
+wallet.sendMessage({
+    ...
+    seqno: SEQNO,
+    ...
+})
+```
+
+:::

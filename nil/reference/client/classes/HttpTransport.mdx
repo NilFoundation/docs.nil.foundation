@@ -23,11 +23,14 @@ Creates an instance of HttpTransport.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -45,15 +48,15 @@ The transport config. See [IHttpTransportConfig](../type-aliases/IHttpTransportC
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
 
 [`HttpTransport`](HttpTransport.mdx)
 
-#### Defined in
-
-[nil/nil.js/src/transport/HttpTransport.ts:36](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/transport/HttpTransport.ts#L36)
+#### Defined  
+@nilfoundation/niljs/src/transport/HttpTransport.ts:36
 
 ## Methods
 
@@ -71,11 +74,10 @@ Closes the connection to the network.
 
 #### Implementation of
 
-[`ITransport`](ITransport.mdx) . [`closeConnection`](ITransport.mdx#closeconnection)
+[`ITransport`](ITransport.mdx).[`closeConnection`](ITransport.mdx#closeconnection)
 
-#### Defined in
-
-[nil/nil.js/src/transport/HttpTransport.ts:68](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/transport/HttpTransport.ts#L68)
+#### Defined  
+@nilfoundation/niljs/src/transport/HttpTransport.ts:68
 
 ***
 
@@ -93,11 +95,10 @@ Connects to the network.
 
 #### Implementation of
 
-[`ITransport`](ITransport.mdx) . [`connect`](ITransport.mdx#connect)
+[`ITransport`](ITransport.mdx).[`connect`](ITransport.mdx#connect)
 
-#### Defined in
-
-[nil/nil.js/src/transport/HttpTransport.ts:59](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/transport/HttpTransport.ts#L59)
+#### Defined  
+@nilfoundation/niljs/src/transport/HttpTransport.ts:59
 
 ***
 
@@ -112,10 +113,13 @@ Sends a request to the network.
 #### Type Parameters
 
 <table>
+<thead>
 <tr>
 <th>Type Parameter</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -126,16 +130,20 @@ Sends a request to the network.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -144,7 +152,7 @@ Sends a request to the network.
 </td>
 <td>
 
-`Arguments`
+`RequestArguments`
 
 </td>
 <td>
@@ -153,6 +161,7 @@ The request object.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -161,12 +170,11 @@ The request object.
 
 The response.
 
-#### Implementation of
-
-[`ITransport`](ITransport.mdx) . [`request`](ITransport.mdx#request)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/transport/HttpTransport.ts:50](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/transport/HttpTransport.ts#L50)
+[`ITransport`](ITransport.mdx).[`request`](ITransport.mdx#request)
+
+#### Defined  
+@nilfoundation/niljs/src/transport/HttpTransport.ts:50

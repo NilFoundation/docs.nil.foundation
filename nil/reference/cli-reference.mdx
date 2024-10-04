@@ -14,7 +14,7 @@ The following flags can be used with any command.
 |:--:|:--|
 | `--quiet \| -q` | Enable quiet mode (the CLI will only output values with no additional text). |
 | `--verbose \| -v` | Enable verbose mode (the CLI will attach additional explanatory text to every output). |
-| `--help \| -h` | Receive help for the command. |
+| `--help \| -h` | Receive help for the CLI. |
 
 The following flags can be used without a command.
 
@@ -22,6 +22,7 @@ The following flags can be used without a command.
 |:--:|:--|
 | `--config \| -c` | Specify the path to the =nil; CLI config file. |
 | `--log-level \| -l` | Set the =nil; CLI logging level. Possible values: `trace`, `debug`, `info`, `warn`, `error`, `fatal`, `panic`. |
+| `--help \| -h` | Receive help for the command. |
 
 ## `block`
 
@@ -41,22 +42,22 @@ No subcommands.
 
 ### Examples
 
-#### Retrieve a block by hash 
+#### Retrieve a block by hash
 
 ```bash
-nil_cli block BLOCK_HASH [--shard-id SHARD_ID; default 1]
+nil block BLOCK_HASH [--shard-id SHARD_ID; default 1]
 ```
 
 #### Retrieve a block by number
 
 ```bash
-nil_cli block BLOCK_NUMBER [--shard-id SHARD_ID; default 1]
+nil block BLOCK_NUMBER [--shard-id SHARD_ID; default 1]
 ```
 
 #### Retrieve the latest block
 
 ```bash
-nil_cli block latest [--shard-id SHARD_ID; default 1]
+nil block latest [--shard-id SHARD_ID; default 1]
 ```
 
 ### Output
@@ -78,9 +79,9 @@ Fetched block:
 
 ### Description
 
-This command generates autocompletion scripts for various shells. 
+This command generates autocompletion scripts for various shells.
 
-### Subcommands 
+### Subcommands
 
 | Subcommand | Definition |
 |:--:|:--|
@@ -92,7 +93,7 @@ This command generates autocompletion scripts for various shells.
 ### Example
 
 ```bash
-nil_cli completion bash | fish | powershell | zsh
+nil completion bash | fish | powershell | zsh
 ```
 
 ### Output
@@ -123,28 +124,28 @@ This command is for [**setting up the =nil; CLI**](../tools/nil-cli/usage.mdx).
 #### Initialize the config file
 
 ```bash
-nil_cli config init
+nil config init
 ```
 
 #### Set a config value
 
 ```bash
-nil_cli config set KEY VALUE
+nil config set KEY VALUE
 ```
 
 #### Read a config value
 
 ```bash
-nil_cli config get KEY
+nil config get KEY
 ```
 
 #### Show the contents of the config file
 
 ```bash
-nil_cli config show
+nil config show
 ```
 
-### Outputs 
+### Outputs
 
 #### Initializing the config file
 
@@ -188,6 +189,7 @@ This command is for reading contract information and for interacting with smart 
 | `code` | Retrieves the smart contract bytecode.  |
 | `currencies` | Retrieves the currencies mapping of the smart contract.  |
 | `deploy` | Deploys the smart contract. |
+| `estimate-fee` | Estimates the gas needed to execute the given message. |
 
 ### Flags
 
@@ -204,7 +206,7 @@ For `call-readonly`:
 | Flag | Definition |
 |:--:|:--|
 | `--abi string` | The path to the `.abi` file containing the contract ABI. |
-| `--gas-limit Uint256` | The gas limit for the call. |
+| `--fee-credit Uint256` | The fee credit for the call. |
 
 For `deploy`:
 
@@ -215,42 +217,57 @@ For `deploy`:
 | `--salt Uint256` | Arbitrary salt. |
 | `--shard-id ShardId` | The ID of the shard where the contract is located/could be located.|
 
+For `estimate-fee`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--abi string` | Specify the path to the `.abi` file for the contract. |
+| `--value Uint256` | Set the amount of tokens to send to the contract. |
+| `--deploy` | Define whether the message should be treated as a deployment message. | 
+| `--internal` | Define whether the gas should be estimated for an internal message. |
+
 ### Examples
 
 #### Calculate the smart contract address
 
 ```bash
-nil_cli contract address path/to/contract.bin [--abi path/to/contract.abi] [--no-wait] [--salt SALT] [--shard-id SHARD_ID; default 1]
+nil contract address path/to/contract.bin [--abi path/to/contract.abi] [--no-wait] [--salt SALT] [--shard-id SHARD_ID; default 1]
 ```
 
 #### Call a smart contract method
 
 ```bash
-nil_cli contract call-readonly CONTRACT_ADDRESS CALLDATA | METHOD_NAME [--abi path/to/contract.abi] [--gas-limit GAS_LIMIT]
+nil contract call-readonly CONTRACT_ADDRESS CALLDATA | METHOD_NAME [--abi path/to/contract.abi] [--fee-credit FEE_CREDIT]
 ```
 
 #### Deploy a smart contract
 
 ```bash
-nil_cli contract deploy path/to/contract.bin [--abi path/to/contract.abi] [--no-wait] [--salt SALT] [--shard-id SHARD_ID; default 1]
+nil contract deploy path/to/contract.bin [--abi path/to/contract.abi] [--no-wait] [--salt SALT] [--shard-id SHARD_ID; default 1]
+```
+
+#### Estimate a fee
+
+```bash
+nil contract estimate-fee ADDRESS FUNC_NAME [ARGS] [--abi path/to/contract.abi] [--deploy] [--internal] [--value AMOUNT]
 ```
 
 #### Retrieve the code of a smart contract
 
 ```bash
-nil_cli contract code CONTRACT_ADDRESS
+nil contract code CONTRACT_ADDRESS
 ```
 
 #### Retrieve the balance of a smart contract
 
 ```bash
-nil_cli contract balance CONTRACT_ADDRESS
+nil contract balance CONTRACT_ADDRESS
 ```
 
 #### Retrieve the currencies of a smart contract
 
 ```bash
-nil_cli contract currencies CONTRACT_ADDRESS
+nil contract currencies CONTRACT_ADDRESS
 ```
 
 ### Outputs
@@ -301,12 +318,12 @@ No subcommands.
 
 ### Flags
 
-No flags. 
+No flags.
 
 ### Example
 
 ```bash
-nil_cli help
+nil help
 ```
 
 ### Output
@@ -315,7 +332,7 @@ nil_cli help
 CLI tool for interacting with the =nil; cluster
 
 Usage:
-  nil_cli [command]
+  nil [command]
 
 Available Commands:
   block       Retrieve a block from the cluster
@@ -332,7 +349,7 @@ Available Commands:
 
 Flags:
   -c, --config string      Path to config file (default "config.yaml")
-  -h, --help               help for nil_cli
+  -h, --help               help for nil
   -l, --log-level string   Log level: trace|debug|info|warn|error|fatal|panic (default "trace")
   -q, --quiet              Quiet mode (print only the result and exit)
   -v, --verbose            Verbose mode (print logs)
@@ -354,13 +371,13 @@ This command is for generating private keys.
 #### Generate a new key from hex
 
 ```bash
-nil_cli keygen fromHex HEX
+nil keygen fromHex HEX
 ```
 
 #### Generating a new key
 
 ```bash
-nil_cli keygen new
+nil keygen new
 ```
 
 ### Output
@@ -386,7 +403,7 @@ No subcommands.
 ### Example
 
 ```bash
-nil_cli message MESSAGE_HASH [--shard-id SHARD_ID; default 1]
+nil message MESSAGE_HASH [--shard-id SHARD_ID; default 1]
 ```
 
 ### Output
@@ -437,19 +454,19 @@ For `create-currency`, `mint-currency`:
 #### Create a new token
 
 ```bash
-nil_cli minter create-currency OWNER_ADDRESS AMOUNT NAME [--withdraw]
+nil minter create-currency OWNER_ADDRESS AMOUNT NAME [--withdraw]
 ```
 
 #### Mint an existign token
 
 ```bash
-nil_cli minter mint-currency OWNER_ADDRESS AMOUNT [--withdraw]
+nil minter mint-currency OWNER_ADDRESS AMOUNT [--withdraw]
 ```
 
 #### Withdraw tokens
 
 ```bash
-nil_cli minter withdraw-currency OWNER_ADDRESS AMOUNT TO_ADDRESS
+nil minter withdraw-currency OWNER_ADDRESS AMOUNT TO_ADDRESS
 ```
 
 ### Outputs
@@ -489,7 +506,7 @@ No subcommands.
 ### Example
 
 ```bash
-nil_cli receipt MESSAGE_HASH [--shard-id SHARD_ID; default 1]
+nil receipt MESSAGE_HASH [--shard-id SHARD_ID; default 1]
 ```
 
 ### Output
@@ -527,19 +544,19 @@ This command is for retrieving system information.
 #### Retrieve the ID of the current chain
 
 ```bash
-nil_cli system chain-id
+nil system chain-id
 ```
 
 #### Retrieve the gas price at the specified shard
 
 ```bash
-nil_cli system gas-price shard-id SHARD_ID
+nil system gas-price shard-id SHARD_ID
 ```
 
 #### Retrieve the list of all execution shards
 
 ```bash
-nil_cli system shards
+nil system shards
 ```
 
 ### Output
@@ -574,7 +591,9 @@ This command is for interacting with wallets.
 | Subcommand | Definition |
 |:--:|:--|
 | `balance` | Retrieves the balance of the wallet specified in the =nil; CLI config. |
+| `call-readonly` | Performs a read-only 'dry run' call to the specified address. |
 | `deploy` | Deploys a smart contract via the wallet.  |
+| `estimate-fee` | Estimates the fee for sending the specified message. |
 | `info` | Retrives the wallet's address and the public key.  |
 | `new` | Create a new wallet. |
 | `send-message` | Send a message to a deployed smart contract via the wallet. |
@@ -582,6 +601,16 @@ This command is for interacting with wallets.
 | `top-up` | Request a 'top up' from the faucet. |
 
 ### Flags
+
+For `call-readonly`:
+
+| Flag | Definition |
+|:--:|:--|
+| `--abi string` | Specify the path to the `.abi` file for the contract. |
+| `--fee-credit Uint256` | Set the call fee credit. |
+| `--in-overrides string` | Set the input state overrides. |
+| `--out-overrides string` | Set the output state overrides. |
+| `--with-details` | Define whether the output should show the tokens used and outbound messages.  |
 
 For `deploy`:
 
@@ -593,6 +622,14 @@ For `deploy`:
 | `--no-wait` | Define whether the command should wait for the message receipt. |
 | `--salt Uint256` | Set the salt for the deployment message. |
 | `--shard-id ShardId` | Specify the shard where the contract should be deployed. |
+
+For `estimate-fee`
+
+| Flag | Definition |
+|:--:|:--|
+| `--abi string` | Specify the path to the `.abi` file for the contract. |
+| `--value Uint256` | Set the amount of tokens to send to the contract. |
+| `--deploy` | Define whether the message should be treated as a deployment message. | 
 
 For `new`:
 
@@ -608,7 +645,7 @@ For `send-message`:
 |:--:|:--|
 | `--abi string` | Specify the path to the `.abi` file for the contract. |
 | `--amount Uint256` | Set the amount of tokens to send to the contract. |
-| `--gas-limit Uint256` | Set the message gas limit. |
+| `--fee-credit Uint256` | Set the message fee credit. |
 | `--no-wait` | Define whether the command should wait for the message receipt. |
 | `--token stringArray` | Define the tokens to transfer to the contract. Tokens are set using the `CURRENCY_ID=AMOUNT` format. The flag accepts can accept multiple tokens.  |
 
@@ -616,7 +653,7 @@ For `send-tokens`:
 
 | Flag | Definition |
 |:--:|:--|
-| `--gas-limit Uint256` | Set the message gas limit. |
+| `--fee-credit Uint256` | Set the message fee credit. |
 | `--no-wait` | Define whether the command should wait for the message receipt. |
 | `--token stringArray` | Define the tokens to transfer to the contract. Tokens are set using the `CURRENCY_ID=AMOUNT` format. The flag accepts can accept multiple tokens.  |
 
@@ -625,43 +662,55 @@ For `send-tokens`:
 #### View the wallet balance
 
 ```bash
-nil_cli wallet balance
+nil wallet balance
+```
+
+#### Perform a read-only call
+
+```bash
+nil wallet call-readonly ADDRESS [--abi path/to/contract.abi] [--fee-credit FEE_CREDIT] [--in-overrides IN_OVERRIDES] [--out-overrides OUT_OVERRIDES] [--with-details]
 ```
 
 #### Deploy a smart contract
 
 ```bash
-nil_cli wallet deploy path/to/contract.bin [ARGS] [--abi path/to/contract.abi] [--amount AMOUNT] [--currency TOKENS_AMOUNT] [--no-wait] [--salt SALT] [shard-id SHARD_ID] 
+nil wallet deploy path/to/contract.bin [ARGS] [--abi path/to/contract.abi] [--amount AMOUNT] [--currency TOKENS_AMOUNT] [--no-wait] [--salt SALT] [shard-id SHARD_ID]
+```
+
+### Estimate a message fee
+
+```bash
+nil wallet estimate-fee ADDRESS FUNC_NAME [ARGS] [--abi path/to/contract.abi] [--deploy] [--value AMOUNT]
 ```
 
 #### Send tokens to a smart contract
 
 ```bash
-nil_cli send-tokens ADDRESS [--gas-limit GAS_LIMIT] [--no-wait] [--token stringArray]
+nil send-tokens ADDRESS [--fee-credit FEE_CREDIT] [--no-wait] [--token stringArray]
 ```
 
 #### Request a 'top up'
 
 ```bash
-nil_cli wallet top-up AMOUNT
+nil wallet top-up AMOUNT
 ```
 
 #### Retrieve wallet information
 
 ```bash
-nil_cli wallet info
+nil wallet info
 ```
 
 #### Create a new wallet
 
 ```bash
-nil_cli wallet new [--amount AMOUNT] [--salt SALT] [--shard-id SHARD_ID]
+nil wallet new [--amount AMOUNT] [--salt SALT] [--shard-id SHARD_ID]
 ```
 
 #### Send a message to a smart contract
 
 ```bash
-nil_cli wallet send-message ADDRESS BYTECODE | METHOD [ARGS] [--abi path/to/contract.abi] [--amount AMOUNT] [--gas-limit GAS_LIMIT] [--no-wait] [--token TOKENS] 
+nil wallet send-message ADDRESS BYTECODE | METHOD [ARGS] [--abi path/to/contract.abi] [--amount AMOUNT] [--fee-credit FEE_CREDIT] [--no-wait] [--token TOKENS]
 ```
 
 ### Outputs
@@ -672,11 +721,25 @@ nil_cli wallet send-message ADDRESS BYTECODE | METHOD [ARGS] [--abi path/to/cont
 Contract balance: BALANCE
 ```
 
-#### Deploying a smart contract 
+#### Performing a read-only call
+
+```bash
+STATUS, result:
+TYPE: VALUE
+```
+
+#### Deploying a smart contract
 
 ```bash
 Contract address: ADDRESS
 Transaction hash: TRANSACTION_HASH
+```
+
+#### Estimating a message fee
+
+```bash
+Estimated external message fee: AMOUNT
+Estimated internal message fee: AMOUNT
 ```
 
 #### Creating a new wallet

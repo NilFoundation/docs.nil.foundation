@@ -1,0 +1,178 @@
+# Class: IntegerOutOfRangeError
+
+The error class for 'integer out of range' errors.
+This error is thrown when the requested integer is out of range.
+
+## Extends
+
+- `BaseError`
+
+## Constructors
+
+### new IntegerOutOfRangeError()
+
+```ts
+new IntegerOutOfRangeError(param0): IntegerOutOfRangeError
+```
+
+Creates an instance of IntegerOutOfRangeError.
+
+#### Parameters
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+`param0`
+
+</td>
+<td>
+
+`IntegerOutOfRangeErrorParameters`
+
+</td>
+<td>
+
+The error params.
+
+</td>
+</tr>
+</tbody>
+</table>
+
+#### Returns
+
+[`IntegerOutOfRangeError`](IntegerOutOfRangeError.mdx)
+
+#### Overrides
+
+`BaseError.constructor`
+
+#### Defined  
+@nilfoundation/niljs/src/errors/encoding.ts:25
+
+## Properties
+
+### cause?
+
+```ts
+optional cause: BaseError | Error;
+```
+
+The error cause.
+
+#### Inherited from
+
+`BaseError.cause`
+
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:42
+
+***
+
+### docsPath?
+
+```ts
+optional docsPath: string;
+```
+
+The path to the documentation of this error.
+
+#### Inherited from
+
+`BaseError.docsPath`
+
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:49
+
+***
+
+### isOperational
+
+```ts
+isOperational: boolean;
+```
+
+The flag that indicates if this error is operational.
+This is useful to differentiate operational errors from programming errors.
+It is recommended to always set this property to true when creating a custom error class.
+
+#### Inherited from
+
+`BaseError.isOperational`
+
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:35
+
+***
+
+### message
+
+```ts
+message: string;
+```
+
+#### Inherited from
+
+`BaseError.message`
+
+#### Defined in
+
+../node\_modules/typescript/lib/lib.es5.d.ts:1077
+
+***
+
+### name
+
+```ts
+name: string;
+```
+
+#### Inherited from
+
+`BaseError.name`
+
+#### Defined in
+
+../node\_modules/typescript/lib/lib.es5.d.ts:1076
+
+***
+
+### stack?
+
+```ts
+optional stack: string;
+```
+
+#### Inherited from
+
+`BaseError.stack`
+
+#### Defined in
+
+../node\_modules/typescript/lib/lib.es5.d.ts:1078
+
+***
+
+### version?
+
+```ts
+optional version: string;
+```
+
+The version of the client.
+
+#### Inherited from
+
+`BaseError.version`
+
+#### Defined  
+@nilfoundation/niljs/src/errors/BaseError.ts:53

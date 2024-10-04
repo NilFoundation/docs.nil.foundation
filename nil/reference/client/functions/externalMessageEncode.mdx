@@ -4,14 +4,19 @@
 function externalMessageEncode(params, signer): Promise<object>
 ```
 
+Encodes the given external message.
+
 ## Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -20,7 +25,7 @@ function externalMessageEncode(params, signer): Promise<object>
 </td>
 <td>
 
-`Omit` \<[`ExternalMessage`](../type-aliases/ExternalMessage.mdx), `"authData"`\>
+`Omit`\<[`ExternalMessage`](../type-aliases/ExternalMessage.mdx), `"authData"`\>
 
 </td>
 <td>
@@ -46,6 +51,7 @@ The message signer.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 ## Returns
@@ -66,6 +72,7 @@ hash: Uint8Array;
 raw: Uint8Array;
 ```
 
-## Defined in
+## Async
 
-[nil/nil.js/src/encoding/externalMessage.ts:271](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L271)
+## Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:262

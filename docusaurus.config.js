@@ -8,6 +8,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkCodeSnippets from 'nil-remark-code-snippets';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -26,8 +27,9 @@ const config = {
   organizationName: '=nil; Foundation', // Usually your GitHub org/user name.
   projectName: 'docs.nil.foundation', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'log',
   onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'log',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -46,10 +48,10 @@ const config = {
           path: "nil",
           routeBasePath: "nil",
           sidebarPath: require.resolve("./sidebar-nil.js"),
-          remarkPlugins: [remarkMath],
+          remarkPlugins: [remarkMath, remarkCodeSnippets],
           rehypePlugins: [rehypeKatex],
           openrpc: {
-            openrpcDocument: "https://api.devnet.nil.foundation/api/docs/openrpc.json",
+            openrpcDocument: process.env.OPENRPC_JSON,
             path: "references",
             sidebarLabel: "JSON-RPC API",
           },
@@ -68,34 +70,7 @@ const config = {
     'docusaurus-plugin-goatcounter'
     ,
     [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'zkllvm',
-        path: 'zkllvm',
-        routeBasePath: 'zkllvm',
-        sidebarPath: './sidebar-zkllvm.js'
-      }
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'proof-market',
-        path: 'proof-market',
-        routeBasePath: 'proof-market',
-        sidebarPath: './sidebar-proof-market.js'
-      }
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'crypto3',
-        path: 'crypto3',
-        routeBasePath: 'crypto3',
-        sidebarPath: './sidebar-crypto-3.js'
-      }
-    ],
-    [
-      'docusaurus-plugin-typedoc',
+      'nil-docusaurus-plugin-typedoc',
       {
         out: "./nil/reference/client",
         outputFileStrategy: "members",
@@ -103,8 +78,9 @@ const config = {
         useCodeBlocks: true,
         parametersFormat: "htmlTable",
         entryPoints: [
-          "./nil/nil.js/src"
+          'node_modules/@nilfoundation/niljs/dist/niljs.cjs'
         ],
+        tsconfig: `tsconfig.json`,
         skipErrorChecking: true,
         sidebar: {
           "autoConfiguration": true,
@@ -160,26 +136,47 @@ const config = {
           },
           items: [
             {
+              label: 'Documentation',
               position: 'left',
-              label: '=nil;',
               to: '/nil/intro'
             },
             {
+              label: 'Cookbook',
               position: 'left',
-              label: 'zkLLVM',
-              to: '/zkllvm/overview/what-is-zkllvm'
-
+              to: '/nil/cookbook'
             },
             {
+              label: 'Migration guides',
               position: 'left',
-              label: 'Proof Market',
-              to: '/proof-market/intro'
+              to: 'nil/migration-guides/september-1709-2024-release'
             },
             {
-              position: 'left',
-              label: 'Crypto3',
-              to: '/crypto3/intro'
-            },
+              type: 'dropdown',
+              label: 'Developer tools',
+              position: 'right',
+              items: [
+                {
+                  label: 'Block explorer',
+                  href: 'https://explore.nil.foundation/'
+                },
+                {
+                  label: 'Solidity extension',
+                  href: 'https://github.com/NilFoundation/nil_cli/blob/master/Nil.sol'
+                },
+                {
+                  label: '=nil; CLI',
+                  href: 'https://github.com/NilFoundation/nil_cli/tree/master'
+                },
+                {
+                  label: 'Client library',
+                  href: 'https://www.npmjs.com/package/@nilfoundation/niljs'
+                },
+                {
+                  label: 'Hardhat plugin',
+                  href: 'https://github.com/NilFoundation/nil-hardhat-example'
+                }
+              ]
+            }
           ],
         },
         footer: {

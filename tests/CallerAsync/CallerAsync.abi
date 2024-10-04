@@ -1,0 +1,1 @@
+[{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"dst","type":"address"}],"name":"CallCompleted","type":"event"},{"inputs":[{"internalType":"address","name":"dst","type":"address"}],"name":"call","outputs":[],"stateMutability":"payable","type":"function"}]
