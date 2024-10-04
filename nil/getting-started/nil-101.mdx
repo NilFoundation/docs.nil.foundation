@@ -2,11 +2,26 @@
 
 This tutorial acts as a 'primer' for working with =nil;. It explains how to perform essential actions with the cluster: creating a new wallet, deploying a contract, and calling a method inside this contract.
 
-:::info
 
-Before completing this tutorial, learn how to [**configure the =nil; CLI**](../tools/nil-cli/usage).
+## Set up the =nil; CLI
 
-:::
+The =nil; CLI is an easy-to-use tool for interacting with the cluster. 
+
+To install the CLI:
+
+```bash
+curl -fsSL https://github.com/NilFoundation/nil_cli/raw/master/install.sh | bash
+```
+
+To generate a new private key and set inside the CLI config:
+
+```bash file=../../tests/nil-101.test.mjs start=startKeygen end=endKeygen
+```
+
+To point the CLI toward the RPC endpoint:
+
+```bash file=../../tests/nil-101.test.mjs start=startEndpoint end=endEndpoint
+```
 
 ## Create a new wallet
 
@@ -16,8 +31,7 @@ In =nil; a wallet is just a smart contract that can handle payments. There are n
 
 To create a new wallet:
 
-```bash
-nil_cli wallet new
+```bash file=../../tests/nil-101.test.mjs start=startWallet end=endWallet
 ```
 
 Expected response:
@@ -30,24 +44,22 @@ Contract address: WALLET_ADDRESS
 To check the wallet bytecode:
 
 ```bash
-nil_cli contract code WALLET_ADDRESS
+nil contract code WALLET_ADDRESS
 ```
 
 To request a 'top up':
 
-```bash
-nil_cli wallet top-up AMOUNT
+```bash file=../../tests/nil-101.test.mjs start=startTopup end=endTopup
 ```
 
 To see the wallet address and its public key:
 
-```bash
-nil_cli wallet info
+```bash file=../../tests/nil-101.test.mjs start=startInfo end=endInfo
 ```
 
 ### Advanced tutorials
 
-* [**Creating a wallet**](./essentials/creating-a-wallet)
+* [**Creating a wallet**](essentials/creating-a-wallet.mdx)
 
 ## Deploy a smart contract
 
@@ -59,108 +71,61 @@ Any smart contract deployed in Ethereum-compatible networks and written in Solid
 
 Create a new contract containing this code:
 
-```solidity showLineNumbers
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-contract Incrementer {
-    uint256 private value;
-
-    event ValueChanged(uint256 newValue);
-
-    function increment() public payable {
-        value += 1;
-        emit ValueChanged(value);
-    }
-
-    function getValue() public view returns (uint256) {
-        return value;
-    }
-}
+```solidity showLineNumbers file=../../tests/Counter.sol start=startContract end=endContract
 ```
 
 Compile the contract:
 
-```bash
-solc -o ./Incrementer --bin --abi ./Incrementer.sol
+```bash file=../../tests/nil-101.test.mjs start=startCompilation end=endCompilation
 ```
 
 Deploy a contract with the =nil; CLI:
 
-```bash
-nil_cli wallet deploy ./Incrementer/Incrementer.bin
+```bash file=../../tests/nil-101.test.mjs start=startDeploy end=endDeploy
+
 ```
 
 Expected output:
 
 ```bash
-Contract address: INCREMENTER_ADDRESS
+Contract address: COUNTER_ADDRESS
 Transaction hash: TRANSACTION_HASH (shard 1)
 ```
 
 Call the `increment()` function:
 
-```bash
-nil_cli wallet send-message INCREMENTER_ADDRESS increment --abi ./Incrementer/Incrementer.abi
+```bash file=../../tests/nil-101.test.mjs start=startIncrement end=endIncrement
 ```
 
 Retrieve the result:
 
-```bash
-nil_cli contract call-readonly INCREMENTER_ADDRESS getValue --abi ./Incrementer/Incrementer.abi
+```bash file=../../tests/nil-101.test.mjs start=start_CallToIncrementer end=end_CallToIncrementer
 ```
 
 ### Advanced tutorials
 
-* [**Reading and writing to =nil;**](./essentials/reading-writing-info)
-* [**Writing a smart contract**](./working-with-smart-contracts/writing-a-contract)
-* [**Deploying a contract**](./working-with-smart-contracts/deploying-a-contract)
+* [**Reading and writing to =nil;**](essentials/reading-writing-info.mdx)
+* [**Writing a smart contract**](working-with-smart-contracts/writing-a-contract.mdx)
+* [**Deploying a contract**](working-with-smart-contracts/deploying-a-contract.mdx)
 
 ## Make a cross-shard call
 
 When a smart contract makes a call to another smart contract deployed on a separate shard, the destination shard retrieves the resulting message and processes it. To make thing simpler, the `Nil.sol` library provides the `async_call()` function: it calls a special precompiled contract that allows for easily passing messages between shards.
 
-## Flow
+### Flow
 
 Create a new contract with the following code:
 
-```solidity showLineNumbers
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
 
-import "./Nil.sol";
-
-contract Caller {
-    using Nil for address;
-
-    receive() external payable {}
-
-    function call(address dst) public payable {
-        Nil.asyncCall(
-            dst,
-            msg.sender,
-            msg.sender,
-            100000,
-            false,
-            100000 * 10,
-            abi.encodeWithSignature("increment()")
-        );
-    }
-
-    function verifyExternal(
-        uint256,
-        bytes calldata
-    ) external pure returns (bool) {
-        return true;
-    }
-}
+```solidity showLineNumbers file=../../tests/Caller.sol start=startContract end=endContract
 ```
 
 Compile it and deploy it to Shard 2:
 
-```bash
-solc -o ./Caller --bin --abi ./Caller.sol 
-nil_cli wallet deploy ./Caller/Caller.bin --shard-id 2
+```bash file=../../tests/nil-101.test.mjs start=startCallerCompilation end=endCallerCompilation
+```
+
+```bash file=../../tests/nil-101.test.mjs start=start_CallerDeploy end=end_CallerDeploy
 ```
 
 Expected output:
@@ -174,21 +139,21 @@ Note that `CALLER_ADDRESS` starts with `0x0002`, which indicates that `Caller` i
 
 Send tokens to `Caller` and call the `call()` function:
 
+```bash file=../../tests/nil-101.test.mjs start=start_SendTokensToCaller end=end_SendTokensToCaller
 ```
-nil_cli wallet send-tokens CALLER_ADDRESS 3000000
-nil_cli wallet send-message CALLER_ADDRESS call INCREMENTER_ADDRESS --abi ./Caller/Caller.abi
+
+```bash file=../../tests/nil-101.test.mjs start=startMessageFromCallerToIncrementer end=endMessageFromCallerToIncrementer
 ```
 
 Retrieve the result:
 
-```bash
-nil_cli contract call-readonly INCREMENTER_ADDRESS getValue --abi ./Incrementer/Incrementer.abi
+```bash file=../../tests/nil-101.test.mjs start=start_CallToIncrementer end=end_CallToIncrementer
 ```
 
 ### Advanced tutorials
 
-* [**Handling async execution**](./essentials/handling-async-execution)
-* [**Calling methods inside a contract**](./working-with-smart-contracts/calling-contract-methods)
+* [**Handling async execution**](essentials/handling-async-execution.mdx)
+* [**Calling methods inside a contract**](working-with-smart-contracts/calling-contract-methods.mdx)
 
 ## Tokens and multi-currency
 
@@ -206,20 +171,20 @@ Non-owners cannot perform any operations with a custom currency.
 
 Create a new wallet:
 
-```bash
-nil_cli wallet new --salt 2
+```bash file=../../tests/nil-101.test.mjs start=startNewWalletDeploy end=endNewWalletDeploy
 ```
 
 Create a new currency and withdraw it:
 
-```bash
-nil_cli minter create-currency NEW_WALLET_ADDRESS 50000 new-currency --withdraw
+```bash file=../../tests/nil-101.test.mjs start=startMintCurrency end=endMintCurrency
+```
+
+```bash file=../../tests/nil-101.test.mjs start=startWithdrawCurrency end=endWithdrawCurrency
 ```
 
 Check the currencies of the wallet:
 
-```bash
-nil_cli contract currencies NEW_WALLET_ADDRESS
+```bash file=../../tests/nil-101.test.mjs start=startCurrenciesCheck end=endCurrenciesCheck
 ```
 
 Expected output:
@@ -231,4 +196,4 @@ Balance: 50000 CurrencyId=CURRENCY_ID
 
 ### Advanced tutorials
 
-* [**Tokens and multi-currency support**](./essentials/tokens-multi-currency)
+* [**Tokens and multi-currency support**](essentials/tokens-multi-currency.mdx)

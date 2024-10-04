@@ -1,17 +1,22 @@
 # Function: getAddressFromPublicKey()
 
 ```ts
-function getAddressFromPublicKey(publicKey, shardId): `0x${string}`
+function getAddressFromPublicKey(publicKey, shardId): 0x${string}
 ```
+
+Returns the address from the public key.
 
 ## Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -20,12 +25,12 @@ function getAddressFromPublicKey(publicKey, shardId): `0x${string}`
 </td>
 <td>
 
-\`0x$\{string\}\`
+`0x${string}`
 
 </td>
 <td>
 
-Public key in hex format
+The public key in hex format
 
 </td>
 </tr>
@@ -42,18 +47,18 @@ Public key in hex format
 </td>
 <td>
 
-Shard id
+The ID of the shard where the address is located.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 ## Returns
 
-\`0x$\{string\}\`
+`0x${string}`
 
-Address in hex format
+The address in hex format.
 
-## Defined in
-
-[nil/nil.js/src/signers/publicKey.ts:33](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/publicKey.ts#L33)
+## Defined  
+@nilfoundation/niljs/src/signers/publicKey.ts:33

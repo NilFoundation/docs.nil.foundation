@@ -1,15 +1,22 @@
 # Function: generateRandomPrivateKey()
 
 ```ts
-function generateRandomPrivateKey(): `0x${string}`
+function generateRandomPrivateKey(): 0x${string}
 ```
+
+Generate a new private key.
 
 ## Returns
 
-\`0x$\{string\}\`
+`0x${string}`
 
 The new private key
 
-## Defined in
+## Example
 
-[nil/nil.js/src/signers/privateKey.ts:11](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/privateKey.ts#L11)
+```ts
+const privateKey = generatePrivateKey();
+```
+
+## Defined  
+@nilfoundation/niljs/src/signers/privateKey.ts:11

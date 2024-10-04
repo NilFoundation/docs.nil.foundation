@@ -1,6 +1,6 @@
 # Class: MetaMaskSigner
 
-MetaMaskSigner is a class that allows for signing data using MetaMask.
+The MetaMaskSigner is a class that allows for signing data using MetaMask.
 This signer can only be used inside a browser.
 
 ## Example
@@ -29,9 +29,8 @@ Creates an instance of MetaMaskSigner.
 
 [`MetaMaskSigner`](MetaMaskSigner.mdx)
 
-#### Defined in
-
-[nil/nil.js/src/signers/MetmaskSigner.ts:25](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/MetmaskSigner.ts#L25)
+#### Defined  
+@nilfoundation/niljs/src/signers/MetmaskSigner.ts:25
 
 ## Methods
 
@@ -49,9 +48,8 @@ Connects the signer to an existing MetaMask wallet.
 
 #### Async
 
-#### Defined in
-
-[nil/nil.js/src/signers/MetmaskSigner.ts:83](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/MetmaskSigner.ts#L83)
+#### Defined  
+@nilfoundation/niljs/src/signers/MetmaskSigner.ts:83
 
 ***
 
@@ -67,15 +65,14 @@ Retrieves the wallet address.
 
 `Promise`\<`Uint8Array`\>
 
-#### Implementation of
-
-[`ISigner`](../interfaces/ISigner.mdx) . [`getAddress`](../interfaces/ISigner.mdx#getaddress)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/signers/MetmaskSigner.ts:59](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/MetmaskSigner.ts#L59)
+[`ISigner`](../interfaces/ISigner.mdx).[`getAddress`](../interfaces/ISigner.mdx#getaddress)
+
+#### Defined  
+@nilfoundation/niljs/src/signers/MetmaskSigner.ts:59
 
 ***
 
@@ -91,15 +88,14 @@ Retreieves the public key.
 
 `Promise`\<`Uint8Array`\>
 
-#### Implementation of
-
-[`ISigner`](../interfaces/ISigner.mdx) . [`getPublicKey`](../interfaces/ISigner.mdx#getpublickey)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/signers/MetmaskSigner.ts:71](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/MetmaskSigner.ts#L71)
+[`ISigner`](../interfaces/ISigner.mdx).[`getPublicKey`](../interfaces/ISigner.mdx#getpublickey)
+
+#### Defined  
+@nilfoundation/niljs/src/signers/MetmaskSigner.ts:71
 
 ***
 
@@ -114,11 +110,14 @@ Signs the data.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -136,6 +135,7 @@ The input data.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -144,12 +144,11 @@ The input data.
 
 The signed data.
 
-#### Implementation of
-
-[`ISigner`](../interfaces/ISigner.mdx) . [`sign`](../interfaces/ISigner.mdx#sign)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/signers/MetmaskSigner.ts:47](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/MetmaskSigner.ts#L47)
+[`ISigner`](../interfaces/ISigner.mdx).[`sign`](../interfaces/ISigner.mdx#sign)
+
+#### Defined  
+@nilfoundation/niljs/src/signers/MetmaskSigner.ts:47

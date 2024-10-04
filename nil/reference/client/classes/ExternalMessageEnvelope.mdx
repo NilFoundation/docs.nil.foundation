@@ -17,11 +17,14 @@ Creates an instance of ExternalMessageEnvelope.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -39,15 +42,15 @@ The object representing the external message.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
 
 [`ExternalMessageEnvelope`](ExternalMessageEnvelope.mdx)
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:65](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L65)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:66
 
 ## Properties
 
@@ -59,9 +62,8 @@ authData: Uint8Array;
 
 The auth data attached to the message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:52](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L52)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:53
 
 ***
 
@@ -73,9 +75,8 @@ chainId: number;
 
 The chain ID.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:34](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L34)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:35
 
 ***
 
@@ -87,9 +88,8 @@ data: Uint8Array;
 
 The message data.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:46](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L46)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:47
 
 ***
 
@@ -101,9 +101,8 @@ isDeploy: boolean;
 
 The flag that determines whether the external message is a deployment message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:22](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L22)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:23
 
 ***
 
@@ -115,9 +114,8 @@ seqno: number;
 
 The message sequence number.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:40](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L40)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:41
 
 ***
 
@@ -129,9 +127,8 @@ to: Uint8Array;
 
 The destination address of the message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:28](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L28)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:29
 
 ## Methods
 
@@ -149,9 +146,8 @@ Encodes the external message into a Uint8Array.
 
 The encoded external message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:86](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L86)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:87
 
 ***
 
@@ -166,11 +162,14 @@ Encodes the external message with its signature.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -188,6 +187,7 @@ The message signer.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -210,9 +210,8 @@ raw: Uint8Array;
 
 #### Async
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:139](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L139)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:137
 
 ***
 
@@ -230,36 +229,34 @@ Provides the hash tree root of the external message.
 
 The hash tree root of the external message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:102](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L102)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:104
 
 ***
 
 ### hexAddress()
 
 ```ts
-hexAddress(): `0x${string}`
+hexAddress(): 0x${string}
 ```
 
 Returns the hex address of the given bytes.
 
 #### Returns
 
-\`0x$\{string\}\`
+`0x${string}`
 
 The hex address.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:191](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L191)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:183
 
 ***
 
 ### send()
 
 ```ts
-send(client): Promise<`0x${string}`>
+send(client): Promise<0x${string}>
 ```
 
 Sends the external message.
@@ -267,11 +264,14 @@ Sends the external message.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -289,17 +289,17 @@ The client sending the message.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
 
-`Promise`\<\`0x$\{string\}\`\>
+`Promise`\<`0x${string}`\>
 
 The hash of the external message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:201](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L201)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:193
 
 ***
 
@@ -314,11 +314,14 @@ Signs the external message.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -336,6 +339,7 @@ The message signer.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -346,9 +350,8 @@ The message signature.
 
 #### Async
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:170](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L170)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:162
 
 ***
 
@@ -366,9 +369,8 @@ Provides the signing hash of the external message.
 
 The signing hash of the external message.
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:118](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L118)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:114
 
 ***
 
@@ -383,11 +385,14 @@ Updates the authentication data in the external message and returns the result.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -405,6 +410,7 @@ The auth data signer.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -415,6 +421,5 @@ The signed auth data.
 
 #### Async
 
-#### Defined in
-
-[nil/nil.js/src/encoding/externalMessage.ts:181](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L181)
+#### Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:173

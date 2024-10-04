@@ -41,7 +41,7 @@ There exist four separate sets of docs contained in the following folders.
 * `./nil`
 * `./crypto3`
 
-All four sets of docs are rendered as a single React app configured in `docusaurus.config.js`.
+Note that only =nil; docs are rendered when running the Docusaurus instance. The rest only exist as collections of raw `.md` files.
 
 # Contributing
 

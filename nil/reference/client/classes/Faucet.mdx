@@ -1,6 +1,6 @@
 # Class: Faucet
 
-Faucet is a special contract that is used to top up other contracts in the =nil; devnet.
+The Faucet is a special contract that is used to top up other contracts in the =nil; devnet.
 
  Faucet
 
@@ -17,11 +17,14 @@ Creates an instance of Faucet.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -37,15 +40,15 @@ Creates an instance of Faucet.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
 
 [`Faucet`](Faucet.mdx)
 
-#### Defined in
-
-[nil/nil.js/src/contracts/Faucet/Faucet.ts:38](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/contracts/Faucet/Faucet.ts#L38)
+#### Defined  
+@nilfoundation/niljs/src/contracts/Faucet/Faucet.ts:37
 
 ## Properties
 
@@ -55,13 +58,12 @@ Creates an instance of Faucet.
 static address: "0x000100000000000000000000000000000FA00CE7";
 ```
 
-The const address of the faucet contract.
+The const address of the Faucet contract.
 
 #### Static
 
-#### Defined in
-
-[nil/nil.js/src/contracts/Faucet/Faucet.ts:23](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/contracts/Faucet/Faucet.ts#L23)
+#### Defined  
+@nilfoundation/niljs/src/contracts/Faucet/Faucet.ts:22
 
 ## Methods
 
@@ -79,11 +81,14 @@ Withdraws the specified value to the given address.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -92,7 +97,7 @@ Withdraws the specified value to the given address.
 </td>
 <td>
 
-\`0x$\{string\}\`
+`Hex`
 
 </td>
 <td>
@@ -135,6 +140,7 @@ The sequence number of the withdrawal message.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -147,9 +153,8 @@ The hash of the withdrawal message.
 
 #### Async
 
-#### Defined in
-
-[nil/nil.js/src/contracts/Faucet/Faucet.ts:52](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/contracts/Faucet/Faucet.ts#L52)
+#### Defined  
+@nilfoundation/niljs/src/contracts/Faucet/Faucet.ts:51
 
 ***
 
@@ -159,7 +164,7 @@ The hash of the withdrawal message.
 withdrawToWithRetry(
    address, 
    value?, 
-retry?): Promise<`0x${string}`>
+retry?): Promise<any>
 ```
 
 Withdraws the specified value to the given address with retries.
@@ -167,12 +172,15 @@ Withdraws the specified value to the given address with retries.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Default value</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -181,7 +189,7 @@ Withdraws the specified value to the given address with retries.
 </td>
 <td>
 
-\`0x$\{string\}\`
+`Hex`
 
 </td>
 <td>
@@ -239,16 +247,16 @@ How many times to retry the withdrawal in case of failure.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
 
-`Promise`\<\`0x$\{string\}\`\>
+`Promise`\<`any`\>
 
 The hash of the withdrawal message.
 
 #### Async
 
-#### Defined in
-
-[nil/nil.js/src/contracts/Faucet/Faucet.ts:84](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/contracts/Faucet/Faucet.ts#L84)
+#### Defined  
+@nilfoundation/niljs/src/contracts/Faucet/Faucet.ts:83

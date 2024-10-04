@@ -1,6 +1,6 @@
 # Handling async execution
 
-To support [**cross-shard communication**](../../principles#cross-shard-communication), =nil; supports smart contracts making async calls to one another directly in Solidity code. 
+To support [**cross-shard communication**](principles.mdx#cross-shard-communication), =nil; supports smart contracts making async calls to one another directly in Solidity code.
 
 This tutorial provides a brief theoretical and practical primer on async execution, and gives suggestions on how this feature can be integrated into an application.
 
@@ -8,25 +8,10 @@ This tutorial provides a brief theoretical and practical primer on async executi
 
 Consider a smart contract with the following code:
 
-```sol showLineNumbers
-import "./nil.sol";
-
-contract Caller {
-
-    using Nil for address; 
-
-    event CallCompleted(address indexed dst)
-
-    function call(address dst) public payable {
-        dst.asyncCall(address(0), address(0), gasleft(), false, msg.value, abi.encodeWithSignature("funcName"));
-        emit CallCompleted(dst);
-    }
-}
+```sol showLineNumbers file=../../../tests/CallerAsync.sol start=startCallerAsync end=endCallerAsync
 ```
 
 The `asyncCall()` function makes it possible for the contract to call a function in another smart contract regardless of the shard where this contract is located. There are no additional actions required for making async calls: simply adding `asyncCall()` and specifying its arguments is sufficient.
-
-It is recommended to use the `payable` modifier for the function that calls `asyncCall()` and the function that is called by an async call. If there is a discrepancy between the message value and how much gas needs to be purchased for executing the message and the function being called is not `payable`, the message will fail. If the function is `payable`, the contract will simply purchase gas and if there is any remainder, credit it to its balance.
 
 :::info
 
@@ -42,10 +27,40 @@ To initiate an async call, the 'caller' contract must have sufficient funds to p
 
 :::info[Async calls on the same shard]
 
-`asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new message, and the requested function in another contract will be executed whenever said message is processed by the shard. 
+`asyncCall()` works even if the contract with the specified address is located on the same shard. The mechanism remains exactly the same as with cross-shard communications: the function will produce a new message, and the requested function in another contract will be executed whenever said message is processed by the shard. This usually occurs within the space of two-three blocks.
 
 :::
 
+## Retreiving values
+
+The [**`Nil.sol` extension library**](getting-started/prerequisites.mdx#solidity-library) also exposes the `awaitCall()` function.
+
+The function allows for calling another smart contract asynchronously and retrieving the result of the call. This is useful if the contract logic needs to mimick the typical `async`/`await` flow prevalent in programming languages other than Solidity. Note that the feature is currently experimental and may change in future releases.
+
+:::info[State]
+
+State is not persistent before and after `asyncCall`, and can be changed.
+
+:::
+
+Consider the following example of an `Awaiter` contract:
+
+```solidity showLineNumbers file=../../../tests/Awaiter.sol start=startAwaiterContract end=endAwaiterContract
+```
+
+The contract is designed to call [**the`Counter` contract**](getting-started/nil-101.mdx#flow-1) asynchronously and store the returned value inside the `result` variable.
+
+:::info
+
+When using `awaitCall` every call produces a new message that must be processed for the destination shard to retreive the necessary value. If many such calls are sent, execution will be halted for each call and only resumed after receiving a response. In contrast, many `asyncCalls` can be sent within the same block without halting execution.
+
+:::
+
+:::tip[Payment]
+
+The processing of sending a request message using `awaitCall` and receiving a response can only be paid by the message `value`.
+
+:::
 
 ## Examples
 
@@ -58,94 +73,52 @@ There are two possible patterns for cross-shard communication between Contract 1
 
 ### Calling a contract on another shard
 
-In this pattern, Contract 1 simply calls a function in Contract 2 without receiving a result. 
+In this pattern, Contract 1 simply calls a function in Contract 2 without receiving a result.
 
 Contract 1 has the following structure:
 
-```solidity showLineNumbers
-import "./Nil.sol";
-
-contract Caller {
-
-    using Nil for address; 
-
-    function call(address dst) public payable {
-        dst.asyncCall(address(0), address(0), gasleft(), false, msg.value, abi.encodeWithSignature("increment()"));
-    }
-
-}
+```solidity showLineNumbers file=../../../tests/CallerAsyncBasicPattern.sol start=startCallerAsyncBasicPattern end=endCallerAsyncBasicPattern
 ```
 
 Contract 2 has the following structure:
 
-```solidity showLineNumbers
-import "./Nil.sol";
-
-contract Receiver {
-
-    uint256 private value;
-
-    function increment() payable public {
-        value += 1;
-    }
-
-    function getValue() public view returns (uint256) {
-        return value;
-    }
-
-}
+```solidity showLineNumbers file=../../../tests/Counter.sol start=startContract end=endContract
 ```
 
 Whenever the `call()` function is called inside Contract 1, a new outgoing message is spawned. When Shard 2 picks up this message and processes it, Contract 2 calls its `increment()` function. After `getValue()` is called, the result should display the total number of times the `call()` function was executed by Contract 1.
 
 ### Callback pattern
 
-In this pattern, Contract 1 calls a function inside Contract 2 that makes an async call back to Contract 1.
+In this pattern, Contract 1 defines a special callback function and then uses the `sendRequest()` method to perform an async request to another shard. Whenever the request executes, a response message is sent back to the caller. The callback function is then executed and the response value can be retrieved via the `responseData` argument.
 
-Contract 1 acts as a simple escrow mechanism:
+:::tip
 
-```solidity showLineNumbers
-import "./Nil.sol";
+When using `sendRequest()`, the contract can continue execution without having to wait for the response. There are also no manipulations with the contract state in contrast to `awaitCall()`. This makes `sendRequest()` much cheaper compared to `awaitCall()`.
 
-contract Escrow {
+:::
 
-    using Nil for address; 
-    mapping (address => uint256) private deposits;
+:::tip
 
-    function deposit() public payable {
-        deposits[msg.sender] += msg.value;
-    }
-
-    function submitForVerification(address dst, address participantOne, address participantTwo) public payable {
-        dst.asyncCall(address(0), address(0), 100000, false, 1000000, abi.encodeWithSignature("verify(address, address)", participantOne, participantTwo));
-    }
-
-    function resolve(address participantOne, address participantTwo) public payable {
-        deposits[participantOne] -= msg.value;
-        deposits[participantTwo] += msg.value;
-    }
-
-    function verifyExternal(uint256 messageHash, bytes calldata authData) external view returns (bool) {
-        return true;
-    }
-}
-```
-
-Contract 2 acts as a validator for escrow resolution:
+The `sendRequest()` also has an additional signature that allows for sending custom currencies to contracts while performing requests:
 
 ```solidity showLineNumbers
-import "./Nil.sol";
-
-contract Validator {
-    
-    using Nil for address;
-
-    function verify(address participantOne, address participantTwo) public payable {
-        if (participantOne != participantTwo) {
-            Nil.asyncCall(msg.sender, address(0), address(0), 100000, false, 1000000, abi.encodeWithSignature("resolve(address, address)", participantOne, participantTwo));
-        }
-    }
-}
+function sendRequestWithTokens(
+      address dst,
+      uint256 value,
+      Token[] memory tokens,
+      bytes memory context,
+      bytes memory callData
+  ) internal {}
 ```
 
-Contract 2 triggers the `resolve()` function within Contract 1 as a callback but only if the escrow participants are two distinct addresses.
+:::
+
+Contract 1 acts as a simple escrow mechanism. The `submitForVerification()` function accepts the address of the validator and the addresses of the escrow participants. The function then sends a request to the validator while assigning `resolve()` as the callback. Whenever the validator processes the request, Contract 1 can retrieve the returned data.
+
+```solidity showLineNumbers file=../../../tests/Escrow.sol start=startEscrow end=endEscrow
+```
+
+Contract 2 acts as the validator for escrow resolution:
+
+```solidity showLineNumbers file=../../../tests/Validator.sol start=startValidator end=endValidator
+```

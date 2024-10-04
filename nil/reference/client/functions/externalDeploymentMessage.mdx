@@ -4,14 +4,19 @@
 function externalDeploymentMessage(data, chainId): ExternalMessageEnvelope
 ```
 
+Creates a new external deployment message.
+
 ## Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -46,6 +51,7 @@ The chain ID.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 ## Returns
@@ -54,6 +60,35 @@ The chain ID.
 
 The envelope of the external deployment message.
 
-## Defined in
+## Example
 
-[nil/nil.js/src/encoding/externalMessage.ts:248](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/encoding/externalMessage.ts#L248)
+```ts
+import {
+    Faucet,
+    LocalECDSAKeySigner,
+    HttpTransport,
+    PublicClient
+    WalletV1,
+    externalDeploymentMessage,
+    generateRandomPrivateKey,
+  } from '@nilfoundation/niljs';
+const signer = new LocalECDSAKeySigner({
+    privateKey: generateRandomPrivateKey(),
+  });
+
+  const pubkey = await signer.getPublicKey();
+const chainId = await client.chainId();
+const deploymentMessage = externalDeploymentMessage(
+    {
+      salt: 100n,
+      shard: 1,
+      bytecode: WalletV1.code,
+      abi: WalletV1.abi,
+      args: [bytesToHex(pubkey)],
+    },
+    chainId,
+  );
+```
+
+## Defined  
+@nilfoundation/niljs/src/encoding/externalMessage.ts:239

@@ -1,6 +1,6 @@
 # Class: LocalECDSAKeySigner
 
-LocalKeySigner is a class that allows for signing data with the private key.
+The LocalKeySigner is a class that allows for signing data with the private key.
 It uses the secp256k1 curve implementation by the @noble/curves/secp256k1 library.
 
 ## Example
@@ -32,11 +32,14 @@ Creates an instance of LocalECDSAKeySigner.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -54,15 +57,15 @@ The config for the LocalECDSAKeySigner. See [ILocalKeySignerConfig](../type-alia
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
 
 [`LocalECDSAKeySigner`](LocalECDSAKeySigner.mdx)
 
-#### Defined in
-
-[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:54](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/LocalECDSAKeySigner.ts#L54)
+#### Defined  
+@nilfoundation/niljs/src/signers/LocalECDSAKeySigner.ts:54
 
 ## Methods
 
@@ -77,11 +80,14 @@ Retrieves the wallet address.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -99,6 +105,7 @@ The ID of the shard where the wallet is deployed.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -107,15 +114,14 @@ The ID of the shard where the wallet is deployed.
 
 The wallet address.
 
-#### Implementation of
-
-[`ISigner`](../interfaces/ISigner.mdx) . [`getAddress`](../interfaces/ISigner.mdx#getaddress)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:116](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/LocalECDSAKeySigner.ts#L116)
+[`ISigner`](../interfaces/ISigner.mdx).[`getAddress`](../interfaces/ISigner.mdx#getaddress)
+
+#### Defined  
+@nilfoundation/niljs/src/signers/LocalECDSAKeySigner.ts:116
 
 ***
 
@@ -133,15 +139,14 @@ Retrieves the public key.
 
 The publc key of the signer.
 
-#### Implementation of
-
-[`ISigner`](../interfaces/ISigner.mdx) . [`getPublicKey`](../interfaces/ISigner.mdx#getpublickey)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:97](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/LocalECDSAKeySigner.ts#L97)
+[`ISigner`](../interfaces/ISigner.mdx).[`getPublicKey`](../interfaces/ISigner.mdx#getpublickey)
+
+#### Defined  
+@nilfoundation/niljs/src/signers/LocalECDSAKeySigner.ts:97
 
 ***
 
@@ -156,11 +161,14 @@ Signs the data.
 #### Parameters
 
 <table>
+<thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td>
 
@@ -178,6 +186,7 @@ The input data.
 
 </td>
 </tr>
+</tbody>
 </table>
 
 #### Returns
@@ -186,12 +195,11 @@ The input data.
 
 The signed data.
 
-#### Implementation of
-
-[`ISigner`](../interfaces/ISigner.mdx) . [`sign`](../interfaces/ISigner.mdx#sign)
-
 #### Async
 
-#### Defined in
+#### Implementation of
 
-[nil/nil.js/src/signers/LocalECDSAKeySigner.ts:79](https://github.com/NilFoundation/nil.js/blob/08a7f90027b4c09b608245b19f15f6fb7ae1ff03/src/signers/LocalECDSAKeySigner.ts#L79)
+[`ISigner`](../interfaces/ISigner.mdx).[`sign`](../interfaces/ISigner.mdx#sign)
+
+#### Defined  
+@nilfoundation/niljs/src/signers/LocalECDSAKeySigner.ts:79

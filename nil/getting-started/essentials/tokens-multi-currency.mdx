@@ -16,7 +16,7 @@ While custom currencies can be transferred between accounts, they cannot be used
 
 :::info
 
-When a currency is created, it is assigned an ID derived from the address of the currency owner. A contract can only be the owner of one currency. Only messages from the owner are processed for a custom currency: non-owners cannot mint it or transfer it between accounts.
+When a currency is created, it is assigned an ID derived from the address of the currency owner. A contract can only be the owner of one currency. While non-owners can transfer different currencies between accounts, they cannot mint any currencies that they do not own.
 
 :::
 
@@ -24,22 +24,22 @@ When a currency is created, it is assigned an ID derived from the address of the
 
 ### Via the CLI
 
-To create a new currency and immediately withdraw it to the address of the owner:
+To create a new currency and withdraw it to the address of the owner:
 
-```bash
-nil_cli minter create-currency OWNER_ADDRESS AMOUNT NAME --withdraw
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startBasicCreateCurrencyCommand end=endBasicCreateCurrencyCommand
 ```
 
-To mint a currency:
-
-```bash
-nil_cli minter create-currency OWNER_ADDRESS AMOUNT
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startBasicWithdrawCurrencyCommand end=endBasicWithdrawCurrencyCommand
 ```
 
-To send an existing currency (with some amount already minted) from a minter to another contract:
+To mint an existing currency (which automatically withdraws it to the owner):
 
-```bash
-nil_cli minter withdraw-currency OWNER_ADDRESS AMOUNT RECEIVER_ADDRESS
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startMintExistingCurrencyCommand end=endMintExistingCurrencyCommand
+```
+
+To burn an existing currency (the supply is automatically reduced at the address of the owner):
+
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startBurnExistingCurrencyCommand end=endBurnExistingCurrencyCommand
 ```
 
 ### Via the client library
@@ -52,76 +52,14 @@ To get the ID of a currency, simply call the `hexToBigInt()` function on the own
 
 To create a new currency and withdraw it:
 
-```ts showLineNumbers
-import {
-  MINTER_ABI,
-  MINTER_ADDRESS,
-  waitTillCompleted,
-} from "@nilfoundation/niljs";
-
-const hashMessage = await wallet.sendMessage({
-  to: MINTER_ADDRESS,
-  gas: 1_000_000n,
-  value: 100_000_000n,
-  data: encodeFunctionData({
-    abi: MINTER_ABI,
-    functionName: "create",
-    args: [100_000_000n, walletAddress, "MY_TOKEN", walletAddress],
-  }),
-});
-
-await waitTillCompleted(client, 1, hashMessage);
+```ts file=../../../tests/tokens-multi-currency-support.test.mjs start=startBasicNilJSExample end=endBasicNilJSExample
 ```
 
-To mint a currency and withdraw it:
+To burn an existing currency:
 
-```ts showLineNumbers
-import {
-  MINTER_ABI,
-  MINTER_ADDRESS,
-  waitTillCompleted,
-} from "@nilfoundation/niljs";
-
-import { encodeFunctionData } from "viem";
-
-const hashMessage = await wallet.sendMessage({
-  to: MINTER_ADDRESS,
-  gas: 1_000_000n,
-  value: 100_000_000n,
-  data: encodeFunctionData({
-    abi: MINTER_ABI,
-    functionName: "mint",
-    args: [CURRENCY_ID, AMOUNT, walletAddress],
-  }),
-});
-
-await waitTillCompleted(client, 1, hashMessage);
+```ts file=../../../tests/tokens-multi-currency-support.test.mjs start=startNilJSBurningExample end=endNilJSBurningExample
 ```
 
-To send an existing currency (with some amount already minted) from a minter to another contract:
-
-```ts showLineNumbers
-import {
-  MINTER_ABI,
-  MINTER_ADDRESS,
-  waitTillCompleted,
-} from "@nilfoundation/niljs";
-
-import { encodeFunctionData } from "viem";
-
-const hashMessage = await wallet.sendMessage({
-  to: MINTER_ADDRESS,
-  gas: 1_000_000n,
-  value: 100_000_000n,
-  data: encodeFunctionData({
-    abi: MINTER_ABI,
-    functionName: "withdraw",
-    args: [CURRENCY_ID, AMOUNT, walletAddress],
-  }),
-});
-
-await waitTillCompleted(client, 1, hashMessage);
-```
 
 ## Example
 
@@ -129,35 +67,32 @@ This example creates a wallet that stores three currencies: the default token, a
 
 ### Via the CLI
 
-Create two new wallets (Wallet 1 and Wallet 2):
+Create a new wallet:
 
-```bash
-nil_cli wallet new
-nil_cli wallet new --salt 1
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startWalletCreation end=endWalletCreation
 ```
 
-Create a new currency for Wallet 1 and withdraw it:
+Create a new currency with the new wallet as its owner and withdraw it:
 
-```bash
-nil_cli minter create-currency WALLET_ONE_ADDRESS 50000 token --withdraw
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startCurrencyOneCreationCommand end=endCurrencyOneCreationCommand
 ```
 
-Create a new currency for Wallet 2 and keep it in the minter:
-
-```bash
-nil_cli minter create-currency WALLET_TWO_ADDRESS 30000 another-token
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startCurrencyOneWithdrawalCommand end=endCurrencyOneWithdrawalCommand
 ```
 
-Withdraw the second currency to Wallet 1:
+Create another currency with another smart contract as its owner:
 
-```bash
-nil_cli minter withdraw-currency WALLET_TWO_ADDRESS 15000 WALLET_ONE_ADDRESS
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startCurrencyTwoCreationCommand end=endCurrencyTwoCreationCommand
 ```
 
-Check the currencies for Wallet 1:
+Withdraw the new currency back to the wallet:
 
-```bash
-nil_cli contract currencies WALLET_ONE_ADDRESS
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startCurrencyTwoWithdrawalCommand end=endCurrencyTwoWithdrawalCommand
+```
+
+Check the wallet currencies:
+
+```bash file=../../../tests/tokens-multi-currency-support.test.mjs start=startWalletCurrenciesCommand end=endWalletCurrenciesCommand
 ```
 
 The following response should appear:
@@ -165,99 +100,23 @@ The following response should appear:
 ```bash
 Contract currencies:
 Balance: 50000 CurrencyId=[CURRENCY_ID_ONE]
-Balance: 15000 CurrencyId=[CURRENCY_ID_TWO]
-```
-
-Check the balance of Wallet 1 in default tokens:
-
-```bash
-nil_cli contract balance WALLET_ONE_ADDRESS
-```
-
-```bash
-Contract balance: BALANCE
+Balance: 30000 CurrencyId=[CURRENCY_ID_TWO]
 ```
 
 ### Via the client library
 
 Create two new wallets:
 
-```ts showLineNumbers
-import { encodeFunctionData, hexToBigInt } from "viem";
-import {
-  Faucet,
-  HttpTransport,
-  LocalECDSAKeySigner,
-  MINTER_ABI,
-  MINTER_ADDRESS,
-  PublicClient,
-  WalletV1,
-  generateRandomPrivateKey,
-  waitTillCompleted,
-} from "@nilfoundation/niljs";
-
-const wallet = new WalletV1({
-  pubkey: pubkey,
-  salt: BigInt(Math.floor(Math.random() * 10000)),
-  shardId: 1,
-  client,
-  signer,
-});
-const walletAddress = await wallet.getAddressHex();
-
-await faucet.withdrawToWithRetry(walletAddress, convertEthToWei(1));
-await wallet.selfDeploy(true);
-
-const walletTwo = new WalletV1({
-  pubkey: pubkey,
-  salt: BigInt(Math.floor(Math.random() * 10000)),
-  shardId: 1,
-  client,
-  signer,
-});
-const walletTwoAddress = await walletTwo.getAddressHex();
-
-await faucet.withdrawToWithRetry(walletTwoAddress, convertEthToWei(1));
-await walletTwo.selfDeploy(true);
+```ts showLineNumbers file=../../../tests/tokens-multi-currency-support.test.mjs start=startAdvancedNilJSExample end=endAdvancedNilJSExample
 ```
 
 Create a new currency for Wallet 1 and withdraw it:
 
-```ts showLineNumbers
-const currencyCreationMessage = await wallet.sendMessage({
-  to: MINTER_ADDRESS,
-  gas: 500_000n,
-  value: 100_000_000n,
-  data: encodeFunctionData({
-    abi: MINTER_ABI,
-    functionName: "create",
-    args: [10_000n, walletAddress, "token", walletAddress],
-  }),
-});
-
-await waitTillCompleted(client, 1, currencyCreationMessage);
+```ts showLineNumbers file=../../../tests/tokens-multi-currency-support.test.mjs start=startAdvancedNilJSMintingExample end=endAdvancedNilJSMintingExample
 ```
 
 Create a new currency for Wallet 2 and send it to Wallet 1:
 
-```ts showLineNumbers
-const currencyCreationMessageTwo = await walletTwo.sendMessage({
-  to: MINTER_ADDRESS,
-  gas: 500_000n,
-  value: 100_000_000n,
-  data: encodeFunctionData({
-    abi: MINTER_ABI,
-    functionName: "create",
-    args: [20_000n, walletTwoAddress, "new-token", walletAddress],
-  }),
-});
-
-await waitTillCompleted(client, 1, currencyCreationMessageTwo);
+```ts showLineNumbers file=../../../tests/tokens-multi-currency-support.test.mjs start=startNilJSTransferExample end=endNilJSTransferExample
 ```
 
-Check the currencies for Wallet 1:
-
-```ts showLineNumbers
-const tokens = await client.getCurrencies(walletAddress, "latest");
-console.log("Tokens of Wallet 1: ", tokensTwo);
-```
