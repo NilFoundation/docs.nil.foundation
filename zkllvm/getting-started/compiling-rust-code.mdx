@@ -53,6 +53,6 @@ $RUSTC --target assigner-unknown-unknown --emit=llvm-ir path/to/circuit.rs -C op
 
 :::tip
 
-The `-C opt-level=3` option is needed to build the circuit into an IR that is most compatible with `assigner`. If it is ommitted, the IR will contain additional verbose code which may hinder `assigner` from generating constraints and the assignment table.
+The `-C opt-level=3` option is needed to build the circuit into an IR that is most compatible with `assigner`. If it is omitted, the IR will contain additional verbose code which may hinder `assigner` from generating constraints and the assignment table.
 
 :::

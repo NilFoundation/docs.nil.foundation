@@ -89,7 +89,7 @@ The attributes we're interested in this response are:
   If proof for this combination of statement and public input already exists on the market,
   the order's status will directly go to the `completed` state.
 
-The key of the request order here is `16153352`. This order is now visible in the order book, and any proof producer can offerto pick up this job.
+The key of the request order here is `16153352`. This order is now visible in the order book, and any proof producer can offer to pick up this job.
 
 ### Check request status
 

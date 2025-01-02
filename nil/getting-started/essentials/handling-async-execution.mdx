@@ -31,7 +31,7 @@ To initiate an async call, the 'caller' contract must have sufficient funds to p
 
 :::
 
-## Retreiving values
+## Retrieving values
 
 The [**`Nil.sol` extension library**](getting-started/prerequisites.mdx#solidity-library) also exposes the `awaitCall()` function.
 
@@ -52,7 +52,7 @@ The contract is designed to call [**the`Counter` contract**](getting-started/nil
 
 :::info
 
-When using `awaitCall` every call produces a new message that must be processed for the destination shard to retreive the necessary value. If many such calls are sent, execution will be halted for each call and only resumed after receiving a response. In contrast, many `asyncCalls` can be sent within the same block without halting execution.
+When using `awaitCall` every call produces a new message that must be processed for the destination shard to retrieve the necessary value. If many such calls are sent, execution will be halted for each call and only resumed after receiving a response. In contrast, many `asyncCalls` can be sent within the same block without halting execution.
 
 :::
 

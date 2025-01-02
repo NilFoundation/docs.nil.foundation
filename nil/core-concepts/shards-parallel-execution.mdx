@@ -131,7 +131,7 @@ In contrast to execution shards, [**the consensus shard**](../principles#consens
 
 Although =nil; relies on ZKPs to verify state transitions statelessly, ZKPs can be costly to generate. As a result, a standard security protocol is used to provide security guarantees while ZKPs are generated.
 
-The committee of an execution shard runs a [**Multi-Threshold BFT security protocol**](https://dl.acm.org/doi/10.1145/3460120.3484554) which is a varioation of Sync HotStuff. This is done so that the safety threshold at the local level is not tied to the safety threshold of the cluster.
+The committee of an execution shard runs a [**Multi-Threshold BFT security protocol**](https://dl.acm.org/doi/10.1145/3460120.3484554) which is a variation of Sync HotStuff. This is done so that the safety threshold at the local level is not tied to the safety threshold of the cluster.
 
 After running the local consensus protocol, leaders of all committees transmit block digests and quorum certificates to the leader of the consensus shard. The consensus shard leader then proposes a new block to the consensus shard committee, which includes the entire set of validators. These validators run a HotStuff-2 consensus protocol to achieve global consensus.
 

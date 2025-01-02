@@ -21,7 +21,7 @@ As a result, in comparison to the vanilla LLVM project frontends, zkLLVM fronten
 
 :::info
 
-Constraints flatten a computation into an arithmetization (e.g., R1CS or PLONK). An arithmitization is a set of constraints imposed by a proof system input type.
+Constraints flatten a computation into an arithmetization (e.g., R1CS or PLONK). An arithmetization is a set of constraints imposed by a proof system input type.
 
 It is only necessary to generate constraints once per every circuit/input type pair. In contrast, the assignment table needs to be regenerated whenever dynamic inputs change.
 

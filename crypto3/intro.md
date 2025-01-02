@@ -27,7 +27,7 @@ One might ask why isn’t there isn’t a one-stop shop for primitives. There is
 
 The current web3 landscape moves very quickly, and there is a constant demand & need to use different schemes, curves, signing primitives etc. Zero-knowledge development is even harder to crack due to the limited set of libraries.
 
-crypto3 is used extensively in all applications, which =nil;Foundation is developing. This includes a ZK-proof system: placeholder. Database management protocol and ZK-bridges and ZK-LLVM. Thus we will continue to drive the project and maintain it at the same time; it is open for contributions and is available under an [MIT](https://github.com/NilFoundation/crypto3/blob/master/LICENSE) licence.
+crypto3 is used extensively in all applications, which =nil;Foundation is developing. This includes a ZK-proof system: placeholder. Database management protocol and ZK-bridges and ZK-LLVM. Thus we will continue to drive the project and maintain it at the same time; it is open for contributions and is available under an [MIT](https://github.com/NilFoundation/crypto3/blob/master/LICENSE) license.
 
 ## How?
 

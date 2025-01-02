@@ -51,7 +51,7 @@ If the signup is successful, this command creates `.user` and `.secret` files wi
 Error #1 — invalid username format:
 
 ```bash
-Error: 400 {"code":409,"error":true,"errorMessage":"Inavlid format for username"}
+Error: 400 {"code":409,"error":true,"errorMessage":"Invalid format for username"}
 ```
 
 The username does not support special characters and can only be a combination of letters and numbers.

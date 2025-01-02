@@ -39,7 +39,7 @@ To verify the new circuit, use the below command.
 npx hardhat verify-circuit-proof --test {name_of_circuit_directory}
 ```
 
-, where `{name_of_circuit_directory}` is the name of the directory containing the transpiler ouputs for the new circuit.
+, where `{name_of_circuit_directory}` is the name of the directory containing the transpiler outputs for the new circuit.
 
 The following message should appear in the terminal.
 
@@ -60,7 +60,7 @@ The final step in this tutorial is to use `proof-producer` to generate a proof f
 
 ### Set up `proof-producer`
 
-First, clone the `proof-producer` repository and its sub-mobules.
+First, clone the `proof-producer` repository and its sub-modules.
 
 ```bash
 git clone --recurse-submodules https://github.com/NilFoundation/proof-producer.git
@@ -109,7 +109,7 @@ To generate new proof, execute the following command from the `proof-producer/bu
 ./proof-generator-single-threaded -t /path/to/assignment_{name_of_build_target}.tbl --circuit /path/to/circuit_{name_of_build_target}.crct
 ```
 
-`proof-generator` should place the `proof.bin` file with the new proof into the current directoryy.
+`proof-generator` should place the `proof.bin` file with the new proof into the current directory.
 
 ### Validate the new proof
 
