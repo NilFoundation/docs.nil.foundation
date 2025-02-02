@@ -32,5 +32,5 @@ python3 scripts/request_tools.py get --key <key of the request>
 The proof requester can get their proof either by request key or proof key:
 
 ```bash
-python3 scripts/proof_tools.py get --request_key <key of the request>s
+python3 scripts/proof_tools.py get --request_key <key of the request>
 ```

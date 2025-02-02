@@ -68,7 +68,7 @@ Insert the ledger hash and the path to the mina ledger state proof to the follow
 ```bash
 npx hardhat validate_ledger_state \
     --proof ../proof-market-toolchain/ledger_proof.bin \
-    --ledger LEDHER_HASH \
+    --ledger LEDGER_HASH \
     --network localhost
 ```
 
